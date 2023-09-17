@@ -3,11 +3,13 @@ import {
   formatError,
   login,
   runLogoutTimer,
-  saveTokenInLocalStorage,
+  // saveTokenInLocalStorage,
   signUp,
 } from "../../services/AuthService";
+import { identifyMe, identifyMeFailed } from "./UserActions";
 import { authLogin } from "../../api/functions/Auth/index";
 import { notifyError } from "../../hooks/toaster";
+import { me } from "../../api/functions/Auth/index";
 export const SIGNUP_CONFIRMED_ACTION = "[signup action] confirmed signup";
 export const SIGNUP_FAILED_ACTION = "[signup action] failed signup";
 export const LOGIN_CONFIRMED_ACTION = "[login action] confirmed login";
@@ -19,7 +21,7 @@ export function signupAction(email, password, navigate) {
   return (dispatch) => {
     signUp(email, password)
       .then((response) => {
-        saveTokenInLocalStorage(response.data);
+        // saveTokenInLocalStorage(response.data);
         runLogoutTimer(
           dispatch,
           response.data.expiresIn * 1000
@@ -46,12 +48,14 @@ export function Logout(navigate) {
 
 export function loginAction(data, navigate) {
   return (dispatch) => {
-    authLogin(data).then((res) => {
-      if (res.ok === 1) {
-        saveTokenInLocalStorage(res.data);
+    authLogin(data).then(async (res) => {
+      const user = await me();
+      if (res.ok === 1 && user.ok == 1) {
+        dispatch(identifyMe(user.data));
         dispatch(loginConfirmedAction(res.data));
         navigate("/dashboard");
       } else {
+        dispatch(identifyMeFailed(user.data));
         dispatch(loginFailedAction(res.data));
         notifyError(res.error);
       }

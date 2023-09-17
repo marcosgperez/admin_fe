@@ -18,3 +18,22 @@ export const authLogin = async (data) => {
     }
     return res;
 };
+
+export const me = async () => {
+    let res = { ok: 0, data: [], error: null };
+    try {
+        const response = await client.get('/api/auth/me');
+        if (response.status === 200) {
+            console.log(JSON.stringify(response.data))
+            localStorage.setItem('userDetails', JSON.stringify(response.data));
+            res.data = response.data;
+            res.ok = 1;
+        } else {
+            res.error = 'Wrong email or password';
+        }
+    } catch (error) {
+        console.log(error.response.data.data);
+        res.error = error.response.data.data;
+    }
+    return res;
+}

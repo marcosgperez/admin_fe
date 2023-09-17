@@ -52,12 +52,12 @@ export function formatError(errorResponse) {
     }
 }
 
-export function saveTokenInLocalStorage(tokenDetails) {
-    tokenDetails.expireDate = new Date(
-        new Date().getTime() + tokenDetails.expires_in * 1000,
-    );
-    localStorage.setItem('userDetails', JSON.stringify(tokenDetails));
-}
+// export function saveTokenInLocalStorage(tokenDetails) {
+//     tokenDetails.expireDate = new Date(
+//         new Date().getTime() + tokenDetails.expires_in * 1000,
+//     );
+//     localStorage.setItem('userDetails', JSON.stringify(tokenDetails));
+// }
 
 export function runLogoutTimer(dispatch, timer, navigate) {
     setTimeout(() => {
