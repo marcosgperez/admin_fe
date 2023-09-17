@@ -10,14 +10,9 @@ import { isAuthenticated } from './store/selectors/AuthSelectors';
 /// Style
 import "./vendor/bootstrap-select/dist/css/bootstrap-select.min.css";
 import "./css/style.css";
-
+import Login from './components/Login';
 const SignUp = lazy(() => import('./jsx/pages/Registration'));
 const ForgotPassword = lazy(() => import('./jsx/pages/ForgotPassword'));
-const Login = lazy(() => {
-    return new Promise(resolve => {
-    setTimeout(() => resolve(import('./jsx/pages/Login')), 500);
-  });
-});
 
 function withRouter(Component) {
   function ComponentWithRouterProp(props) {
@@ -44,9 +39,6 @@ function App (props) {
     useEffect(() => {
        checkAutoLogin(dispatch, navigate);
     }, []);
-    
-   
-
     let routeblog = (         
       <Routes>
         <Route path='/login' element={<Login />} />
