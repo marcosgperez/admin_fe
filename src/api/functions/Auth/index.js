@@ -24,7 +24,6 @@ export const me = async () => {
     try {
         const response = await client.get('/api/auth/me');
         if (response.status === 200) {
-            console.log(JSON.stringify(response.data))
             localStorage.setItem('userDetails', JSON.stringify(response.data));
             res.data = response.data;
             res.ok = 1;

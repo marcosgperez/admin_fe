@@ -53,7 +53,7 @@ export function loginAction(data, navigate) {
       if (res.ok === 1 && user.ok == 1) {
         dispatch(identifyMe(user.data));
         dispatch(loginConfirmedAction(res.data));
-        navigate("/dashboard");
+        navigate("/");
       } else {
         dispatch(identifyMeFailed(user.data));
         dispatch(loginFailedAction(res.data));

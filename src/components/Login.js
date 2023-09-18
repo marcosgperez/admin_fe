@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { loadingToggleAction, loginAction } from "../store/actions/AuthActions";
-import { notifyError } from "../hooks/toaster";
 // image
 import { ToastContainer, toast } from "react-toastify";
 import logo from "../images/logo-full.png";
 import loginbg from "../images/pic1.png";
+import { getRoomsAction } from "../store/actions/RoomsActions";
 function Login(props) {
   let errorsObj = { email: "", password: "" };
   const [errors, setErrors] = useState(errorsObj);

@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 import { AuthReducer } from './reducers/AuthReducer';
 import todoReducers from './reducers/Reducers';
 import { UserReducer } from './reducers/UserReducer';
+import { RoomsReducer } from './reducers/RoomsReducer';
 //import { reducer as reduxFormReducer } from 'redux-form';
 const middleware = applyMiddleware(thunk);
 
@@ -14,7 +15,8 @@ const reducers = combineReducers({
     posts: PostsReducer,
     auth: AuthReducer,
 		todoReducers,
-    userData: UserReducer
+    userData: UserReducer,
+    roomsData: RoomsReducer,
 	//form: reduxFormReducer,	
 });
 
