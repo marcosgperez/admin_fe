@@ -14,7 +14,7 @@ export const authLogin = async (data) => {
             res.error = 'Wrong email or password';
         }
     } catch (error) {
-        res.error = error.response.data.data;
+        res.error = error.response.data?.data;
     }
     return res;
 };
