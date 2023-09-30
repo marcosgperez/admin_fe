@@ -1,4 +1,5 @@
 import React, { Fragment, useReducer } from "react";
+import { useSelector } from "react-redux";
 import { Button, Dropdown, Modal, Tab, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import LightGallery from 'lightgallery/react';
@@ -55,6 +56,8 @@ const AppProfile = () => {
 			overlayColor: "#000000",
      	},
  	};
+	const userData = useSelector((state) => state.userData.user);
+	console.log(userData)
 	const [state, dispatch] = useReducer(reducer, initialState);
 	return (
 		<Fragment>
@@ -69,15 +72,24 @@ const AppProfile = () => {
 				  </div>
 				  <div className="profile-info">
 					<div className="profile-photo">
-					  <img src={profile} className="img-fluid rounded-circle" alt="profile"/>
+						{
+							userData.profile_pic ? (
+								<img src={userData.profile_pic} className="img-fluid rounded-circle" alt="profile"/>
+							) : (
+								<div className="rounded-circle circle-initials d-flex justify-content-center align-items-center" style={{background: userData.profile_color}}>
+									<p className="profile-initials d-flex m-0">{userData.profile_initials}</p>
+								</div>
+							)
+						}
+						{/* <img src={profile} className="img-fluid rounded-circle" alt="profile"/> */}
 					</div>
 					<div className="profile-details">
 					  <div className="profile-name px-3 pt-2">
-						<h4 className="text-primary mb-0">Mitchell C. Shay</h4>
-						<p>UX / UI Designer</p>
+						<h4 className="text-primary mb-0">{userData.name} {userData.surname}</h4>
+						<p>{userData.userType}</p>
 					  </div>
 					  <div className="profile-email px-2 pt-2">
-						<h4 className="text-muted mb-0">hello@email.com</h4>
+						<h4 className="text-muted mb-0">{userData.email}</h4>
 						<p>Email</p>
 					  </div>
 					  <Dropdown className="dropdown ms-auto">

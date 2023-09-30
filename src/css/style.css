@@ -5879,6 +5879,11 @@ textarea.form-control-lg {
 .rounded-circle {
   border-radius: 50% !important; }
 
+.circle-initials {
+  width: 88px;
+  height: 88px;
+}
+
 .rounded-pill {
   border-radius: 50rem !important; }
 

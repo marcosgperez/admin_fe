@@ -160,23 +160,9 @@ const SideBar = () => {
                 }
               })} 
           </ul>
-          <div className="dropdown header-profile2 ">
-            <div className="header-info2 text-center">
-              <img src={profile} alt="" />
-              <div className="sidebar-info">
-                <div>
-                  <h5 className="font-w500 mb-0">William Johanson</h5>
-                  <span className="fs-12">williamjohn@mail.com</span>
-                </div>	
-              </div>
-              <div>
-                <Link to={"#"} className="btn btn-md text-secondary">Contact Us</Link>
-              </div>
-            </div>
-          </div>
           <div className="copyright">
-            <p className="text-center"><strong>Travl Hotel Admin Dashboard</strong> © {d.getFullYear()} All Rights Reserved</p>
-            <p className="fs-12 text-center">Made with <span className="heart" onClick={()=>heartBlast()}></span> by DexignLab</p>
+            <p className="text-center"><strong>Gesto Hotel Admin Dashboard</strong> © {d.getFullYear()} All Rights Reserved</p>
+            <p className="fs-12 text-center">Made with <span className="heart" onClick={()=>heartBlast()}></span> by CodeUP</p>
           </div>
       </PerfectScrollbar>
     </div>

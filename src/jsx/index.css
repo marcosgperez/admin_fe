@@ -710,3 +710,8 @@ button.react-calendar__tile.react-calendar__tile--active.react-calendar__tile--r
 	height: auto;
 	display: contents;
 }
+
+.profile-initials {
+  color: #fff !important;
+  font-size: 2.5rem;
+}
