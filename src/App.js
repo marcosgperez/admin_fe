@@ -8,7 +8,7 @@ import {  Route, Routes, useLocation , useNavigate , useParams } from 'react-rou
 import { checkAutoLogin } from './services/AuthService';
 import { isAuthenticated } from './store/selectors/AuthSelectors';
 /// Style
-import "./vendor/bootstrap-select/dist/css/bootstrap-select.min.css";
+// import "./vendor/bootstrap-select/dist/css/bootstrap-select.min.css";
 import "./css/style.css";
 import Login from './components/Login';
 const SignUp = lazy(() => import('./jsx/pages/Registration'));
@@ -87,7 +87,7 @@ function App (props) {
 
 const mapStateToProps = (state) => {
     return {
-        isAuthenticated: isAuthenticated(state),
+        isAuthenticated: true //isAuthenticated(state),
     };
 };
 
