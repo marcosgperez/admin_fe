@@ -167,8 +167,6 @@ const Markup = () => {
 
     /// Plugin
     { url: "uc-select2", component: <Select2 /> },
-    //{ url: "uc-nestable", component: Nestable },
-    //{ url: "uc-noui-slider", component: MainNouiSlider },
     { url: "uc-sweetalert", component: <MainSweetAlert /> },
     { url: "uc-toastr", component: <Toastr /> },
     { url: "map-jqvmap", component: <JqvMap /> },
