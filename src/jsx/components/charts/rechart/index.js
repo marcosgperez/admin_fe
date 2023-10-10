@@ -37,7 +37,7 @@ function RechartJs() {
         <Col xl={6} lg={6}>
           <Card>
             <Card.Header>
-              <h4 className="card-title">Tasks not finished on time</h4>
+              <h4 className="card-title">Task not finished on time</h4>
             </Card.Header>
             <Card.Body>
               <TinyLineChart />
@@ -47,7 +47,7 @@ function RechartJs() {
         <Col xl={6} lg={6}>
           <Card>
             <Card.Header>
-              <h4 className="card-title">Tasks not received properly</h4>
+              <h4 className="card-title">Task not received properly</h4>
             </Card.Header>
             <Card.Body>
               <LegendEffectOpacity />
