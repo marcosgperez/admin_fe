@@ -48,8 +48,7 @@ const Header = ({ onNote }) => {
 					className="dashboard_bar"
 					style={{ textTransform: "capitalize" }}
 				  >
-					{finalName.join(" ").length === 0
-					  ? "Dashboard"
+					{finalName.join(" ").length === 0 ? "Dashboard"
 					  : finalName.join(" ") === "dashboard dark"
 					  ? "Dashboard"
 					  : finalName.join(" ")}
@@ -57,13 +56,13 @@ const Header = ({ onNote }) => {
             </div>
 			<div className="nav-item d-flex align-items-center">
 				<div className="input-group search-area">
-					<input type="text" 
+					{/* <input type="text" 
 						className={`form-control ${searchBut ? "active" : ""}`}
 						placeholder="Search.." 
 					/>
 					<span className="input-group-text" onClick={() => setSearchBut(!searchBut)}>
 						<Link to={"#"}><i className="flaticon-381-search-2"></i></Link>
-					</span>
+					</span> */}
 				</div>
 			</div> 
             <ul className="navbar-nav header-right">

@@ -74,12 +74,12 @@ const SideBar = () => {
       onMouseEnter={() => ChangeIconSidebar(true)}
       onMouseLeave={() => ChangeIconSidebar(false)}
       className={`dlabnav ${iconHover} ${sidebarposition.value === "fixed" &&
-          sidebarLayout.value === "horizontal" &&
-          headerposition.value === "static"
-          ? hideOnScroll > 120
-            ? "fixed"
-            : ""
+        sidebarLayout.value === "horizontal" &&
+        headerposition.value === "static"
+        ? hideOnScroll > 120
+          ? "fixed"
           : ""
+        : ""
         }`}
     >
       <PerfectScrollbar className="dlabnav-scroll">
