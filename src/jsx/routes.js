@@ -67,11 +67,6 @@ export const linkData = [
                 title: 'Bootstrap',
                 to: 'table-bootstrap-basic',
             },
-            {
-                title: 'joaco',
-                to: 'joaco-test',
-            },
-
 
 
         ]
@@ -80,7 +75,6 @@ export const linkData = [
 
     // urls
     { url: "/", component: <Home /> },
-    { url: "joaco-test", name:"TITULOOOOO", component: <GuestList /> },
     { url: "dashboard-dark", component: <DashboardDark /> },
     { url: "guest-list", component: <GuestList /> },
     { url: "guest-details", component: <GuestDetails /> },
