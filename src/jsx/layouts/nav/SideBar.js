@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { MenuList } from './Menu';
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 import { ThemeContext } from "../../../context/ThemeContext";
-import { linkData } from "../../routes";
+
 import profile from "../../../images/user.jpg";
 
 
@@ -85,7 +85,7 @@ const SideBar = () => {
       <PerfectScrollbar className="dlabnav-scroll">
 
         <ul className="metismenu" id="menu">
-          {linkData.map((data, index) => {
+          {MenuList.map((data, index) => {
             let menuClass = data.classsChange;
             if (menuClass === "menu-title") {
               return (
