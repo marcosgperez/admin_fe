@@ -151,7 +151,7 @@ const ConciergeList = ()=>{
 																		</div>
 																	</th>
 																	<th className="sorting_asc">Name</th>
-																	<th className="sorting">Job Description</th>
+																	<th className="sorting">Job Desk</th>
 																	<th className="sorting">Schedule</th>
 																	<th className="sorting">Contact</th>
 																	<th className="sorting">Status</th>

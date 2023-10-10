@@ -11,7 +11,6 @@ import { isAuthenticated } from './store/selectors/AuthSelectors';
 // import "./vendor/bootstrap-select/dist/css/bootstrap-select.min.css";
 import "./css/style.css";
 import Login from './components/Login';
-import Home from './components/Home';
 const SignUp = lazy(() => import('./jsx/pages/Registration'));
 const ForgotPassword = lazy(() => import('./jsx/pages/ForgotPassword'));
 
@@ -45,7 +44,6 @@ function App (props) {
         <Route path='/login' element={<Login />} />
         <Route path='/page-register' element={<SignUp />} />
         <Route path='/page-forgot-password' element={<ForgotPassword />} />
-        <Route path='/home' element={<Home/>} />
       </Routes> 
     );
     if (props.isAuthenticated) {

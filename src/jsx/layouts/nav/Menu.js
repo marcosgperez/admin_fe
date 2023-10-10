@@ -5,18 +5,24 @@ export const MenuList = [
         classsChange: 'mm-collapse',		
         iconStyle: <i className="fas fa-home"/>,
         content: [
-            
-           
             {
-                title: 'Reservations',
+                title: 'Dashboard Light',
+                to: 'dashboard',					
+            },
+            {
+                title: 'Dashboard Dark',
+                to: 'dashboard-dark',                
+            },
+            {
+                title: 'Guest List',
                 to: 'guest-list',                
             },
-            // {
-            //     title: 'Reservation Deta',
-            //     to: 'guest-details',                
-            // },
             {
-                title: 'Staff List',
+                title: 'Guest Details',
+                to: 'guest-details',                
+            },
+            {
+                title: 'Concierge List',
                 to: 'concierge-list',                
             },
             {
@@ -39,28 +45,166 @@ export const MenuList = [
         title: 'Charts',	
         classsChange: 'mm-collapse',
         iconStyle: <i className="fas fa-chart-line"></i>,
-        to: 'chart-rechart',
-        // content: [
+        content: [
             
-        //     {
-        //         title: 'RechartJs',
-        //         to: 'chart-rechart',					
-        //     },
-        //     {
-        //         title: 'Chartjs',
-        //         to: 'chart-chartjs',					
-        //     },
-        //     {
-        //         title: 'Sparkline',
-        //         to: 'chart-sparkline',					
-        //     },
-        //     {
-        //         title: 'Apexchart',
-        //         to: 'chart-apexchart',					
-        //     },
-        // ]
+            {
+                title: 'RechartJs',
+                to: 'chart-rechart',					
+            },
+            {
+                title: 'Chartjs',
+                to: 'chart-chartjs',					
+            },
+            {
+                title: 'Sparkline',
+                to: 'chart-sparkline',					
+            },
+            {
+                title: 'Apexchart',
+                to: 'chart-apexchart',					
+            },
+        ]
     },
- 
+    //Boosttrap
+    {
+        title: 'Bootstrap',	
+        classsChange: 'mm-collapse',
+        iconStyle: <i className="fab fa-bootstrap"></i>,	
+        content: [
+            {
+                title: 'Accordion',
+                to: 'ui-accordion',					
+            },
+            {
+                title: 'Alert',
+                to: 'ui-alert',					
+            },
+            {
+                title: 'Badge',
+                to: 'ui-badge',					
+            },
+            {
+                title: 'Button',
+                to: 'ui-button',					
+            },
+            {
+                title: 'Modal',
+                to: 'ui-modal',					
+            },
+            {
+                title: 'Button Group',
+                to: 'ui-button-group',					
+            },
+            {
+                title: 'List Group',
+                to: 'ui-list-group',					
+            },
+            {
+                title: 'Cards',
+                to: 'ui-card',					
+            },
+            {
+                title: 'Carousel',
+                to: 'ui-carousel',					
+            },
+            {
+                title: 'Dropdown',
+                to: 'ui-dropdown',					
+            },
+            {
+                title: 'Popover',
+                to: 'ui-popover',					
+            },
+            {
+                title: 'Progressbar',
+                to: 'ui-progressbar',					
+            },
+            {
+                title: 'Tab',
+                to: 'ui-tab',					
+            },
+            {
+                title: 'Typography',
+                to: 'ui-typography',					
+            },
+            {
+                title: 'Pagination',
+                to: 'ui-pagination',					
+            },
+            {
+                title: 'Grid',
+                to: 'ui-grid',					
+            },
+        ]
+    },
+    //plugins
+    {
+        title:'Plugins',
+        classsChange: 'mm-collapse',
+        iconStyle : <i className="fas fa-heart"></i>,
+        content : [
+            {
+                title:'Select 2',
+                to: 'uc-select2',
+            },
+            // {
+            //     title:'Noui Slider',
+            //     to: 'uc-noui-slider',
+            // },
+            {
+                title:'Sweet Alert',
+                to: 'uc-sweetalert',
+            },
+            {
+                title:'Toastr',
+                to: 'uc-toastr',
+            },
+            {
+                title:'Jqv Map',
+                to: 'map-jqvmap',
+            },
+            {
+                title:'Light Gallery',
+                to: 'uc-lightgallery',
+            },
+        ]
+    },
+    //Widget
+    {   
+        title:'Widget',
+        //classsChange: 'mm-collapse',
+        iconStyle: <i className="fas fa-user-check"></i>,
+        to: 'widget-basic',
+    },
+    //Forms
+    {
+        title:'Forms',
+        classsChange: 'mm-collapse',
+        iconStyle: <i className="fas fa-file-alt"></i>,
+        content : [
+            {
+                title:'Form Elements',
+                to: 'form-element',
+            },
+            {
+                title:'Wizard',
+                to: 'form-wizard',
+            },
+            {
+                title:'CkEditor',
+                to: 'form-ckeditor',
+            },
+            {
+                title:'Pickers',
+                to: 'form-pickers',
+            },
+            {
+                title:'Form Validate',
+                to: 'form-validation',
+            },
+
+        ]
+    },
     //Table
     {
         title:'Table',
