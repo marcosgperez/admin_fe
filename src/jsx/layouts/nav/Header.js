@@ -3,7 +3,7 @@ import React,{useState} from "react";
 import { Link } from "react-router-dom";
 /// Scroll
 import PerfectScrollbar from "react-perfect-scrollbar";
-
+import { linkData } from "../../routes";
 /// Image
 import profile from "../../../images/user.jpg";
 import avatar from "../../../images/avatar/1.jpg";
@@ -13,31 +13,39 @@ import LogoutPage from './Logout';
 const Header = ({ onNote }) => {
   const [searchBut, setSearchBut] = useState(false);	
   var path = window.location.pathname.split("/");
-  var name = path[path.length - 1].split("-");
-  var filterName = name.length >= 3 ? name.filter((n, i) => i > 0) : name;
-  var finalName = filterName.includes("app")
-    ? filterName.filter((f) => f !== "app")
-    : filterName.includes("ui")
-    ? filterName.filter((f) => f !== "ui")
-    : filterName.includes("uc")
-    ? filterName.filter((f) => f !== "uc")
-    : filterName.includes("basic")
-    ? filterName.filter((f) => f !== "basic")
-    : filterName.includes("jquery")
-    ? filterName.filter((f) => f !== "jquery")
-    : filterName.includes("table")
-    ? filterName.filter((f) => f !== "table")
-    : filterName.includes("page")
-    ? filterName.filter((f) => f !== "page")
-    : filterName.includes("email")
-    ? filterName.filter((f) => f !== "email")
-    : filterName.includes("ecom")
-    ? filterName.filter((f) => f !== "ecom")
-    : filterName.includes("chart")
-    ? filterName.filter((f) => f !== "chart")
-    : filterName.includes("editor")
-    ? filterName.filter((f) => f !== "editor")
-    : filterName;
+  const pathNotSplited = path[path.length - 1]
+  const singleLinkData = linkData.filter((data) => data.url == pathNotSplited); 
+  if(singleLinkData.length > 0 && singleLinkData[0].name){
+	//EXISTE LA DATA DE LA URL EN LINKED DATA
+	var finalName = [singleLinkData[0].name]
+  } else {
+
+	  var name = pathNotSplited.split("-");
+	  var filterName = name.length >= 3 ? name.filter((n, i) => i > 0) : name;
+	  var finalName = filterName.includes("app")
+		? filterName.filter((f) => f !== "app")
+		: filterName.includes("ui")
+		? filterName.filter((f) => f !== "ui")
+		: filterName.includes("uc")
+		? filterName.filter((f) => f !== "uc")
+		: filterName.includes("basic")
+		? filterName.filter((f) => f !== "basic")
+		: filterName.includes("jquery")
+		? filterName.filter((f) => f !== "jquery")
+		: filterName.includes("table")
+		? filterName.filter((f) => f !== "table")
+		: filterName.includes("page")
+		? filterName.filter((f) => f !== "page")
+		: filterName.includes("email")
+		? filterName.filter((f) => f !== "email")
+		: filterName.includes("ecom")
+		? filterName.filter((f) => f !== "ecom")
+		: filterName.includes("chart")
+		? filterName.filter((f) => f !== "chart")
+		: filterName.includes("editor")
+		? filterName.filter((f) => f !== "editor")
+		: filterName;
+  }
   return ( 
     <div className="header border-bottom">
       <div className="header-content">
