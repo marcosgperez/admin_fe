@@ -1,0 +1,32 @@
+#mycalendartest{
+    .modalContainer {
+        position: relative;
+        box-sizing: border-box;
+        grid-template-columns: minmax(0, 100%);
+        width: 32em;
+        max-width: 100%;
+        /* padding: 0 0 1.25em; */
+        border: none;
+        border-radius: 5px;
+        background: #fa5454;
+        color: #545454;
+        font-family: inherit;
+        font-size: 1rem;
+        margin: auto;
+        .titleContainer {
+            position: relative;
+            box-sizing: border-box;
+            grid-template-columns: minmax(0, 100%);
+            width: 32em;
+            max-width: 100%;
+            /* padding: 0 0 1.25em; */
+            border: none;
+            border-radius: 5px;
+            background: #fa5454;
+            color: #545454;
+            font-family: inherit;
+            font-size: 1rem;
+            margin: auto;
+        }
+    }
+}

@@ -10,68 +10,39 @@ import Todo from "./pages/Todo";
 import FilteringTable from "./components/table/FilteringTable/FilteringTable";
 import SortingTable from "./components/table/SortingTable/SortingTable";
 import BootstrapTable from "./components/table/BootstrapTable";
-import Task from "./components/Dashboard/Task";
+import TaskList from "./components/Dashboard/RoomList";
+// import TaskList from "./Dashboard/RoomList";
 export const linkData = [
     //Dashboard
     {
         title: 'Dashboard',
         classsChange: 'mm-collapse',
         iconStyle: <i className="fas fa-home" />,
-        content: [
-            {
-                title: 'Reservations',
-                to: 'guest-list',
-            },
-            {
-                title: 'Staff List',
-                to: 'concierge-list',
-            },
-            {
-                title: 'Room List',
-                to: 'room-list',
-            },
-            {
-                title: 'Reviews',
-                to: 'reviews',
-            },
-            {
-                title: 'Task',
-                to: 'task',
-            },
-        ],
+        to: "/"
     },
 
-    //Charts
+    //Tasks
     {
-        title: 'Charts',
+        title: 'Tasks',
         classsChange: 'mm-collapse',
         iconStyle: <i className="fas fa-chart-line"></i>,
-        to: 'chart-rechart',
+        to: 'task',
     },
 
-    //Table
+    // staff
     {
-        title: 'Table',
+        title: 'Staff',
         classsChange: 'mm-collapse',
         iconStyle: <i className="fas fa-table"></i>,
-        content: [
-            {
-                title: 'Table Filtering',
-                to: 'table-filtering',
-            },
-            {
-                title: 'Table Sorting',
-                to: 'table-sorting',
-            },
-            {
-                title: 'Bootstrap',
-                to: 'table-bootstrap-basic',
-            },
-
-
-        ]
+        to: "table-sorting"
     },
-
+    // Facilities
+    {
+        title: 'Facilities',
+        classsChange: 'mm-collapse',
+        iconStyle: <i className="fas fa-table"></i>,
+        to: "concierge-list"
+    },
 
     // urls
     { url: "/", component: <Home /> },
@@ -81,7 +52,7 @@ export const linkData = [
     { url: "concierge-list", component: <ConciergeList /> },
     { url: "room-list", component: <RoomList /> },
     { url: "reviews", component: <Reviews /> },
-    { url: "task", component: <Task /> },
+    { url: "task", component: <TaskList /> },
     /// Chart
     { url: "chart-rechart", component: <RechartJs /> },
     // Todo

@@ -2,18 +2,24 @@
    Calendar
 ============= */
 
+.calendarEventContainer {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+}
+
 .app-fullcalender {
     button {
         border-radius: 0rem;
         color: $dark;
     }
-    td{
+    td {
         border-color: $border;
     }
 }
 
 .calendar {
-    float        : left;
+    float: left;
     margin-bottom: 0;
 }
 
@@ -23,7 +29,7 @@
 
 .fc-toolbar {
     margin-bottom: 0.3125rem;
-    margin-top   : 0.9375rem;
+    margin-top: 0.9375rem;
 
     & .fc-left {
         @include media-breakpoint-down(xs) {
@@ -55,12 +61,11 @@
 }
 
 .fc-toolbar h2 {
-    font-size     : 1rem;
-    font-weight   : 600;
-    line-height   : 1.875rem;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.875rem;
     text-transform: uppercase;
 }
-
 
 .fc-toolbar .fc-state-active,
 .fc-toolbar .ui-state-active,
@@ -76,49 +81,45 @@
     border-bottom: 0 !important;
 }
 
-
-
 // .fc-widget-content {
 //     border: 0.0625rem solid #E5E5E5 !important;
 // }
 
 .fc th.fc-widget-header {
-    background    : $border!important;
-    font-size     : 0.875rem;
-    line-height   : 1.25rem;
-    padding       : 0.625rem 0;
+    background: $border !important;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    padding: 0.625rem 0;
     text-transform: uppercase;
 }
 
 .fc-button {
-    border        : 0.0625rem solid $border;
+    border: 0.0625rem solid $border;
     text-transform: capitalize;
-    &.active{
-        box-shadow: none!important;
+    &.active {
+        box-shadow: none !important;
     }
 }
 
 .fc-text-arrow {
     font-family: inherit;
-    font-size  : 1rem;
+    font-size: 1rem;
 }
 
-
-
-.fc-event ,
-.external-event{
+.fc-event,
+.external-event {
     border-radius: 0.125rem;
-    border       : none;
-    cursor       : move;
-    font-size    : 0.8125rem;
-    margin       : 0.3125rem 0.4375rem;
-    padding      : 0.3125rem;
-    text-align   : center;
+    border: none;
+    cursor: move;
+    font-size: 0.8125rem;
+    margin: 0.3125rem 0.4375rem;
+    padding: 0.3125rem;
+    text-align: center;
 }
 
 .external-event {
-    cursor : move;
-    margin : 0.625rem 0;
+    cursor: move;
+    margin: 0.625rem 0;
     padding: 0.125rem 0;
 }
 
@@ -132,12 +133,11 @@
 
 #drop-remove {
     margin-right: 0.5rem;
-    top   : 0.1875rem;
+    top: 0.1875rem;
 }
 
 #add-category,
 #event-modal {
-
     .modal-dialog {
         max-width: 37.5rem;
     }
@@ -158,32 +158,34 @@
     // color: $l-ctl;
 }
 .fc-state-hover {
-    background: $white!important;
+    background: $white !important;
 }
 .fc-state-highlight {
-    background: $l-bg!important;
+    background: $l-bg !important;
     @at-root [data-theme-version="dark"] & {
-        color: $white!important;
+        color: $white !important;
     }
 }
 .fc-cell-overlay {
-    background: $white!important;
+    background: $white !important;
 }
 .fc-unthemed .fc-today {
-    background: $l-bg!important;
+    background: $l-bg !important;
 }
 
-.fc-day-top{
+.fc-day-top {
     color: $dark !important;
     @at-root [data-theme-version="dark"] & {
-        color: $white!important;
+        color: $white !important;
     }
 }
-
+.gridcell {
+    background-color: red;
+}
 .external-event {
     color: $white;
     @at-root [data-theme-version="dark"] & {
-        color: $white!important;
+        color: $white !important;
     }
 }
 .fc-basic-view .fc-body .fc-row {
@@ -204,79 +206,83 @@
     }
 }
 
-
-
-#external-events{
-    
-	.external-event:before{
-		content: "";
-		display: block;
-		width: 0.875rem;
-		min-width:0.875rem;
-		height: 0.875rem;
-		border-radius: 50%;
-		margin-right: .9rem;
-		position: relative;
-		top: 0.125rem;
-	}
-    [data-class="bg-primary"]{
+#external-events {
+    .external-event:before {
+        content: "";
+        display: block;
+        width: 0.875rem;
+        min-width: 0.875rem;
+        height: 0.875rem;
+        border-radius: 50%;
+        margin-right: 0.9rem;
+        position: relative;
+        top: 0.125rem;
+    }
+    [data-class="bg-primary"] {
         @at-root [data-theme-version="dark"] & {
-            color: $white!important;
+            color: $white !important;
         }
-        &::before{
+        &::before {
             background: var(--primary);
         }
     }
-    [data-class="bg-success"]{
-
-        &::before{
+    [data-class="bg-success"] {
+        &::before {
             background: $success;
         }
     }
-    [data-class="bg-warning"]{
-        &::before{
+    [data-class="bg-warning"] {
+        &::before {
             background: $warning;
         }
     }
-    [data-class="bg-dark"]{
-        &::before{
+    [data-class="bg-dark"] {
+        &::before {
             background: $dark;
         }
     }
-    [data-class="bg-danger"]{
-        &::before{
+    [data-class="bg-danger"] {
+        &::before {
             background: $danger;
         }
     }
-    [data-class="bg-info"]{
-        &::before{
+    [data-class="bg-info"] {
+        &::before {
             background: $info;
         }
     }
-    [data-class="bg-pink"]{
-        &::before{
+    [data-class="bg-pink"] {
+        &::before {
             background: $pink;
         }
     }
-	[data-class="bg-secondary"]{
-        &::before{
+    [data-class="bg-secondary"] {
+        &::before {
             background: $secondary;
         }
     }
 }
 
-
-.fc .fc-row .fc-content-skeleton table, 
-.fc .fc-row .fc-content-skeleton td, 
+.fc .fc-row .fc-content-skeleton table,
+.fc .fc-row .fc-content-skeleton td,
 .fc .fc-row .fc-helper-skeleton td {
     border-color: $border;
-    
+
     @at-root [data-theme-version="dark"] & {
         border-color: $d-border;
     }
 }
 
-.fc-unthemed .fc-content, .fc-unthemed .fc-divider, .fc-unthemed .fc-list-heading td, .fc-unthemed .fc-list-view, .fc-unthemed .fc-popover, .fc-unthemed .fc-row, .fc-unthemed tbody, .fc-unthemed td, .fc-unthemed th, .fc-unthemed thead {
+.fc-unthemed .fc-content,
+.fc-unthemed .fc-divider,
+.fc-unthemed .fc-list-heading td,
+.fc-unthemed .fc-list-view,
+.fc-unthemed .fc-popover,
+.fc-unthemed .fc-row,
+.fc-unthemed tbody,
+.fc-unthemed td,
+.fc-unthemed th,
+.fc-unthemed thead {
     @at-root [data-theme-version="dark"] & {
         border-color: $d-border;
     }
