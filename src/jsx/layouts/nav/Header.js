@@ -62,20 +62,20 @@ const Header = ({ onNote }) => {
 					  : finalName.join(" ")}
 				</div>
             </div>
-			<div className="nav-item d-flex align-items-center">
+			{/* <div className="nav-item d-flex align-items-center">
 				<div className="input-group search-area">
-					{/* <input type="text" 
+					<input type="text" 
 						className={`form-control ${searchBut ? "active" : ""}`}
 						placeholder="Search.." 
 					/>
 					<span className="input-group-text" onClick={() => setSearchBut(!searchBut)}>
 						<Link to={"#"}><i className="flaticon-381-search-2"></i></Link>
-					</span> */}
+					</span>
 				</div>
-			</div> 
+			</div>  */}
             <ul className="navbar-nav header-right">
 					
-				<Dropdown
+				{/* <Dropdown
 					as="li"
 					className="nav-item dropdown notification_dropdown "
 				  >
@@ -92,7 +92,7 @@ const Header = ({ onNote }) => {
 						</svg>
 						<span className="badge light text-white bg-primary rounded-circle">76</span>
 					</Dropdown.Toggle>
-				</Dropdown>	
+				</Dropdown>	 */}
 				<Dropdown as="li" className="nav-item dropdown notification_dropdown">
 					<Dropdown.Toggle className="nav-link i-false c-pointer" variant="" as="a">
 						<svg xmlns="http://www.w3.org/2000/svg" width="19.375" height="24" viewBox="0 0 19.375 24">
@@ -209,7 +209,7 @@ const Header = ({ onNote }) => {
                 as="li"
                 className="nav-item  notification_dropdown "
               >
-                <Dropdown.Toggle
+                {/* <Dropdown.Toggle
                   variant=""
                   as="a"
                   className="nav-link  ai-icon i-false c-pointer"
@@ -223,7 +223,7 @@ const Header = ({ onNote }) => {
 					  </g>
 					</svg>
 					<span className="badge light text-white bg-primary rounded-circle">15</span>
-                </Dropdown.Toggle>
+                </Dropdown.Toggle> */}
                 <Dropdown.Menu align="right" className="mt-4 dropdown-menu dropdown-menu-end">
                   <PerfectScrollbar className="widget-timeline dlab-scroll style-1 ps p-3 height370">
                     <ul className="timeline">

@@ -13,6 +13,7 @@ import BootstrapTable from "./components/table/BootstrapTable";
 import TaskList from "./components/Dashboard/RoomList";
 import TaskDetail from "./pages/TaskDetail";
 import Tasks from "./pages/Tasks";
+import Facilities from "./pages/Facilities";
 // import TaskList from "./Dashboard/RoomList";
 export const linkData = [
     //Dashboard
@@ -36,14 +37,14 @@ export const linkData = [
         title: 'Staff',
         classsChange: 'mm-collapse',
         iconStyle: <i className="fas fa-table"></i>,
-        to: "table-sorting"
+        to: "concierge-list"
     },
     // Facilities
     {
         title: 'Facilities',
         classsChange: 'mm-collapse',
         iconStyle: <i className="fas fa-table"></i>,
-        to: "concierge-list"
+        to: "facilities"
     },
 
     // urls
@@ -56,14 +57,13 @@ export const linkData = [
     { url: "reviews", component: <Reviews /> },
     { url: "task", component: <Tasks /> },
     { url: "task-detail", component: <TaskDetail /> },
+    { url: "facilities", component: <Facilities /> },
+
     /// Chart
     { url: "chart-rechart", component: <RechartJs /> },
     // Todo
     { url: "todo", component: <Todo /> },
     /// table
-    { url: "table-filtering", component: <FilteringTable /> },
-    { url: "table-sorting", component: <SortingTable /> },
 
-    { url: "table-bootstrap-basic", component: <BootstrapTable /> },
 ]
 
