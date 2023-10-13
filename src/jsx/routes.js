@@ -11,6 +11,8 @@ import FilteringTable from "./components/table/FilteringTable/FilteringTable";
 import SortingTable from "./components/table/SortingTable/SortingTable";
 import BootstrapTable from "./components/table/BootstrapTable";
 import TaskList from "./components/Dashboard/RoomList";
+import TaskDetail from "./pages/TaskDetail";
+import Tasks from "./pages/Tasks";
 // import TaskList from "./Dashboard/RoomList";
 export const linkData = [
     //Dashboard
@@ -52,7 +54,8 @@ export const linkData = [
     { url: "concierge-list", component: <ConciergeList /> },
     { url: "room-list", component: <RoomList /> },
     { url: "reviews", component: <Reviews /> },
-    { url: "task", component: <TaskList /> },
+    { url: "task", component: <Tasks /> },
+    { url: "task-detail", component: <TaskDetail /> },
     /// Chart
     { url: "chart-rechart", component: <RechartJs /> },
     // Todo

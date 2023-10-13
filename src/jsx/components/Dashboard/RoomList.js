@@ -98,9 +98,9 @@ const RoomList = (filter) => {
 	};
 	return (
 		<>
-		
+
 			<Tab.Container defaultActiveKey="All">
-				
+
 				{/* <div className="mt-4 d-flex justify-content-between align-items-center flex-wrap">
 					<div className="card-action coin-tabs mb-2">
 						<Nav as="ul" className="nav nav-tabs" role="tablist">
@@ -156,6 +156,10 @@ const RoomList = (filter) => {
 														</tr>
 													</thead>
 													<tbody>
+														<Link to={"task-detail"}>
+
+															
+														</Link>
 														<tr role="row" className="odd">
 															<td className="sorting_7">
 																<div className="form-check   style-1">
