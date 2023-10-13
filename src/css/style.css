@@ -40631,9 +40631,61 @@ ul {
   display: block;
 }
 
+.roomListHeader {
+  width: 100%;
+  display: flex;
+  /* background-color: red; */
+}
+.roomListHeader .row{
+  width: 100%;
+  display: flex;
+  align-items: center;
+
+}
+.RoomListHeaderItem {
+  width: 10%;
+  /* background-color: blue; */
+}
+.roomListRow{
+  width:100%;
+  height:fit-content;
+  background-color: red;
+  margin-bottom: 10px;
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  justify-content:space-around;
+  border-bottom: 2px solid gray;
+}
+.roomListRowsContainer{
+  width: 100%;
+  height: fit-content;
+  /* background-color: red; */
+  height:fit-content;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: space-around;
+}
+.roomListRowsContainer .roomListRow div{
+  width: 15%;
+  border: 2px solid red;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  background-color: blue;
+  text-align: center;
+  margin: auto;
+}
+.roomListRowsContainer .roomListRow img{
+  width: 100px;
+
+}
 .facility {
-  min-width: 200px;
+  /* min-width: 200px; */
+  background-color: blue;
   display: block;
+
 }
 
 .guest-profile {
@@ -40946,8 +40998,8 @@ ul {
 }
 
 .comments {
-  max-width: 200px;
-  display: block;
+  max-width: 60px;
+
 }
 
 /*

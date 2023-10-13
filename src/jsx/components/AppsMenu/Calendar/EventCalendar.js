@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { Col, Row, Card, Button } from "react-bootstrap";
+import { Col, Row, Card } from "react-bootstrap";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
 import Alert from "sweetalert2";
-import TaskList from "../../Dashboard/RoomList";
+
 class EventCalendar extends Component {
    state = {
       calendarEvents: [
@@ -53,7 +53,7 @@ class EventCalendar extends Component {
          { title: "Event 5", id: "5" },
          { title: "Event 5", id: "5" },
          { title: "Event 5", id: "5" },
-         { title: "Event 5", id: "5" },
+
       ],
    };
 
@@ -75,12 +75,10 @@ class EventCalendar extends Component {
       });
    }
 
-
    /**
     * when we click on event we are displaying event details
     */
    eventClick = (eventClick) => {
-
       Alert.fire({
          title: eventClick.event.title,
          html:
@@ -103,15 +101,12 @@ class EventCalendar extends Component {
       </tr>
       </tbody>
       </table>
-
       </div>`,
 
          showCancelButton: true,
-         showDenyButton: true,
          confirmButtonColor: "#d33",
-         cancelButtonColor: "#dbccbf",
+         cancelButtonColor: "#3085d6",
          confirmButtonText: "Remove Event",
-         denyButtonText: "Go to Event",
          cancelButtonText: "Close",
       }).then((result) => {
          if (result.value) {
@@ -119,22 +114,17 @@ class EventCalendar extends Component {
             Alert.fire("Deleted!", "Your Event has been deleted.", "success");
          }
       });
-
-
-   }
+   };
 
    render() {
       return (
-         <div className="animated fadeIn demo-app">
-            <Row className="justify-content-end" >
-               <div className="col-xl-6">
-                  <TaskList/>
-               </div>
-               <div className="col-xl-6">
-                  <Card style={{height:"1000px"}}> 
+         <div className="animated fadeIn demo-app justify-content-end">
+            <div className="row" style={{ justifyContent: "end" }}>
+               <div className="col-xl-12 col-sm-12" >
+                  <Card>
                      <Card.Body>
                         <div className="demo-app-calendar" id="mycalendartest">
-                           <FullCalendar 
+                           <FullCalendar
                               defaultView="dayGridMonth"
                               header={{
                                  left: "prev,next today",
@@ -158,25 +148,23 @@ class EventCalendar extends Component {
                               // drop={this.drop}
                               eventReceive={this.eventReceive}
                               eventClick={this.eventClick}
-                              selectable={true}
+                           // selectable={true}
                            />
-                           {/* <CalendarEvent title={"no c bro"} start={"NO C BRO;AYER CREO"}/> */}
                         </div>
                      </Card.Body>
                   </Card>
                </div>
-
-            </Row>
+            </div>
             <Row style={{ height: "200px" }} className="justify-content-end">
-               <div className="col-xl-6">
-                  <Card>
+               <div className="col-xl-12" >
+                  <Card style={{ width: "100%", flexWrap: "wrap"}}>
                      <div className="card-header border-0 pb-0">
                         <h4 className="text-black fs-20 mb-0">Events</h4>
                      </div>
-                     <Card.Body style={{ overflow: "auto" }}>
-                        <div style={{ display: "flex" }} id="external-events">
+                     <Card.Body style={{ overflow: "scroll" }}>
+                        <div style={{ display: "flex", flexWrap: "wrap",justifyContent:"start",paddingLeft:"50px" }} id="external-events">
                            {this.state.events.map((event) => (
-                              <div style={{ minWidth: "140px", height: "50px" }}
+                              <div style={{ width:"fit-content", height: "50px" }}
                                  className="fc-event mt-0 ms-0 mb-2 btn btn-block btn-primary"
                                  title={event.title}
                                  data={event.id}

@@ -32,7 +32,8 @@ const DropdownBlog = () => {
 }
 
 
-const RoomList = () => {
+const RoomList = (filter) => {
+
 	const [selectBtn, setSelectBtn] = useState("Newest");
 	const [data, setData] = useState(
 		document.querySelectorAll("#room_wrapper tbody tr")
@@ -97,197 +98,319 @@ const RoomList = () => {
 	};
 	return (
 		<>
+		
 			<Tab.Container defaultActiveKey="All">
+				
+				{/* <div className="mt-4 d-flex justify-content-between align-items-center flex-wrap">
+					<div className="card-action coin-tabs mb-2">
+						<Nav as="ul" className="nav nav-tabs" role="tablist">
+							<Nav.Item as="li" className="nav-item">
+								<Nav.Link className="nav-link" eventKey="All">All Rooms</Nav.Link>
+							</Nav.Item>
+							<Nav.Item as="li" className="nav-item">
+								<Nav.Link className="nav-link" eventKey="Available">Available Room</Nav.Link>
+							</Nav.Item>
+							<Nav.Item as="li" className="nav-item">
+								<Nav.Link className="nav-link" eventKey="Booked">Booked</Nav.Link>
+							</Nav.Item>
+						</Nav>
+					</div>
+					<div className="d-flex align-items-center mb-2">
+						<Link to={"#"} className="btn btn-secondary">+ New Employee</Link>
+						<div className="newest ms-3">
+							<Dropdown>
+								<Dropdown.Toggle as="div" className=" btn-select-drop default-select btn i-false">
+									{selectBtn} <i className="fas fa-angle-down ms-2 "></i>
+								</Dropdown.Toggle>
+								<Dropdown.Menu>
+									<Dropdown.Item onClick={() => setSelectBtn("Oldest")} eventKey="All">Oldest</Dropdown.Item>
+									<Dropdown.Item onClick={() => setSelectBtn("Newest")} eventKey="All">Newest</Dropdown.Item>
+								</Dropdown.Menu>
+							</Dropdown>
+						</div>
+					</div>
+				</div> */}
 				<div className="row mt-4">
 					<div className="col-xl-12">
 						<div className="card">
 							<div className="card-body p-0">
 								<Tab.Content>
-									<Tab.Pane eventKey="All" id='roomListTable'>
+									<Tab.Pane eventKey="All">
 										<div className="table-responsive">
 											<div id="room_wrapper" className="dataTables_wrapper no-footer">
 												<table className="table card-table display mb-4 dataTablesCard booking-table room-list-tbl dataTable no-footer">
+													<thead>
+														<tr role="row">
+															<th className="sorting_asc_7 bg-none" >
+																<div className="form-check  style-1">
+																	<input type="checkbox" onClick={() => chackboxFun("all")} className="form-check-input" id="checkAll" required="" />
+																</div>
+															</th>
+															<th>Name</th>
+															<th>Type</th>
+															<th>Assigned</th>
+															<th>Date</th>
+															<th>Time</th>
+															<th>Status</th>
+															<th className="bg-none"></th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr role="row" className="odd">
+															<td className="sorting_7">
+																<div className="form-check   style-1">
+																	<input type="checkbox" onClick={() => chackboxFun()}
+																		className="form-check-input" id="customCheckBox21" required=""
+																	/>
+																</div>
+															</td>
+															<td>
+																<div className="room-list-bx d-flex align-items-center">
+																	<img className="me-3 rounded" src={room4} alt="" />
+																	<div>
+																		<span className=" text-secondary fs-14 d-block">#12341225</span>
+																		<span className=" fs-16 font-w500 text-nowrap">Deluxe A-91234</span>
+																	</div>
+																</div>
+															</td>
+															<td className="">
+																<span className="fs-16 font-w500 text-nowrap">Double Bed</span>
+															</td>
+															<td>
+																<div>
 
-													<div role="row" >
-														<div className='col-xl-12 d-flex  roomListHeader'>
-															<div className="sorting_asc_7 bg-none" >
-																<div className="form-check  style-1">
-																	<input type="checkbox" onClick={() => chackboxFun("all")} className="form-check-input" id="checkAll" required="" />
+																	<span className="fs-16 font-w500">Floor A-1</span>
 																</div>
-															</div>
-															<div className='roomHeaderList'></div>
-															<div className='roomHeaderList'>Name</div>
-															<div className='roomHeaderList'>Type</div>
-															<div className='roomHeaderList'>Assigned</div>
-															<div className='roomHeaderList'>Date</div>
-															<div className='roomHeaderList'>Time</div>
-															<div className='roomHeaderList'>Status</div>
-														</div>
-													</div>
-													<div className='row'>
-														<div className="col-xl-12 d-flex roomListRow ">
-															<div className="sorting_asc_7 bg-none" >
-																<div className="form-check  style-1">
-																	<input type="checkbox" onClick={() => chackboxFun("all")} className="form-check-input" id="checkAll" required="" />
-																</div>
-															</div>
-															<div className="room-list-bx d-flex align-items-center">
-																<img className="me-3 rounded" src={room4} alt="" />
-															</div>
-															<div className='roomListRowItem'>
+															</td>
+															<td className="facility">
 																<div>
-																	<span className=" fs-16 font-w500 text-nowrap"> <p>Deluxe</p> </span>
+																	<span className="fs-16 comments">Joh Doe</span>
 																</div>
-															</div>
-															<div className='roomListRowItem'>
-																<div>
-																	<span className=" fs-16 font-w500 text-nowrap"> <p>Cleaning</p> </span>
+															</td>
+															<td>
+																<div className="">
+																	<span className="mb-2">Price</span>
+																	<span className="font-w500">$145<small className="fs-14 ms-2">/night</small></span>
 																</div>
-															</div>
-															<div className='roomListRowItem'>
-																<div>
-																	<span className=" fs-16 font-w500 text-nowrap"> <p>John Doe</p> </span>
-																</div>
-															</div>
-															<div className='roomListRowItem'>
-																<div>
-																	<span className=" fs-16 font-w500 text-nowrap"> <p>10/10/23</p> </span>
-																</div>
-															</div>
-															<div className='roomListRowItem'>
-																<div>
-																	<span className=" fs-16 font-w500 text-nowrap"> <p>9:13</p> </span>
-																</div>
-															</div>
-															<div className='roomListRowItem'>
+															</td>
+															<td>
 																<Link to={"#"} className="btn btn-success btn-sm">AVAILABLE</Link>
-															</div>
-															{/* <td><DropdownBlog /></td> */}
-														</div>
-													</div>
-													<div className='row'>
-														<div className="col-xl-12 d-flex roomListRow ">
-															<div className="sorting_asc_7 bg-none" >
+															</td>
+															<td><DropdownBlog /></td>
+														</tr>
+														<tr className="even">
+															<td className="sorting_7">
+																<div className="form-check   style-1">
+																	<input type="checkbox" onClick={() => chackboxFun()}
+																		className="form-check-input" id="customCheckBox22" required=""
+																	/>
+																</div>
+															</td>
+															<td>
+																<div className="room-list-bx d-flex align-items-center">
+																	<img className="me-3 rounded" src={room5} alt="" />
+																	<div>
+																		<span className=" text-secondary fs-14 d-block">#12341225</span>
+																		<span className=" fs-16 font-w500 text-nowrap">Deluxe A-91234</span>
+																	</div>
+																</div>
+															</td>
+															<td className="">
+																<span className="fs-16 font-w500 text-nowrap">Double Bed</span>
+															</td>
+															<td>
+																<div>
+
+																	<span className="fs-16 font-w500">Floor A-1</span>
+																</div>
+															</td>
+															<td className="facility">
+																<div>
+																	<span className="fs-16 comments">Joh Doe</span>
+																</div>
+															</td>
+															<td>
+																<div className="">
+																	<span className="mb-2">Price</span>
+																	<span className="font-w500">$145<small className="fs-14 ms-2">/night</small></span>
+																</div>
+															</td>
+															<td>
+																<Link to={"#"} className="btn btn-danger btn-sm">BOOKED</Link>
+															</td>
+															<td><DropdownBlog /></td>
+														</tr>
+														<tr className="odd">
+															<td className="sorting_7">
 																<div className="form-check  style-1">
-																	<input type="checkbox" onClick={() => chackboxFun("all")} className="form-check-input" id="checkAll" required="" />
+																	<input type="checkbox" onClick={() => chackboxFun()}
+																		className="form-check-input" id="customCheckBox23" required=""
+																	/>
 																</div>
-															</div>
-															<div className="room-list-bx d-flex align-items-center">
-																<img className="me-3 rounded" src={room4} alt="" />
-															</div>
-															<div className='roomListRowItem'>
+															</td>
+															<td>
+																<div className="room-list-bx d-flex align-items-center">
+																	<img className="me-3 rounded" src={room6} alt="" />
+																	<div>
+																		<span className=" text-secondary fs-14 d-block">#12341225</span>
+																		<span className=" fs-16 font-w500 text-nowrap">Deluxe A-91234</span>
+																	</div>
+																</div>
+															</td>
+															<td className="">
+																<span className="fs-16 font-w500 text-nowrap">Double Bed</span>
+															</td>
+															<td>
 																<div>
-																	<span className=" fs-16 font-w500 text-nowrap"> <p>Deluxe</p> </span>
+
+																	<span className="fs-16 font-w500">Floor A-1</span>
 																</div>
-															</div>
-															<div className='roomListRowItem'>
-																<div>
-																	<span className=" fs-16 font-w500 text-nowrap"> <p>Cleaning</p> </span>
+															</td>
+															<td className="facility">
+																<div className="">
+																	<span className="fs-16 comments">Joh Doe</span>
 																</div>
-															</div>
-															<div className='roomListRowItem'>
-																<div>
-																	<span className=" fs-16 font-w500 text-nowrap"> <p>John Doe</p> </span>
+															</td>
+															<td>
+																<div className="">
+																	<span className="mb-2">Price</span>
+																	<span className="font-w500">$145<small className="fs-14 ms-2">/night</small></span>
 																</div>
-															</div>
-															<div className='roomListRowItem'>
-																<div>
-																	<span className=" fs-16 font-w500 text-nowrap"> <p>10/10/23</p> </span>
-																</div>
-															</div>
-															<div className='roomListRowItem'>
-																<div>
-																	<span className=" fs-16 font-w500 text-nowrap"> <p>9:13</p> </span>
-																</div>
-															</div>
-															<div className='roomListRowItem'>
+															</td>
+															<td>
 																<Link to={"#"} className="btn btn-success btn-sm">AVAILABLE</Link>
-															</div>
-															{/* <td><DropdownBlog /></td> */}
-														</div>
-													</div><div className='row'>
-														<div className="col-xl-12 d-flex roomListRow ">
-															<div className="sorting_asc_7 bg-none" >
+															</td>
+															<td><DropdownBlog /></td>
+														</tr>
+														<tr className="even">
+															<td className="sorting_7">
 																<div className="form-check  style-1">
-																	<input type="checkbox" onClick={() => chackboxFun("all")} className="form-check-input" id="checkAll" required="" />
+																	<input type="checkbox" onClick={() => chackboxFun()}
+																		className="form-check-input" id="customCheckBox24" required=""
+																	/>
 																</div>
-															</div>
-															<div className="room-list-bx d-flex align-items-center">
-																<img className="me-3 rounded" src={room4} alt="" />
-															</div>
-															<div className='roomListRowItem'>
+															</td>
+															<td>
+																<div className="room-list-bx d-flex align-items-center">
+																	<img className="me-3 rounded" src={room7} alt="" />
+																	<div>
+																		<span className=" text-secondary fs-14 d-block">#12341225</span>
+																		<span className=" fs-16 font-w500 text-nowrap">Deluxe A-91234</span>
+																	</div>
+																</div>
+															</td>
+															<td className="">
+																<span className="fs-16 font-w500 text-nowrap">Double Bed</span>
+															</td>
+															<td>
 																<div>
-																	<span className=" fs-16 font-w500 text-nowrap"> <p>Deluxe</p> </span>
+
+																	<span className="fs-16 font-w500">Floor A-1</span>
 																</div>
-															</div>
-															<div className='roomListRowItem'>
-																<div>
-																	<span className=" fs-16 font-w500 text-nowrap"> <p>Cleaning</p> </span>
+															</td>
+															<td className="facility">
+																<div className="">
+																	<span className="fs-16 comments">Joh Doe</span>
 																</div>
-															</div>
-															<div className='roomListRowItem'>
-																<div>
-																	<span className=" fs-16 font-w500 text-nowrap"> <p>John Doe</p> </span>
+															</td>
+															<td>
+																<div className="">
+																	<span className="mb-2">Price</span>
+																	<span className="font-w500">$145<small className="fs-14 ms-2">/night</small></span>
 																</div>
-															</div>
-															<div className='roomListRowItem'>
-																<div>
-																	<span className=" fs-16 font-w500 text-nowrap"> <p>10/10/23</p> </span>
-																</div>
-															</div>
-															<div className='roomListRowItem'>
-																<div>
-																	<span className=" fs-16 font-w500 text-nowrap"> <p>9:13</p> </span>
-																</div>
-															</div>
-															<div className='roomListRowItem'>
-																<Link to={"#"} className="btn btn-success btn-sm">AVAILABLE</Link>
-															</div>
-															{/* <td><DropdownBlog /></td> */}
-														</div>
-													</div><div className='row'>
-														<div className="col-xl-12 d-flex roomListRow ">
-															<div className="sorting_asc_7 bg-none" >
+															</td>
+															<td>
+																<Link to={"#"} className="btn btn-danger btn-sm">BOOKED</Link>
+															</td>
+															<td><DropdownBlog /></td>
+														</tr>
+														<tr className="odd">
+															<td className="sorting_7">
 																<div className="form-check  style-1">
-																	<input type="checkbox" onClick={() => chackboxFun("all")} className="form-check-input" id="checkAll" required="" />
+																	<input type="checkbox" onClick={() => chackboxFun()}
+																		className="form-check-input" id="customCheckBox25" required=""
+																	/>
 																</div>
-															</div>
-															<div className="room-list-bx d-flex align-items-center">
-																<img className="me-3 rounded" src={room4} alt="" />
-															</div>
-															<div className='roomListRowItem'>
+															</td>
+															<td>
+																<div className="room-list-bx d-flex align-items-center">
+																	<img className="me-3 rounded" src={room6} alt="" />
+																	<div>
+																		<span className=" text-secondary fs-14 d-block">#12341225</span>
+																		<span className=" fs-16 font-w500 text-nowrap">Deluxe A-91234</span>
+																	</div>
+																</div>
+															</td>
+															<td className="">
+																<span className="fs-16 font-w500 text-nowrap">Double Bed</span>
+															</td>
+															<td>
 																<div>
-																	<span className=" fs-16 font-w500 text-nowrap"> <p>Deluxe</p> </span>
+
+																	<span className="fs-16 font-w500">Floor A-1</span>
 																</div>
-															</div>
-															<div className='roomListRowItem'>
+															</td>
+															<td className="facility">
 																<div>
-																	<span className=" fs-16 font-w500 text-nowrap"> <p>Cleaning</p> </span>
+																	<span className="fs-16 comments">Joh Doe</span>
 																</div>
-															</div>
-															<div className='roomListRowItem'>
-																<div>
-																	<span className=" fs-16 font-w500 text-nowrap"> <p>John Doe</p> </span>
+															</td>
+															<td>
+																<div className="">
+																	<span className="mb-2">Price</span>
+																	<span className="font-w500">$145<small className="fs-14 ms-2">/night</small></span>
 																</div>
-															</div>
-															<div className='roomListRowItem'>
-																<div>
-																	<span className=" fs-16 font-w500 text-nowrap"> <p>10/10/23</p> </span>
-																</div>
-															</div>
-															<div className='roomListRowItem'>
-																<div>
-																	<span className=" fs-16 font-w500 text-nowrap"> <p>9:13</p> </span>
-																</div>
-															</div>
-															<div className='roomListRowItem'>
+															</td>
+															<td>
 																<Link to={"#"} className="btn btn-success btn-sm">AVAILABLE</Link>
-															</div>
-															{/* <td><DropdownBlog /></td> */}
-														</div>
-													</div>
+															</td>
+															<td><DropdownBlog /></td>
+														</tr>
+														<tr>
+															<td className="sorting_7">
+																<div className="form-check  style-1">
+																	<input type="checkbox" onClick={() => chackboxFun()}
+																		className="form-check-input" id="customCheckBox26" required=""
+																	/>
+																</div>
+															</td>
+															<td>
+																<div className="room-list-bx d-flex align-items-center">
+																	<img className="me-3 rounded" src={room7} alt="" />
+																	<div>
+																		<span className=" text-secondary fs-14 d-block">#12341225</span>
+																		<span className=" fs-16 font-w500 text-nowrap">Deluxe A-91234</span>
+																	</div>
+																</div>
+															</td>
+															<td className="">
+																<span className="fs-16 font-w500 text-nowrap">Double Bed</span>
+															</td>
+															<td>
+																<div>
+
+																	<span className="fs-16 font-w500">Floor A-1</span>
+																</div>
+															</td>
+															<td className="facility">
+																<div className="">
+																	<span className="fs-16 comments">Joh Doe</span>
+																</div>
+															</td>
+															<td>
+																<div className="">
+																	<span className="mb-2">Price</span>
+																	<span className="font-w500">$145<small className="fs-14 ms-2">/night</small></span>
+																</div>
+															</td>
+															<td>
+																<Link to={"#"} className="btn btn-danger btn-sm">BOOKED</Link>
+															</td>
+															<td><DropdownBlog /></td>
+														</tr>
+													</tbody>
 												</table>
-												<div className="d-sm-flex text-center justify-content-between align-items-center mt-3 mb-3">
+												{/* <div className="d-sm-flex text-center justify-content-between align-items-center mt-3 mb-3">
 													<div className="dataTables_info">
 														Showing {activePag.current * sort + 1} to{" "}
 														{data.length > (activePag.current + 1) * sort
@@ -332,7 +455,7 @@ const RoomList = () => {
 															Next <i className="fa fa-angle-double-right"></i>
 														</Link>
 													</div>
-												</div>
+												</div> */}
 											</div>
 										</div>
 									</Tab.Pane>
