@@ -157,12 +157,12 @@ class EventCalendar extends Component {
             </div>
             <Row style={{ height: "200px" }} className="justify-content-end">
                <div className="col-xl-12" >
-                  <Card style={{ width: "100%", flexWrap: "wrap"}}>
+                  <Card >
                      <div className="card-header border-0 pb-0">
                         <h4 className="text-black fs-20 mb-0">Events</h4>
                      </div>
                      <Card.Body style={{ overflow: "scroll" }}>
-                        <div style={{ display: "flex", flexWrap: "wrap",justifyContent:"start",paddingLeft:"50px" }} id="external-events">
+                        <div style={{ display: "flex", flexWrap: "wrap",justifyContent:"start"}} id="external-events">
                            {this.state.events.map((event) => (
                               <div style={{ width:"fit-content", height: "50px" }}
                                  className="fc-event mt-0 ms-0 mb-2 btn btn-block btn-primary"
