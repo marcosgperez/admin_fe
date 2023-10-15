@@ -130,7 +130,7 @@ const RoomList = (filter) => {
 						</div>
 					</div>
 				</div> */}
-				<div className="row mt-4">
+				<div className="row">
 					<div className="col-xl-12">
 						<div className="card">
 							<div className="card-body p-0">
