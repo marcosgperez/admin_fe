@@ -137,11 +137,8 @@ const Home = () => {
             <div className={admin ? "col-xl-6" : "d-none"}>
               <RoomList filter={false} />
             </div>
-            <div className={admin ? "col-xl-6" : "d-none"}>
+            <div className={admin ? "col-xl-6" : "col-xl-12"}>
               <EventCalendar />
-            </div>
-            <div className={admin ? "d-none" : "col-xl-12"}>
-              <EmployeeEventCalendar/>
             </div>
           </div>
         </div>

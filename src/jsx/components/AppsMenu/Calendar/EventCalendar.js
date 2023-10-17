@@ -5,6 +5,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
 import Alert from "sweetalert2";
+import EmployeeEventCalendar from "./EmployeeEventCalendar";
 
 class EventCalendar extends Component {
    state = {
@@ -57,6 +58,7 @@ class EventCalendar extends Component {
       ],
    };
 
+
    /**
     * adding dragable properties to external events through javascript
     */
@@ -79,6 +81,7 @@ class EventCalendar extends Component {
     * when we click on event we are displaying event details
     */
    eventClick = (eventClick) => {
+      let admin = true
       Alert.fire({
          title: eventClick.event.title,
          html:
@@ -104,10 +107,14 @@ class EventCalendar extends Component {
       </div>`,
 
          showCancelButton: true,
+         showDenyButton: true,
+         showConfirmButton: admin,
          confirmButtonColor: "#d33",
          cancelButtonColor: "#3085d6",
          confirmButtonText: "Remove Event",
          cancelButtonText: "Close",
+         denyButtonText: "go to task",
+         denyButtonColor: "#3085d6"
       }).then((result) => {
          if (result.value) {
             eventClick.event.remove(); // It will remove event from the calendar
@@ -117,69 +124,136 @@ class EventCalendar extends Component {
    };
 
    render() {
-      return (
-         <div className="animated fadeIn demo-app justify-content-end">
-            <div className="row" style={{ justifyContent: "end" }}>
-               <div className="col-xl-12 col-sm-12" >
-                  <Card>
-                     <Card.Body>
-                        <div className="demo-app-calendar" id="mycalendartest">
-                           <FullCalendar
-                              defaultView="dayGridMonth"
-                              header={{
-                                 left: "prev,next today",
-                                 center: "title",
-                                 right:
-                                    "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
-                              }}
-                              rerenderDelay={10}
-                              eventDurationEditable={false}
-                              editable={true}
-                              droppable={true}
-                              plugins={[
-                                 dayGridPlugin,
-                                 timeGridPlugin,
-                                 interactionPlugin,
-                              ]}
-                              ref={this.calendarComponentRef}
-                              weekends={this.state.calendarWeekends}
-                              events={this.state.calendarEvents}
-                              eventDrop={this.drop}
-                              // drop={this.drop}
-                              eventReceive={this.eventReceive}
-                              eventClick={this.eventClick}
-                           // selectable={true}
-                           />
-                        </div>
-                     </Card.Body>
-                  </Card>
+      let admin = true
+
+      if (admin) {
+         return (
+            <div className="animated fadeIn demo-app justify-content-end">
+               <div className="row" style={{ justifyContent: "end" }}>
+                  <div className="col-xl-12 col-sm-12" >
+                     <Card>
+                        <Card.Body>
+                           <div className="demo-app-calendar" id="mycalendartest">
+                              <FullCalendar
+                                 defaultView="dayGridMonth"
+                                 header={{
+                                    left: "prev,next today",
+                                    center: "title",
+                                    right:
+                                       "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
+                                 }}
+                                 rerenderDelay={10}
+                                 eventDurationEditable={false}
+                                 editable={true}
+                                 // droppable={true}
+                                 plugins={[
+                                    dayGridPlugin,
+                                    timeGridPlugin,
+                                    interactionPlugin,
+                                 ]}
+                                 ref={this.calendarComponentRef}
+                                 weekends={this.state.calendarWeekends}
+                                 events={this.state.calendarEvents}
+                                 eventDrop={this.drop}
+                                 // drop={this.drop}
+                                 eventReceive={this.eventReceive}
+                                 eventClick={this.eventClick}
+                              // selectable={true}
+                              />
+                           </div>
+                        </Card.Body>
+                     </Card>
+                  </div>
                </div>
+               <Row style={{ height: "200px" }} className="justify-content-end">
+                  <div className="col-xl-12" >
+                     <Card >
+                        <div className="card-header border-0 pb-0">
+                           <h4 className="text-black fs-20 mb-0">Events</h4>
+                        </div>
+                        <Card.Body style={{ overflow: "scroll" }}>
+                           <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "start" }} id="external-events">
+                              {this.state.events.map((event) => (
+                                 <div style={{ width: "fit-content", height: "50px" }}
+                                    className="fc-event mt-0 ms-0 mb-2 btn btn-block btn-primary"
+                                    title={event.title}
+                                    data={event.id}
+                                    key={event.id}
+                                 >
+                                    {event.title}
+                                 </div>
+                              ))}
+                           </div>
+                        </Card.Body>
+                     </Card>
+                  </div>
+               </Row>
             </div>
-            <Row style={{ height: "200px" }} className="justify-content-end">
-               <div className="col-xl-12" >
-                  <Card >
-                     <div className="card-header border-0 pb-0">
-                        <h4 className="text-black fs-20 mb-0">Events</h4>
-                     </div>
-                     <Card.Body style={{ overflow: "scroll" }}>
-                        <div style={{ display: "flex", flexWrap: "wrap",justifyContent:"start"}} id="external-events">
-                           {this.state.events.map((event) => (
-                              <div style={{ width:"fit-content", height: "50px" }}
-                                 className="fc-event mt-0 ms-0 mb-2 btn btn-block btn-primary"
-                                 title={event.title}
-                                 data={event.id}
-                                 key={event.id}
-                              >
-                                 {event.title}
-                              </div>
-                           ))}
+         );
+      } else {
+         return (
+            <div className="animated fadeIn demo-app">
+               <Row>
+                  <Col lg={3}>
+                     <Card>
+                        <div className="card-header border-0 pb-0">
+                           <h4 className="text-black fs-20 mb-0">Events</h4>
                         </div>
-                     </Card.Body>
-                  </Card>
-               </div>
-            </Row>
-         </div>
-      );
+                        <Card.Body>
+                           <div id="external-events">
+                              {this.state.events.map((event) => (
+                                 <div
+                                    className="fc-event mt-0 ms-0 mb-2 btn btn-block btn-primary"
+                                    title={event.title}
+                                    data={event.id}
+                                    key={event.id}
+                                 >
+                                    {event.title}
+                                 </div>
+                              ))}
+                           </div>
+                        </Card.Body>
+                     </Card>
+                  </Col>
+
+                  <Col lg={9}>
+                     <Card>
+                        <Card.Body>
+                           <div className="demo-app-calendar" id="mycalendartest">
+                              <FullCalendar
+                                 defaultView="dayGridMonth"
+                                 header={{
+                                    left: "prev,next today",
+                                    center: "title",
+                                    right:
+                                       "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
+                                 }}
+                                 rerenderDelay={10}
+                                 eventDurationEditable={false}
+                                 editable={true}
+                                 droppable={true}
+                                 plugins={[
+                                    dayGridPlugin,
+                                    timeGridPlugin,
+                                    interactionPlugin,
+                                 ]}
+                                 ref={this.calendarComponentRef}
+                                 weekends={this.state.calendarWeekends}
+                                 events={this.state.calendarEvents}
+                                 eventDrop={this.drop}
+                                 // drop={this.drop}
+                                 eventReceive={this.eventReceive}
+                                 eventClick={this.eventClick}
+                              // selectable={true}
+                              />
+                           </div>
+                        </Card.Body>
+                     </Card>
+                  </Col>
+               </Row>
+            </div>
+         )
+      }
    }
 }
 

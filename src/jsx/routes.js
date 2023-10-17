@@ -49,7 +49,6 @@ export const linkData = [
 
     // urls
     { url: "/", component: <Home /> },
-    { url: "dashboard-dark", component: <DashboardDark /> },
     { url: "guest-list", component: <GuestList /> },
     { url: "guest-details", component: <GuestDetails /> },
     { url: "concierge-list", component: <ConciergeList /> },
@@ -58,12 +57,6 @@ export const linkData = [
     { url: "task", component: <Tasks /> },
     { url: "task-detail", component: <TaskDetail /> },
     { url: "facilities", component: <Facilities /> },
-
-    /// Chart
-    { url: "chart-rechart", component: <RechartJs /> },
-    // Todo
-    { url: "todo", component: <Todo /> },
-    /// table
 
 ]
 
