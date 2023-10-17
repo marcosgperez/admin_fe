@@ -128,7 +128,7 @@ const RoomList = () => {
 						</div>
 					</div>
 				</div> */}
-				<div className="row ">
+				<div className="row">
 					<div className="col-xl-12">
 						<div className="card">
 							<div className="card-body p-0">
