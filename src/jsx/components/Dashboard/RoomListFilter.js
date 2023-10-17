@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 const RoomListFilter = () => {
     const [selectBtn, setSelectBtn] = useState("Newest");
+    let admin = false
     return (
 
         <div className="mt-4 d-flex justify-content-between align-items-center flex-wrap">
@@ -25,8 +26,8 @@ const RoomListFilter = () => {
                 </Nav>
             </div>
             <div className="d-flex align-items-center mb-2">
-                <Link to={"#"} className="btn btn-secondary">+ New Task</Link>
-                <div className="newest ms-3">
+                <Link to={"#"} className={admin?"btn btn-secondary" :"btn btn-secondary d-none"}>+ New Task</Link>
+                <div className={admin?"newest ms-3" : "d-none" }>
                     <Dropdown>
                         <Dropdown.Toggle as="div" className=" btn-select-drop default-select btn i-false">
                             {selectBtn} <i className="fas fa-angle-down ms-2 "></i>

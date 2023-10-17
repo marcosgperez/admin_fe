@@ -7,6 +7,7 @@ import { useState } from "react";
 const Facilities = () => {
     const [selectBtn, setSelectBtn] = useState("Newest");
     const [searchBut, setSearchBut] = useState(false);
+    const admin = true
     return (
         <div className="row">
             <div className="col-xl-12" >
@@ -38,7 +39,6 @@ const Facilities = () => {
                                 </span>
                             </div>
                         </div>
-                        <Link style={{marginLeft:"30px"}} to={"#"} className="btn btn-secondary">+ New Task</Link>
                     </div>
                 </div>
                 <RoomList></RoomList>

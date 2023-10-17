@@ -8,6 +8,7 @@ import { MenuList } from './Menu';
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 import { ThemeContext } from "../../../context/ThemeContext";
 import { linkData } from "../../routes";
+import { EmployeeLinkData } from "../../EmployeeRoutes";
 import profile from "../../../images/user.jpg";
 
 
@@ -68,7 +69,15 @@ const SideBar = () => {
   //path = path.split("/");
   //path = path[path.length - 1];
   /// Active menu
+  const admin = true
+  let toMap = []
 
+  if (admin) {
+    toMap = linkData
+  } else {
+    toMap = EmployeeLinkData
+  }
+  console.log(linkData, " linkData")
   return (
     <div
       onMouseEnter={() => ChangeIconSidebar(true)}
@@ -85,7 +94,9 @@ const SideBar = () => {
       <PerfectScrollbar className="dlabnav-scroll">
 
         <ul className="metismenu" id="menu">
-          {linkData.map((data, index) => {
+
+
+          {toMap.map((data, index) => {
             let menuClass = data.classsChange;
             if (menuClass === "menu-title") {
               return (
