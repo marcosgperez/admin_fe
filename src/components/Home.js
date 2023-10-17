@@ -9,10 +9,11 @@ import RecentBooking from "../jsx/components/Dashboard/Dashboard/RecentBooking";
 import { getRoomsAction } from "../store/actions/RoomsActions";
 import EventCalendar from "../jsx/components/AppsMenu/Calendar/EventCalendar";
 import RoomList from "../jsx/components/Dashboard/RoomList";
-
+import EmployeeEventCalendar from "../jsx/components/AppsMenu/Calendar/EmployeeEventCalendar";
 const Home = () => {
   const dispatch = useDispatch();
   const roomsData = useSelector((state) => state.roomsData);
+  let admin = true
   useMemo(() => {
     dispatch(getRoomsAction());
   }, []);
@@ -132,12 +133,15 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="row">
-            <div className="col-xl-6">
+          <div className="row justify-content-end">
+            <div className={admin ? "col-xl-6" : "d-none"}>
               <RoomList filter={false} />
             </div>
-            <div className="col-xl-6">
+            <div className={admin ? "col-xl-6" : "d-none"}>
               <EventCalendar />
+            </div>
+            <div className={admin ? "d-none" : "col-xl-12"}>
+              <EmployeeEventCalendar/>
             </div>
           </div>
         </div>

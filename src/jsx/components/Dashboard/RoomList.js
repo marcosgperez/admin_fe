@@ -32,8 +32,7 @@ const DropdownBlog = () => {
 }
 
 
-const RoomList = (filter) => {
-
+const RoomList = () => {
 	const [selectBtn, setSelectBtn] = useState("Newest");
 	const [data, setData] = useState(
 		document.querySelectorAll("#room_wrapper tbody tr")
@@ -41,7 +40,6 @@ const RoomList = (filter) => {
 	const sort = 10;
 	const activePag = useRef(0);
 	const [test, settest] = useState(0);
-
 	// Active data
 	const chageData = (frist, sec) => {
 		for (var i = 0; i < data.length; ++i) {
@@ -130,7 +128,7 @@ const RoomList = (filter) => {
 						</div>
 					</div>
 				</div> */}
-				<div className="row mt-4">
+				<div className="row ">
 					<div className="col-xl-12">
 						<div className="card">
 							<div className="card-body p-0">
@@ -158,7 +156,7 @@ const RoomList = (filter) => {
 													<tbody>
 														<Link to={"task-detail"}>
 
-															
+
 														</Link>
 														<tr role="row" className="odd">
 															<td className="sorting_7">

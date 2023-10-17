@@ -39,17 +39,6 @@ const Facilities = () => {
                             </div>
                         </div>
                         <Link style={{marginLeft:"30px"}} to={"#"} className="btn btn-secondary">+ New Task</Link>
-                        <div className="newest ms-3">
-                            <Dropdown>
-                                <Dropdown.Toggle as="div" className=" btn-select-drop default-select btn i-false">
-                                    {selectBtn} <i className="fas fa-angle-down ms-2 "></i>
-                                </Dropdown.Toggle>
-                                <Dropdown.Menu>
-                                    <Dropdown.Item onClick={() => setSelectBtn("Oldest")} eventKey="All">Oldest</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => setSelectBtn("Newest")} eventKey="All">Newest</Dropdown.Item>
-                                </Dropdown.Menu>
-                            </Dropdown>
-                        </div>
                     </div>
                 </div>
                 <RoomList></RoomList>
