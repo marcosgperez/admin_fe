@@ -31,6 +31,22 @@ const DropdownBlog = () => {
 	)
 }
 
+// 	<th> Name</th >
+// 	<th>Type</th>
+// 	<th>Assigned</th>
+// 	<th>Date</th>
+// <th>Time</th>
+// <th>Status</th>
+
+const taskData = [
+	{ id: 1, name: "room 201", type: "maintainance", assigned: "Joaquin Cerruti Lerech", date: "11/10/23", time: "10:32", button: "warning", status: "On Progress" },
+	{ id: 2, name: "room 201", type: "maintainance", assigned: "John Doe", date: "11/10/23", time: "10:32", button: "success", status: "Done" },
+	{ id: 3, name: "room 201", type: "maintainance", assigned: "John Doe", date: "11/10/23", time: "10:32", button: "success", status: "Done" },
+	{ id: 4, name: "room 201", type: "maintainance", assigned: "John Doe", date: "11/10/23", time: "10:32", button: "warning", status: "On Progress" },
+	{ id: 5, name: "room 201", type: "maintainance", assigned: "John Doe", date: "11/10/23", time: "10:32", button: "warning", status: "On Progress" },
+	{ id: 6, name: "room 201", type: "maintainance", assigned: "John Doe", date: "11/10/23", time: "10:32", button: "success", status: "Done" },
+	{ id: 7, name: "room 201", type: "maintainance", assigned: "John Doe", date: "11/10/23", time: "10:32", button: "warning", status: "On Progress" },
+]
 
 const RoomList = () => {
 	const [selectBtn, setSelectBtn] = useState("Newest");
@@ -94,324 +110,60 @@ const RoomList = () => {
 			}
 		}
 	};
+
+
 	return (
 		<>
-
-			<Tab.Container defaultActiveKey="All">
-
-				{/* <div className="mt-4 d-flex justify-content-between align-items-center flex-wrap">
-					<div className="card-action coin-tabs mb-2">
-						<Nav as="ul" className="nav nav-tabs" role="tablist">
-							<Nav.Item as="li" className="nav-item">
-								<Nav.Link className="nav-link" eventKey="All">All Rooms</Nav.Link>
-							</Nav.Item>
-							<Nav.Item as="li" className="nav-item">
-								<Nav.Link className="nav-link" eventKey="Available">Available Room</Nav.Link>
-							</Nav.Item>
-							<Nav.Item as="li" className="nav-item">
-								<Nav.Link className="nav-link" eventKey="Booked">Booked</Nav.Link>
-							</Nav.Item>
-						</Nav>
-					</div>
-					<div className="d-flex align-items-center mb-2">
-						<Link to={"#"} className="btn btn-secondary">+ New Employee</Link>
-						<div className="newest ms-3">
-							<Dropdown>
-								<Dropdown.Toggle as="div" className=" btn-select-drop default-select btn i-false">
-									{selectBtn} <i className="fas fa-angle-down ms-2 "></i>
-								</Dropdown.Toggle>
-								<Dropdown.Menu>
-									<Dropdown.Item onClick={() => setSelectBtn("Oldest")} eventKey="All">Oldest</Dropdown.Item>
-									<Dropdown.Item onClick={() => setSelectBtn("Newest")} eventKey="All">Newest</Dropdown.Item>
-								</Dropdown.Menu>
-							</Dropdown>
-						</div>
-					</div>
-				</div> */}
+			<Tab.Container defaultActiveKey="All" >
 				<div className="row">
 					<div className="col-xl-12">
-						<div className="card">
-							<div className="card-body p-0">
-								<Tab.Content>
+						<div className="card roomListCard" style={{ heigth: "20px" }} >
+							<div style={{ overflow: "auto" }} className="card-body p-0">
+								<Tab.Content style={{ minWidth: "650px", heigth: "200px" }} >
 									<Tab.Pane eventKey="All">
 										<div className="table-responsive">
 											<div id="room_wrapper" className="dataTables_wrapper no-footer">
-												<table className="table card-table display mb-4 dataTablesCard booking-table room-list-tbl dataTable no-footer">
-													<thead>
-														<tr role="row">
-															<th className="sorting_asc_7 bg-none" >
-																<div className="form-check  style-1">
-																	<input type="checkbox" onClick={() => chackboxFun("all")} className="form-check-input" id="checkAll" required="" />
-																</div>
-															</th>
-															<th>Name</th>
-															<th>Type</th>
-															<th>Assigned</th>
-															<th>Date</th>
-															<th>Time</th>
-															<th>Status</th>
-															<th className="bg-none"></th>
-														</tr>
-													</thead>
-													<tbody>
-														<Link to={"task-detail"}>
+												<div className={"tableContainer"} style={{ width: "100%", alignItems: "center" }} >
+													<div style={{ fontSize: "30px", paddingTop: "20px", paddingLeft: "20px", fontWeight: "500" }} >Tasks</div>
+													<div className={"tableHeader"} style={{ display: "flex", justifyContent: "space-between", borderBottom: "3px solid #828282",color:"black",fontWeigth:"500" }}>
+														{/* <div style={{ width: "0.5%", justifyContent: "center", textAlign: "start", fontSize: "16px", padding: "10px 0px", fontWeight: "500", margin: "5px" }}></div> */}
+														<div style={{ width: "20%", justifyContent: "center", textAlign: "start", fontSize: "20px", fontWeight: "600", margin: "5px", padding: "10px 0px 10px 20px" }}>Name</div>
+														<div style={{ width: "10%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Type</div>
+														<div style={{ width: "10%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Assigned</div>
+														<div style={{ width: "10%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Date</div>
+														<div style={{ width: "10%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Time</div>
+														<div style={{ width: "10%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Status</div>
+
+													</div>
 
 
-														</Link>
-														<tr role="row" className="odd">
-															<td className="sorting_7">
-																<div className="form-check   style-1">
-																	<input type="checkbox" onClick={() => chackboxFun()}
-																		className="form-check-input" id="customCheckBox21" required=""
-																	/>
-																</div>
-															</td>
-															<td>
-																<div className="room-list-bx d-flex align-items-center">
-																	<img className="me-3 rounded" src={room4} alt="" />
-																	<div>
-																		<span className=" text-secondary fs-14 d-block">#12341225</span>
-																		<span className=" fs-16 font-w500 text-nowrap">Deluxe A-91234</span>
+													<div className={"tableBody"} style={{padding:"10px 0px"}} >
+														{taskData.map((t, i) => {
+															return (
+																<Link to={`/:${t.id}`}>
+																	<div className={"tableRow"} style={{ width: "100%", display: "flex", justifyContent: "space-between", marginBottom: "20px"}}>
+																		{/* <div style={{ width: "0.00005%", display: "flex", alignItems: "center", justifyContent: "end", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
+																		</div> */}
+																		<div style={{ width: "20%", display: "flex", padding: "0px 0px 0px 20px", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
+																			<img alt={"idk bruh0"} src={room4} className="rowImage" ></img>
+																			<p style={{ marginBottom: "0px", marginLeft: "20px" }}>
+																				{t.name}
+																			</p>
+																		</div>
+																		<div style={{ width: "10%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{t.type}</div>
+																		<div style={{ width: "10%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{t.assigned}</div>
+																		<div style={{ width: "10%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{t.date}</div>
+																		<div style={{ width: "10%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{t.time}</div>
+																		<div style={{ width: "10%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
+																			<Link to={"#"} style={{ width: "fit-content" }} className={`btn btn-${t.button} btn-sm}`}>{t.status}</Link>
+																		</div>
+																		{/* <div style={{ width: "5%", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", display:"flex",margin: "5px", alignItems:"center" }}><DropdownBlog></DropdownBlog></div> */}
 																	</div>
-																</div>
-															</td>
-															<td className="">
-																<span className="fs-16 font-w500 text-nowrap">Double Bed</span>
-															</td>
-															<td>
-																<div>
-
-																	<span className="fs-16 font-w500">Floor A-1</span>
-																</div>
-															</td>
-															<td className="facility">
-																<div>
-																	<span className="fs-16 comments">Joh Doe</span>
-																</div>
-															</td>
-															<td>
-																<div className="">
-																	<span className="mb-2">Price</span>
-																	<span className="font-w500">$145<small className="fs-14 ms-2">/night</small></span>
-																</div>
-															</td>
-															<td>
-																<Link to={"#"} className="btn btn-success btn-sm">AVAILABLE</Link>
-															</td>
-															<td><DropdownBlog /></td>
-														</tr>
-														<tr className="even">
-															<td className="sorting_7">
-																<div className="form-check   style-1">
-																	<input type="checkbox" onClick={() => chackboxFun()}
-																		className="form-check-input" id="customCheckBox22" required=""
-																	/>
-																</div>
-															</td>
-															<td>
-																<div className="room-list-bx d-flex align-items-center">
-																	<img className="me-3 rounded" src={room5} alt="" />
-																	<div>
-																		<span className=" text-secondary fs-14 d-block">#12341225</span>
-																		<span className=" fs-16 font-w500 text-nowrap">Deluxe A-91234</span>
-																	</div>
-																</div>
-															</td>
-															<td className="">
-																<span className="fs-16 font-w500 text-nowrap">Double Bed</span>
-															</td>
-															<td>
-																<div>
-
-																	<span className="fs-16 font-w500">Floor A-1</span>
-																</div>
-															</td>
-															<td className="facility">
-																<div>
-																	<span className="fs-16 comments">Joh Doe</span>
-																</div>
-															</td>
-															<td>
-																<div className="">
-																	<span className="mb-2">Price</span>
-																	<span className="font-w500">$145<small className="fs-14 ms-2">/night</small></span>
-																</div>
-															</td>
-															<td>
-																<Link to={"#"} className="btn btn-danger btn-sm">BOOKED</Link>
-															</td>
-															<td><DropdownBlog /></td>
-														</tr>
-														<tr className="odd">
-															<td className="sorting_7">
-																<div className="form-check  style-1">
-																	<input type="checkbox" onClick={() => chackboxFun()}
-																		className="form-check-input" id="customCheckBox23" required=""
-																	/>
-																</div>
-															</td>
-															<td>
-																<div className="room-list-bx d-flex align-items-center">
-																	<img className="me-3 rounded" src={room6} alt="" />
-																	<div>
-																		<span className=" text-secondary fs-14 d-block">#12341225</span>
-																		<span className=" fs-16 font-w500 text-nowrap">Deluxe A-91234</span>
-																	</div>
-																</div>
-															</td>
-															<td className="">
-																<span className="fs-16 font-w500 text-nowrap">Double Bed</span>
-															</td>
-															<td>
-																<div>
-
-																	<span className="fs-16 font-w500">Floor A-1</span>
-																</div>
-															</td>
-															<td className="facility">
-																<div className="">
-																	<span className="fs-16 comments">Joh Doe</span>
-																</div>
-															</td>
-															<td>
-																<div className="">
-																	<span className="mb-2">Price</span>
-																	<span className="font-w500">$145<small className="fs-14 ms-2">/night</small></span>
-																</div>
-															</td>
-															<td>
-																<Link to={"#"} className="btn btn-success btn-sm">AVAILABLE</Link>
-															</td>
-															<td><DropdownBlog /></td>
-														</tr>
-														<tr className="even">
-															<td className="sorting_7">
-																<div className="form-check  style-1">
-																	<input type="checkbox" onClick={() => chackboxFun()}
-																		className="form-check-input" id="customCheckBox24" required=""
-																	/>
-																</div>
-															</td>
-															<td>
-																<div className="room-list-bx d-flex align-items-center">
-																	<img className="me-3 rounded" src={room7} alt="" />
-																	<div>
-																		<span className=" text-secondary fs-14 d-block">#12341225</span>
-																		<span className=" fs-16 font-w500 text-nowrap">Deluxe A-91234</span>
-																	</div>
-																</div>
-															</td>
-															<td className="">
-																<span className="fs-16 font-w500 text-nowrap">Double Bed</span>
-															</td>
-															<td>
-																<div>
-
-																	<span className="fs-16 font-w500">Floor A-1</span>
-																</div>
-															</td>
-															<td className="facility">
-																<div className="">
-																	<span className="fs-16 comments">Joh Doe</span>
-																</div>
-															</td>
-															<td>
-																<div className="">
-																	<span className="mb-2">Price</span>
-																	<span className="font-w500">$145<small className="fs-14 ms-2">/night</small></span>
-																</div>
-															</td>
-															<td>
-																<Link to={"#"} className="btn btn-danger btn-sm">BOOKED</Link>
-															</td>
-															<td><DropdownBlog /></td>
-														</tr>
-														<tr className="odd">
-															<td className="sorting_7">
-																<div className="form-check  style-1">
-																	<input type="checkbox" onClick={() => chackboxFun()}
-																		className="form-check-input" id="customCheckBox25" required=""
-																	/>
-																</div>
-															</td>
-															<td>
-																<div className="room-list-bx d-flex align-items-center">
-																	<img className="me-3 rounded" src={room6} alt="" />
-																	<div>
-																		<span className=" text-secondary fs-14 d-block">#12341225</span>
-																		<span className=" fs-16 font-w500 text-nowrap">Deluxe A-91234</span>
-																	</div>
-																</div>
-															</td>
-															<td className="">
-																<span className="fs-16 font-w500 text-nowrap">Double Bed</span>
-															</td>
-															<td>
-																<div>
-
-																	<span className="fs-16 font-w500">Floor A-1</span>
-																</div>
-															</td>
-															<td className="facility">
-																<div>
-																	<span className="fs-16 comments">Joh Doe</span>
-																</div>
-															</td>
-															<td>
-																<div className="">
-																	<span className="mb-2">Price</span>
-																	<span className="font-w500">$145<small className="fs-14 ms-2">/night</small></span>
-																</div>
-															</td>
-															<td>
-																<Link to={"#"} className="btn btn-success btn-sm">AVAILABLE</Link>
-															</td>
-															<td><DropdownBlog /></td>
-														</tr>
-														<tr>
-															<td className="sorting_7">
-																<div className="form-check  style-1">
-																	<input type="checkbox" onClick={() => chackboxFun()}
-																		className="form-check-input" id="customCheckBox26" required=""
-																	/>
-																</div>
-															</td>
-															<td>
-																<div className="room-list-bx d-flex align-items-center">
-																	<img className="me-3 rounded" src={room7} alt="" />
-																	<div>
-																		<span className=" text-secondary fs-14 d-block">#12341225</span>
-																		<span className=" fs-16 font-w500 text-nowrap">Deluxe A-91234</span>
-																	</div>
-																</div>
-															</td>
-															<td className="">
-																<span className="fs-16 font-w500 text-nowrap">Double Bed</span>
-															</td>
-															<td>
-																<div>
-
-																	<span className="fs-16 font-w500">Floor A-1</span>
-																</div>
-															</td>
-															<td className="facility">
-																<div className="">
-																	<span className="fs-16 comments">Joh Doe</span>
-																</div>
-															</td>
-															<td>
-																<div className="">
-																	<span className="mb-2">Price</span>
-																	<span className="font-w500">$145<small className="fs-14 ms-2">/night</small></span>
-																</div>
-															</td>
-															<td>
-																<Link to={"#"} className="btn btn-danger btn-sm">BOOKED</Link>
-															</td>
-															<td><DropdownBlog /></td>
-														</tr>
-													</tbody>
-												</table>
+																</Link>
+															)
+														})}
+													</div>
+												</div>
 												{/* <div className="d-sm-flex text-center justify-content-between align-items-center mt-3 mb-3">
 													<div className="dataTables_info">
 														Showing {activePag.current * sort + 1} to{" "}

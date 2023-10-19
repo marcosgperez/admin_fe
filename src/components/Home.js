@@ -134,10 +134,10 @@ const Home = () => {
             </div>
           </div>
           <div className="row justify-content-end">
-            <div className={admin ? "col-xl-6" : "d-none"}>
-              <RoomList filter={false} />
+            <div className={admin ? "col-xl-12" : "d-none"}>
+              <RoomList buttonSize={"md"} filter={false} />
             </div>
-            <div className={admin ? "col-xl-6" : "col-xl-12"}>
+            <div className={admin ? "col-xl-12" : "col-xl-12"}>
               <EventCalendar />
             </div>
           </div>

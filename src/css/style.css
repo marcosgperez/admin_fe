@@ -902,6 +902,7 @@ progress {
 .container-lg,
 .container-xl,
 .container-xxl {
+  background-color: #f9f5f2;
   width: 100%;
   padding-right: var(--bs-gutter-x, 15px);
   padding-left: var(--bs-gutter-x, 15px);
@@ -4412,6 +4413,10 @@ fieldset:disabled .btn {
 
 .dropdown-menu.show {
   display: block;
+}
+
+.header {
+  background-color: red;
 }
 
 .dropdown-header {
@@ -13466,6 +13471,19 @@ svg.pulse-svg .third-circle {
   padding-left: 7.5rem;
 }
 
+.tableRow:hover {
+  background-color: #d1d0cd;
+  color:black;
+  transition: all ease-in 0.2s;
+
+  /* scale: 1.1;
+  box-shadow: 0px 0px 10px gray; */
+}
+.rowImage{
+  width:50%;
+  border-radius: 8px;
+}
+
 @media only screen and (max-width: 63.9375rem) {
   [data-sidebar-style="mini"] .header {
     height: 5.5rem;
@@ -13484,6 +13502,7 @@ svg.pulse-svg .third-circle {
 
 [data-header-position="fixed"] .header {
   position: fixed;
+  background-color: #fff;
   top: 0;
   width: 100%;
 }
@@ -40636,38 +40655,43 @@ ul {
   display: flex;
   /* background-color: red; */
 }
-.roomListHeader .row{
+
+.roomListHeader .row {
   width: 100%;
   display: flex;
   align-items: center;
 
 }
+
 .RoomListHeaderItem {
   width: 10%;
   /* background-color: blue; */
 }
-.roomListRow{
-  width:100%;
-  height:fit-content;
+
+.roomListRow {
+  width: 100%;
+  height: fit-content;
   background-color: red;
   margin-bottom: 10px;
   display: flex;
   padding: 10px;
   align-items: center;
-  justify-content:space-around;
+  justify-content: space-around;
   border-bottom: 2px solid gray;
 }
-.roomListRowsContainer{
+
+.roomListRowsContainer {
   width: 100%;
   height: fit-content;
   /* background-color: red; */
-  height:fit-content;
+  height: fit-content;
   display: flex;
   align-items: center;
   align-content: center;
   justify-content: space-around;
 }
-.roomListRowsContainer .roomListRow div{
+
+.roomListRowsContainer .roomListRow div {
   width: 15%;
   border: 2px solid red;
   height: 100%;
@@ -40677,10 +40701,12 @@ ul {
   text-align: center;
   margin: auto;
 }
-.roomListRowsContainer .roomListRow img{
-  width: 100px;
 
+.roomListCard{
+  height: fit-content;
+  /* background-color: red; */
 }
+
 .facility {
   /* min-width: 200px; */
   background-color: blue;

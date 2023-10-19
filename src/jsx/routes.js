@@ -31,12 +31,12 @@ export const linkData = [
         iconStyle: <i className="fas fa-chart-line"></i>,
         to: 'task',
     },
-    {
-        title: 'Tasks Id',
-        classsChange: 'mm-collapse',
-        iconStyle: <i className="fas fa-chart-line"></i>,
-        to: 'task/:taskId',
-    },
+    // {
+    //     title: 'Tasks Id',
+    //     classsChange: 'mm-collapse',
+    //     iconStyle: <i className="fas fa-chart-line"></i>,
+    //     to: 'task/:taskId',
+    // },
 
 
     // staff
@@ -56,7 +56,7 @@ export const linkData = [
 
     // urls
     { url: "/", component: <Home /> },
-    { url: "task/:taskId", component: <Home /> },
+    { url: "/:taskId", component: <Reviews /> },
     { url: "guest-list", component: <GuestList /> },
     { url: "guest-details", component: <GuestDetails /> },
     { url: "concierge-list", component: <ConciergeList /> },
