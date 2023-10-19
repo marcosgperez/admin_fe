@@ -29,7 +29,7 @@ export const linkData = [
         title: 'Tasks',
         classsChange: 'mm-collapse',
         iconStyle: <i className="fas fa-chart-line"></i>,
-        to: 'task',
+        to: 'tasks',
     },
     // {
     //     title: 'Tasks Id',
@@ -44,7 +44,7 @@ export const linkData = [
         title: 'Staff',
         classsChange: 'mm-collapse',
         iconStyle: <i className="fas fa-table"></i>,
-        to: "concierge-list"
+        to: "staff"
     },
     // Facilities
     {
@@ -59,10 +59,10 @@ export const linkData = [
     { url: "/:taskId", component: <Reviews /> },
     { url: "guest-list", component: <GuestList /> },
     { url: "guest-details", component: <GuestDetails /> },
-    { url: "concierge-list", component: <ConciergeList /> },
+    { url: "staff", component: <ConciergeList /> },
     { url: "room-list", component: <RoomList /> },
     { url: "reviews", component: <Reviews /> },
-    { url: "task", component: <Tasks /> },
+    { url: "tasks", component: <Tasks /> },
     { url: "task-detail", component: <TaskDetail /> },
     { url: "facilities", component: <Facilities /> },
 

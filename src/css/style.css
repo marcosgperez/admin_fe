@@ -13471,16 +13471,100 @@ svg.pulse-svg .third-circle {
   padding-left: 7.5rem;
 }
 
+.dropDown {
+  height: 30px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.closed {
+  height: 0px;
+  padding-left: 5px;
+  transition: all ease-in-out 0.2s;
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  border: 0px solid black;
+  position: relative;
+  border-radius: 4px;
+}
+
+.closed div {
+  /* font-size: 0px; */
+  display: none;
+  transition: all 0.01s;
+  margin-bottom: 0px;
+}
+
+.dropDownButton div p {
+  margin-bottom: 0px;
+}
+
+.dropDownOptions {
+  /* background-color: rebeccapurple; */
+  height: 110px;
+  padding-left: 5px;
+  transition: all ease-in-out 0.2s;
+  user-select: none;
+  background-color: #f5f0f0;
+  /* background-color: red; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  border: 1px solid black;
+  position: relative;
+  border-radius: 4px;
+}
+
+.dropDownButton .active {
+  color: green
+}
+
+.dropDownButton .inactive {
+  color: red
+}
+
+.dropDownButton .break {
+  color: #c7d106
+}
+
+.dropDownOptions .active {
+  color: green
+}
+
+.dropDownOptions .inactive {
+  color: red
+}
+
+.dropDownOptions .break {
+  color: #c7d106
+}
+
+.dropDownButton {
+  width: 130px;
+  border-radius: 4px;
+
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  padding: 5px;
+  margin-bottom: 5px;
+  /* margin-left: -10px; */
+  border: 2px solid black;
+}
+
 .tableRow:hover {
-  background-color: #d1d0cd;
-  color:black;
+  /* background-color: #d1d0cd;
+  color:black; */
   transition: all ease-in 0.2s;
 
-  /* scale: 1.1;
-  box-shadow: 0px 0px 10px gray; */
+  /* scale: 1.1; */
+  box-shadow: 0px 0px 20px gray;
 }
-.rowImage{
-  width:50%;
+
+.rowImage {
+  width: 50%;
   border-radius: 8px;
 }
 
@@ -40656,6 +40740,7 @@ ul {
   /* background-color: red; */
 }
 
+
 .roomListHeader .row {
   width: 100%;
   display: flex;
@@ -40663,9 +40748,61 @@ ul {
 
 }
 
+.tableHeader {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 3px solid #828282;
+  color: black;
+  font-weight: 500;
+  /* background-color: red; */
+}
+
+.tableHeader .headerItem {
+  width: 10%;
+  justify-content: center;
+  text-align: "start";
+  font-size: 20px;
+  padding: 10px 0px;
+  font-weight: 600;
+  margin: 5px;
+}
+
+.tableHeader .headerName {
+  width: 20%;
+  justify-content: center;
+  text-align: "start";
+  font-size: 20px;
+  font-weight: 600;
+  padding-left: 20px;
+  padding-top: 10px;
+  margin: 5px;
+  /* padding: "10px 0px 10px 20px"; */
+}
+
+@media screen and (max-width:992px) {
+
+  .tableHeader .headerName {
+    width: 10%;
+    justify-content: center;
+    text-align: "start";
+    font-size: 10px;
+    padding: "10px 0px 10px 20px";
+    font-weight: 600;
+    margin: 5px;
+
+  }
+}
+
 .RoomListHeaderItem {
   width: 10%;
   /* background-color: blue; */
+}
+
+@media screen and (max-width:992px) {
+  .headerItem {
+    background-color: red;
+    font-size: 10px;
+  }
 }
 
 .roomListRow {
@@ -40702,7 +40839,7 @@ ul {
   margin: auto;
 }
 
-.roomListCard{
+.roomListCard {
   height: fit-content;
   /* background-color: red; */
 }

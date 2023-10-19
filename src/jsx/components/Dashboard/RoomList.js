@@ -1,13 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { Dropdown, Tab, Nav } from 'react-bootstrap';
-
 import room4 from './../../../images/room/room4.jpg';
-import room5 from './../../../images/room/room5.jpg';
-import room6 from './../../../images/room/room6.jpg';
-import room7 from './../../../images/room/room7.jpg';
-//import GuestCarousel from './Room/GuestCarousel';
-
 import Available from './Room/Available';
 import Booked from './Room/Booked';
 
@@ -31,24 +25,22 @@ const DropdownBlog = () => {
 	)
 }
 
-// 	<th> Name</th >
-// 	<th>Type</th>
-// 	<th>Assigned</th>
-// 	<th>Date</th>
-// <th>Time</th>
-// <th>Status</th>
-
 const taskData = [
 	{ id: 1, name: "room 201", type: "maintainance", assigned: "Joaquin Cerruti Lerech", date: "11/10/23", time: "10:32", button: "warning", status: "On Progress" },
 	{ id: 2, name: "room 201", type: "maintainance", assigned: "John Doe", date: "11/10/23", time: "10:32", button: "success", status: "Done" },
-	{ id: 3, name: "room 201", type: "maintainance", assigned: "John Doe", date: "11/10/23", time: "10:32", button: "success", status: "Done" },
-	{ id: 4, name: "room 201", type: "maintainance", assigned: "John Doe", date: "11/10/23", time: "10:32", button: "warning", status: "On Progress" },
-	{ id: 5, name: "room 201", type: "maintainance", assigned: "John Doe", date: "11/10/23", time: "10:32", button: "warning", status: "On Progress" },
-	{ id: 6, name: "room 201", type: "maintainance", assigned: "John Doe", date: "11/10/23", time: "10:32", button: "success", status: "Done" },
-	{ id: 7, name: "room 201", type: "maintainance", assigned: "John Doe", date: "11/10/23", time: "10:32", button: "warning", status: "On Progress" },
+	{ id: 3, name: "room 201", type: "maintainance", assigned: "John Doe", date: "11/10/23", time: "10:32", button: "danger", status: "Not finished" },
+	// { id: 4, name: "room 201", type: "maintainance", assigned: "John Doe", date: "11/10/23", time: "10:32", button: "warning", status: "On Progress" },
+	// { id: 5, name: "room 201", type: "maintainance", assigned: "John Doe", date: "11/10/23", time: "10:32", button: "warning", status: "On Progress" },
+	// { id: 6, name: "room 201", type: "maintainance", assigned: "John Doe", date: "11/10/23", time: "10:32", button: "success", status: "Done" },
+	// { id: 7, name: "room 201", type: "maintainance", assigned: "John Doe", date: "11/10/23", time: "10:32", button: "warning", status: "On Progress" },
 ]
 
-const RoomList = () => {
+const RoomList = (title) => {
+	if (title) {
+		let _title = title
+	} else {
+		let _title = "tasks"
+	}
 	const [selectBtn, setSelectBtn] = useState("Newest");
 	const [data, setData] = useState(
 		document.querySelectorAll("#room_wrapper tbody tr")
@@ -72,7 +64,6 @@ const RoomList = () => {
 		//chackboxFun();
 	}, [test]);
 
-
 	// Active pagginarion
 	activePag.current === 0 && chageData(0, sort);
 	// paggination
@@ -86,7 +77,6 @@ const RoomList = () => {
 		chageData(activePag.current * sort, (activePag.current + 1) * sort);
 		settest(i);
 	};
-
 
 	const chackbox = document.querySelectorAll(".sorting_7 input");
 	const motherChackBox = document.querySelector(".sorting_asc_7 input");
@@ -111,7 +101,6 @@ const RoomList = () => {
 		}
 	};
 
-
 	return (
 		<>
 			<Tab.Container defaultActiveKey="All" >
@@ -125,23 +114,21 @@ const RoomList = () => {
 											<div id="room_wrapper" className="dataTables_wrapper no-footer">
 												<div className={"tableContainer"} style={{ width: "100%", alignItems: "center" }} >
 													<div style={{ fontSize: "30px", paddingTop: "20px", paddingLeft: "20px", fontWeight: "500" }} >Tasks</div>
-													<div className={"tableHeader"} style={{ display: "flex", justifyContent: "space-between", borderBottom: "3px solid #828282",color:"black",fontWeigth:"500" }}>
+													<div className={"tableHeader"}>
 														{/* <div style={{ width: "0.5%", justifyContent: "center", textAlign: "start", fontSize: "16px", padding: "10px 0px", fontWeight: "500", margin: "5px" }}></div> */}
-														<div style={{ width: "20%", justifyContent: "center", textAlign: "start", fontSize: "20px", fontWeight: "600", margin: "5px", padding: "10px 0px 10px 20px" }}>Name</div>
-														<div style={{ width: "10%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Type</div>
-														<div style={{ width: "10%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Assigned</div>
-														<div style={{ width: "10%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Date</div>
-														<div style={{ width: "10%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Time</div>
-														<div style={{ width: "10%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Status</div>
+														<div className="headerName" >Name</div>
+														<div className="headerItem" >Type</div>
+														<div className="headerItem" >Assigned</div>
+														<div className="headerItem" >Date</div>
+														<div className="headerItem" >Time</div>
+														<div className="headerItem" >Status</div>
 
 													</div>
-
-
-													<div className={"tableBody"} style={{padding:"10px 0px"}} >
+													<div className={"tableBody"} style={{ padding: "10px 0px" }} >
 														{taskData.map((t, i) => {
 															return (
 																<Link to={`/:${t.id}`}>
-																	<div className={"tableRow"} style={{ width: "100%", display: "flex", justifyContent: "space-between", marginBottom: "20px"}}>
+																	<div className={"tableRow"} style={{ width: "100%", display: "flex", justifyContent: "space-between", padding: "10px 0px", textSelect: "none" }}>
 																		{/* <div style={{ width: "0.00005%", display: "flex", alignItems: "center", justifyContent: "end", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
 																		</div> */}
 																		<div style={{ width: "20%", display: "flex", padding: "0px 0px 0px 20px", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
@@ -157,59 +144,12 @@ const RoomList = () => {
 																		<div style={{ width: "10%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
 																			<Link to={"#"} style={{ width: "fit-content" }} className={`btn btn-${t.button} btn-sm}`}>{t.status}</Link>
 																		</div>
-																		{/* <div style={{ width: "5%", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", display:"flex",margin: "5px", alignItems:"center" }}><DropdownBlog></DropdownBlog></div> */}
 																	</div>
 																</Link>
 															)
 														})}
 													</div>
 												</div>
-												{/* <div className="d-sm-flex text-center justify-content-between align-items-center mt-3 mb-3">
-													<div className="dataTables_info">
-														Showing {activePag.current * sort + 1} to{" "}
-														{data.length > (activePag.current + 1) * sort
-															? (activePag.current + 1) * sort
-															: data.length}{" "}
-														of {data.length} entries
-													</div>
-													<div
-														className="dataTables_paginate paging_simple_numbers mb-0"
-														id="example2_paginate"
-													>
-														<Link
-															className="paginate_button previous disabled"
-															to="/room-list"
-															onClick={() =>
-																activePag.current > 0 &&
-																onClick(activePag.current - 1)
-															}
-														>
-															<i className="fa fa-angle-double-left"></i> Previous
-														</Link>
-														<span>
-															{paggination.map((number, i) => (
-																<Link key={i} to="/room-list"
-																	className={`paginate_button  ${activePag.current === i ? "current" : ""
-																		} `}
-																	onClick={() => onClick(i)}
-																>
-																	{number}
-																</Link>
-															))}
-														</span>
-
-														<Link
-															className="paginate_button next"
-															to="/room-list"
-															onClick={() =>
-																activePag.current + 1 < paggination.length &&
-																onClick(activePag.current + 1)
-															}
-														>
-															Next <i className="fa fa-angle-double-right"></i>
-														</Link>
-													</div>
-												</div> */}
 											</div>
 										</div>
 									</Tab.Pane>

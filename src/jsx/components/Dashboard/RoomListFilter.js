@@ -14,13 +14,13 @@ const RoomListFilter = () => {
                         <Nav.Link className="nav-link" eventKey="All">See All</Nav.Link>
                     </Nav.Item>
                     <Nav.Item as="li" className="nav-item">
-                        <Nav.Link className="nav-link" eventKey="Available">HouseKeeping</Nav.Link>
+                        <Nav.Link className="nav-link" eventKey="HouseKeeping">HouseKeeping</Nav.Link>
                     </Nav.Item>
                     <Nav.Item as="li" className="nav-item">
-                        <Nav.Link className="nav-link" eventKey="Booked">Maintainance</Nav.Link>
+                        <Nav.Link className="nav-link" eventKey="Maintainance">Maintainance</Nav.Link>
                     </Nav.Item>
                     <Nav.Item as="li" className="nav-item">
-                        <Nav.Link className="nav-link" eventKey="Booked">Other Facilities </Nav.Link>
+                        <Nav.Link className="nav-link" eventKey="Other">Other Facilities </Nav.Link>
                     </Nav.Item>
 
                 </Nav>
