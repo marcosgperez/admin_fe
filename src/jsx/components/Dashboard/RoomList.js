@@ -1,9 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from "react-router-dom";
+import { connect } from 'react-redux';
 import { Dropdown, Tab, Nav } from 'react-bootstrap';
 import room4 from './../../../images/room/room4.jpg';
 import Available from './Room/Available';
 import Booked from './Room/Booked';
+
+import { getTasksAction } from './../../../store/actions/TasksActions';
 
 const DropdownBlog = () => {
 	return (
@@ -25,22 +28,10 @@ const DropdownBlog = () => {
 	)
 }
 
-const taskData = [
-	{ id: 1, name: "room 201", type: "maintainance", assigned: "Joaquin Cerruti Lerech", date: "11/10/23", time: "10:32", button: "warning", status: "On-Progress" },
-	{ id: 2, name: "room 201", type: "maintainance", assigned: "John Doe", date: "11/10/23", time: "10:32", button: "success", status: "Done" },
-	{ id: 3, name: "room 201", type: "maintainance", assigned: "John Doe", date: "11/10/23", time: "10:32", button: "danger", status: "Not-finished" },
-	// { id: 4, name: "room 201", type: "maintainance", assigned: "John Doe", date: "11/10/23", time: "10:32", button: "warning", status: "On Progress" },
-	// { id: 5, name: "room 201", type: "maintainance", assigned: "John Doe", date: "11/10/23", time: "10:32", button: "warning", status: "On Progress" },
-	// { id: 6, name: "room 201", type: "maintainance", assigned: "John Doe", date: "11/10/23", time: "10:32", button: "success", status: "Done" },
-	// { id: 7, name: "room 201", type: "maintainance", assigned: "John Doe", date: "11/10/23", time: "10:32", button: "warning", status: "On Progress" },
-]
 
-const RoomList = (title) => {
-	if (title) {
-		let _title = title
-	} else {
-		let _title = "tasks"
-	}
+const RoomList = ({ tasksData, getTasksAction }) => {
+	const { loading, tasks, error } = tasksData;
+
 	const [selectBtn, setSelectBtn] = useState("Newest");
 	const [data, setData] = useState(
 		document.querySelectorAll("#room_wrapper tbody tr")
@@ -58,6 +49,11 @@ const RoomList = (title) => {
 			}
 		}
 	};
+
+	React.useEffect(() => {
+		getTasksAction()
+	},[])
+
 	// use effect
 	useEffect(() => {
 		setData(document.querySelectorAll("#room_wrapper tbody tr"));
@@ -108,7 +104,7 @@ const RoomList = (title) => {
 					<div className="col-xl-12">
 						<div className="card roomListCard" style={{ heigth: "20px" }} >
 							<div style={{ overflow: "auto" }} className="card-body p-0">
-								<Tab.Content style={{ minWidth: "650px", heigth: "200px" }} >
+								<Tab.Content style={{ minWidth: "650px", heigth: "200px" }}>
 									<Tab.Pane eventKey="All">
 										<div className="table-responsive">
 											<div id="room_wrapper" className="dataTables_wrapper no-footer">
@@ -124,31 +120,33 @@ const RoomList = (title) => {
 														<div className="headerItem" >Status</div>
 
 													</div>
-													<div className={"tableBody"} style={{ padding: "10px 0px" }} >
-														{taskData.map((t, i) => {
-															return (
-																<Link to={`/task/:${t.id}`}>
-																	<div className={"tableRow"} style={{ width: "100%", display: "flex", justifyContent: "space-between", padding: "10px 0px", textSelect: "none" }}>
-																		{/* <div style={{ width: "0.00005%", display: "flex", alignItems: "center", justifyContent: "end", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
-																		</div> */}
-																		<div className="rowName">
-																			<img alt={"idk bruh0"} src={room4} className="rowImage" ></img>
-																			<p style={{ marginBottom: "0px", marginLeft: "20px" }}>
-																				{t.name}
-																			</p>
+													{loading == false && tasks.length && (
+														<div className={"tableBody"} style={{ padding: "10px 0px" }} >
+															{tasks.map((t, i) => {
+																return (
+																	<Link to={`/task/:${t.id}`}>
+																		<div className={"tableRow"} style={{ width: "100%", display: "flex", justifyContent: "space-between", padding: "10px 0px", textSelect: "none" }}>
+																			{/* <div style={{ width: "0.00005%", display: "flex", alignItems: "center", justifyContent: "end", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
+																			</div> */}
+																			<div className="rowName">
+																				<img alt={"idk bruh0"} src={room4} className="rowImage" ></img>
+																				<p style={{ marginBottom: "0px", marginLeft: "20px" }}>
+																					{t.name}
+																				</p>
+																			</div>
+																			<div className="rowItem" >{t.type}</div>
+																			<div className="rowItem" >{t.assigned}</div>
+																			<div className="rowItem" >{t.date}</div>
+																			<div className="rowItem" >{t.time}</div>
+																			<div className="rowItem" >
+																				<Link to={"#"} style={{ width: "fit-content" }} className={`rowBtn-${t.status}`}>{t.status.replace("-", " ")}</Link>
+																			</div>
 																		</div>
-																		<div className="rowItem" >{t.type}</div>
-																		<div className="rowItem" >{t.assigned}</div>
-																		<div className="rowItem" >{t.date}</div>
-																		<div className="rowItem" >{t.time}</div>
-																		<div className="rowItem" >
-																			<Link to={"#"} style={{ width: "fit-content" }} className={`rowBtn-${t.status}`}>{t.status.replace("-", " ")}</Link>
-																		</div>
-																	</div>
-																</Link>
-															)
-														})}
-													</div>
+																	</Link>
+																)
+															})}
+														</div>
+													)}
 												</div>
 											</div>
 										</div>
@@ -168,4 +166,15 @@ const RoomList = (title) => {
 		</>
 	)
 }
-export default RoomList;
+const mapStateToProps = (rootState) => {
+	console.log("rootState",rootState)
+	return {
+		tasksData: rootState.tasksData
+	}
+}
+
+const mapDispatchToProps = {
+	getTasksAction
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RoomList);

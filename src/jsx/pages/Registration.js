@@ -1,11 +1,8 @@
 import React,{useState} from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import swal from "sweetalert";
-import { connect, useDispatch } from 'react-redux';
-import {
-    loadingToggleAction,
-    signupAction,
-} from '../../store/actions/AuthActions';
+import { connect } from 'react-redux';
+
 // image
 import logo from "../../images/logo-full.png";
 
@@ -15,8 +12,8 @@ function Register(props) {
     const [errors, setErrors] = useState(errorsObj);
     const [password, setPassword] = useState('');
 
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
+    // const navigate = useNavigate();
+    // const dispatch = useDispatch();
 
     function onSignUp(e) {
         e.preventDefault();
@@ -34,8 +31,8 @@ function Register(props) {
         }
         setErrors(errorObj);
         if (error) return;
-        dispatch(loadingToggleAction(true));
-        dispatch(signupAction(email, password, navigate));
+        // dispatch(loadingToggleAction(true));
+        // dispatch(signupAction(email, password, navigate));
     }
     return (
       <div className="authincation h-100 p-meddle">

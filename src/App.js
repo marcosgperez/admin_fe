@@ -3,15 +3,11 @@ import { lazy, Suspense, useEffect } from 'react';
 /// Components
 import Index from "./jsx";
 import { connect, useDispatch } from 'react-redux';
-import { Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom';
-// action
-import { checkAutoLogin } from './services/AuthService';
-import { isAuthenticated } from './store/selectors/AuthSelectors';
+import { Routes, useLocation, useNavigate, useParams } from 'react-router-dom';
 /// Style
 // import "./vendor/bootstrap-select/dist/css/bootstrap-select.min.css";
 import "./css/style.css";
-import Login from './components/Login';
-import Home from './components/Home';
+
 const SignUp = lazy(() => import('./jsx/pages/Registration'));
 const ForgotPassword = lazy(() => import('./jsx/pages/ForgotPassword'));
 
@@ -34,18 +30,14 @@ function withRouter(Component) {
 
 
 
-function App(props) {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  useEffect(() => {
-    checkAutoLogin(dispatch, navigate);
-  }, []);
+function App({ isAuthenticated}) {
+  
   let routeblog = (
     <Routes>
 
     </Routes>
   );
-  if (props.isAuthenticated) {
+  if (isAuthenticated) {
     return (
       <>
         <Suspense fallback={
@@ -90,5 +82,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-//export default connect((mapStateToProps)(App)); 
 export default withRouter(connect(mapStateToProps)(App)); 

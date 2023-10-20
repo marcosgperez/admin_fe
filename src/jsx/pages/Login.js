@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
-import { connect, useDispatch } from 'react-redux';
-import { Link,useNavigate } from 'react-router-dom'
-import { loadingToggleAction,loginAction,
-} from '../../store/actions/AuthActions';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom'
 
 // image
 import logo from "../../images/logo-full.png";
@@ -14,8 +12,7 @@ function Login (props) {
     const [errors, setErrors] = useState(errorsObj);
     const [password, setPassword] = useState('123456');
 
-	const navigate = useNavigate();
-	const dispatch = useDispatch();
+	// const navigate = useNavigate();
 	
     function onLogin(e) {
         e.preventDefault();
@@ -33,8 +30,8 @@ function Login (props) {
         if (error) {
 			return ;
 		}
-		dispatch(loadingToggleAction(true));	
-        dispatch(loginAction(email, password, navigate));
+		// dispatch(loadingToggleAction(true));	
+        // dispatch(loginAction(email, password, navigate));
     }
 
   return (

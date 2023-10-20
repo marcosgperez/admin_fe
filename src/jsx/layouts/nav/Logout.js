@@ -1,9 +1,7 @@
 import React  from 'react';
-import {connect, useDispatch } from 'react-redux';
+import {connect } from 'react-redux';
 import {  useLocation, useNavigate, useParams } from 'react-router-dom';
 
-import { Logout } from '../../../store/actions/AuthActions';
-import { isAuthenticated } from '../../../store/selectors/AuthSelectors';
 
 function withRouter(Component) {
     function ComponentWithRouterProp(props) {
@@ -22,10 +20,9 @@ function withRouter(Component) {
 }
 
 function LogoutPage(){
-    const dispatch = useDispatch();
     const navigate = useNavigate();
     function onLogout() {
-       dispatch(Logout(navigate));
+      //  dispatch(Logout(navigate));
        // window.location.reload();
     }
     return(
@@ -47,7 +44,7 @@ function LogoutPage(){
 } 
 const mapStateToProps = (state) => {
     return {
-        isAuthenticated: isAuthenticated(state),
+        isAuthenticated: true // isAuthenticated(state),
     };
 };
 

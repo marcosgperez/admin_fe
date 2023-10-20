@@ -1,22 +1,16 @@
-import React, { useContext, useEffect, useMemo } from "react";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
-//Import Components
-import { ThemeContext } from "../context/ThemeContext";
-import ReservationStats from "../jsx/components/Dashboard/Dashboard/ReservationStats";
-import LatestReview from "../jsx/components/Dashboard/Dashboard/LatestReview";
-import RecentBooking from "../jsx/components/Dashboard/Dashboard/RecentBooking";
-import { getRoomsAction } from "../store/actions/RoomsActions";
+import React from "react";
 import EventCalendar from "../jsx/components/AppsMenu/Calendar/EventCalendar";
 import RoomList from "../jsx/components/Dashboard/RoomList";
-import EmployeeEventCalendar from "../jsx/components/AppsMenu/Calendar/EmployeeEventCalendar";
-const Home = () => {
-  const dispatch = useDispatch();
-  const roomsData = useSelector((state) => state.roomsData);
+import { connect } from "react-redux";
+import { getRoomsAction } from "../store/actions/RoomsActions";
+
+const Home = ({ getRoomsAction, roomsData }) => {
+
   let admin = true
-  useMemo(() => {
-    dispatch(getRoomsAction());
-  }, []);
+  React.useEffect(() => {
+    getRoomsAction()
+  },[])
+
   return (
     <>
       <div className="row">
@@ -147,4 +141,15 @@ const Home = () => {
     </>
   );
 };
-export default Home;
+
+const mapStateToProps = (rootState) => {
+  return {
+    roomsData: rootState.roomsData
+  }
+} 
+
+const mapDispatchToProps = {
+  getRoomsAction
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Home);

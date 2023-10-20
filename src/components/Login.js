@@ -1,17 +1,16 @@
 import React, { useState } from "react";
-import { connect, useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { loadingToggleAction, loginAction } from "../store/actions/AuthActions";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 // image
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import logo from "../images/logo-full.png";
 import loginbg from "../images/pic1.png";
-import { getRoomsAction } from "../store/actions/RoomsActions";
+
+
 function Login(props) {
   let errorsObj = { email: "", password: "" };
   const [errors, setErrors] = useState(errorsObj);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const navigate = useNavigate();
   const [data, setData] = useState({
     email: "marcoss.g.perez@gmail.com",
     password: "123456",
@@ -35,8 +34,8 @@ function Login(props) {
     if (error) {
       return;
     }
-    dispatch(loadingToggleAction(true));
-    dispatch(loginAction(data, navigate));
+    // dispatch(loadingToggleAction(true));
+    // dispatch(loginAction(data, navigate));
   }
 
   return (
