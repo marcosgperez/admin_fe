@@ -56,7 +56,7 @@ export const linkData = [
 
     // urls
     { url: "/", component: <Home /> },
-    { url: "task/:taskId", component: <TaskDetail /> },
+    { url: "task/:taskId", component: <Reviews /> },
     { url: "employee/:employeeId", component: <Reviews /> },
     { url: "guest-list", component: <GuestList /> },
     { url: "guest-details", component: <GuestDetails /> },

@@ -4690,7 +4690,9 @@ fieldset:disabled .btn {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
 }
-
+.container-fluid{
+  min-height: 1150px;
+}
 .navbar>.container,
 .navbar>.container-fluid,
 .navbar>.container-sm,
@@ -13563,6 +13565,10 @@ svg.pulse-svg .third-circle {
   box-shadow: 0px 0px 20px gray;
 }
 
+.fc-direction-ltr .fc-daygrid-event.fc-event-end {
+  background-color: #c96161;
+}
+
 .rowImage {
   width: 50%;
   border-radius: 8px;
@@ -13572,46 +13578,6 @@ svg.pulse-svg .third-circle {
   height: 800px;
 }
 
-.taskDetailCard img{
-  width: 30%;
-}
-.detailImage{
-  /* background-color: red; */
-  display: flex;
-  align-items: center;
-  /* justify-content: space-between; */
-  width: 50%;
-}
-.detailImage input{
-  height: 45px;
-  width: 100%;
-  border-radius: 8px;
-  background-color: #dbdbdb;
-  margin-bottom: 20px;
-}
-.detailImage .inputs{
-  /* background-color: green; */
-  width: 50%;
-  padding-left: 30px;
-}
-.buttons{
-  display: flex;
-  /* background-color: red; */
-  width: 70%;
-  justify-content: space-between;
-}
-.detailButton{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.detailButton p{
-  margin-bottom: 0px;
-}
-.detailButton button{
-  width: 20px;
-  height: 20px;
-}
 @media only screen and (max-width: 63.9375rem) {
   [data-sidebar-style="mini"] .header {
     height: 5.5rem;
@@ -13882,6 +13848,7 @@ svg.pulse-svg .third-circle {
 
 .header-right .notification_dropdown .nav-link .badge {
   position: absolute;
+  /* background-color: blue; */
   font-size: 0.625rem;
   border-radius: 0.5rem !important;
   right: -0.2rem;
@@ -34091,10 +34058,12 @@ table {
   .fc .fc-toolbar.fc-header-toolbar .fc-toolbar-chunk {
     display: flex;
     justify-content: center;
+    background-color: #c96161;
   }
 
   .fc .fc-toolbar.fc-header-toolbar .fc-toolbar-chunk:first-child {
     justify-content: space-between;
+    background-color: #c96161;
   }
 
   .fc .fc-toolbar.fc-header-toolbar .fc-toolbar-title {
@@ -40262,6 +40231,8 @@ table.dataTable.display tbody td {
   box-shadow: 0 1.188rem 1.188rem rgba(0, 0, 0, 0.16) !important;
 }
 
+
+
 .booking:hover .booking-status span {
   background: var(--primary);
   transition: all .5s ease-in-out;
@@ -40269,6 +40240,10 @@ table.dataTable.display tbody td {
 
 .booking:hover .booking-status span svg path {
   fill: #fff;
+}
+
+.booking:hover .booking-status span {
+  background-color: #c96161;
 }
 
 .event-calender .table-condensed thead tr:first-child {
@@ -40866,7 +40841,7 @@ ul {
 }
 
 .rowBtn-Done {
-  background-color: green;
+  background-color: #7aa577;
   padding: 10px 20px;
   border-radius: 8px;
   min-width: 100px;
@@ -40878,7 +40853,7 @@ ul {
 }
 
 .rowBtn-Not-finished {
-  background-color: red;
+  background-color: #c96161;
   padding: 10px 20px;
   border-radius: 8px;
   min-width: 100px;
@@ -40890,7 +40865,7 @@ ul {
 }
 
 .rowBtn-On-Progress {
-  background-color: orange;
+  background-color: #ead681;
   padding: 10px 20px;
   border-radius: 8px;
   min-width: 100px;

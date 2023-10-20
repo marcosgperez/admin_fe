@@ -10,7 +10,7 @@ import EmployeeEventCalendar from "./EmployeeEventCalendar";
 const EventCalendar = () => {
    const calendarComponentRef = React.useRef();
    const calendarEventsRef = React.useRef({});
-   
+
    const [calendarEvents, setCalendarEvents] = React.useState([
       {
          title: "Atlanta Monster",
@@ -75,7 +75,7 @@ const EventCalendar = () => {
             { title: "Event 7", id: "7" },
             { title: "Event 8", id: "8" },
          ])
-      },2000)
+      }, 2000)
 
    }, [])
 
@@ -111,12 +111,12 @@ const EventCalendar = () => {
          showCancelButton: true,
          showDenyButton: true,
          showConfirmButton: admin,
-         confirmButtonColor: "#d33",
-         cancelButtonColor: "#3085d6",
+         confirmButtonColor: "#c96161",
+         cancelButtonColor: "#fcaea9",
          confirmButtonText: "Remove Event",
          cancelButtonText: "Close",
          denyButtonText: "go to task",
-         denyButtonColor: "#3085d6"
+         denyButtonColor: "#c96161"
       }).then((result) => {
          if (result.value) {
             eventClick.event.remove(); // It will remove event from the calendar
@@ -199,7 +199,8 @@ const EventCalendar = () => {
                      <Card.Body style={{ overflow: "scroll" }}>
                         <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "start" }} id="external-events">
                            {events.map((event) => (
-                              <div draggable={true} ref={(ref) => createRef(event, ref)} data-id={event.id} style={{ width: "fit-content", height: "50px" }}
+                              <div draggable={true} ref={(ref) => createRef(event, ref)} data-id={event.id} style={{ width: "fit-content", height: "50px", backgroundColor: "#c96161" }}
+                                 
                                  className="fc-event mt-0 ms-0 mb-2 btn btn-block btn-primary"
                                  title={event.title}
                                  data={event.id}

@@ -55,9 +55,9 @@ const DropDown = ({ status }) => {
 				</div>
 			</div>
 			<div className={open ? "dropDownOptions" : "closed"}>
-				<div className="active" onClick={() => selectOption("Active", "green")}>Active</div>
-				<div className="inactive" onClick={() => selectOption("Inactive", "red")}>Inactive</div>
-				<div className="break" onClick={() => selectOption("On Break", "#c7d106")}>On break</div>
+				<div className="active" onClick={() => selectOption("Active", "#7aa577")}>Active</div>
+				<div className="inactive" onClick={() => selectOption("Inactive", "#c96161")}>Inactive</div>
+				<div className="break" onClick={() => selectOption("On Break", "#ead681")}>On break</div>
 			</div>
 		</div>
 	);
