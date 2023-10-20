@@ -57,7 +57,7 @@ const DropDown = ({ status }) => {
 			<div className={open ? "dropDownOptions" : "closed"}>
 				<div className="active" onClick={() => selectOption("Active", "green")}>Active</div>
 				<div className="inactive" onClick={() => selectOption("Inactive", "red")}>Inactive</div>
-				<div className="break" onClick={() => selectOption("On Break","#c7d106")}>On break</div>
+				<div className="break" onClick={() => selectOption("On Break", "#c7d106")}>On break</div>
 			</div>
 		</div>
 	);
@@ -148,7 +148,7 @@ const ConciergeList = () => {
 													<div className={"tableBody"} style={{ padding: "10px 0px" }} >
 														{taskData.map((t, i) => {
 															return (
-																// <Link to={`/:${t.id}`}>
+
 																<div className={"tableRow"} style={{ width: "100%", display: "flex", justifyContent: "space-between", padding: "10px 0px", textSelect: "none" }}>
 																	{/* <div style={{ width: "0.00005%", display: "flex", alignItems: "center", justifyContent: "end", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
 																		</div> */}
@@ -170,7 +170,7 @@ const ConciergeList = () => {
 																	<div style={{ width: "10%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{t.contact}</div>
 																	<div style={{ width: "10%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}><DropDown status={t.status} /></div>
 																</div>
-																// </Link>
+
 															)
 														})}
 													</div>

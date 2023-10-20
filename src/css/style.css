@@ -13568,6 +13568,50 @@ svg.pulse-svg .third-circle {
   border-radius: 8px;
 }
 
+.taskDetailCard {
+  height: 800px;
+}
+
+.taskDetailCard img{
+  width: 30%;
+}
+.detailImage{
+  /* background-color: red; */
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  width: 50%;
+}
+.detailImage input{
+  height: 45px;
+  width: 100%;
+  border-radius: 8px;
+  background-color: #dbdbdb;
+  margin-bottom: 20px;
+}
+.detailImage .inputs{
+  /* background-color: green; */
+  width: 50%;
+  padding-left: 30px;
+}
+.buttons{
+  display: flex;
+  /* background-color: red; */
+  width: 70%;
+  justify-content: space-between;
+}
+.detailButton{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.detailButton p{
+  margin-bottom: 0px;
+}
+.detailButton button{
+  width: 20px;
+  height: 20px;
+}
 @media only screen and (max-width: 63.9375rem) {
   [data-sidebar-style="mini"] .header {
     height: 5.5rem;
@@ -40779,31 +40823,91 @@ ul {
   /* padding: "10px 0px 10px 20px"; */
 }
 
-@media screen and (max-width:992px) {
+.rowName {
+  width: 20%;
+  display: flex;
+  padding: 0px 0px 0px 20px;
+  align-items: center;
+  justify-content: start;
+  text-align: start;
+  font-size: 16px;
+  font-weight: 500;
+  margin: 5px;
+}
+
+.rowItem {
+  width: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  text-align: start;
+  font-size: 16px;
+  font-weight: 500;
+  margin: 5px;
+}
+
+@media (max-width:1255px) {
+  .tableHeader .headerItem {
+    font-size: 10px;
+    /* background-color: red; */
+  }
 
   .tableHeader .headerName {
-    width: 10%;
-    justify-content: center;
-    text-align: "start";
     font-size: 10px;
-    padding: "10px 0px 10px 20px";
-    font-weight: 600;
-    margin: 5px;
+  }
 
+  .rowItem {
+    font-size: 10px;
+  }
+
+  .rowItem p {
+    font-size: 10px;
   }
 }
 
-.RoomListHeaderItem {
-  width: 10%;
-  /* background-color: blue; */
+.rowBtn-Done {
+  background-color: green;
+  padding: 10px 20px;
+  border-radius: 8px;
+  min-width: 100px;
+  display: flex;
+  color: white;
+  text-align: center;
+  justify-content: center;
+  display: flex;
 }
 
-@media screen and (max-width:992px) {
+.rowBtn-Not-finished {
+  background-color: red;
+  padding: 10px 20px;
+  border-radius: 8px;
+  min-width: 100px;
+  display: flex;
+  color: white;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+}
+
+.rowBtn-On-Progress {
+  background-color: orange;
+  padding: 10px 20px;
+  border-radius: 8px;
+  min-width: 100px;
+  display: flex;
+  color: white;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+}
+
+
+/* @media screen and (max-width:992px) {
   .headerItem {
     background-color: red;
     font-size: 10px;
   }
-}
+} */
 
 .roomListRow {
   width: 100%;

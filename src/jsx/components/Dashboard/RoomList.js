@@ -26,9 +26,9 @@ const DropdownBlog = () => {
 }
 
 const taskData = [
-	{ id: 1, name: "room 201", type: "maintainance", assigned: "Joaquin Cerruti Lerech", date: "11/10/23", time: "10:32", button: "warning", status: "On Progress" },
+	{ id: 1, name: "room 201", type: "maintainance", assigned: "Joaquin Cerruti Lerech", date: "11/10/23", time: "10:32", button: "warning", status: "On-Progress" },
 	{ id: 2, name: "room 201", type: "maintainance", assigned: "John Doe", date: "11/10/23", time: "10:32", button: "success", status: "Done" },
-	{ id: 3, name: "room 201", type: "maintainance", assigned: "John Doe", date: "11/10/23", time: "10:32", button: "danger", status: "Not finished" },
+	{ id: 3, name: "room 201", type: "maintainance", assigned: "John Doe", date: "11/10/23", time: "10:32", button: "danger", status: "Not-finished" },
 	// { id: 4, name: "room 201", type: "maintainance", assigned: "John Doe", date: "11/10/23", time: "10:32", button: "warning", status: "On Progress" },
 	// { id: 5, name: "room 201", type: "maintainance", assigned: "John Doe", date: "11/10/23", time: "10:32", button: "warning", status: "On Progress" },
 	// { id: 6, name: "room 201", type: "maintainance", assigned: "John Doe", date: "11/10/23", time: "10:32", button: "success", status: "Done" },
@@ -127,22 +127,22 @@ const RoomList = (title) => {
 													<div className={"tableBody"} style={{ padding: "10px 0px" }} >
 														{taskData.map((t, i) => {
 															return (
-																<Link to={`/:${t.id}`}>
+																<Link to={`task/:${t.id}`}>
 																	<div className={"tableRow"} style={{ width: "100%", display: "flex", justifyContent: "space-between", padding: "10px 0px", textSelect: "none" }}>
 																		{/* <div style={{ width: "0.00005%", display: "flex", alignItems: "center", justifyContent: "end", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
 																		</div> */}
-																		<div style={{ width: "20%", display: "flex", padding: "0px 0px 0px 20px", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
+																		<div className="rowName">
 																			<img alt={"idk bruh0"} src={room4} className="rowImage" ></img>
 																			<p style={{ marginBottom: "0px", marginLeft: "20px" }}>
 																				{t.name}
 																			</p>
 																		</div>
-																		<div style={{ width: "10%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{t.type}</div>
-																		<div style={{ width: "10%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{t.assigned}</div>
-																		<div style={{ width: "10%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{t.date}</div>
-																		<div style={{ width: "10%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{t.time}</div>
-																		<div style={{ width: "10%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
-																			<Link to={"#"} style={{ width: "fit-content" }} className={`btn btn-${t.button} btn-sm}`}>{t.status}</Link>
+																		<div className="rowItem" >{t.type}</div>
+																		<div className="rowItem" >{t.assigned}</div>
+																		<div className="rowItem" >{t.date}</div>
+																		<div className="rowItem" >{t.time}</div>
+																		<div className="rowItem" >
+																			<Link to={"#"} style={{ width: "fit-content" }} className={`rowBtn-${t.status}`}>{t.status.replace("-", " ")}</Link>
 																		</div>
 																	</div>
 																</Link>

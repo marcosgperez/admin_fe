@@ -20,7 +20,7 @@ const Facilities = () => {
                                 <Nav.Link className="nav-link" eventKey="All">See All</Nav.Link>
                             </Nav.Item>
                             <Nav.Item as="li" className="nav-item">
-                                <Nav.Link className="nav-link" eventKey="Available">HouseKeeping</Nav.Link>
+                                <Nav.Link className="nav-link" eventKey="HouseKeeping">HouseKeeping</Nav.Link>
                             </Nav.Item>
                             <Nav.Item as="li" className="nav-item">
                                 <Nav.Link className="nav-link" eventKey="Booked">Maintainance</Nav.Link>
