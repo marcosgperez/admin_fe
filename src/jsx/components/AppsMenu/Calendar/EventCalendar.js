@@ -6,11 +6,10 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
 import Alert from "sweetalert2";
 import EmployeeEventCalendar from "./EmployeeEventCalendar";
-
 const EventCalendar = () => {
    const calendarComponentRef = React.useRef();
    const calendarEventsRef = React.useRef({});
-
+   
    const [calendarEvents, setCalendarEvents] = React.useState([
       {
          title: "Atlanta Monster",
@@ -75,7 +74,7 @@ const EventCalendar = () => {
             { title: "Event 7", id: "7" },
             { title: "Event 8", id: "8" },
          ])
-      }, 2000)
+      },2000)
 
    }, [])
 
@@ -199,8 +198,7 @@ const EventCalendar = () => {
                      <Card.Body style={{ overflow: "scroll" }}>
                         <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "start" }} id="external-events">
                            {events.map((event) => (
-                              <div draggable={true} ref={(ref) => createRef(event, ref)} data-id={event.id} style={{ width: "fit-content", height: "50px", backgroundColor: "#c96161" }}
-                                 
+                              <div draggable={true} ref={(ref) => createRef(event, ref)} data-id={event.id} style={{ width: "fit-content", height: "50px" }}
                                  className="fc-event mt-0 ms-0 mb-2 btn btn-block btn-primary"
                                  title={event.title}
                                  data={event.id}

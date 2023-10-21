@@ -11,6 +11,10 @@ const Home = ({ getRoomsAction, roomsData }) => {
     getRoomsAction()
   },[])
 
+  console.log(
+    roomsData.a
+  )
+
   return (
     <>
       <div className="row">
@@ -89,7 +93,7 @@ const Home = ({ getRoomsAction, roomsData }) => {
                       </svg>
                     </span>
                     <div className="ms-4">
-                      <h2 className="mb-0 font-w600">753</h2>
+                      <h2 className="mb-0 font-w600">{roomsData?.checkIn ? roomsData.checkIn : "..."}</h2>
                       <p className="mb-0">Check In</p>
                     </div>
                   </div>
@@ -119,7 +123,7 @@ const Home = ({ getRoomsAction, roomsData }) => {
                       </svg>
                     </span>
                     <div className="ms-4">
-                      <h2 className="mb-0 font-w600">516</h2>
+                      <h2 className="mb-0 font-w600">{roomsData.checkOut}</h2>
                       <p className="mb-0">Check Out</p>
                     </div>
                   </div>

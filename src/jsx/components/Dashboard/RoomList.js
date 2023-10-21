@@ -5,7 +5,6 @@ import { Dropdown, Tab, Nav } from 'react-bootstrap';
 import room4 from './../../../images/room/room4.jpg';
 import Available from './Room/Available';
 import Booked from './Room/Booked';
-
 import { getTasksAction } from './../../../store/actions/TasksActions';
 
 const DropdownBlog = () => {
@@ -120,7 +119,7 @@ const RoomList = ({ tasksData, getTasksAction }) => {
 														<div className="headerItem" >Status</div>
 
 													</div>
-													{loading == false && tasks.length && (
+													{loading === false && tasks.length && (
 														<div className={"tableBody"} style={{ padding: "10px 0px" }} >
 															{tasks.map((t, i) => {
 																return (

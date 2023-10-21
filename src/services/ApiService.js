@@ -17,6 +17,9 @@ class ApiService {
     getTasks() {
         return this.axios.get(`tasks.json`);
     }
+    getEvents() {
+        return this.axios.get(`events.json`);
+    }
 
 }
 
