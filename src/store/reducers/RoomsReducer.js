@@ -4,12 +4,13 @@ const initialState = {
   total: 0,
   available: 0,
   loading: false,
+  checkIn:0,
+  checkOut:0,
   unavailable: 0,
   rooms: [],
 };
 
 export function RoomsReducer(state = initialState, action) {
-  console.log("RoomsReducer", action)
   switch (action.type) {
     case RoomsActionTypes.GET_ROOMS_FETCHING:
       return {
@@ -23,6 +24,8 @@ export function RoomsReducer(state = initialState, action) {
         available: action.payload.available,
         unavailable: action.payload.unavailable,
         rooms: action.payload.rooms,
+        checkIn:action.payload.checkIn,
+        checkOut:action.payload.checkOut,
         loading: false,
       };
     case RoomsActionTypes.GET_ROOMS_FETCH_ERROR:

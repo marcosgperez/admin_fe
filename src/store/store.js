@@ -3,6 +3,9 @@ import thunk from 'redux-thunk';
 import { RoomsReducer } from './reducers/RoomsReducer';
 import { TasksReducer } from './reducers/TasksReducer';
 import { EventsReducer } from './reducers/EventsReducer';
+import { UserReducer } from './reducers/UserReducer';
+
+
 //import { reducer as reduxFormReducer } from 'redux-form';
 const middleware = applyMiddleware(thunk);
 
@@ -13,6 +16,9 @@ const reducers = combineReducers({
     roomsData: RoomsReducer,
     tasksData: TasksReducer,
     eventsData: EventsReducer,
+    userData: UserReducer,
+
+
 });
 
 //const store = createStore(rootReducers);

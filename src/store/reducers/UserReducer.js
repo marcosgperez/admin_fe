@@ -1,25 +1,25 @@
-import { EventsActionTypes } from "../actions/EventsActions";
+import { UserActionTypes } from "../actions/UserActions";
 
 const initialState = {
   loading: false,
-  events: [],
+  user: [],
   error: false
 };
 
-export function EventsReducer(state = initialState, action) {
+export function UserReducer(state = initialState, action) {
   switch (action.type) {
-    case EventsActionTypes.GET_EVENTS_FETCHING:
+    case UserActionTypes.GET_USER_FETCHING:
       return {
         ...state,
         loading: true,
       };
-    case EventsActionTypes.GET_EVENTS_FETCH:
+    case UserActionTypes.GET_USER_FETCH:
       return {
         ...state,
         loading: false,
-        events: action.payload,
+        user: action.payload,
       };
-    case EventsActionTypes.GET_EVENTS_FETCH_ERROR:
+    case UserActionTypes.GET_USER_FETCH_ERROR:
       return {
         ...state,
         error: action.payload,

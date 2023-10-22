@@ -1,0 +1,18 @@
+{
+    "userName": "John Doe",
+    "admin": true,
+    "notifications": [
+        {
+            "task": "Room 201",
+            "changedTo": "done"
+        },
+        {
+            "task": "Room 201",
+            "changedTo": "done"
+        },
+        {
+            "task": "Room 201",
+            "changedTo": "done"
+        }
+    ]
+}

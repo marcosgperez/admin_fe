@@ -1,4 +1,3 @@
-
 import ApiService from "../../services/ApiService";
 
 export const EventsActionTypes = {
@@ -14,7 +13,7 @@ export const getEventsAction = () => (dispatch) => {
   ApiService.getEvents().then((res) => {
     dispatch({
       type: EventsActionTypes.GET_EVENTS_FETCH,
-      payload: res.data.events ,
+      payload: res.data.events,
     });
   }).catch(e => {
     dispatch({
@@ -23,4 +22,5 @@ export const getEventsAction = () => (dispatch) => {
     });
   })
 };
+
 

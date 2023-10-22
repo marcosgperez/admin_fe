@@ -4,15 +4,18 @@ import RoomList from "../jsx/components/Dashboard/RoomList";
 import { connect } from "react-redux";
 import { getRoomsAction } from "../store/actions/RoomsActions";
 
+
 const Home = ({ getRoomsAction, roomsData }) => {
 
   let admin = true
   React.useEffect(() => {
     getRoomsAction()
-  },[])
+ 
+
+  }, [])
 
   console.log(
-    roomsData.a
+    console.log(roomsData, "roomsData")
   )
 
   return (
@@ -93,7 +96,7 @@ const Home = ({ getRoomsAction, roomsData }) => {
                       </svg>
                     </span>
                     <div className="ms-4">
-                      <h2 className="mb-0 font-w600">{roomsData?.checkIn ? roomsData.checkIn : "..."}</h2>
+                      <h2 className="mb-0 font-w600">{roomsData.checkIn ? roomsData.checkIn : "..."}</h2>
                       <p className="mb-0">Check In</p>
                     </div>
                   </div>
@@ -123,7 +126,7 @@ const Home = ({ getRoomsAction, roomsData }) => {
                       </svg>
                     </span>
                     <div className="ms-4">
-                      <h2 className="mb-0 font-w600">{roomsData.checkOut}</h2>
+                      <h2 className="mb-0 font-w600">{roomsData.checkOut ? roomsData.checkOut : "..."}</h2>
                       <p className="mb-0">Check Out</p>
                     </div>
                   </div>
@@ -148,12 +151,14 @@ const Home = ({ getRoomsAction, roomsData }) => {
 
 const mapStateToProps = (rootState) => {
   return {
-    roomsData: rootState.roomsData
-  }
-} 
+    roomsData: rootState.roomsData,
 
-const mapDispatchToProps = {
-  getRoomsAction
+  }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Home);
+const mapDispatchToProps = {
+  getRoomsAction,
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
