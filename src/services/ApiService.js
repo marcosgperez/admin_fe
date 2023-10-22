@@ -35,7 +35,15 @@ class ApiService {
     getTasks() {
         return this.axios.get(`tasks.json`, { baseURL: apiMockURL });
     }
+    
+    getEvents() {
+        return this.axios.get(`events.json`);
+    }
 
+    getUser() {
+        return this.axios.get(`user.json`);
+    }
+  
 }
 
 export default new ApiService();

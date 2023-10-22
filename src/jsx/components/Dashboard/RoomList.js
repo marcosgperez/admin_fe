@@ -5,7 +5,6 @@ import { Dropdown, Tab, Nav } from 'react-bootstrap';
 import room4 from './../../../images/room/room4.jpg';
 import Available from './Room/Available';
 import Booked from './Room/Booked';
-
 import { getTasksAction } from './../../../store/actions/TasksActions';
 
 const DropdownBlog = () => {
@@ -31,7 +30,7 @@ const DropdownBlog = () => {
 
 const RoomList = ({ tasksData, getTasksAction }) => {
 	const { loading, tasks, error } = tasksData;
-
+	
 	const [selectBtn, setSelectBtn] = useState("Newest");
 	const [data, setData] = useState(
 		document.querySelectorAll("#room_wrapper tbody tr")
@@ -49,17 +48,18 @@ const RoomList = ({ tasksData, getTasksAction }) => {
 			}
 		}
 	};
-
+	
 	React.useEffect(() => {
 		getTasksAction()
 	},[])
-
+	console.log(tasksData,"tasksData")
+	
 	// use effect
 	useEffect(() => {
 		setData(document.querySelectorAll("#room_wrapper tbody tr"));
 		//chackboxFun();
 	}, [test]);
-
+	
 	// Active pagginarion
 	activePag.current === 0 && chageData(0, sort);
 	// paggination
@@ -120,7 +120,7 @@ const RoomList = ({ tasksData, getTasksAction }) => {
 														<div className="headerItem" >Status</div>
 
 													</div>
-													{loading == false && tasks.length && (
+													{loading === false && tasks.length && (
 														<div className={"tableBody"} style={{ padding: "10px 0px" }} >
 															{tasks.map((t, i) => {
 																return (
@@ -167,7 +167,7 @@ const RoomList = ({ tasksData, getTasksAction }) => {
 	)
 }
 const mapStateToProps = (rootState) => {
-	console.log("rootState",rootState)
+	console.log(rootState,"rootState")
 	return {
 		tasksData: rootState.tasksData
 	}

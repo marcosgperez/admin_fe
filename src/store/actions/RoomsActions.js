@@ -1,4 +1,3 @@
-
 import ApiService from "../../services/ApiService";
 
 export const RoomsActionTypes = {
@@ -24,16 +23,4 @@ export const getRoomsAction = () => (dispatch) => {
   })
 };
 
-// export function roomsActions(data) {
-//   return {
-//     type: GET_ROOMS,
-//     payload: data.data,
-//   };
-// }
 
-// export function clearRoomsAction(data) {
-//   return {
-//     type: CLEAR_ROOMS,
-//     payload: data,
-//   };
-// }
