@@ -2,7 +2,8 @@ import { AuthActionTypes } from "../actions/AuthActions";
 
 const initialState = {
   loading: false,
-  user: undefined
+  user: undefined,
+  users: [],
 };
 
 export function AuthReducer(state = initialState, action) {
@@ -20,6 +21,23 @@ export function AuthReducer(state = initialState, action) {
         loading: false,
       };
     case AuthActionTypes.GET_AUTH_FETCH_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+      };
+    case AuthActionTypes.GET_USERS_FETCHING:
+      return {
+        ...state,
+        loading: true,
+      };
+    case AuthActionTypes.GET_USERS_FETCH:
+      return {
+        ...state,
+        users: action.payload,
+        loading: false,
+      };
+    case AuthActionTypes.GET_USERS_FETCH_ERROR:
       return {
         ...state,
         error: action.payload,

@@ -28,6 +28,17 @@ class ApiService {
         //return this.axios.post(`/auth/login`, { email, password });
     }
 
+    getUsers() {
+        
+        return this.axios.post(proxyUrl, {
+            "method": "get",
+            "url": apiURL + "/users/index",
+            "data": {}
+        });
+        
+        //return this.axios.get(`/users/index`, {});
+    }
+
     getRooms() {
         return this.axios.get(`rooms.json`, { baseURL: apiMockURL });
     }
@@ -37,11 +48,11 @@ class ApiService {
     }
     
     getEvents() {
-        return this.axios.get(`events.json`);
+        return this.axios.get(`events.json`, { baseURL: apiMockURL });
     }
 
     getUser() {
-        return this.axios.get(`user.json`);
+        return this.axios.get(`user.json`, { baseURL: apiMockURL });
     }
   
 }

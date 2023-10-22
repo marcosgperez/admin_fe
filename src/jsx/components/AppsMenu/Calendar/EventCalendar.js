@@ -17,7 +17,9 @@ const EventCalendar = ({ eventsData, getEventsAction }) => {
    const [calendarEvents, setCalendarEvents] = React.useState(events)
 
 
-
+   React.useEffect(() => {
+      getEventsAction()
+   },[])
    const eventClick = (eventClick) => {
       let admin = true
       Alert.fire({
