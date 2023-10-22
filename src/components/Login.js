@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // image
 import { ToastContainer } from "react-toastify";
 import logo from "../images/logo-full.png";
 import loginbg from "../images/pic1.png";
+import { doLogin } from "../store/actions/AuthActions";
 
-
-function Login(props) {
+function Login({
+  doLogin,
+  loading,
+  user
+}) {
   let errorsObj = { email: "", password: "" };
   const [errors, setErrors] = useState(errorsObj);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [data, setData] = useState({
     email: "marcoss.g.perez@gmail.com",
     password: "123456",
@@ -34,9 +38,12 @@ function Login(props) {
     if (error) {
       return;
     }
-    // dispatch(loadingToggleAction(true));
-    // dispatch(loginAction(data, navigate));
+    doLogin(data.email,data.password)
   }
+
+  React.useEffect(() => {
+    if(user) navigate("/")
+  },[user])
 
   return (
     <div className="authincation d-flex flex-column flex-lg-row flex-column-fluid">
@@ -63,11 +70,11 @@ function Login(props) {
             <div className="row no-gutters">
               <div className="col-xl-12 tab-content">
                 <div id="sign-in" className="auth-form   form-validation">
-                  {props.successMessage && (
+                  {/* {props.successMessage && (
                     <div className="bg-green-300 text-green-900 border border-green-900 p-1 my-2">
                       {props.successMessage}
                     </div>
-                  )}
+                  )} */}
                   <form onSubmit={onLogin} className="form-validate">
                     <h3 className="text-center mb-4 text-black">
                       Sign in your account
@@ -108,7 +115,7 @@ function Login(props) {
                         </div>
                       )}
                     </div>
-                    <div className="form-row d-flex justify-content-between mt-4 mb-2">
+                    <div className="form-row d-flex justify-content-between mt-4 mb-2 d-none">
                       <div className="form-group mb-3">
                         <div className="custom-control custom-checkbox ml-1">
                           <input
@@ -127,14 +134,14 @@ function Login(props) {
                     </div>
                     <div className="text-center form-group mb-3">
                       <button
-                        type="submit"
+                        type={loading ? "button" : "submit"}
                         className="btn btn-primary btn-block"
                       >
-                        Sign In
+                        {loading ? "Loading" : "Sign In"}
                       </button>
                     </div>
                   </form>
-                  <div className="new-account mt-3">
+                  <div className="new-account mt-3 d-none">
                     <p>
                       Don't have an account?{" "}
                       <Link className="text-primary" to="/page-register">
@@ -154,9 +161,13 @@ function Login(props) {
 
 const mapStateToProps = (state) => {
   return {
-    errorMessage: state.auth.errorMessage,
-    successMessage: state.auth.successMessage,
-    showLoading: state.auth.showLoading,
+    loading: state.authData.loading,
+    user: state.authData.user,
   };
 };
-export default connect(mapStateToProps)(Login);
+
+const mapDispatchToProps = {
+  doLogin
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Login);

@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const apiURL = `/mock/`
+const apiMockURL = `/mock/`
+const apiURL = `https://gesto-api.vercel.app/api/v1`
 
 class ApiService {
     axios;
@@ -10,12 +11,16 @@ class ApiService {
         });
     }
 
+    doLogin(email, password) {
+        return this.axios.post(`/auth/login`, { email, password });
+    }
+
     getRooms() {
-        return this.axios.get(`rooms.json`);
+        return this.axios.get(`rooms.json`, { baseURL: apiMockURL });
     }
 
     getTasks() {
-        return this.axios.get(`tasks.json`);
+        return this.axios.get(`tasks.json`, { baseURL: apiMockURL });
     }
 
 }

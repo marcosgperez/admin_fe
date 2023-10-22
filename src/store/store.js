@@ -2,7 +2,7 @@ import { applyMiddleware, combineReducers, compose,createStore,} from 'redux';
 import thunk from 'redux-thunk';
 import { RoomsReducer } from './reducers/RoomsReducer';
 import { TasksReducer } from './reducers/TasksReducer';
-//import { reducer as reduxFormReducer } from 'redux-form';
+import { AuthReducer } from './reducers/AuthReducer';
 const middleware = applyMiddleware(thunk);
 
 const composeEnhancers =
@@ -11,8 +11,7 @@ const composeEnhancers =
 const reducers = combineReducers({
     roomsData: RoomsReducer,
     tasksData: TasksReducer,
+    authData: AuthReducer,
 });
-
-//const store = createStore(rootReducers);
 
 export const store = createStore(reducers,  composeEnhancers(middleware));

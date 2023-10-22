@@ -1,9 +1,10 @@
-import { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense } from 'react';
 
 /// Components
 import Index from "./jsx";
-import { connect, useDispatch } from 'react-redux';
-import { Routes, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom';
+import Login from "./components/Login";
 /// Style
 // import "./vendor/bootstrap-select/dist/css/bootstrap-select.min.css";
 import "./css/style.css";
@@ -34,7 +35,7 @@ function App({ isAuthenticated}) {
   
   let routeblog = (
     <Routes>
-
+      <Route path="/" element={<Login />} />
     </Routes>
   );
   if (isAuthenticated) {
@@ -77,8 +78,9 @@ function App({ isAuthenticated}) {
 
 
 const mapStateToProps = (state) => {
+  const { user } = state.authData
   return {
-    isAuthenticated: true //isAuthenticated(state),
+    isAuthenticated: Boolean(user),
   };
 };
 
