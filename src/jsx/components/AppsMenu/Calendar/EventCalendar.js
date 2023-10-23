@@ -10,6 +10,9 @@ import { connect } from 'react-redux';
 import EmployeeEventCalendar from "./EmployeeEventCalendar";
 const EventCalendar = ({ eventsData, getEventsAction }) => {
    const { loading, error, events } = eventsData
+   React.useEffect(()=>{
+      getEventsAction()
+   },[])
 
    const calendarComponentRef = React.useRef();
    const calendarEventsRef = React.useRef({});
