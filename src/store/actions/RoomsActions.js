@@ -4,6 +4,9 @@ export const RoomsActionTypes = {
   "GET_ROOMS_FETCHING": "GET_ROOMS_FETCHING",
   "GET_ROOMS_FETCH": "GET_ROOMS_FETCH",
   "GET_ROOMS_FETCH_ERROR": "GET_ROOMS_FETCH_ERROR",
+  "GET_ROOMSTYPES_FETCHING": "GET_ROOMSTYPES_FETCHING",
+  "GET_ROOMSTYPES_FETCH": "GET_ROOMSTYPES_FETCH",
+  "GET_ROOMSTYPES_FETCH_ERROR": "GET_ROOMSTYPES_FETCH_ERROR",
 }
 
 export const getRoomsAction = () => (dispatch) => {
@@ -23,4 +26,21 @@ export const getRoomsAction = () => (dispatch) => {
   })
 };
 
+
+export const getRoomsTypesAction = () => (dispatch) => {
+  dispatch({
+    type: RoomsActionTypes.GET_ROOMSTYPES_FETCHING
+  });
+  ApiService.getRoomsTypes().then((res) => {
+    dispatch({
+      type: RoomsActionTypes.GET_ROOMSTYPES_FETCH,
+      payload: res.data.data,
+    });
+  }).catch(e => {
+    dispatch({
+      type: RoomsActionTypes.GET_ROOMSTYPES_FETCH_ERROR,
+      payload: e,
+    });
+  })
+};
 

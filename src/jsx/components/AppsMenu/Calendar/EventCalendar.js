@@ -4,11 +4,12 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
-import Alert from "sweetalert2";
 import { getEventsAction } from "../../../../store/actions/EventsActions";
 import { connect } from 'react-redux';
 const EventCalendar = ({ eventsData, getEventsAction }) => {
    const { loading, error, events } = eventsData
+   const [modalData, setModalData] = React.useState();
+
    React.useEffect(() => {
       getEventsAction()
    }, [])
@@ -23,46 +24,51 @@ const EventCalendar = ({ eventsData, getEventsAction }) => {
    }, [])
    const [calendarEvents, setCalendarEvents] = React.useState(events)
    const eventClick = (eventClick) => {
-      let admin = true
-      Alert.fire({
+      setModalData({
+         id: eventClick.event.id,
          title: eventClick.event.title,
-         html:
-            `<div className="table-responsive">
-      <table className="table">
-      <tbody>
-      <tr >
-      <td>Title</td>
-      <td><strong>` +
-            eventClick.event.title +
-            `</strong></td>
-      </tr>
-      <tr >
-      <td>Start Time</td>
-      <td><strong>
-      ` +
-            eventClick.event.start +
-            `
-      </strong></td>
-      </tr>
-      </tbody>
-      </table>
-      </div>`,
+         start: eventClick.event.start,
+      })
+      // let admin = true
+      // Alert.fire({
+      //    title: eventClick.event.title,
+      //    html:
+      //       `<div className="table-responsive">
+      // <table className="table">
+      // <tbody>
+      // <tr >
+      // <td>Title</td>
+      // <td><strong>` +
+      //       eventClick.event.title +
+      //       `</strong></td>
+      // </tr>
+      // <tr >
+      // <td>Start Time</td>
+      // <td><strong>
+      // ` +
+      //       eventClick.event.start +
+      //       `
+      // </strong></td>
+      // </tr>
+      // </tbody>
+      // </table>
+      // </div>`,
 
-         showCancelButton: true,
-         showDenyButton: true,
-         showConfirmButton: admin,
-         confirmButtonColor: "#c96161",
-         cancelButtonColor: "#fcaea9",
-         confirmButtonText: "Remove Event",
-         cancelButtonText: "Close",
-         denyButtonText: "go to task",
-         denyButtonColor: "#c96161"
-      }).then((result) => {
-         if (result.value) {
-            eventClick.event.remove(); // It will remove event from the calendar
-            Alert.fire("Deleted!", "Your Event has been deleted.", "success");
-         }
-      });
+      //    showCancelButton: true,
+      //    showDenyButton: true,
+      //    showConfirmButton: admin,
+      //    confirmButtonColor: "#c96161",
+      //    cancelButtonColor: "#fcaea9",
+      //    confirmButtonText: "Remove Event",
+      //    cancelButtonText: "Close",
+      //    denyButtonText: "go to task",
+      //    denyButtonColor: "#c96161"
+      // }).then((result) => {
+      //    if (result.value) {
+      //       eventClick.event.remove(); // It will remove event from the calendar
+      //       Alert.fire("Deleted!", "Your Event has been deleted.", "success");
+      //    }
+      // });
    };
 
    const createRef = (event, ref) => {
@@ -90,10 +96,39 @@ const EventCalendar = ({ eventsData, getEventsAction }) => {
    }
 
    let admin = true
-
+   const Modal = () => {
+      if (!modalData) return <></>
+      const { title, start, id } = modalData
+      console.log("Barto", title, start, id)
+      return (
+         <div className="ModalWrapper">
+            <div className="ModalMask"></div>
+            <div className="Modal">
+               <div className="table-responsive">
+                  <table className="table">
+                     <tbody>
+                        <tr >
+                           <td>Title</td>
+                           <td><strong>{title}</strong></td>
+                        </tr>
+                        <tr >
+                           <td>Start Time</td>
+                           <td><strong>{start.toDateString()}</strong></td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               <div className="ModalActions">
+                  <button onClick={() => setModalData()}>Close</button>
+               </div>
+            </div>
+         </div>
+      )
+   }
    if (admin && loading === false) {
       return (
          <div className="animated fadeIn demo-app justify-content-end">
+            <Modal />
             <div className="row" style={{ justifyContent: "end" }}>
                <div className="col-xl-12 col-sm-12" >
                   <Row style={{ height: "200px" }} className="justify-content-end">

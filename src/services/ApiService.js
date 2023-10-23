@@ -7,6 +7,7 @@ const proxyUrl = "https://my-proxy-henna.vercel.app/api/proxy"
 
 class ApiService {
     axios;
+    externalId = "Hotel"
     constructor() {
         this.axios = axios.create({
             baseURL: apiURL,
@@ -37,6 +38,15 @@ class ApiService {
         });
         
         //return this.axios.get(`/users/index`, {});
+    }
+
+    getRoomsTypes() {
+        return this.axios.post(proxyUrl, {
+            "method": "get",
+            "url": apiURL + "/room-types/index/?external_id="+this.externalId,
+            "data": {}
+        });
+        // return this.axios.get(`rooms.json`, { baseURL: apiMockURL });
     }
 
     getRooms() {

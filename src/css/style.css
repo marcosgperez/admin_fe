@@ -46192,3 +46192,59 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
 }
 
 /*# sourceMappingURL=style.css.map */
+
+.ModalWrapper {
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  width: 100vw;
+  height: 100vh;
+  margin: auto;
+  z-index: 100;
+  border-radius: 10px;
+  box-shadow: 0px 0px 30px black;
+}
+
+.ModalMask {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  opacity: 0.2;
+  content: "";
+}
+
+.Modal {
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  max-width: 60vw;
+  height: fit-content;
+  background: white;
+  margin: auto;
+  z-index: 100;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0px 0px 30px black;
+  animation: Shown 0.2s forwards;
+}
+
+@keyframes Shown {
+  0% {
+    opacity: 0;
+    transform: scale(0.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.overAll {
+  z-index: 99;
+  position: relative;
+
+}

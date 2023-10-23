@@ -8,6 +8,7 @@ const initialState = {
   checkOut:0,
   unavailable: 0,
   rooms: [],
+  roomsTypes: [],
 };
 
 export function RoomsReducer(state = initialState, action) {
@@ -29,6 +30,23 @@ export function RoomsReducer(state = initialState, action) {
         loading: false,
       };
     case RoomsActionTypes.GET_ROOMS_FETCH_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+      };
+    case RoomsActionTypes.GET_ROOMSTYPES_FETCHING:
+      return {
+        ...state,
+        loading: true,
+      };
+    case RoomsActionTypes.GET_ROOMSTYPES_FETCH:
+      return {
+        ...state,
+        roomsTypes: action.payload,
+        loading: false,
+      };
+    case RoomsActionTypes.GET_ROOMSTYPES_FETCH_ERROR:
       return {
         ...state,
         error: action.payload,

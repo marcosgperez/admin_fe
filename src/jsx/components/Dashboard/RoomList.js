@@ -6,6 +6,7 @@ import room4 from './../../../images/room/room4.jpg';
 import Available from './Room/Available';
 import Booked from './Room/Booked';
 import { getTasksAction } from './../../../store/actions/TasksActions';
+import { getRoomsTypesAction } from './../../../store/actions/RoomsActions';
 
 const DropdownBlog = () => {
 	return (
@@ -28,7 +29,7 @@ const DropdownBlog = () => {
 }
 
 
-const RoomList = ({ tasksData, getTasksAction, filter }) => {
+const RoomList = ({ tasksData, getTasksAction, filter, loadingRoomsTypes, roomsTypes, getRoomsTypesAction }) => {
 	const { loading, tasks, error } = tasksData;
 	const _filter = filter
 
@@ -56,6 +57,7 @@ const RoomList = ({ tasksData, getTasksAction, filter }) => {
 
 	React.useEffect(() => {
 		getTasksAction()
+		getRoomsTypesAction()
 	}, [])
 	console.log(tasksData, "tasksData")
 
@@ -102,6 +104,10 @@ const RoomList = ({ tasksData, getTasksAction, filter }) => {
 		}
 	};
 
+	const getRoomNameByRoomTypeId = (roomTypeId) => {
+		const roomType = roomsTypes.find(roomType => roomType.id === roomTypeId);
+		return roomType ? roomType.name : 'Unknown';
+	}
 	return (
 		<>
 			<Tab.Container defaultActiveKey="All" >
@@ -119,6 +125,7 @@ const RoomList = ({ tasksData, getTasksAction, filter }) => {
 														{/* <div style={{ width: "0.5%", justifyContent: "center", textAlign: "start", fontSize: "16px", padding: "10px 0px", fontWeight: "500", margin: "5px" }}></div> */}
 														<div className="headerName" >Name</div>
 														<div className="headerItem" >Type</div>
+														<div className="headerItem" >Room</div>
 														<div className="headerItem" >Assigned</div>
 														<div className="headerItem" >Date</div>
 														<div className="headerItem" >Time</div>
@@ -142,6 +149,7 @@ const RoomList = ({ tasksData, getTasksAction, filter }) => {
 																						</p>
 																					</div>
 																					<div className="rowItem" >{t.type}</div>
+																					<div className="rowItem" >{getRoomNameByRoomTypeId(t.roomType)}</div>
 																					<div className="rowItem" >{t.assigned}</div>
 																					<div className="rowItem" >{t.date}</div>
 																					<div className="rowItem" >{t.time}</div>
@@ -177,12 +185,15 @@ const RoomList = ({ tasksData, getTasksAction, filter }) => {
 const mapStateToProps = (rootState) => {
 	console.log(rootState, "rootState")
 	return {
-		tasksData: rootState.tasksData
+		tasksData: rootState.tasksData,
+		roomsTypes: rootState.roomsData.roomsTypes,
+		loadingRoomsTypes: rootState.roomsData.loading
 	}
 }
 
 const mapDispatchToProps = {
-	getTasksAction
+	getTasksAction,
+	getRoomsTypesAction
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(RoomList);

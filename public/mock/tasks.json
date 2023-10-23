@@ -8,7 +8,8 @@
             "date": "11/10/23",
             "time": "10:32",
             "button": "warning",
-            "status": "On-Progress"
+            "status": "On-Progress",
+            "roomType": 1
         },
         {
             "id": 2,
@@ -18,7 +19,8 @@
             "date": "11/10/23",
             "time": "10:32",
             "button": "success",
-            "status": "Done"
+            "status": "Done",
+            "roomType": 2
         },
         {
             "id": 3,
@@ -28,7 +30,8 @@
             "date": "11/10/23",
             "time": "10:32",
             "button": "danger",
-            "status": "Not-finished"
+            "status": "Not-finished",
+            "roomType": 1
         }
     ]
 }
