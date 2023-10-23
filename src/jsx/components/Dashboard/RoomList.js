@@ -28,9 +28,14 @@ const DropdownBlog = () => {
 }
 
 
-const RoomList = ({ tasksData, getTasksAction }) => {
+const RoomList = ({ tasksData, getTasksAction, filter }) => {
 	const { loading, tasks, error } = tasksData;
-	
+	const _filter = filter
+
+	React.useEffect(() => {
+		console.log(_filter, "filter en rommList")
+	}, [_filter])
+
 	const [selectBtn, setSelectBtn] = useState("Newest");
 	const [data, setData] = useState(
 		document.querySelectorAll("#room_wrapper tbody tr")
@@ -48,18 +53,18 @@ const RoomList = ({ tasksData, getTasksAction }) => {
 			}
 		}
 	};
-	
+
 	React.useEffect(() => {
 		getTasksAction()
-	},[])
-	console.log(tasksData,"tasksData")
-	
+	}, [])
+	console.log(tasksData, "tasksData")
+
 	// use effect
 	useEffect(() => {
 		setData(document.querySelectorAll("#room_wrapper tbody tr"));
 		//chackboxFun();
 	}, [test]);
-	
+
 	// Active pagginarion
 	activePag.current === 0 && chageData(0, sort);
 	// paggination
@@ -123,27 +128,30 @@ const RoomList = ({ tasksData, getTasksAction }) => {
 													{loading === false && tasks.length && (
 														<div className={"tableBody"} style={{ padding: "10px 0px" }} >
 															{tasks.map((t, i) => {
-																return (
-																	<Link key={`task-${t.id}`} to={`/task/:${t.id}`}>
-																		<div className={"tableRow"} style={{ width: "100%", display: "flex", justifyContent: "space-between", padding: "10px 0px", textSelect: "none" }}>
-																			{/* <div style={{ width: "0.00005%", display: "flex", alignItems: "center", justifyContent: "end", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
-																			</div> */}
-																			<div className="rowName">
-																				<img alt={"idk bruh0"} src={room4} className="rowImage" ></img>
-																				<p style={{ marginBottom: "0px", marginLeft: "20px" }}>
-																					{t.name}
-																				</p>
-																			</div>
-																			<div className="rowItem" >{t.type}</div>
-																			<div className="rowItem" >{t.assigned}</div>
-																			<div className="rowItem" >{t.date}</div>
-																			<div className="rowItem" >{t.time}</div>
-																			<div className="rowItem" >
-																				<Link to={"#"} style={{ width: "fit-content" }} className={`rowBtn-${t.status}`}>{t.status.replace("-", " ")}</Link>
-																			</div>
-																		</div>
-																	</Link>
-																)
+																if (loading === false) {
+																	if (t.type === _filter || _filter === "all")
+																		return (
+																			<Link key={`task-${t.id}`} to={`/task/:${t.id}`}>
+																				<div className={"tableRow"} style={{ width: "100%", display: "flex", justifyContent: "space-between", padding: "10px 0px", textSelect: "none" }}>
+																					{/* <div style={{ width: "0.00005%", display: "flex", alignItems: "center", justifyContent: "end", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
+																				</div> */}
+																					<div className="rowName">
+																						<img alt={"idk bruh0"} src={room4} className="rowImage" ></img>
+																						<p style={{ marginBottom: "0px", marginLeft: "20px" }}>
+																							{t.name}
+																						</p>
+																					</div>
+																					<div className="rowItem" >{t.type}</div>
+																					<div className="rowItem" >{t.assigned}</div>
+																					<div className="rowItem" >{t.date}</div>
+																					<div className="rowItem" >{t.time}</div>
+																					<div className="rowItem" >
+																						<Link to={"#"} style={{ width: "fit-content" }} className={`rowBtn-${t.status}`}>{t.status.replace("-", " ")}</Link>
+																					</div>
+																				</div>
+																			</Link>
+																		)
+																}
 															})}
 														</div>
 													)}
@@ -167,7 +175,7 @@ const RoomList = ({ tasksData, getTasksAction }) => {
 	)
 }
 const mapStateToProps = (rootState) => {
-	console.log(rootState,"rootState")
+	console.log(rootState, "rootState")
 	return {
 		tasksData: rootState.tasksData
 	}

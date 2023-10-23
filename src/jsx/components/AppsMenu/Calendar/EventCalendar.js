@@ -7,22 +7,21 @@ import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
 import Alert from "sweetalert2";
 import { getEventsAction } from "../../../../store/actions/EventsActions";
 import { connect } from 'react-redux';
-import EmployeeEventCalendar from "./EmployeeEventCalendar";
 const EventCalendar = ({ eventsData, getEventsAction }) => {
    const { loading, error, events } = eventsData
-   React.useEffect(()=>{
+   React.useEffect(() => {
       getEventsAction()
-   },[])
+   }, [])
 
    const calendarComponentRef = React.useRef();
    const calendarEventsRef = React.useRef({});
 
-   const [calendarEvents, setCalendarEvents] = React.useState(events)
-
+   console.log(events, "eventos")
 
    React.useEffect(() => {
       getEventsAction()
-   },[])
+   }, [])
+   const [calendarEvents, setCalendarEvents] = React.useState(events)
    const eventClick = (eventClick) => {
       let admin = true
       Alert.fire({
@@ -97,6 +96,29 @@ const EventCalendar = ({ eventsData, getEventsAction }) => {
          <div className="animated fadeIn demo-app justify-content-end">
             <div className="row" style={{ justifyContent: "end" }}>
                <div className="col-xl-12 col-sm-12" >
+                  <Row style={{ height: "200px" }} className="justify-content-end">
+                     <div className="col-xl-12" >
+                        <Card >
+                           <div className="card-header border-0 pb-0">
+                              <h4 className="text-black fs-20 mb-0">Events</h4>
+                           </div>
+                           <Card.Body style={{ overflow: "scroll" }}>
+                              <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "start" }} id="external-events">
+                                 {events.map((event) => (
+                                    <div draggable={true} ref={(ref) => createRef(event, ref)} data-id={event.id} style={{ width: "fit-content", height: "50px" }}
+                                       className="fc-event mt-0 ms-0 mb-2 btn btn-block btn-primary"
+                                       title={event.title}
+                                       data={event.id}
+                                       key={event.id}
+                                    >
+                                       {event.title}
+                                    </div>
+                                 ))}
+                              </div>
+                           </Card.Body>
+                        </Card>
+                     </div>
+                  </Row>
                   <Card>
                      <Card.Body>
                         <div className="demo-app-calendar" id="mycalendartest">
@@ -131,29 +153,7 @@ const EventCalendar = ({ eventsData, getEventsAction }) => {
                   </Card>
                </div>
             </div>
-            <Row style={{ height: "200px" }} className="justify-content-end">
-               <div className="col-xl-12" >
-                  <Card >
-                     <div className="card-header border-0 pb-0">
-                        <h4 className="text-black fs-20 mb-0">Events</h4>
-                     </div>
-                     <Card.Body style={{ overflow: "scroll" }}>
-                        <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "start" }} id="external-events">
-                           {events.map((event) => (
-                              <div draggable={true} ref={(ref) => createRef(event, ref)} data-id={event.id} style={{ width: "fit-content", height: "50px" }}
-                                 className="fc-event mt-0 ms-0 mb-2 btn btn-block btn-primary"
-                                 title={event.title}
-                                 data={event.id}
-                                 key={event.id}
-                              >
-                                 {event.title}
-                              </div>
-                           ))}
-                        </div>
-                     </Card.Body>
-                  </Card>
-               </div>
-            </Row>
+
          </div>
       );
    }

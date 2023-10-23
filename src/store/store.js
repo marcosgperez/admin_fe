@@ -4,6 +4,7 @@ import { RoomsReducer } from './reducers/RoomsReducer';
 import { TasksReducer } from './reducers/TasksReducer';
 import { AuthReducer } from './reducers/AuthReducer';
 import { EventsReducer } from './reducers/EventsReducer';
+import { FacilitiesReducer } from './reducers/FacilitiesReducer';
 
 //import { reducer as reduxFormReducer } from 'redux-form';
 const middleware = applyMiddleware(thunk);
@@ -16,6 +17,7 @@ const reducers = combineReducers({
     tasksData: TasksReducer,
     authData: AuthReducer,
     eventsData: EventsReducer,
+    facilitiesData:FacilitiesReducer
 });
 
 //const store = createStore(rootReducers);

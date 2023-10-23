@@ -136,7 +136,7 @@ const Home = ({ getRoomsAction, roomsData }) => {
           </div>
           <div className="row justify-content-end">
             <div className={admin ? "col-xl-12" : "d-none"}>
-              <RoomList buttonSize={"md"} filter={false} />
+              <RoomList buttonSize={"md"} filter={"all"} />
             </div>
             <div className={admin ? "col-xl-12" : "col-xl-12"}>
               <EventCalendar />

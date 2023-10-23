@@ -54,6 +54,9 @@ class ApiService {
     getUser() {
         return this.axios.get(`user.json`, { baseURL: apiMockURL });
     }
+    getFacilities() {
+        return this.axios.get(`facilities.json`, { baseURL: apiMockURL });
+    }
   
 }
 
