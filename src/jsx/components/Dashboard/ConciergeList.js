@@ -6,6 +6,10 @@ import { Dropdown, Tab, Nav } from "react-bootstrap";
 import room4 from './../../../images/room/room4.jpg';
 import Available from './Room/Available';
 import Booked from './Room/Booked';
+
+import { connect } from 'react-redux';
+import { getUsers } from '../../../store/actions/AuthActions';
+
 const DropdownBlog = () => {
 	return (
 		<>
@@ -26,14 +30,18 @@ const DropdownBlog = () => {
 	)
 }
 
+const buildUserData = (userFromAPI) => {
+	return {
+		id: userFromAPI.id,
+		name: userFromAPI.name,
+		job: "Administrator",
+		days: "-",
+		hours: "-",
+		contact: "-",
+		status: "Active"
+	}
+}
 
-const taskData = [
-	{ name: "John Doe", job: "Maintainance", days: "Mon-Fri", hours: "9am to 5pm", contact: "11-111-1111", status: "Active" },
-	{ name: "John Doe", job: "Maintainance", days: "Mon-Fri", hours: "9am to 5pm", contact: "11-111-1111", status: "Active" },
-	{ name: "John Doe", job: "Maintainance", days: "Mon-Fri", hours: "9am to 5pm", contact: "11-111-1111", status: "Active" },
-	{ name: "John Doe", job: "Maintainance", days: "Mon-Fri", hours: "9am to 5pm", contact: "11-111-1111", status: "Active" },
-	{ name: "John Doe", job: "Maintainance", days: "Mon-Fri", hours: "9am to 5pm", contact: "11-111-1111", status: "Active" },
-]
 
 const DropDown = ({ status }) => {
 	const [currentStatus, setCurrentStatus] = useState(status);
@@ -45,6 +53,7 @@ const DropDown = ({ status }) => {
 		setOpen(false)
 		setColor(newColor)
 	}
+	
 	return (
 		<div className="dropDown">
 			<div onClick={() => setOpen(!open)} className="dropDownButton">
@@ -62,7 +71,7 @@ const DropDown = ({ status }) => {
 		</div>
 	);
 };
-const ConciergeList = () => {
+const ConciergeList = ({users, getUsers}) => {
 	const [selectBtn, setSelectBtn] = useState("Newest");
 
 	const [data, setData] = useState(
@@ -71,7 +80,7 @@ const ConciergeList = () => {
 	const sort = 5;
 	const activePag = useRef(0);
 	const [test, settest] = useState(0);
-
+	
 	// Active data
 	const chageData = (frist, sec) => {
 		for (var i = 0; i < data.length; ++i) {
@@ -124,6 +133,15 @@ const ConciergeList = () => {
 			}
 		}
 	};
+
+	React.useEffect(() => {
+		getUsers()
+	},[])
+
+	React.useEffect(() => {
+		console.log("users",users)
+	},[users])
+
 	return (
 		<>
 			<Tab.Container defaultActiveKey="All" >
@@ -145,35 +163,37 @@ const ConciergeList = () => {
 														<div style={{ width: "10%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Status</div>
 
 													</div>
-													<div className={"tableBody"} style={{ padding: "10px 0px" }} >
-														{taskData.map((t, i) => {
-															return (
+													{users.length && (
+														<div className={"tableBody"} style={{ padding: "10px 0px" }} >
+															{users.map(buildUserData).map((t, i) => {
+																return (
 
-																<div className={"tableRow"} style={{ width: "100%", display: "flex", justifyContent: "space-between", padding: "10px 0px", textSelect: "none" }}>
-																	{/* <div style={{ width: "0.00005%", display: "flex", alignItems: "center", justifyContent: "end", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
-																		</div> */}
-																	<div style={{ width: "20%", display: "flex", padding: "0px 0px 0px 20px", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
-																		<img alt={"idk bruh0"} src={room4} className="rowImage" ></img>
-																		<p style={{ marginBottom: "0px", marginLeft: "20px" }}>
-																			{t.name}
-																		</p>
+																	<div className={"tableRow"} style={{ width: "100%", display: "flex", justifyContent: "space-between", padding: "10px 0px", textSelect: "none" }}>
+																		{/* <div style={{ width: "0.00005%", display: "flex", alignItems: "center", justifyContent: "end", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
+																			</div> */}
+																		<div style={{ width: "20%", display: "flex", padding: "0px 0px 0px 20px", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
+																			<img alt={"idk bruh0"} src={room4} className="rowImage" ></img>
+																			<p style={{ marginBottom: "0px", marginLeft: "20px" }}>
+																				{t.name}
+																			</p>
+																		</div>
+																		<div style={{ width: "10%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{t.job}</div>
+																		<div style={{ width: "10%", display: "flex", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px", flexDirection: "column" }}>
+																			<p style={{ marginBottom: "0px" }} >
+																				{t.days}
+																			</p>
+																			<p style={{ marginBottom: "0px" }}>
+																				{t.hours}
+																			</p>
+																		</div>
+																		<div style={{ width: "10%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{t.contact}</div>
+																		<div style={{ width: "10%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}><DropDown status={t.status} /></div>
 																	</div>
-																	<div style={{ width: "10%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{t.job}</div>
-																	<div style={{ width: "10%", display: "flex", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px", flexDirection: "column" }}>
-																		<p style={{ marginBottom: "0px" }} >
-																			{t.days}
-																		</p>
-																		<p style={{ marginBottom: "0px" }}>
-																			{t.hours}
-																		</p>
-																	</div>
-																	<div style={{ width: "10%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{t.contact}</div>
-																	<div style={{ width: "10%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}><DropDown status={t.status} /></div>
-																</div>
 
-															)
-														})}
-													</div>
+																)
+															})}
+														</div>
+													)}
 												</div>
 											</div>
 										</div>
@@ -194,4 +214,17 @@ const ConciergeList = () => {
 	)
 }
 export { DropdownBlog };
-export default ConciergeList;
+
+const mapStateToProps = (state) => {
+	return {
+	  loading: state.authData.loading,
+	  users: state.authData.users,
+	};
+  };
+  
+  const mapDispatchToProps = {
+	getUsers
+  }
+  
+  export default connect(mapStateToProps,mapDispatchToProps)(ConciergeList);
+  

@@ -10,19 +10,14 @@ import avatar from "../../../images/avatar/1.jpg";
 import { Dropdown } from "react-bootstrap";
 import LogoutPage from './Logout';
 import { connect } from "react-redux"
-import { getUserAction } from './../../../store/actions/UserActions';
 
-const Header = ({ onNote, userData, getUserData }) => {
+const Header = ({ onNote, authData }) => {
 	const [searchBut, setSearchBut] = useState(false);
 	var path = window.location.pathname.split("/");
 	const pathNotSplited = path[path.length - 1]
 	const singleLinkData = linkData.filter((data) => data.url == pathNotSplited);
 
-	const { loading, error, user } = userData
-
-	React.useEffect(()=>{
-		getUserAction()
-	},[])
+	const { loading, user } = authData
 
 	if (singleLinkData.length > 0 && singleLinkData[0].name) {
 		//EXISTE LA DATA DE LA URL EN LINKED DATA
@@ -296,10 +291,9 @@ const Header = ({ onNote, userData, getUserData }) => {
 
 const mapStateToProps = (rootState) => {
 	return {
-		userData: rootState.userData
+		authData: rootState.authData
 	}
 }
 const mapDispatchToProps = {
-	getUserAction
 }
-export default connect(mapDispatchToProps, mapStateToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
