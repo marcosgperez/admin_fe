@@ -56,7 +56,7 @@ class ApiService {
             "url": apiURL + "/users?id=10" + this.userId,
             data: {}
         })
-        
+
     }
 
     getRoomsTypes() {
@@ -71,6 +71,13 @@ class ApiService {
         return this.axios.post(proxyUrl, {
             "method": "get",
             "url": apiURL + "/rooms/index?external_id=1",
+            data: {}
+        })
+    }
+    getRoomCount() {
+        return this.axios.post(proxyUrl, {
+            "method": "get",
+            "url": apiURL + "/clients/rooms?external_id=1",
             data: {}
         })
     }

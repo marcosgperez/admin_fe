@@ -9,6 +9,7 @@ const initialState = {
   unavailable: 0,
   rooms: [],
   roomsTypes: [],
+  roomCount:[]
 };
 
 export function RoomsReducer(state = initialState, action) {
@@ -30,6 +31,7 @@ export function RoomsReducer(state = initialState, action) {
         error: action.payload,
         loading: false,
       };
+
     case RoomsActionTypes.GET_ROOMSTYPES_FETCHING:
       return {
         ...state,
@@ -47,6 +49,25 @@ export function RoomsReducer(state = initialState, action) {
         error: action.payload,
         loading: false,
       };
+
+      case RoomsActionTypes.GET_ROOMSCOUNT_FETCHING:
+        return {
+          ...state,
+          loading: true,
+        };
+      case RoomsActionTypes.GET_ROOMSCOUNT_FETCH:
+        return {
+          ...state,
+          roomsCount: action.payload,
+          loading: false,
+        };
+      case RoomsActionTypes.GET_ROOMSCOUNT_FETCH_ERROR:
+        return {
+          ...state,
+          error: action.payload,
+          loading: false,
+        };
+  
     default:
       return state;
   }

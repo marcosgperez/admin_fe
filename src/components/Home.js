@@ -2,14 +2,15 @@ import React from "react";
 import EventCalendar from "../jsx/components/AppsMenu/Calendar/EventCalendar";
 import RoomList from "../jsx/components/Dashboard/RoomList";
 import { connect } from "react-redux";
-import { getRoomsAction } from "../store/actions/RoomsActions";
+import { getRoomsAction,getRoomCountAction } from "../store/actions/RoomsActions";
 
 
-const Home = ({ getRoomsAction, roomsData }) => {
+const Home = ({ getRoomsAction, roomsData,getRoomCountAction }) => {
 // GET ROOMS
   let admin = true
   React.useEffect(() => {
     getRoomsAction()
+    getRoomCountAction()
   }, [])
 
   console.log(
@@ -156,7 +157,7 @@ const mapStateToProps = (rootState) => {
 
 const mapDispatchToProps = {
   getRoomsAction,
-
+  getRoomCountAction
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
