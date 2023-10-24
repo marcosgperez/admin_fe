@@ -54,7 +54,7 @@ const RoomList = ({ tasksData, getTasksAction, filter, loadingRoomsTypes, roomsT
 			}
 		}
 	};
-
+// GET ROOMTYPES & GET TASKS
 	React.useEffect(() => {
 		getTasksAction()
 		getRoomsTypesAction()

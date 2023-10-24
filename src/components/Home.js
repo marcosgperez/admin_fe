@@ -6,7 +6,7 @@ import { getRoomsAction,getRoomCountAction } from "../store/actions/RoomsActions
 
 
 const Home = ({ getRoomsAction, roomsData,getRoomCountAction }) => {
-// GET ROOMS
+// GET ROOMS & ROOM COUNT
   let admin = true
   React.useEffect(() => {
     getRoomsAction()
