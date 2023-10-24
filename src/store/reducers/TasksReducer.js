@@ -7,7 +7,6 @@ const initialState = {
 };
 
 export function TasksReducer(state = initialState, action) {
-  console.log("TasksReducer", action)
   switch (action.type) {
     case TasksActionTypes.GET_TASKS_FETCHING:
       return {

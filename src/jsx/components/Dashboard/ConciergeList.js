@@ -8,7 +8,7 @@ import Available from './Room/Available';
 import Booked from './Room/Booked';
 
 import { connect } from 'react-redux';
-import { getUsers } from '../../../store/actions/AuthActions';
+import { getUsers, getUserByIDAction } from '../../../store/actions/AuthActions';
 
 const DropdownBlog = () => {
 	return (
@@ -53,7 +53,7 @@ const DropDown = ({ status }) => {
 		setOpen(false)
 		setColor(newColor)
 	}
-	
+
 	return (
 		<div className="dropDown">
 			<div onClick={() => setOpen(!open)} className="dropDownButton">
@@ -71,7 +71,8 @@ const DropDown = ({ status }) => {
 		</div>
 	);
 };
-const ConciergeList = ({users, getUsers}) => {
+const ConciergeList = ({ users, getUsers, getUserByIDAction, userById }) => {
+	
 	const [selectBtn, setSelectBtn] = useState("Newest");
 
 	const [data, setData] = useState(
@@ -80,7 +81,7 @@ const ConciergeList = ({users, getUsers}) => {
 	const sort = 5;
 	const activePag = useRef(0);
 	const [test, settest] = useState(0);
-	
+
 	// Active data
 	const chageData = (frist, sec) => {
 		for (var i = 0; i < data.length; ++i) {
@@ -133,15 +134,16 @@ const ConciergeList = ({users, getUsers}) => {
 			}
 		}
 	};
-
+	// GET USERS & USER-BY-ID
 	React.useEffect(() => {
 		getUsers()
-	},[])
+		getUserByIDAction()
+	}, [])
 
 	React.useEffect(() => {
-		console.log("users",users)
-	},[users])
-
+		console.log("users", users,"userByID",userById)
+	}, [users])
+	console.log(userById, "userById")
 	return (
 		<>
 			<Tab.Container defaultActiveKey="All" >
@@ -216,15 +218,17 @@ const ConciergeList = ({users, getUsers}) => {
 export { DropdownBlog };
 
 const mapStateToProps = (state) => {
+	console.log(state, "state PAAA")
 	return {
-	  loading: state.authData.loading,
-	  users: state.authData.users,
+		loading: state.authData.loading,
+		users: state.authData.users,
+		userById: state.authData.userByID
 	};
-  };
-  
-  const mapDispatchToProps = {
-	getUsers
-  }
-  
-  export default connect(mapStateToProps,mapDispatchToProps)(ConciergeList);
-  
+};
+
+const mapDispatchToProps = {
+	getUsers,
+	getUserByIDAction
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ConciergeList);

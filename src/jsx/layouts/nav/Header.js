@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Link, json } from "react-router-dom";
+import { Link } from "react-router-dom";
 /// Scroll
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { linkData } from "../../routes";
@@ -10,15 +10,20 @@ import avatar from "../../../images/avatar/1.jpg";
 import { Dropdown } from "react-bootstrap";
 import LogoutPage from './Logout';
 import { connect } from "react-redux"
+import { getUserTypesAction } from "../../../store/actions/AuthActions";
 
-const Header = ({ onNote, authData }) => {
+const Header = ({ onNote, authData, typesData, getUserTypesAction }) => {
 	const [searchBut, setSearchBut] = useState(false);
 	var path = window.location.pathname.split("/");
 	const pathNotSplited = path[path.length - 1]
 	const singleLinkData = linkData.filter((data) => data.url == pathNotSplited);
 
 	const { loading, user } = authData
-	console.log(user, "user")
+	// GET USERTYPES
+	React.useEffect(() => {
+		getUserTypesAction()
+	}, [])
+	console.log(typesData, "typesData")
 
 	if (singleLinkData.length > 0 && singleLinkData[0].name) {
 		//EXISTE LA DATA DE LA URL EN LINKED DATA
@@ -67,37 +72,9 @@ const Header = ({ onNote, authData }) => {
 										: finalName.join(" ")}
 							</div>
 						</div>
-						{/* <div className="nav-item d-flex align-items-center">
-				<div className="input-group search-area">
-					<input type="text" 
-						className={`form-control ${searchBut ? "active" : ""}`}
-						placeholder="Search.." 
-					/>
-					<span className="input-group-text" onClick={() => setSearchBut(!searchBut)}>
-						<Link to={"#"}><i className="flaticon-381-search-2"></i></Link>
-					</span>
-				</div>
-			</div>  */}
 						<ul className="navbar-nav header-right">
 
-							{/* <Dropdown
-					as="li"
-					className="nav-item dropdown notification_dropdown "
-				  >
-					<Dropdown.Toggle
-					  variant=""
-					  as="a"
-					  className="nav-link bell bell-link i-false c-pointer"
-					  onClick={() => onNote()}
-					>
-						<svg xmlns="http://www.w3.org/2000/svg" width="26.667" height="24" viewBox="0 0 26.667 24">
-						  <g id="_014-mail" data-name="014-mail" transform="translate(0 -21.833)">
-							<path id="Path_1962" data-name="Path 1962" d="M26.373,26.526A6.667,6.667,0,0,0,20,21.833H6.667A6.667,6.667,0,0,0,.293,26.526,6.931,6.931,0,0,0,0,28.5V39.166a6.669,6.669,0,0,0,6.667,6.667H20a6.669,6.669,0,0,0,6.667-6.667V28.5A6.928,6.928,0,0,0,26.373,26.526ZM6.667,24.5H20a4.011,4.011,0,0,1,3.947,3.36L13.333,33.646,2.72,27.86A4.011,4.011,0,0,1,6.667,24.5ZM24,39.166a4.012,4.012,0,0,1-4,4H6.667a4.012,4.012,0,0,1-4-4V30.873L12.693,36.34a1.357,1.357,0,0,0,1.28,0L24,30.873Z" transform="translate(0 0)" fill="#135846"/>
-						  </g>
-						</svg>
-						<span className="badge light text-white bg-primary rounded-circle">76</span>
-					</Dropdown.Toggle>
-				</Dropdown>	 */}
+
 							<Dropdown as="li" className="nav-item dropdown notification_dropdown">
 								<Dropdown.Toggle className="nav-link i-false c-pointer" variant="" as="a">
 									<svg xmlns="http://www.w3.org/2000/svg" width="19.375" height="24" viewBox="0 0 19.375 24">
@@ -136,10 +113,89 @@ const Header = ({ onNote, authData }) => {
 								as="li"
 								className="nav-item  notification_dropdown "
 							>
+
 								<Dropdown.Menu align="right" className="mt-4 dropdown-menu dropdown-menu-end">
 									<PerfectScrollbar className="widget-timeline dlab-scroll style-1 ps p-3 height370">
 										<ul className="timeline">
-
+											<li>
+												<div className="timeline-badge primary" />
+												<Link
+													className="timeline-panel c-pointer text-muted"
+													to="#"
+												>
+													<span>10 minutes ago</span>
+													<h6 className="mb-0">
+														Youtube, a video-sharing website, goes live{" "}
+														<strong className="text-primary">$500</strong>.
+													</h6>
+												</Link>
+											</li>
+											<li>
+												<div className="timeline-badge info"></div>
+												<Link
+													className="timeline-panel c-pointer text-muted"
+													to="#"
+												>
+													<span>20 minutes ago</span>
+													<h6 className="mb-0">
+														New order placed{" "}
+														<strong className="text-info">#XF-2356.</strong>
+													</h6>
+													<p className="mb-0">
+														Quisque a consequat ante Sit amet magna at
+														volutapt...
+													</p>
+												</Link>
+											</li>
+											<li>
+												<div className="timeline-badge danger"></div>
+												<Link
+													className="timeline-panel c-pointer text-muted"
+													to="#"
+												>
+													<span>30 minutes ago</span>
+													<h6 className="mb-0">
+														john just buy your product{" "}
+														<strong className="text-warning">Sell $250</strong>
+													</h6>
+												</Link>
+											</li>
+											<li>
+												<div className="timeline-badge success"></div>
+												<Link
+													className="timeline-panel c-pointer text-muted"
+													to="#"
+												>
+													<span>15 minutes ago</span>
+													<h6 className="mb-0">
+														StumbleUpon is acquired by eBay.{" "}
+													</h6>
+												</Link>
+											</li>
+											<li>
+												<div className="timeline-badge warning"></div>
+												<Link
+													className="timeline-panel c-pointer text-muted"
+													to="#"
+												>
+													<span>20 minutes ago</span>
+													<h6 className="mb-0">
+														Mashable, a news website and blog, goes live.
+													</h6>
+												</Link>
+											</li>
+											<li>
+												<div className="timeline-badge dark"></div>
+												<Link
+													className="timeline-panel c-pointer text-muted"
+													to="#"
+												>
+													<span>20 minutes ago</span>
+													<h6 className="mb-0">
+														Mashable, a news website and blog, goes live.
+													</h6>
+												</Link>
+											</li>
 										</ul>
 										<div className="ps__rail-x" style={{ left: 0, bottom: 0 }}>
 											<div
@@ -164,6 +220,28 @@ const Header = ({ onNote, authData }) => {
 									<img src={profile} width={20} alt="" />
 								</Dropdown.Toggle>
 								<Dropdown.Menu align="right" className="mt-3 dropdown-menu dropdown-menu-end">
+									<Link to="/app-profile" className="dropdown-item ai-icon">
+										<svg
+											id="icon-user1" xmlns="http://www.w3.org/2000/svg" className="text-primary me-1"
+											width={18} height={18} viewBox="0 0 24 24" fill="none"
+											stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"
+										>
+											<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+											<circle cx={12} cy={7} r={4} />
+										</svg>
+										<span className="ms-2">Profile </span>
+									</Link>
+									<Link to="/email-inbox" className="dropdown-item ai-icon">
+										<svg
+											id="icon-inbox" xmlns="http://www.w3.org/2000/svg" className="text-success me-1" width={18}
+											height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}
+											strokeLinecap="round" strokeLinejoin="round"
+										>
+											<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+											<polyline points="22,6 12,13 2,6" />
+										</svg>
+										<span className="ms-2">Inbox </span>
+									</Link>
 									<LogoutPage />
 								</Dropdown.Menu>
 							</Dropdown>
@@ -177,9 +255,11 @@ const Header = ({ onNote, authData }) => {
 
 const mapStateToProps = (rootState) => {
 	return {
-		authData: rootState.authData
+		authData: rootState.authData,
+		typesData: rootState.authData.userTypes
 	}
 }
 const mapDispatchToProps = {
+	getUserTypesAction
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

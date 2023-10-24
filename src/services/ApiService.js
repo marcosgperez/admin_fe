@@ -8,6 +8,7 @@ const proxyUrl = "https://my-proxy-henna.vercel.app/api/proxy"
 class ApiService {
     axios;
     externalId = "Hotel"
+    userId = 10
     constructor() {
         this.axios = axios.create({
             baseURL: apiURL,
@@ -16,7 +17,7 @@ class ApiService {
     }
 
     doLogin(email, password) {
-        
+
         return this.axios.post(proxyUrl, {
             "method": "post",
             "url": apiURL + "/auth/login",
@@ -25,38 +26,60 @@ class ApiService {
                 password
             }
         });
-        
+
         //return this.axios.post(`/auth/login`, { email, password });
     }
 
     getUsers() {
-        
+
         return this.axios.post(proxyUrl, {
             "method": "get",
             "url": apiURL + "/users/index",
             "data": {}
         });
-        
+
         //return this.axios.get(`/users/index`, {});
+    }
+    getUserTypes() {
+        return this.axios.post(proxyUrl, {
+            "method": "get",
+            "url": apiURL + "/user-types/index",
+            data: {}
+        })
+    }
+
+
+    // retorna bad res y no se porque
+    getUserByID() {
+        return this.axios.post(proxyUrl, {
+            "method": "get",
+            "url": apiURL + "/users?id=10" + this.userId,
+            data: {}
+        })
+        
     }
 
     getRoomsTypes() {
         return this.axios.post(proxyUrl, {
             "method": "get",
-            "url": apiURL + "/room-types/index/?external_id="+this.externalId,
+            "url": apiURL + "/room-types/index/?external_id=" + this.externalId,
             "data": {}
         });
         // return this.axios.get(`rooms.json`, { baseURL: apiMockURL });
     }
-
     getRooms() {
-        return this.axios.get(`rooms.json`, { baseURL: apiMockURL });
+        return this.axios.post(proxyUrl, {
+            "method": "get",
+            "url": apiURL + "/rooms/index?external_id=1",
+            data: {}
+        })
     }
+
 
     getTasks() {
         return this.axios.get(`tasks.json`, { baseURL: apiMockURL });
     }
-    
+
     getEvents() {
         return this.axios.get(`events.json`, { baseURL: apiMockURL });
     }
@@ -67,7 +90,7 @@ class ApiService {
     getFacilities() {
         return this.axios.get(`facilities.json`, { baseURL: apiMockURL });
     }
-  
+
 }
 
 export default new ApiService();

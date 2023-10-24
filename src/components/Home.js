@@ -6,12 +6,10 @@ import { getRoomsAction } from "../store/actions/RoomsActions";
 
 
 const Home = ({ getRoomsAction, roomsData }) => {
-
+// GET ROOMS
   let admin = true
   React.useEffect(() => {
     getRoomsAction()
- 
-
   }, [])
 
   console.log(
