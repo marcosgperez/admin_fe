@@ -4590,6 +4590,7 @@ fieldset:disabled .btn {
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
+  z-index: 999;
 }
 
 .nav-link {
@@ -5084,6 +5085,7 @@ fieldset:disabled .btn {
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.75rem;
+
 }
 
 .card>hr {
@@ -5116,6 +5118,13 @@ fieldset:disabled .btn {
 .card-body {
   flex: 1 1 auto;
   padding: 1rem 1rem;
+  /* border: 2px solid gray; */
+  border-radius: 8px;
+
+}
+
+#facilitiesCard {
+  border: 2px solid gray;
 }
 
 .card-title {
@@ -13513,7 +13522,7 @@ svg.pulse-svg .third-circle {
   transition: all ease-in-out 0.2s;
   user-select: none;
   background-color: #f5f0f0;
-  /* background-color: red; */
+
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -40759,7 +40768,7 @@ ul {
 .roomListHeader {
   width: 100%;
   display: flex;
-  /* background-color: red; */
+
 }
 
 
@@ -40776,7 +40785,7 @@ ul {
   border-bottom: 3px solid #828282;
   color: black;
   font-weight: 500;
-  /* background-color: red; */
+
 }
 
 .tableHeader .headerItem {
@@ -40827,7 +40836,7 @@ ul {
 @media (max-width:1255px) {
   .tableHeader .headerItem {
     font-size: 10px;
-    /* background-color: red; */
+
   }
 
   .tableHeader .headerName {
@@ -40902,7 +40911,7 @@ ul {
 .roomListRowsContainer {
   width: 100%;
   height: fit-content;
-  /* background-color: red; */
+
   height: fit-content;
   display: flex;
   align-items: center;
@@ -40923,7 +40932,7 @@ ul {
 
 .roomListCard {
   height: fit-content;
-  /* background-color: red; */
+
 }
 
 .facility {
@@ -46224,15 +46233,94 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
   right: 0px;
   top: 0px;
   bottom: 0px;
-  max-width: 60vw;
-  height: fit-content;
-  background: white;
+  max-width: 600px;
+  height: 300px;
+  background: #f9f5f2;
   margin: auto;
   z-index: 100;
   border-radius: 10px;
   padding: 16px;
   box-shadow: 0px 0px 30px black;
   animation: Shown 0.2s forwards;
+}
+
+.Modal .table-responsive .table {
+  /* height: 90%; */
+
+  justify-content: center;
+  top: 0%;
+  bottom: 0%;
+  margin: auto;
+}
+
+
+.Modal .table-responsive .titleContainer {
+  width: 100%;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+
+  position: absolute;
+  font-size: 25px;
+  right: 0%;
+  left: 0%;
+  margin: auto;
+  font-weight: 600;
+  color: black;
+
+}
+
+.Modal .table-responsive {
+
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ModalActions {
+  display: flex;
+  justify-content: space-between;
+  right: 0%;
+  left: 0%;
+  margin: auto;
+  width: 70%;
+}
+
+@media screen and (max-width:425px) {
+  .ModalActions {
+    width: 100%;
+  }
+}
+
+.ModalActions button {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+}
+
+.modalGo {
+  background-color: #aa7e74;
+  color: white;
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  padding: 10px;
+}
+
+.Modal .table-responsive {
+  margin-top: 10px;
+}
+
+.modalRemove {
+  background-color: #aa7e74;
+  color: white;
+}
+
+.modalClose {
+  background-color: #fcaea9;
+  color: white;
 }
 
 @keyframes Shown {
@@ -46255,6 +46343,8 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
 
 .formCard {
   padding: 10px 20px;
+  box-shadow: 0px 0px 5px black;
+  
 }
 
 .formTextArea {
@@ -46271,20 +46361,21 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
 }
 
 
-@media screen and (max-width:992px){
-  .formButtonContainer{
+@media screen and (max-width:992px) {
+  .formButtonContainer {
     width: 100%;
   }
 }
 
-.formName{
+.formName {
   width: 100%;
 }
+
 .container {
   display: block;
   position: relative;
   padding-left: 35px;
-  margin-bottom: 12px;
+  /* margin-bottom: 12px; */
   cursor: pointer;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -46295,7 +46386,23 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
 }
 
 /* Hide the browser's default checkbox */
-.container input {
+.container #progress {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.container #done {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.container #notFinished {
   position: absolute;
   opacity: 0;
   cursor: pointer;
@@ -46323,15 +46430,19 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
   background-color: #2196F3;
 } */
 .container #progress:checked~.checkmark {
-  background-color: yellow;
+  background-color: #ead681;
 }
 
 .container #done:checked~.checkmark {
-  background-color: green;
+  background-color: #7aa577;
 }
 
 .container #notFinished:checked~.checkmark {
-  background-color: red;
+  background-color: #c96161;
+}
+
+p {
+  margin: 0px;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -46357,4 +46468,98 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
+}
+
+.buttonContainer {
+  width: 100%;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: end;
+}
+
+.buttonContainer a {
+  padding: 10px;
+  width: 10%;
+  border-radius: 8px;
+  background-color: #c96161;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  border: none;
+}
+
+
+.inputs {
+  display: flex;
+  width: 80%;
+  justify-content: space-around;
+  /* background-color: red; */
+}
+
+.rigth {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.left input {
+  width: 90%;
+  height: 40px;
+  margin: 20px;
+  background-color: #f7f7f7;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px gray;
+  padding: 10px;
+}
+
+.rigth input {
+  width: 90%;
+  height: 40px;
+  margin: 20px;
+  background-color: #f7f7f7;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px gray;
+  padding: 10px;
+}
+
+p {
+  margin: 0px;
+}
+
+.rigth div p {
+  margin-left: 20px;
+  font-weight: 500;
+  font-size: 16px;
+  color: black;
+}
+
+.left div p {
+  margin-left: 20px;
+  font-weight: 500;
+  font-size: 16px;
+  color: black;
+}
+
+.formRow{
+  display: flex;
+  justify-content: end;
+}
+
+.image {
+  width: 300px;
+  height: 200px;
+  margin-right: 10px;
+  background-position: center;
+  background-size: cover;
+  background-color: red;
+  border-radius: 8px;
 }

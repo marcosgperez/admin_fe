@@ -102,70 +102,66 @@ const NewFacilitie = ({ users, getUsers, getUserByIDAction, userById }) => {
     return (
         <>
             <Tab.Container defaultActiveKey="All" >
-                <div className="row">
+                <div className="row form">
                     <div className="col-xl-12">
                         <div className="card formCard" style={{ heigth: "20px" }} >
                             <div style={{ overflow: "auto" }} className="card-body p-0">
                                 <Tab.Content style={{ minWidth: "650px", heigth: "200px" }} >
                                     <Tab.Pane eventKey="All">
                                         <div className="table-responsive">
+                                            {/* <div className='formButtonContainer' >
+                                                                    <img src={room4} ></img>
+                                                                    <label class="container" onClick={() => setShow("onProgress")}> <p> On progress </p>
+                                                                        <input type="checkbox" id="progress" checked={show === "onProgress" ? true : false} />
+                                                                        <span class="checkmark"></span>
+                                                                    </label>
 
+                                                                    <label class="container" id="doneContainer" onClick={() => setShow("done")} >Done
+                                                                        <input type="checkbox" id="done" checked={show === "done" ? true : false} />
+                                                                        <span class="checkmark"></span>
+                                                                    </label>
+
+                                                                    <label class="container" onClick={() => setShow("notFinished")} >Not finished
+                                                                        <input type="checkbox" id="notFinished" checked={show === "notFinished" ? true : false} />
+                                                                        <span class="checkmark"></span>
+                                                                    </label>
+</div> */}
 
                                             <div id="room_wrapper" className="dataTables_wrapper no-footer">
                                                 <div className={"tableContainer"} style={{ width: "100%", alignItems: "center" }} >
-                                                    <div className='formButtonContainer' >
-                                                        <img src={room4} ></img>
-                                                        <label class="container" onClick={() => setShow("onProgress")}>On progress
-                                                            <input type="checkbox" id="progress" checked={show === "onProgress" ? true : false} />
-                                                            <span class="checkmark"></span>
-                                                        </label>
-
-                                                        <label class="container" id="doneContainer" onClick={() => setShow("done")} >Done
-                                                            <input type="checkbox" id="done" checked={show === "done" ? true : false} />
-                                                            <span class="checkmark"></span>
-                                                        </label>
-
-                                                        <label class="container" onClick={() => setShow("notFinished")} >Not finished
-                                                            <input type="checkbox" id="notFinished" checked={show === "notFinished" ? true : false} />
-                                                            <span class="checkmark"></span>
-                                                        </label>
-
-                                                    </div>
 
                                                     <div className="basic-form">
-
                                                         <form onSubmit={(e) => e.preventDefault()}>
-                                                            <div className="row">
-                                                                <div className="form-group mb-3 col-md-6">
-                                                                    <label>First Name</label>
-                                                                    <input
-                                                                        type="text"
-                                                                        className="form-control formName"
-                                                                        placeholder="1234 Main St"
-                                                                    />
+                                                            <div className='row formRow' >
+                                                                <div style={{ backgroundImage: `${room4}` }} className='image' ></div>
+                                                                <div className=' inputs'>
+
+                                                                    <div className='rigth'>
+                                                                        <div>
+                                                                            <p>
+                                                                                Name
+                                                                            </p>
+                                                                            <input></input>
+                                                                        </div>
+
+                                                                        <div>
+                                                                            <p>Type</p>
+                                                                            <input></input>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className='left' >
+
+                                                                        <div>
+                                                                            <p>Asigned To</p>
+                                                                            <input></input>
+                                                                        </div>
+
+                                                                        <div>
+                                                                            <p>Started on</p>
+                                                                            <input></input>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
-                                                                <div className="form-group mb-3 col-md-6">
-                                                                    <label>Email</label>
-                                                                    <input
-                                                                        type="text"
-                                                                        className="form-control"
-                                                                        placeholder="1234 Main St"
-                                                                    />
-                                                                </div>
-                                                                <div className="form-group mb-3 col-md-6">
-                                                                    <label>Password</label>
-                                                                    <input
-                                                                        type="password"
-                                                                        className="form-control"
-                                                                        placeholder="Password"
-                                                                    />
-                                                                </div>
-                                                                <div className="form-group mb-3 col-md-6">
-                                                                    <label>City</label>
-                                                                    <input type="text" className="form-control" />
-                                                                </div>
-                                                            </div>
-                                                            <div className="row">
                                                             </div>
                                                         </form>
                                                     </div>
@@ -175,7 +171,6 @@ const NewFacilitie = ({ users, getUsers, getUserByIDAction, userById }) => {
                                                     <div className="mb-3">
                                                         <input className="form-control" type="file" id="formFile" />
                                                     </div>
-
                                                     <textarea
                                                         className='formTextArea '
                                                         rows="8"

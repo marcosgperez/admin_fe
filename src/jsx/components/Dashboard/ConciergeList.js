@@ -148,6 +148,11 @@ const ConciergeList = ({ users, getUsers, getUserByIDAction, userById }) => {
 		<>
 			<Tab.Container defaultActiveKey="All" >
 				<div className="row">
+				<div className='buttonContainer' >
+                <Link to={"/staff/new-staff"}>
+                    + New Employee
+                </Link>
+            </div>
 					<div className="col-xl-12">
 						<div className="card roomListCard" style={{ heigth: "20px" }} >
 							<div style={{ overflow: "auto" }} className="card-body p-0">

@@ -23,24 +23,30 @@ const Facilities = ({ facilitiesData, getFacilitiesAction }) => {
 
     return (
         <div className="row">
-            <div className="col-xl-12 card" >
+            <div className="card-action coin-tabs mb-2">
+                <Nav as="ul" className="nav nav-tabs" role="tablist">
+                    <Nav.Item as="li" className="nav-item">
+                        <Nav.Link className="nav-link" eventKey="All" onClick={() => changeFilter("all")} >See All</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item as="li" className="nav-item">
+                        <Nav.Link className="nav-link" eventKey="HouseKeeping" onClick={() => changeFilter("houseKeeping")} >HouseKeeping</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item as="li" className="nav-item">
+                        <Nav.Link className="nav-link" eventKey="Maintainance" onClick={() => changeFilter("maintainance")} >Maintainance</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item as="li" className="nav-item">
+                        <Nav.Link className="nav-link" eventKey="other" onClick={() => changeFilter("other")} >Other</Nav.Link>
+                    </Nav.Item>
+                </Nav>
+            </div>
+            <div className='buttonContainer' >
+                <Link to={"/facilities/new-facilitie"}>
+                    + New Facilitie
+                </Link>
+            </div>
+            <div className="col-xl-12 card" id="facilitiesCard" >
                 <div className="mt-4 d-flex justify-content-between align-items-center flex-wrap">
-                    <div className="card-action coin-tabs mb-2">
-                        <Nav as="ul" className="nav nav-tabs" role="tablist">
-                            <Nav.Item as="li" className="nav-item">
-                                <Nav.Link className="nav-link" eventKey="All" onClick={() => changeFilter("all")} >See All</Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item as="li" className="nav-item">
-                                <Nav.Link className="nav-link" eventKey="HouseKeeping" onClick={() => changeFilter("houseKeeping")} >HouseKeeping</Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item as="li" className="nav-item">
-                                <Nav.Link className="nav-link" eventKey="Maintainance" onClick={() => changeFilter("maintainance")} >Maintainance</Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item as="li" className="nav-item">
-                                <Nav.Link className="nav-link" eventKey="other" onClick={() => changeFilter("other")} >Other</Nav.Link>
-                            </Nav.Item>
-                        </Nav>
-                    </div>
+
                     <div className="d-flex align-items-center mb-2">
                         <div className="nav-item d-flex align-items-Start">
                             <div className="input-group search-area">

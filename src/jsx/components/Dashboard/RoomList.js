@@ -54,7 +54,7 @@ const RoomList = ({ tasksData, getTasksAction, filter, loadingRoomsTypes, roomsT
 			}
 		}
 	};
-// GET ROOMTYPES & GET TASKS
+	// GET ROOMTYPES & GET TASKS
 	React.useEffect(() => {
 		getTasksAction()
 		getRoomsTypesAction()
@@ -112,7 +112,13 @@ const RoomList = ({ tasksData, getTasksAction, filter, loadingRoomsTypes, roomsT
 		<>
 			<Tab.Container defaultActiveKey="All" >
 				<div className="row">
+					<div className='buttonContainer' >
+						<Link to={"/tasks/new-task"}>
+							+ New Task
+						</Link>
+					</div>
 					<div className="col-xl-12">
+
 						<div className="card roomListCard" style={{ heigth: "20px" }} >
 							<div style={{ overflow: "auto" }} className="card-body p-0">
 								<Tab.Content style={{ minWidth: "650px", heigth: "200px" }}>

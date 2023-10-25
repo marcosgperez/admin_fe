@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Col, Row, Card } from "react-bootstrap";
 import FullCalendar from "@fullcalendar/react";
+import { Link } from "react-router-dom";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
@@ -105,21 +106,26 @@ const EventCalendar = ({ eventsData, getEventsAction }) => {
             <div className="ModalMask"></div>
             <div className="Modal">
                <div className="table-responsive">
+                  <div className="titleContainer">
+                     <div>{title}</div>
+                  </div>
                   <table className="table">
                      <tbody>
                         <tr >
-                           <td>Title</td>
-                           <td><strong>{title}</strong></td>
+                           <td className="modalTd" >Title</td>
+                           <td className="modalTd" ><strong>{title}</strong></td>
                         </tr>
                         <tr >
-                           <td>Start Time</td>
-                           <td><strong>{start.toDateString()}</strong></td>
+                           <td className="modalTd" >Start Time</td>
+                           <td className="modalTd" ><strong>{start.toDateString()}</strong></td>
                         </tr>
                      </tbody>
                   </table>
-               </div>
-               <div className="ModalActions">
-                  <button onClick={() => setModalData()}>Close</button>
+                  <div className="ModalActions">
+                     <Link className="modalGo" >Go to task</Link>
+                     <button className="modalRemove" onClick={() => setModalData()}>Remove Task</button>
+                     <button className="modalClose" onClick={() => setModalData()}>Close</button>
+                  </div>
                </div>
             </div>
          </div>
