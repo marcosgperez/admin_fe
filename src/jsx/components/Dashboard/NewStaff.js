@@ -25,7 +25,7 @@ const buildUserData = (userFromAPI) => {
 }
 
 
-const NewFacilitie = ({ users, getUsers, getUserByIDAction, userById }) => {
+const StaffById = ({ users, getUsers, getUserByIDAction, userById }) => {
 
     const [selectBtn, setSelectBtn] = useState("Newest");
 
@@ -213,4 +213,4 @@ const mapDispatchToProps = {
     getUserByIDAction
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewFacilitie);
+export default connect(mapStateToProps, mapDispatchToProps)(StaffById);

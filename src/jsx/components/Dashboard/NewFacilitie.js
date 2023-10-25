@@ -25,7 +25,7 @@ const buildUserData = (userFromAPI) => {
 }
 
 
-const NewFacilitie = ({ users, getUsers, getUserByIDAction, userById }) => {
+const FacilitieById = ({ users, getUsers, getUserByIDAction, userById }) => {
 
     const [selectBtn, setSelectBtn] = useState("Newest");
 
@@ -109,23 +109,7 @@ const NewFacilitie = ({ users, getUsers, getUserByIDAction, userById }) => {
                                 <Tab.Content style={{ minWidth: "650px", heigth: "200px" }} >
                                     <Tab.Pane eventKey="All">
                                         <div className="table-responsive">
-                                            {/* <div className='formButtonContainer' >
-                                                                    <img src={room4} ></img>
-                                                                    <label class="container" onClick={() => setShow("onProgress")}> <p> On progress </p>
-                                                                        <input type="checkbox" id="progress" checked={show === "onProgress" ? true : false} />
-                                                                        <span class="checkmark"></span>
-                                                                    </label>
-
-                                                                    <label class="container" id="doneContainer" onClick={() => setShow("done")} >Done
-                                                                        <input type="checkbox" id="done" checked={show === "done" ? true : false} />
-                                                                        <span class="checkmark"></span>
-                                                                    </label>
-
-                                                                    <label class="container" onClick={() => setShow("notFinished")} >Not finished
-                                                                        <input type="checkbox" id="notFinished" checked={show === "notFinished" ? true : false} />
-                                                                        <span class="checkmark"></span>
-                                                                    </label>
-</div> */}
+                                
 
                                             <div id="room_wrapper" className="dataTables_wrapper no-footer">
                                                 <div className={"tableContainer"} style={{ width: "100%", alignItems: "center" }} >
@@ -216,4 +200,4 @@ const mapDispatchToProps = {
     getUserByIDAction
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewFacilitie);
+export default connect(mapStateToProps, mapDispatchToProps)(FacilitieById);

@@ -8,9 +8,9 @@ import TaskDetail from "./pages/TaskDetail";
 import Tasks from "./pages/Tasks";
 
 import Facilities from "./pages/Facilities";
-import NewTask from "./components/Dashboard/NewTask";
-import NewStaff from "./components/Dashboard/NewStaff";
-import NewFacilitie from "./components/Dashboard/NewFacilitie";
+import TaskById from "./components/Dashboard/NewTask";
+import StaffById from "./components/Dashboard/NewStaff";
+import FacilitieById from "./components/Dashboard/NewFacilitie";
 // import TaskList from "./Dashboard/RoomList";
 export const linkData = [
     //Dashboard
@@ -46,10 +46,12 @@ export const linkData = [
 
     // urls
     { url: "/", component: <Home /> },
-    { url: "tasks/new-task", component: <NewTask /> },
-    { url: "staff/new-staff", component: <NewStaff /> },
-    { url: "facilities/new-facilitie", component: <NewFacilitie /> },
-    { url: "task/:taskId", component: <Reviews /> },
+    // { url: "tasks/new-task", component: <TaskById /> },
+    // { url: "staff/new-staff", component: <StaffById /> },
+    // { url: "facilities/new-facilitie", component: <FacilitieById /> },
+    { url: "task/:taskId", component: <TaskById /> },
+    { url: "staff/:staffId", component: <StaffById /> },
+    { url: "facilitie/:facilitieId", component: <FacilitieById /> },
     { url: "employee/:employeeId", component: <Reviews /> },
     { url: "guest-list", component: <GuestList /> },
     { url: "guest-details", component: <GuestDetails /> },

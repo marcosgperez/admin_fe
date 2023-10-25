@@ -158,7 +158,7 @@ const ConciergeList = ({ users, getUsers, getUserByIDAction, userById }) => {
 							<div style={{ overflow: "auto" }} className="card-body p-0">
 								<Tab.Content style={{ minWidth: "650px", heigth: "200px" }} >
 									<Tab.Pane eventKey="All">
-										<div className={ "table-responsive "}>
+										<div className={"table-responsive "}>
 											<div id="room_wrapper" className="dataTables_wrapper no-footer">
 												<div className={"tableContainer"} style={{ width: "100%", alignItems: "center" }} >
 													<div style={{ fontSize: "30px", paddingTop: "20px", paddingLeft: "20px", fontWeight: "500" }} >Staff</div>
@@ -174,28 +174,29 @@ const ConciergeList = ({ users, getUsers, getUserByIDAction, userById }) => {
 														<div className={"tableBody"} style={{ padding: "10px 0px" }} >
 															{users.map(buildUserData).map((t, i) => {
 																return (
-
-																	<div className={"tableRow"} style={{ width: "100%", display: "flex", justifyContent: "space-between", padding: "10px 0px", textSelect: "none" }}>
-																		{/* <div style={{ width: "0.00005%", display: "flex", alignItems: "center", justifyContent: "end", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
+																	<Link to={`/facilitie/:${t.id}`} >
+																		<div className={"tableRow"} style={{ width: "100%", display: "flex", justifyContent: "space-between", padding: "10px 0px", textSelect: "none" }}>
+																			{/* <div style={{ width: "0.00005%", display: "flex", alignItems: "center", justifyContent: "end", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
 																			</div> */}
-																		<div style={{ width: "20%", display: "flex", padding: "0px 0px 0px 20px", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
-																			<img alt={"idk bruh0"} src={room4} className="rowImage" ></img>
-																			<p style={{ marginBottom: "0px", marginLeft: "20px" }}>
-																				{t.name}
-																			</p>
+																			<div style={{ width: "20%", display: "flex", padding: "0px 0px 0px 20px", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
+																				<img alt={"idk bruh0"} src={room4} className="rowImage" ></img>
+																				<p style={{ marginBottom: "0px", marginLeft: "20px" }}>
+																					{t.name}
+																				</p>
+																			</div>
+																			<div style={{ width: "10%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{t.job}</div>
+																			<div style={{ width: "10%", display: "flex", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px", flexDirection: "column" }}>
+																				<p style={{ marginBottom: "0px" }} >
+																					{t.days}
+																				</p>
+																				<p style={{ marginBottom: "0px" }}>
+																					{t.hours}
+																				</p>
+																			</div>
+																			<div style={{ width: "10%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{t.contact}</div>
+																			<div style={{ width: "10%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}><DropDown status={t.status} /></div>
 																		</div>
-																		<div style={{ width: "10%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{t.job}</div>
-																		<div style={{ width: "10%", display: "flex", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px", flexDirection: "column" }}>
-																			<p style={{ marginBottom: "0px" }} >
-																				{t.days}
-																			</p>
-																			<p style={{ marginBottom: "0px" }}>
-																				{t.hours}
-																			</p>
-																		</div>
-																		<div style={{ width: "10%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{t.contact}</div>
-																		<div style={{ width: "10%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}><DropDown status={t.status} /></div>
-																	</div>
+																	</Link>
 
 																)
 															})}
