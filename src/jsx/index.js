@@ -9,7 +9,7 @@ import "./chart.css";
 import "./step.css";
 
 /// Layout
-import Nav from "./layouts/nav";
+import JobieNav from "./layouts/nav";
 import Footer from "./layouts/Footer";
 import ScrollToTop from "./layouts/ScrollToTop";
 /// Dashboard
@@ -79,7 +79,7 @@ function MainLayout() {
       className={`show ${sidebariconHover ? "iconhover-toggle" : ""} ${menuToggle ? "menu-toggle" : ""
         }`}
     >
-      <Nav />
+      <JobieNav />
       <div
         className="content-body"
         style={{ minHeight: window.screen.height - 45 }}

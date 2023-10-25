@@ -8,7 +8,7 @@ const proxyUrl = "https://my-proxy-henna.vercel.app/api/proxy"
 class ApiService {
     axios;
     externalId = "Hotel"
-    userId = 10
+
     constructor() {
         this.axios = axios.create({
             baseURL: apiURL,
@@ -50,11 +50,20 @@ class ApiService {
 
 
     // retorna bad res y no se porque
-    getUserByID() {
+    getUserByID(id) {
         return this.axios.post(proxyUrl, {
             "method": "get",
-            "url": apiURL + "/users?id=10" + this.userId,
+            "url": apiURL + "/users?id=" + id,
             data: {}
+        })
+    }
+
+    // retorna bad res y no se porque
+    updateUserByID(user) {
+        return this.axios.post(proxyUrl, {
+            "method": "post",
+            "url": apiURL + "/users/update",
+            data: { ...user }
         })
 
     }

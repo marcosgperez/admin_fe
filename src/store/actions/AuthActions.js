@@ -16,7 +16,11 @@ export const AuthActionTypes = {
 
   "GET_USER_BY_ID_FETCH": "GET_USER_BY_ID_FETCH",
   "GET_USER_BY_ID_FETCHING": "GET_USER_BY_ID_FETCHING",
-  "GET_USER_BY_ID_FETCH_ERROR": "GET_USER_BY_ID_FETCH_ERROR"
+  "GET_USER_BY_ID_FETCH_ERROR": "GET_USER_BY_ID_FETCH_ERROR",
+
+  "UPDATE_USER_BY_ID_FETCHING": "UPDATE_USER_BY_ID_FETCHING",
+  "UPDATE_USER_BY_ID_FETCH": "UPDATE_USER_BY_ID_FETCH",
+  "UPDATE_USER_BY_ID_FETCH_ERROR": "UPDATE_USER_BY_ID_FETCH_ERROR"
 
 }
 
@@ -59,7 +63,7 @@ export const getUserTypesAction = () => (dispatch) => {
     type: AuthActionTypes.GET_USERTYPES_FETCHING
   });
   ApiService.getUserTypes().then((res) => {
- 
+
     dispatch({
       type: AuthActionTypes.GET_USERTYPES_FETCH,
       payload: res.data.data,
@@ -72,12 +76,12 @@ export const getUserTypesAction = () => (dispatch) => {
   })
 };
 
-export const getUserByIDAction = () => (dispatch) => {
+export const getUserByIDAction = (id) => (dispatch) => {
   dispatch({
     type: AuthActionTypes.GET_USER_BY_ID_FETCHING
   });
-  ApiService.getUserByID().then((res) => {
-    console.log(res,"RES")
+  ApiService.getUserByID(id).then((res) => {
+    console.log(res, "RES")
     dispatch({
       type: AuthActionTypes.GET_USER_BY_ID_FETCH,
       payload: res.data.data,
@@ -85,6 +89,24 @@ export const getUserByIDAction = () => (dispatch) => {
   }).catch(e => {
     dispatch({
       type: AuthActionTypes.GET_USER_BY_ID_FETCH_ERROR,
+      payload: e,
+    });
+  })
+}
+
+export const updateUserByIDAction = (user) => (dispatch) => {
+  dispatch({
+    type: AuthActionTypes.UPDATE_USER_BY_ID_FETCHING
+  });
+  ApiService.updateUserByID(user).then((res) => {
+    console.log(res, "RES")
+    dispatch({
+      type: AuthActionTypes.UPDATE_USER_BY_ID_FETCH,
+      payload: res.data.data,
+    });
+  }).catch(e => {
+    dispatch({
+      type: AuthActionTypes.UPDATE_USER_BY_ID_FETCH_ERROR,
       payload: e,
     });
   })

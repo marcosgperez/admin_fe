@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 /// Scroll
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { linkData } from "../../routes";
@@ -12,50 +12,25 @@ import LogoutPage from './Logout';
 import { connect } from "react-redux"
 import { getUserTypesAction } from "../../../store/actions/AuthActions";
 
-const Header = ({ onNote, authData, typesData, getUserTypesAction }) => {
-	const [searchBut, setSearchBut] = useState(false);
-	var path = window.location.pathname.split("/");
-	const pathNotSplited = path[path.length - 1]
-	const singleLinkData = linkData.filter((data) => data.url == pathNotSplited);
-
+const Header = ({ onNote, authData, typesData, getUserTypesAction, title }) => {
+	// const [searchBut, setSearchBut] = useState(false);
+	const location = useLocation()
 	const { loading, user } = authData
+
 	// GET USERTYPES
 	React.useEffect(() => {
 		getUserTypesAction()
 	}, [])
-	console.log(typesData, "typesData")
 
-	if (singleLinkData.length > 0 && singleLinkData[0].name) {
-		//EXISTE LA DATA DE LA URL EN LINKED DATA
-		var finalName = [singleLinkData[0].name]
-	} else {
-
-		var name = pathNotSplited.split("-");
-		var filterName = name.length >= 3 ? name.filter((n, i) => i > 0) : name;
-		var finalName = filterName.includes("app")
-			? filterName.filter((f) => f !== "app")
-			: filterName.includes("ui")
-				? filterName.filter((f) => f !== "ui")
-				: filterName.includes("uc")
-					? filterName.filter((f) => f !== "uc")
-					: filterName.includes("basic")
-						? filterName.filter((f) => f !== "basic")
-						: filterName.includes("jquery")
-							? filterName.filter((f) => f !== "jquery")
-							: filterName.includes("table")
-								? filterName.filter((f) => f !== "table")
-								: filterName.includes("page")
-									? filterName.filter((f) => f !== "page")
-									: filterName.includes("email")
-										? filterName.filter((f) => f !== "email")
-										: filterName.includes("ecom")
-											? filterName.filter((f) => f !== "ecom")
-											: filterName.includes("chart")
-												? filterName.filter((f) => f !== "chart")
-												: filterName.includes("editor")
-													? filterName.filter((f) => f !== "editor")
-													: filterName;
+	const grabTitleFromUrl = () => {
+		const capitalize = (str) => str[0].toUpperCase() + str.slice(1);
+		const splitPath = location.pathname.split("/");
+		const filtered = splitPath.filter(p => p != "")
+		if(filtered.length === 0) return "Dashboard"
+		return filtered.map(capitalize).join(" - ")
 	}
+		
+	
 	return (
 		<div className="header border-bottom">
 			<div className="header-content">
@@ -66,10 +41,7 @@ const Header = ({ onNote, authData, typesData, getUserTypesAction }) => {
 								className="dashboard_bar"
 								style={{ textTransform: "capitalize" }}
 							>
-								{finalName.join(" ").length === 0 ? "Dashboard"
-									: finalName.join(" ") === "dashboard dark"
-										? "Dashboard"
-										: finalName.join(" ")}
+								{title ? title : grabTitleFromUrl()}
 							</div>
 						</div>
 						<ul className="navbar-nav header-right">

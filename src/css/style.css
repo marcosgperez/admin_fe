@@ -46353,6 +46353,7 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
 }
 
 .formTextArea {
+  padding: 10px;
   width: 100%;
   border-radius: 8px;
   max-height: 300px;
@@ -46524,7 +46525,7 @@ p {
   background-color: #f7f7f7;
   border: none;
   border-radius: 8px;
-  box-shadow: 0px 0px 10px gray;
+  /* box-shadow: 0px 0px 10px gray; */
   padding: 10px;
 }
 
@@ -46535,7 +46536,7 @@ p {
   background-color: #f7f7f7;
   border: none;
   border-radius: 8px;
-  box-shadow: 0px 0px 10px gray;
+  /* box-shadow: 0px 0px 10px gray; */
   padding: 10px;
 }
 
@@ -46633,4 +46634,20 @@ p {
   .buttonContainer a{
     width:40%
   }
+}
+
+.customCard {
+  border-radius: 8px;
+  background-color: white;
+}
+
+.customCard .card-body {
+  overflow: initial !important;
+}
+
+.customCard textarea {
+  border: none;
+  background: #e2a1281c;
+  overflow: hidden;
+  border-radius: 2px;
 }
