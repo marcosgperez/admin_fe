@@ -72,7 +72,7 @@ const DropDown = ({ status }) => {
 	);
 };
 const ConciergeList = ({ users, getUsers, getUserByIDAction, userById }) => {
-	
+
 	const [selectBtn, setSelectBtn] = useState("Newest");
 
 	const [data, setData] = useState(
@@ -141,24 +141,24 @@ const ConciergeList = ({ users, getUsers, getUserByIDAction, userById }) => {
 	}, [])
 
 	React.useEffect(() => {
-		console.log("users", users,"userByID",userById)
+		console.log("users", users, "userByID", userById)
 	}, [users])
 	console.log(userById, "userById")
 	return (
 		<>
 			<Tab.Container defaultActiveKey="All" >
 				<div className="row">
-				<div className='buttonContainer' >
-                <Link to={"/staff/new-staff"}>
-                    + New Employee
-                </Link>
-            </div>
+					<div className='buttonContainer' >
+						<Link to={"/staff/new-staff"}>
+							+ New Employee
+						</Link>
+					</div>
 					<div className="col-xl-12">
 						<div className="card roomListCard" style={{ heigth: "20px" }} >
 							<div style={{ overflow: "auto" }} className="card-body p-0">
 								<Tab.Content style={{ minWidth: "650px", heigth: "200px" }} >
 									<Tab.Pane eventKey="All">
-										<div className="table-responsive">
+										<div className={ "table-responsive "}>
 											<div id="room_wrapper" className="dataTables_wrapper no-footer">
 												<div className={"tableContainer"} style={{ width: "100%", alignItems: "center" }} >
 													<div style={{ fontSize: "30px", paddingTop: "20px", paddingLeft: "20px", fontWeight: "500" }} >Staff</div>

@@ -133,7 +133,9 @@ const NewFacilitie = ({ users, getUsers, getUserByIDAction, userById }) => {
                                                     <div className="basic-form">
                                                         <form onSubmit={(e) => e.preventDefault()}>
                                                             <div className='row formRow' >
-                                                                <div style={{ backgroundImage: `${room4}` }} className='image' ></div>
+                                                                <div className='imageContainer'>
+                                                                    <div style={{ backgroundImage: `${room4}` }} className='image' ></div>
+                                                                </div>
                                                                 <div className=' inputs'>
 
                                                                     <div className='rigth'>
@@ -176,6 +178,9 @@ const NewFacilitie = ({ users, getUsers, getUserByIDAction, userById }) => {
                                                         rows="8"
                                                         id="comment"
                                                     ></textarea>
+                                                    <div className='saveContainer' >
+                                                        <button>Save</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -189,8 +194,8 @@ const NewFacilitie = ({ users, getUsers, getUserByIDAction, userById }) => {
                                 </Tab.Content>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </div >
+                </div >
             </Tab.Container >
         </>
     )

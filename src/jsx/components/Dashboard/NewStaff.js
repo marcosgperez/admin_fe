@@ -133,7 +133,9 @@ const NewFacilitie = ({ users, getUsers, getUserByIDAction, userById }) => {
                                                     <div className="basic-form">
                                                         <form onSubmit={(e) => e.preventDefault()}>
                                                             <div className='row formRow' >
-                                                                <div style={{ backgroundImage: `${room4}` }} className='image' ></div>
+                                                                <div className='imageContainer'>
+                                                                    <div style={{ backgroundImage: `${room4}` }} className='image' ></div>
+                                                                </div>
                                                                 <div className=' inputs'>
 
                                                                     <div className='rigth'>
@@ -189,8 +191,8 @@ const NewFacilitie = ({ users, getUsers, getUserByIDAction, userById }) => {
                                 </Tab.Content>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </div >
+                </div >
             </Tab.Container >
         </>
     )
