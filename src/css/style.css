@@ -13489,6 +13489,7 @@ svg.pulse-svg .third-circle {
   height: 30px;
   font-size: 20px;
   font-weight: 500;
+  width: 100%;
 }
 
 .closed {
@@ -13515,6 +13516,12 @@ svg.pulse-svg .third-circle {
   margin-bottom: 0px;
 }
 
+@media screen and (max-width:1200px) {
+  .dropDownButton div p {
+    font-size: 15px;
+  }
+}
+
 .dropDownOptions {
   /* background-color: rebeccapurple; */
   height: 110px;
@@ -13529,7 +13536,7 @@ svg.pulse-svg .third-circle {
   border: 1px solid black;
   position: relative;
   border-radius: 4px;
-  
+
 }
 
 .dropDownButton .active {
@@ -13559,7 +13566,7 @@ svg.pulse-svg .third-circle {
 .dropDownButton {
   width: 130px;
   border-radius: 4px;
-
+  max-width: 100%;
   display: flex;
   align-items: center;
   justify-content: start;
@@ -46623,16 +46630,19 @@ p {
     width: 100%;
     margin: auto;
   }
-  .rigth{
+
+  .rigth {
     width: 100%;
   }
-  .left{
+
+  .left {
     width: 100%;
   }
 }
+
 @media screen and (max-width:768px) {
-  .buttonContainer a{
-    width:40%
+  .buttonContainer a {
+    width: 40%
   }
 }
 

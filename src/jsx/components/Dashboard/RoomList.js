@@ -29,13 +29,7 @@ const DropdownBlog = () => {
 }
 
 
-const RoomList = ({ tasksData, getTasksAction, filter, loadingRoomsTypes, roomsTypes, getRoomsTypesAction }) => {
-	const { loading, tasks, error } = tasksData;
-	const _filter = filter
-
-	React.useEffect(() => {
-		console.log(_filter, "filter en rommList")
-	}, [_filter])
+const RoomList = (filter) => {
 
 	const [selectBtn, setSelectBtn] = useState("Newest");
 	const [data, setData] = useState(
@@ -44,6 +38,9 @@ const RoomList = ({ tasksData, getTasksAction, filter, loadingRoomsTypes, roomsT
 	const sort = 10;
 	const activePag = useRef(0);
 	const [test, settest] = useState(0);
+
+
+
 	// Active data
 	const chageData = (frist, sec) => {
 		for (var i = 0; i < data.length; ++i) {
@@ -54,18 +51,12 @@ const RoomList = ({ tasksData, getTasksAction, filter, loadingRoomsTypes, roomsT
 			}
 		}
 	};
-	// GET ROOMTYPES & GET TASKS
-	React.useEffect(() => {
-		getTasksAction()
-		getRoomsTypesAction()
-	}, [])
-	console.log(tasksData, "tasksData")
-
 	// use effect
 	useEffect(() => {
 		setData(document.querySelectorAll("#room_wrapper tbody tr"));
 		//chackboxFun();
 	}, [test]);
+
 
 	// Active pagginarion
 	activePag.current === 0 && chageData(0, sort);
@@ -80,6 +71,7 @@ const RoomList = ({ tasksData, getTasksAction, filter, loadingRoomsTypes, roomsT
 		chageData(activePag.current * sort, (activePag.current + 1) * sort);
 		settest(i);
 	};
+
 
 	const chackbox = document.querySelectorAll(".sorting_7 input");
 	const motherChackBox = document.querySelector(".sorting_asc_7 input");
@@ -103,73 +95,370 @@ const RoomList = ({ tasksData, getTasksAction, filter, loadingRoomsTypes, roomsT
 			}
 		}
 	};
-
-	const getRoomNameByRoomTypeId = (roomTypeId) => {
-		const roomType = roomsTypes.find(roomType => roomType.id === roomTypeId);
-		return roomType ? roomType.name : 'Unknown';
-	}
 	return (
 		<>
-			<Tab.Container defaultActiveKey="All" >
-				<div className="row">
-					<div className='buttonContainer' >
-						<Link to={"/tasks/new-task"}>
-							+ New Task
-						</Link>
-					</div>
-					<div className="col-xl-12">
 
-						<div className="card roomListCard" style={{ heigth: "20px" }} >
-							<div style={{ overflow: "auto" }} className="card-body p-0">
-								<Tab.Content style={{ minWidth: "650px", heigth: "200px" }}>
+			<Tab.Container defaultActiveKey="All">
+
+				{/* <div className="mt-4 d-flex justify-content-between align-items-center flex-wrap">
+					<div className="card-action coin-tabs mb-2">
+						<Nav as="ul" className="nav nav-tabs" role="tablist">
+							<Nav.Item as="li" className="nav-item">
+								<Nav.Link className="nav-link" eventKey="All">All Rooms</Nav.Link>
+							</Nav.Item>
+							<Nav.Item as="li" className="nav-item">
+								<Nav.Link className="nav-link" eventKey="Available">Available Room</Nav.Link>
+							</Nav.Item>
+							<Nav.Item as="li" className="nav-item">
+								<Nav.Link className="nav-link" eventKey="Booked">Booked</Nav.Link>
+							</Nav.Item>
+						</Nav>
+					</div>
+					<div className="d-flex align-items-center mb-2">
+						<Link to={"#"} className="btn btn-secondary">+ New Employee</Link>
+						<div className="newest ms-3">
+							<Dropdown>
+								<Dropdown.Toggle as="div" className=" btn-select-drop default-select btn i-false">
+									{selectBtn} <i className="fas fa-angle-down ms-2 "></i>
+								</Dropdown.Toggle>
+								<Dropdown.Menu>
+									<Dropdown.Item onClick={() => setSelectBtn("Oldest")} eventKey="All">Oldest</Dropdown.Item>
+									<Dropdown.Item onClick={() => setSelectBtn("Newest")} eventKey="All">Newest</Dropdown.Item>
+								</Dropdown.Menu>
+							</Dropdown>
+						</div>
+					</div>
+				</div> */}
+				<div className="rowñ">
+					<div className="col-xl-12">
+						<div className="card">
+							<div className="card-body p-0">
+								<Tab.Content>
 									<Tab.Pane eventKey="All">
 										<div className="table-responsive">
 											<div id="room_wrapper" className="dataTables_wrapper no-footer">
-												<div className={"tableContainer"} style={{ width: "100%", alignItems: "center" }} >
-													<div style={{ fontSize: "30px", paddingTop: "20px", paddingLeft: "20px", fontWeight: "500" }} >Tasks</div>
-													<div className={"tableHeader"}>
-														{/* <div style={{ width: "0.5%", justifyContent: "center", textAlign: "start", fontSize: "16px", padding: "10px 0px", fontWeight: "500", margin: "5px" }}></div> */}
-														<div className="headerName" >Name</div>
-														<div className="headerItem" >Type</div>
-														<div className="headerItem" >Room</div>
-														<div className="headerItem" >Assigned</div>
-														<div className="headerItem" >Date</div>
-														<div className="headerItem" >Time</div>
-														<div className="headerItem" >Status</div>
+												<table className="table card-table display mb-4 dataTablesCard booking-table room-list-tbl dataTable no-footer">
+													<thead>
+														<tr role="row">
+															<th className="sorting_asc_7 bg-none" >
+																<div className="form-check  style-1">
+																	<input type="checkbox" onClick={() => chackboxFun("all")} className="form-check-input" id="checkAll" required="" />
+																</div>
+															</th>
+															<th>Name</th>
+															<th>Type</th>
+															<th>Assigned</th>
+															<th>Date</th>
+															<th>Time</th>
+															<th>Status</th>
+															<th className="bg-none"></th>
+														</tr>
+													</thead>
+													<tbody>
+														<Link to={"task-detail"}>
 
+															
+														</Link>
+														<tr role="row" className="odd">
+															<td className="sorting_7">
+																<div className="form-check   style-1">
+																	<input type="checkbox" onClick={() => chackboxFun()}
+																		className="form-check-input" id="customCheckBox21" required=""
+																	/>
+																</div>
+															</td>
+															<td>
+																<div className="room-list-bx d-flex align-items-center">
+																	<img className="me-3 rounded" src={room4} alt="" />
+																	<div>
+																		<span className=" text-secondary fs-14 d-block">#12341225</span>
+																		<span className=" fs-16 font-w500 text-nowrap">Deluxe A-91234</span>
+																	</div>
+																</div>
+															</td>
+															<td className="">
+																<span className="fs-16 font-w500 text-nowrap">Double Bed</span>
+															</td>
+															<td>
+																<div>
+
+																	<span className="fs-16 font-w500">Floor A-1</span>
+																</div>
+															</td>
+															<td className="facility">
+																<div>
+																	<span className="fs-16 comments">Joh Doe</span>
+																</div>
+															</td>
+															<td>
+																<div className="">
+																	<span className="mb-2">Price</span>
+																	<span className="font-w500">$145<small className="fs-14 ms-2">/night</small></span>
+																</div>
+															</td>
+															<td>
+																<Link to={"#"} className="btn btn-success btn-sm">AVAILABLE</Link>
+															</td>
+															<td><DropdownBlog /></td>
+														</tr>
+														<tr className="even">
+															<td className="sorting_7">
+																<div className="form-check   style-1">
+																	<input type="checkbox" onClick={() => chackboxFun()}
+																		className="form-check-input" id="customCheckBox22" required=""
+																	/>
+																</div>
+															</td>
+															<td>
+																<div className="room-list-bx d-flex align-items-center">
+																	<img className="me-3 rounded" src={room4} alt="" />
+																	<div>
+																		<span className=" text-secondary fs-14 d-block">#12341225</span>
+																		<span className=" fs-16 font-w500 text-nowrap">Deluxe A-91234</span>
+																	</div>
+																</div>
+															</td>
+															<td className="">
+																<span className="fs-16 font-w500 text-nowrap">Double Bed</span>
+															</td>
+															<td>
+																<div>
+
+																	<span className="fs-16 font-w500">Floor A-1</span>
+																</div>
+															</td>
+															<td className="facility">
+																<div>
+																	<span className="fs-16 comments">Joh Doe</span>
+																</div>
+															</td>
+															<td>
+																<div className="">
+																	<span className="mb-2">Price</span>
+																	<span className="font-w500">$145<small className="fs-14 ms-2">/night</small></span>
+																</div>
+															</td>
+															<td>
+																<Link to={"#"} className="btn btn-danger btn-sm">BOOKED</Link>
+															</td>
+															<td><DropdownBlog /></td>
+														</tr>
+														<tr className="odd">
+															<td className="sorting_7">
+																<div className="form-check  style-1">
+																	<input type="checkbox" onClick={() => chackboxFun()}
+																		className="form-check-input" id="customCheckBox23" required=""
+																	/>
+																</div>
+															</td>
+															<td>
+																<div className="room-list-bx d-flex align-items-center">
+																	<img className="me-3 rounded" src={room4} alt="" />
+																	<div>
+																		<span className=" text-secondary fs-14 d-block">#12341225</span>
+																		<span className=" fs-16 font-w500 text-nowrap">Deluxe A-91234</span>
+																	</div>
+																</div>
+															</td>
+															<td className="">
+																<span className="fs-16 font-w500 text-nowrap">Double Bed</span>
+															</td>
+															<td>
+																<div>
+
+																	<span className="fs-16 font-w500">Floor A-1</span>
+																</div>
+															</td>
+															<td className="facility">
+																<div className="">
+																	<span className="fs-16 comments">Joh Doe</span>
+																</div>
+															</td>
+															<td>
+																<div className="">
+																	<span className="mb-2">Price</span>
+																	<span className="font-w500">$145<small className="fs-14 ms-2">/night</small></span>
+																</div>
+															</td>
+															<td>
+																<Link to={"#"} className="btn btn-success btn-sm">AVAILABLE</Link>
+															</td>
+															<td><DropdownBlog /></td>
+														</tr>
+														<tr className="even">
+															<td className="sorting_7">
+																<div className="form-check  style-1">
+																	<input type="checkbox" onClick={() => chackboxFun()}
+																		className="form-check-input" id="customCheckBox24" required=""
+																	/>
+																</div>
+															</td>
+															<td>
+																<div className="room-list-bx d-flex align-items-center">
+																	<img className="me-3 rounded" src={room4} alt="" />
+																	<div>
+																		<span className=" text-secondary fs-14 d-block">#12341225</span>
+																		<span className=" fs-16 font-w500 text-nowrap">Deluxe A-91234</span>
+																	</div>
+																</div>
+															</td>
+															<td className="">
+																<span className="fs-16 font-w500 text-nowrap">Double Bed</span>
+															</td>
+															<td>
+																<div>
+
+																	<span className="fs-16 font-w500">Floor A-1</span>
+																</div>
+															</td>
+															<td className="facility">
+																<div className="">
+																	<span className="fs-16 comments">Joh Doe</span>
+																</div>
+															</td>
+															<td>
+																<div className="">
+																	<span className="mb-2">Price</span>
+																	<span className="font-w500">$145<small className="fs-14 ms-2">/night</small></span>
+																</div>
+															</td>
+															<td>
+																<Link to={"#"} className="btn btn-danger btn-sm">BOOKED</Link>
+															</td>
+															<td><DropdownBlog /></td>
+														</tr>
+														<tr className="odd">
+															<td className="sorting_7">
+																<div className="form-check  style-1">
+																	<input type="checkbox" onClick={() => chackboxFun()}
+																		className="form-check-input" id="customCheckBox25" required=""
+																	/>
+																</div>
+															</td>
+															<td>
+																<div className="room-list-bx d-flex align-items-center">
+																	<img className="me-3 rounded" src={room4} alt="" />
+																	<div>
+																		<span className=" text-secondary fs-14 d-block">#12341225</span>
+																		<span className=" fs-16 font-w500 text-nowrap">Deluxe A-91234</span>
+																	</div>
+																</div>
+															</td>
+															<td className="">
+																<span className="fs-16 font-w500 text-nowrap">Double Bed</span>
+															</td>
+															<td>
+																<div>
+
+																	<span className="fs-16 font-w500">Floor A-1</span>
+																</div>
+															</td>
+															<td className="facility">
+																<div>
+																	<span className="fs-16 comments">Joh Doe</span>
+																</div>
+															</td>
+															<td>
+																<div className="">
+																	<span className="mb-2">Price</span>
+																	<span className="font-w500">$145<small className="fs-14 ms-2">/night</small></span>
+																</div>
+															</td>
+															<td>
+																<Link to={"#"} className="btn btn-success btn-sm">AVAILABLE</Link>
+															</td>
+															<td><DropdownBlog /></td>
+														</tr>
+														<tr>
+															<td className="sorting_7">
+																<div className="form-check  style-1">
+																	<input type="checkbox" onClick={() => chackboxFun()}
+																		className="form-check-input" id="customCheckBox26" required=""
+																	/>
+																</div>
+															</td>
+															<td>
+																<div className="room-list-bx d-flex align-items-center">
+																	<img className="me-3 rounded" src={room4} alt="" />
+																	<div>
+																		<span className=" text-secondary fs-14 d-block">#12341225</span>
+																		<span className=" fs-16 font-w500 text-nowrap">Deluxe A-91234</span>
+																	</div>
+																</div>
+															</td>
+															<td className="">
+																<span className="fs-16 font-w500 text-nowrap">Double Bed</span>
+															</td>
+															<td>
+																<div>
+
+																	<span className="fs-16 font-w500">Floor A-1</span>
+																</div>
+															</td>
+															<td className="facility">
+																<div className="">
+																	<span className="fs-16 comments">Joh Doe</span>
+																</div>
+															</td>
+															<td>
+																<div className="">
+																	<span className="mb-2">Price</span>
+																	<span className="font-w500">$145<small className="fs-14 ms-2">/night</small></span>
+																</div>
+															</td>
+															<td>
+																<Link to={"#"} className="btn btn-danger btn-sm">BOOKED</Link>
+															</td>
+															<td><DropdownBlog /></td>
+														</tr>
+													</tbody>
+												</table>
+												{/* <div className="d-sm-flex text-center justify-content-between align-items-center mt-3 mb-3">
+													<div className="dataTables_info">
+														Showing {activePag.current * sort + 1} to{" "}
+														{data.length > (activePag.current + 1) * sort
+															? (activePag.current + 1) * sort
+															: data.length}{" "}
+														of {data.length} entries
 													</div>
-													{loading === false && tasks.length && (
-														<div className={"tableBody"} style={{ padding: "10px 0px" }} >
-															{tasks.map((t, i) => {
-																if (loading === false) {
-																	if (t.type === _filter || _filter === "all")
-																		return (
-																			<Link key={`task-${t.id}`} to={`/task/:${t.id}`}>
-																				<div className={"tableRow"} style={{ width: "100%", display: "flex", justifyContent: "space-between", padding: "10px 0px", textSelect: "none" }}>
-																					{/* <div style={{ width: "0.00005%", display: "flex", alignItems: "center", justifyContent: "end", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
-																				</div> */}
-																					<div className="rowName">
-																						<img alt={"idk bruh0"} src={room4} className="rowImage" ></img>
-																						<p style={{ marginBottom: "0px", marginLeft: "20px" }}>
-																							{t.name}
-																						</p>
-																					</div>
-																					<div className="rowItem" >{t.type}</div>
-																					<div className="rowItem" >{getRoomNameByRoomTypeId(t.roomType)}</div>
-																					<div className="rowItem" >{t.assigned}</div>
-																					<div className="rowItem" >{t.date}</div>
-																					<div className="rowItem" >{t.time}</div>
-																					<div className="rowItem" >
-																						<Link to={"#"} style={{ width: "fit-content" }} className={`rowBtn-${t.status}`}>{t.status.replace("-", " ")}</Link>
-																					</div>
-																				</div>
-																			</Link>
-																		)
-																}
-															})}
-														</div>
-													)}
-												</div>
+													<div
+														className="dataTables_paginate paging_simple_numbers mb-0"
+														id="example2_paginate"
+													>
+														<Link
+															className="paginate_button previous disabled"
+															to="/room-list"
+															onClick={() =>
+																activePag.current > 0 &&
+																onClick(activePag.current - 1)
+															}
+														>
+															<i className="fa fa-angle-double-left"></i> Previous
+														</Link>
+														<span>
+															{paggination.map((number, i) => (
+																<Link key={i} to="/room-list"
+																	className={`paginate_button  ${activePag.current === i ? "current" : ""
+																		} `}
+																	onClick={() => onClick(i)}
+																>
+																	{number}
+																</Link>
+															))}
+														</span>
+
+														<Link
+															className="paginate_button next"
+															to="/room-list"
+															onClick={() =>
+																activePag.current + 1 < paggination.length &&
+																onClick(activePag.current + 1)
+															}
+														>
+															Next <i className="fa fa-angle-double-right"></i>
+														</Link>
+													</div>
+												</div> */}
 											</div>
 										</div>
 									</Tab.Pane>
@@ -188,18 +477,4 @@ const RoomList = ({ tasksData, getTasksAction, filter, loadingRoomsTypes, roomsT
 		</>
 	)
 }
-const mapStateToProps = (rootState) => {
-	console.log(rootState, "rootState")
-	return {
-		tasksData: rootState.tasksData,
-		roomsTypes: rootState.roomsData.roomsTypes,
-		loadingRoomsTypes: rootState.roomsData.loading
-	}
-}
-
-const mapDispatchToProps = {
-	getTasksAction,
-	getRoomsTypesAction
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(RoomList);
+export default RoomList;
