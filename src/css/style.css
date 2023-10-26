@@ -46397,7 +46397,12 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
   font-size: 10px;
   width: 33%
 }
-
+@media screen and (max-width:992px) {
+  .container{
+    width:100%;
+    padding:0px 20px;
+  }
+}
 /* Hide the browser's default checkbox */
 .container #progress {
   position: absolute;
