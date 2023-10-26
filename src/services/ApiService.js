@@ -47,9 +47,22 @@ class ApiService {
             data: {}
         })
     }
+    updatUserTypes(userTypes) {
+        return this.axios.post(proxyUrl, {
+            "method": "get",
+            "url": apiURL + "/user-types/update",
+            data: { ...userTypes }
+        })
+    }
 
+    deleteUserTypes(userTypes) {
+        return this.axios.post(proxyUrl, {
+            "method": "get",
+            "url": apiURL + "/user-types/delete",
+            data: { ...userTypes }
+        })
+    }
 
-    // retorna bad res y no se porque
     getUserByID(id) {
         return this.axios.post(proxyUrl, {
             "method": "get",
@@ -58,14 +71,20 @@ class ApiService {
         })
     }
 
-    // retorna bad res y no se porque
     updateUserByID(user) {
         return this.axios.post(proxyUrl, {
             "method": "post",
             "url": apiURL + "/users/update",
             data: { ...user }
         })
+    }
 
+    deleteUserByID(user) {
+        return this.axios.post(proxyUrl, {
+            "method": "post",
+            "url": apiURL + "/users/delete",
+            data: { ...user }
+        })
     }
 
     getRoomsTypes() {
@@ -76,6 +95,24 @@ class ApiService {
         });
         // return this.axios.get(`rooms.json`, { baseURL: apiMockURL });
     }
+
+    updateRoomsTypes(roomTypes) {
+        return this.axios.post(proxyUrl, {
+            "method": "post",
+            "url": apiURL + "/room-types/update",
+            "data": { ...roomTypes }
+        });
+        // return this.axios.get(`rooms.json`, { baseURL: apiMockURL });
+    }
+
+    deleteRoomsTypes(roomTypes) {
+        return this.axios.post(proxyUrl, {
+            "method": "post",
+            "url": apiURL + "/room-types/delete",
+            "data": { ...roomTypes }
+        });
+        // return this.axios.get(`rooms.json`, { baseURL: apiMockURL });
+    }
     getRooms() {
         return this.axios.post(proxyUrl, {
             "method": "get",
@@ -83,6 +120,22 @@ class ApiService {
             data: {}
         })
     }
+
+    updateRooms() {
+        return this.axios.post(proxyUrl, {
+            "method": "get",
+            "url": apiURL + "/rooms/update",
+            data: {}
+        })
+    }
+    deleteRooms() {
+        return this.axios.post(proxyUrl, {
+            "method": "get",
+            "url": apiURL + "/rooms/delete",
+            data: {}
+        })
+    }
+
     getRoomCount() {
         return this.axios.post(proxyUrl, {
             "method": "get",

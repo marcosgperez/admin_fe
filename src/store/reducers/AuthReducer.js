@@ -71,6 +71,42 @@ export function AuthReducer(state = initialState, action) {
         loading: false,
         error: true
       };
+    case AuthActionTypes.UPDATE_USERTYPES_FETCH:
+      return {
+        ...state,
+        userTypes: action.payload,
+        loading: false,
+      };
+    case AuthActionTypes.UPDATE_USERTYPES_FETCHING:
+      return {
+        ...state,
+        loading: true
+      };
+    case AuthActionTypes.UPDATE_USERTYPES_FETCH_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: true
+      };
+
+      case AuthActionTypes.DELETE_USERTYPES_FETCHING:
+        return {
+          ...state,
+          loading: true
+        };
+
+      case AuthActionTypes.DELETE_USERTYPES_FETCH:
+        return {
+          ...state,
+          loading: false
+        };
+  
+      case AuthActionTypes.DELETE_USERTYPES_FETCH_ERROR:
+        return {
+          ...state,
+          loading: false,
+          error: true
+        };
 
     case AuthActionTypes.GET_USER_BY_ID_FETCHING:
       return {
@@ -97,7 +133,7 @@ export function AuthReducer(state = initialState, action) {
         ...state,
         loading: true
       };
-
+    // no deberia hacer user:action.payload?
     case AuthActionTypes.UPDATE_USER_BY_ID_FETCH:
       return {
         ...state,
@@ -110,6 +146,28 @@ export function AuthReducer(state = initialState, action) {
         loading: false,
         error: true
       };
+
+      case AuthActionTypes.DELETE_USER_BY_ID_FETCHING:
+        return {
+          ...state,
+          loading: true
+        };
+      // no deberia hacer user:action.payload?
+      case AuthActionTypes.DELETE_USER_BY_ID_FETCH:
+        return {
+          ...state,
+          loading: false
+        };
+  
+      case AuthActionTypes.DELETE_USER_BY_ID_FETCH_ERROR:
+        return {
+          ...state,
+          loading: false,
+          error: true
+        };
+  
+     
+   
 
     default:
       return state;

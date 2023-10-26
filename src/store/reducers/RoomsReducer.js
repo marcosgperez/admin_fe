@@ -9,7 +9,7 @@ const initialState = {
   unavailable: 0,
   rooms: [],
   roomsTypes: [],
-  roomCount:[]
+  roomCount: []
 };
 
 export function RoomsReducer(state = initialState, action) {
@@ -50,24 +50,62 @@ export function RoomsReducer(state = initialState, action) {
         loading: false,
       };
 
-      case RoomsActionTypes.GET_ROOMSCOUNT_FETCHING:
-        return {
-          ...state,
-          loading: true,
-        };
-      case RoomsActionTypes.GET_ROOMSCOUNT_FETCH:
-        return {
-          ...state,
-          roomsCount: action.payload,
-          loading: false,
-        };
-      case RoomsActionTypes.GET_ROOMSCOUNT_FETCH_ERROR:
-        return {
-          ...state,
-          error: action.payload,
-          loading: false,
-        };
-  
+    case RoomsActionTypes.UPDATE_ROOMSTYPES_FETCHING:
+      return {
+        ...state,
+        loading: true
+      };
+    case RoomsActionTypes.UPDATE_ROOMSTYPES_FETCH:
+      return {
+        ...state,
+        loading: false
+      };
+    case RoomsActionTypes.UPDATE_ROOMSTYPES_FETCH_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: true
+      };
+
+    case RoomsActionTypes.DELETE_ROOMSTYPES_FETCHING:
+      return {
+        ...state,
+        loading: true
+      };
+
+    case RoomsActionTypes.DELETE_ROOMSTYPES_FETCH:
+      return {
+        ...state,
+        loading: false
+      };
+
+    case RoomsActionTypes.DELETE_ROOMSTYPES_FETCH_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: true
+      };
+
+
+    case RoomsActionTypes.GET_ROOMCOUNT_FETCHING:
+      return {
+        ...state,
+        loading: true,
+      };
+    case RoomsActionTypes.GET_ROOMCOUNT_FETCH:
+      return {
+        ...state,
+        roomsCount: action.payload,
+        loading: false,
+      };
+    case RoomsActionTypes.GET_ROOMCOUNT_FETCH_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+      };
+
+
     default:
       return state;
   }
