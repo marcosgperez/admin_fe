@@ -46588,6 +46588,7 @@ p {
 
 .imageContainer {
   width: 20%;
+  height: 200px;
   margin-bottom: 30px;
   border-radius: 8px;
   background-color: blue;
@@ -46598,6 +46599,7 @@ p {
   /* background-color: red; */
   display: flex;
   justify-content: end;
+  margin-top: 30px;
 }
 
 .saveContainer button {
@@ -46610,12 +46612,15 @@ p {
   text-align: center;
   color: white;
   border: none;
+  margin-right: 40px;
 }
 
 .saveContainer button:hover {
   filter: brightness(0.9);
 }
-
+#delete{
+  margin-right: 0px;
+}
 @media screen and (max-width:1200px) {
 
   .inputs {
@@ -46660,4 +46665,17 @@ p {
   background: #e2a1281c;
   overflow: hidden;
   border-radius: 2px;
+}
+
+.statusContainer{
+  width: 50%;
+  justify-content: space-between;
+  display: flex;
+  /* background-color: red; */
+}
+
+@media screen and (max-width:600px) {
+  .statusContainer{
+    width:100%
+  }
 }

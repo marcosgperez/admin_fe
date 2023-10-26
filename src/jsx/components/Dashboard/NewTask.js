@@ -24,70 +24,38 @@ const buildUserData = (userFromAPI) => {
     }
 }
 
+const DropDown = ({ status }) => {
+    const [currentStatus, setCurrentStatus] = useState(status);
+    const [open, setOpen] = useState(false);
+    const [color, setColor] = useState("green")
+
+    const selectOption = (changeTo, newColor) => {
+        setCurrentStatus(changeTo)
+        setOpen(false)
+        setColor(newColor)
+    }
+
+    return (
+        <div className="dropDown">
+            <div onClick={() => setOpen(!open)} className="dropDownButton">
+                <div>
+                    <p style={{ color }}>
+                        {currentStatus}
+                    </p>
+                </div>
+            </div>
+            <div className={open ? "dropDownOptions" : "closed"}>
+                <div className="active" onClick={() => selectOption("Active", "#7aa577")}>Active</div>
+                <div className="inactive" onClick={() => selectOption("On progress", "#c96161")}>Inactive</div>
+                <div className="break" onClick={() => selectOption("Not finished", "#ead681")}>On break</div>
+            </div>
+        </div>
+    );
+};
 
 const TaskById = ({ users, getUsers, getUserByIDAction, userById }) => {
 
-    const [selectBtn, setSelectBtn] = useState("Newest");
 
-    const [data, setData] = useState(
-        document.querySelectorAll("#concierge_wrapper tbody tr")
-    );
-    const sort = 5;
-    const activePag = useRef(0);
-    const [test, settest] = useState(0);
-
-    // Active data
-    const chageData = (frist, sec) => {
-        for (var i = 0; i < data.length; ++i) {
-            if (i >= frist && i < sec) {
-                data[i].classList.remove("d-none");
-            } else {
-                data[i].classList.add("d-none");
-            }
-        }
-    };
-    // use effect
-    useEffect(() => {
-        setData(document.querySelectorAll("#concierge_wrapper tbody tr"));
-        //chackboxFun();
-    }, [test]);
-
-
-    // Active pagginarion
-    activePag.current === 0 && chageData(0, sort);
-    // paggination
-    let paggination = Array(Math.ceil(data.length / sort))
-        .fill()
-        .map((_, i) => i + 1);
-
-    // Active paggination & chage data
-    const onClick = (i) => {
-        activePag.current = i;
-        chageData(activePag.current * sort, (activePag.current + 1) * sort);
-        settest(i);
-    };
-    const chackbox = document.querySelectorAll(".sorting_1 input");
-    const motherChackBox = document.querySelector(".sorting_asc input");
-    // console.log(document.querySelectorAll(".sorting_1 input")[0].checked);
-    const chackboxFun = (type) => {
-        for (let i = 0; i < chackbox.length; i++) {
-            const element = chackbox[i];
-            if (type === "all") {
-                if (motherChackBox.checked) {
-                    element.checked = true;
-                } else {
-                    element.checked = false;
-                }
-            } else {
-                if (!element.checked) {
-                    motherChackBox.checked = false;
-                    break;
-                } else {
-                    motherChackBox.checked = true;
-                }
-            }
-        }
-    };
     // GET USERS & USER-BY-ID
     React.useEffect(() => {
         getUsers()
@@ -103,30 +71,65 @@ const TaskById = ({ users, getUsers, getUserByIDAction, userById }) => {
         <>
             <Tab.Container defaultActiveKey="All" >
                 <div className="row form">
+
+                    <div className='statusContainer' >
+                        <div>
+                            <input
+                                type="checkbox"
+                                className="form-check-input"
+                                id="customCheckBox1"
+                                defaultChecked
+
+                            />
+                            <label
+                                className="form-check-label"
+                                htmlFor="customCheckBox1"
+                            >
+                                On Progress
+                            </label>
+                        </div>
+
+
+                        <div>
+                            <input
+                                type="checkbox"
+                                defaultChecked
+                                className="form-check-input"
+                                id="customCheckBox2"
+                                required
+                            />
+                            <label
+                                className="form-check-label"
+                                htmlFor="customCheckBox2"
+                            >
+                                Done
+                            </label>
+                        </div>
+
+                        <div>
+                            <input
+                                type="checkbox"
+                                defaultChecked
+                                className="form-check-input"
+                                id="customCheckBox3"
+                                required
+                            />
+                            <label
+                                className="form-check-label"
+                                htmlFor="customCheckBox3"
+                            >
+                                Not Finished
+                            </label>
+                        </div>
+
+                    </div>
                     <div className="col-xl-12">
+
                         <div className="card formCard" style={{ heigth: "20px" }} >
-                            <div style={{ overflow: "auto" }} className="card-body p-0">
-                                <Tab.Content style={{ minWidth: "650px", heigth: "200px" }} >
+                            <div className="card-body p-0">
+                                <Tab.Content >
                                     <Tab.Pane eventKey="All">
                                         <div className="table-responsive">
-                                            {/* <div className='formButtonContainer' >
-                                                                    <img src={room4} ></img>
-                                                                    <label class="container" onClick={() => setShow("onProgress")}> <p> On progress </p>
-                                                                        <input type="checkbox" id="progress" checked={show === "onProgress" ? true : false} />
-                                                                        <span class="checkmark"></span>
-                                                                    </label>
-
-                                                                    <label class="container" id="doneContainer" onClick={() => setShow("done")} >Done
-                                                                        <input type="checkbox" id="done" checked={show === "done" ? true : false} />
-                                                                        <span class="checkmark"></span>
-                                                                    </label>
-
-                                                                    <label class="container" onClick={() => setShow("notFinished")} >Not finished
-                                                                        <input type="checkbox" id="notFinished" checked={show === "notFinished" ? true : false} />
-                                                                        <span class="checkmark"></span>
-                                                                    </label>
-</div> */}
-
                                             <div id="room_wrapper" className="dataTables_wrapper no-footer">
                                                 <div className={"tableContainer"} style={{ width: "100%", alignItems: "center" }} >
 
@@ -152,7 +155,6 @@ const TaskById = ({ users, getUsers, getUserByIDAction, userById }) => {
                                                                         </div>
                                                                     </div>
                                                                     <div className='left' >
-
                                                                         <div>
                                                                             <p>Asigned To</p>
                                                                             <input></input>
@@ -167,17 +169,29 @@ const TaskById = ({ users, getUsers, getUserByIDAction, userById }) => {
                                                             </div>
                                                         </form>
                                                     </div>
+                                                    <div>
+                                                        <textarea
+                                                            className='formTextArea '
+                                                            rows="8"
+                                                            id="comment"
+                                                        ></textarea>
 
 
+                                                        <div className='saveContainer'>
+                                                            <button>
+                                                                Save
+                                                            </button>
 
-                                                    <div className="mb-3">
-                                                        <input className="form-control" type="file" id="formFile" />
+                                                            <button>
+                                                                Cancel
+                                                            </button>
+
+                                                            <button id='delete'>
+                                                                Delete
+                                                            </button>
+
+                                                        </div>
                                                     </div>
-                                                    <textarea
-                                                        className='formTextArea '
-                                                        rows="8"
-                                                        id="comment"
-                                                    ></textarea>
                                                 </div>
                                             </div>
                                         </div>
