@@ -4,8 +4,6 @@ import { Dropdown, Tab, Nav } from "react-bootstrap";
 
 ///Import
 import room4 from './../../../images/room/room4.jpg';
-import Available from './Room/Available';
-import Booked from './Room/Booked';
 
 import { connect } from 'react-redux';
 import { getUsers, getUserByIDAction } from '../../../store/actions/AuthActions';
@@ -195,12 +193,6 @@ const TaskById = ({ users, getUsers, getUserByIDAction, userById }) => {
                                                 </div>
                                             </div>
                                         </div>
-                                    </Tab.Pane>
-                                    <Tab.Pane eventKey="Available">
-                                        <Available />
-                                    </Tab.Pane>
-                                    <Tab.Pane eventKey="Booked">
-                                        <Booked />
                                     </Tab.Pane>
                                 </Tab.Content>
                             </div>

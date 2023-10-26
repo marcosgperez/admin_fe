@@ -4,6 +4,8 @@ import { Tab } from "react-bootstrap";
 
 import { connect } from 'react-redux';
 import { getUserByIDAction, updateUserByIDAction } from '../../../store/actions/AuthActions';
+import { generateColorFromName, generateLetterByName} from '../../../helpers';
+import { Loader } from '../Loader';
 
 const StaffById = ({ getUserByIDAction, updateUserByIDAction, userById, loading }) => {
     const [infoUser, setInfoUser] = React.useState()
@@ -42,14 +44,8 @@ const StaffById = ({ getUserByIDAction, updateUserByIDAction, userById, loading 
         if(infoUser.id) updateUserByIDAction(infoUser)
         else console.log("NEW",infoUser)
     }
-    const generateColorFromName = (str) => {
 
-    }
-
-    const generateLetterByName = (str) => {
-        str[0].toUpperCase()
-    }
-
+ 
     return (
         <>
             <Tab.Container defaultActiveKey="All" >
@@ -59,14 +55,14 @@ const StaffById = ({ getUserByIDAction, updateUserByIDAction, userById, loading 
                             <div style={{ overflow: "auto" }} className="card-body p-3">
                                 <div className="table-responsive">
                                     <div className="dataTables_wrapper no-footer">
-                                        {(isNew || (loading || !userById || !infoUser)) ? (<div className="loader"></div>) : (
+                                        {(isNew || (loading || !userById || !infoUser)) ? (<Loader />) : (
                                             <div className={"tableContainer"} style={{ width: "100%", alignItems: "center" }} >
                                                 <div className="basic-form">
                                                     <form onSubmit={(e) => e.preventDefault()}>
-                                                        <div className='formRow' >
-                                                            <div className='imageContainer'>
-                                                                <div style={{ backgroundColor: `${generateColorFromName(infoUser.name)}` }} className='image'>
-                                                                    <p>{generateLetterByName(infoUser.name)}</p>
+                                                        <div className='row formRow' >
+                                                            <div className='ms-0 ms-md-4 imageContainer withLetters' style={{ backgroundColor: `${generateColorFromName(infoUser.name)}` }}>
+                                                                <div className='image'>
+                                                                    <p>{generateLetterByName(infoUser.name)}{generateLetterByName(infoUser.surname)}</p>
                                                                 </div>
                                                             </div>
                                                             <div className=' inputs'>

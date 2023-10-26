@@ -8,6 +8,7 @@ const proxyUrl = "https://my-proxy-henna.vercel.app/api/proxy"
 class ApiService {
     axios;
     externalId = "Hotel"
+    token = null
 
     constructor() {
         this.axios = axios.create({
@@ -15,9 +16,11 @@ class ApiService {
             withCredentials: false,
         });
     }
+    setToken(token) {
+        this.token = `${token}`;
+    }
 
     doLogin(email, password) {
-
         return this.axios.post(proxyUrl, {
             "method": "post",
             "url": apiURL + "/auth/login",
@@ -35,6 +38,7 @@ class ApiService {
         return this.axios.post(proxyUrl, {
             "method": "get",
             "url": apiURL + "/users/index",
+            "auth": this.token,
             "data": {}
         });
 
@@ -44,14 +48,16 @@ class ApiService {
         return this.axios.post(proxyUrl, {
             "method": "get",
             "url": apiURL + "/user-types/index",
-            data: {}
+            "auth": this.token,
+            "data": {}
         })
     }
-    updatUserTypes(userTypes) {
+    updateUserTypes(userTypes) {
         return this.axios.post(proxyUrl, {
             "method": "get",
             "url": apiURL + "/user-types/update",
-            data: { ...userTypes }
+            "auth": this.token,
+            "data": { ...userTypes }
         })
     }
 
@@ -59,7 +65,8 @@ class ApiService {
         return this.axios.post(proxyUrl, {
             "method": "get",
             "url": apiURL + "/user-types/delete",
-            data: { ...userTypes }
+            "auth": this.token,
+            "data": { ...userTypes }
         })
     }
 
@@ -67,15 +74,17 @@ class ApiService {
         return this.axios.post(proxyUrl, {
             "method": "get",
             "url": apiURL + "/users?id=" + id,
-            data: {}
+            "auth": this.token,
+            "data": {}
         })
     }
 
     updateUserByID(user) {
         return this.axios.post(proxyUrl, {
-            "method": "post",
+            "method": "put",
             "url": apiURL + "/users/update",
-            data: { ...user }
+            "auth": this.token,
+            "data": { ...user }
         })
     }
 
@@ -83,7 +92,8 @@ class ApiService {
         return this.axios.post(proxyUrl, {
             "method": "post",
             "url": apiURL + "/users/delete",
-            data: { ...user }
+            "auth": this.token,
+            "data": { ...user }
         })
     }
 
@@ -91,6 +101,7 @@ class ApiService {
         return this.axios.post(proxyUrl, {
             "method": "get",
             "url": apiURL + "/room-types/index/?external_id=" + this.externalId,
+            "auth": this.token,
             "data": {}
         });
         // return this.axios.get(`rooms.json`, { baseURL: apiMockURL });
@@ -100,6 +111,7 @@ class ApiService {
         return this.axios.post(proxyUrl, {
             "method": "post",
             "url": apiURL + "/room-types/update",
+            "auth": this.token,
             "data": { ...roomTypes }
         });
         // return this.axios.get(`rooms.json`, { baseURL: apiMockURL });
@@ -109,6 +121,7 @@ class ApiService {
         return this.axios.post(proxyUrl, {
             "method": "post",
             "url": apiURL + "/room-types/delete",
+            "auth": this.token,
             "data": { ...roomTypes }
         });
         // return this.axios.get(`rooms.json`, { baseURL: apiMockURL });
@@ -117,7 +130,8 @@ class ApiService {
         return this.axios.post(proxyUrl, {
             "method": "get",
             "url": apiURL + "/rooms/index?external_id=1",
-            data: {}
+            "auth": this.token,
+            "data": {}
         })
     }
 
@@ -125,14 +139,16 @@ class ApiService {
         return this.axios.post(proxyUrl, {
             "method": "get",
             "url": apiURL + "/rooms/update",
-            data: {}
+            "auth": this.token,
+            "data": {}
         })
     }
     deleteRooms() {
         return this.axios.post(proxyUrl, {
             "method": "get",
             "url": apiURL + "/rooms/delete",
-            data: {}
+            "auth": this.token,
+            "data": {}
         })
     }
 
@@ -140,7 +156,8 @@ class ApiService {
         return this.axios.post(proxyUrl, {
             "method": "get",
             "url": apiURL + "/clients/rooms?external_id=1",
-            data: {}
+            "auth": this.token,
+            "data": {}
         })
     }
 

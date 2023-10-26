@@ -4,8 +4,6 @@ import { Dropdown, Tab, Nav } from "react-bootstrap";
 
 ///Import
 import room4 from './../../../images/room/room4.jpg';
-import Available from './Room/Available';
-import Booked from './Room/Booked';
 
 import { connect } from 'react-redux';
 import { getUsers, getUserByIDAction } from '../../../store/actions/AuthActions';
@@ -110,19 +108,18 @@ const FacilitieById = ({ users, getUsers, getUserByIDAction, userById }) => {
                                 <Tab.Content style={{ minWidth: "650px", heigth: "200px" }} >
                                     <Tab.Pane eventKey="All">
                                         <div className="table-responsive">
-                                
+
 
                                             <div id="room_wrapper" className="dataTables_wrapper no-footer">
                                                 <div className={"tableContainer"} style={{ width: "100%", alignItems: "center" }} >
 
                                                     <div className="basic-form">
                                                         <form onSubmit={(e) => e.preventDefault()}>
+                                                            <div className='imageContainer'>
+                                                                <div style={{ backgroundImage: `${room4}` }} className='image' ></div>
+                                                            </div>
                                                             <div className='row formRow' >
-                                                                <div className='imageContainer'>
-                                                                    <div style={{ backgroundImage: `${room4}` }} className='image' ></div>
-                                                                </div>
-                                                                <div className=' inputs'>
-
+                                                                <div className='inputs'>
                                                                     <div className='rigth'>
                                                                         <div>
                                                                             <p>
@@ -169,12 +166,6 @@ const FacilitieById = ({ users, getUsers, getUserByIDAction, userById }) => {
                                                 </div>
                                             </div>
                                         </div>
-                                    </Tab.Pane>
-                                    <Tab.Pane eventKey="Available">
-                                        <Available />
-                                    </Tab.Pane>
-                                    <Tab.Pane eventKey="Booked">
-                                        <Booked />
                                     </Tab.Pane>
                                 </Tab.Content>
                             </div>

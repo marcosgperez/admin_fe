@@ -2,7 +2,7 @@ import React,{ useState, useRef, useEffect } from 'react';
 import { Link } from "react-router-dom";
 
 
-import { DropdownBlog } from "./../ConciergeList";
+import { DropdownBlog } from "./../StaffList";
 import avt2 from './../../../../images/avatar/2.jpg';
 import avt4 from './../../../../images/avatar/4.jpg';
 

@@ -1,20 +1,17 @@
-import react from "react-select";
-import RoomList from "../components/Dashboard/RoomList";
-import RoomListFilter from "../components/Dashboard/RoomListFilter";
-import { useState, useEffect } from "react";
+import React from "react";
+import TasksList from "../components/Dashboard/TasksList";
+import TasksListFilter from "../components/Dashboard/TasksListFilter";
+
 const Tasks = () => {
-    const [filter, setFilter] = useState("all")
+    const [filter, setFilter] = React.useState("All")
     const changeFilter = (newFilter) => {
         setFilter(newFilter)
     }
-    useEffect(() => {
-        console.log(filter, "filter")
-    }, [filter])
     return (
         <div className="row">
             <div className="col-xl-12" >
-                <RoomListFilter handleClick={changeFilter}></RoomListFilter>
-                <RoomList filter={filter} ></RoomList>
+                <TasksListFilter handleClick={changeFilter}></TasksListFilter>
+                <TasksList filter={filter}></TasksList>
             </div>
         </div>
     )

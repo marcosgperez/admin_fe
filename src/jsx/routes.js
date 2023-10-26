@@ -1,8 +1,8 @@
 import Home from "../components/Home"
 import GuestList from "./components/Dashboard/GuestList";
 import GuestDetails from "./components/Dashboard/GuestDetails";
-import ConciergeList from "./components/Dashboard/ConciergeList";
-import RoomList from "./components/Dashboard/RoomList";
+import StaffList from "./components/Dashboard/StaffList";
+
 import Reviews from "./components/Dashboard/Reviews";
 import TaskDetail from "./pages/TaskDetail";
 import Tasks from "./pages/Tasks";
@@ -55,8 +55,8 @@ export const linkData = [
     { url: "employee/:employeeId", component: <Reviews /> },
     { url: "guest-list", component: <GuestList /> },
     { url: "guest-details", component: <GuestDetails /> },
-    { url: "staff", component: <ConciergeList /> },
-    { url: "room-list", component: <RoomList /> },
+    { url: "staff", component: <StaffList /> },
+    // { url: "room-list", component: <RoomList /> },
     { url: "reviews", component: <Reviews /> },
     { url: "tasks", component: <Tasks /> },
     { url: "task-detail", component: <TaskDetail /> },

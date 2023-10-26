@@ -77,7 +77,7 @@ const SideBar = () => {
   } else {
     toMap = EmployeeLinkData
   }
-  console.log(linkData, " linkData")
+  console.log(toMap, " BARTO")
   return (
     <div
       onMouseEnter={() => ChangeIconSidebar(true)}
@@ -96,7 +96,7 @@ const SideBar = () => {
         <ul className="metismenu" id="menu">
 
 
-          {toMap.map((data, index) => {
+          {toMap.filter(m => m.title).map((data, index) => {
             let menuClass = data.classsChange;
             if (menuClass === "menu-title") {
               return (

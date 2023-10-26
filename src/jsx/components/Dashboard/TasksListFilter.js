@@ -2,8 +2,8 @@ import React from "react";
 import { Dropdown, Nav } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import { useState } from "react";
-const RoomListFilter = ({ handleClick }) => {
-    const [selectBtn, setSelectBtn] = useState("Newest");
+const TasksListFilter = ({ handleClick }) => {
+    const [selectBtn, setSelectBtn] = useState("All");
     let admin = false
     return (
 
@@ -11,18 +11,17 @@ const RoomListFilter = ({ handleClick }) => {
             <div className="card-action coin-tabs mb-2">
                 <Nav as="ul" className="nav nav-tabs" role="tablist">
                     <Nav.Item as="li" className="nav-item">
-                        <Nav.Link className="nav-link" eventKey="All" onClick={() => handleClick("all")} >See All</Nav.Link>
+                        <Nav.Link className="nav-link" eventKey="All" onClick={() => handleClick("All")} >See All</Nav.Link>
                     </Nav.Item>
                     <Nav.Item as="li" className="nav-item">
-                        <Nav.Link className="nav-link" eventKey="HouseKeeping" onClick={() => handleClick("houseKeeping")} > HouseKeeping</Nav.Link>
+                        <Nav.Link className="nav-link" eventKey="HouseKeeping" onClick={() => handleClick("HouseKeeping")} > HouseKeeping</Nav.Link>
                     </Nav.Item>
                     <Nav.Item as="li" className="nav-item">
-                        <Nav.Link className="nav-link" eventKey="Maintainance" onClick={() => handleClick("maintainance")} >Maintainance</Nav.Link>
+                        <Nav.Link className="nav-link" eventKey="Maintainance" onClick={() => handleClick("Maintainance")} >Maintainance</Nav.Link>
                     </Nav.Item>
                     <Nav.Item as="li" className="nav-item">
-                        <Nav.Link className="nav-link" eventKey="Other" onClick={() => handleClick("other")} >Other Facilities </Nav.Link>
+                        <Nav.Link className="nav-link" eventKey="Other" onClick={() => handleClick("Other")} >Other Facilities </Nav.Link>
                     </Nav.Item>
-
                 </Nav>
             </div>
             <div className="d-flex align-items-center mb-2">
@@ -42,4 +41,4 @@ const RoomListFilter = ({ handleClick }) => {
         </div>
     )
 }
-export default RoomListFilter
+export default TasksListFilter

@@ -1,6 +1,6 @@
 import React from "react";
 import EventCalendar from "../jsx/components/AppsMenu/Calendar/EventCalendar";
-import RoomList from "../jsx/components/Dashboard/RoomList";
+import TasksList from "../jsx/components/Dashboard/TasksList";
 import { connect } from "react-redux";
 import { getRoomsAction,getRoomCountAction } from "../store/actions/RoomsActions";
 
@@ -135,7 +135,7 @@ const Home = ({ getRoomsAction, roomsData,getRoomCountAction }) => {
           </div>
           <div className="row justify-content-end">
             <div className={admin ? "col-xl-12" : "d-none"}>
-              <RoomList buttonSize={"md"} filter={"all"} />
+              <TasksList buttonSize={"md"} filter={"all"} />
             </div>
             <div className={admin ? "col-xl-12" : "col-xl-12"}>
               <EventCalendar />

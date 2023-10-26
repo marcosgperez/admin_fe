@@ -13582,7 +13582,7 @@ svg.pulse-svg .third-circle {
   transition: all ease-in 0.2s;
 
   /* scale: 1.1; */
-  box-shadow: 0px 0px 20px gray;
+  box-shadow: 0px 0px 20px #80808042;
 }
 
 .fc-direction-ltr .fc-daygrid-event.fc-event-end {
@@ -40870,7 +40870,6 @@ ul {
   text-align: center;
   justify-content: center;
   display: flex;
-  margin-right: 60px;
   width: 100%;
 }
 
@@ -46683,4 +46682,28 @@ p {
   .statusContainer{
     width:100%
   }
+}
+
+.imageContainer.withLetters .image {
+  position: relative;
+  width: 100%;
+}
+
+.imageContainer.withLetters p {
+  text-align: center;
+    height: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    font-size: 80px;
+    color: white;
+}
+.w-max-content {
+  width: max-content !important;
+}
+
+.scrollbar-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }

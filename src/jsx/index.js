@@ -84,7 +84,7 @@ function MainLayout() {
         className="content-body"
         style={{ minHeight: window.screen.height - 45 }}
       >
-        <div className="container-fluid overAll">
+        <div className="container-fluid">
           <Outlet />
         </div>
       </div>

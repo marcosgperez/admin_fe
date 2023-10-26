@@ -3,10 +3,9 @@ import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import { Dropdown, Tab, Nav } from 'react-bootstrap';
 import room4 from './../../../images/room/room4.jpg';
-import Available from './Room/Available';
-import Booked from './Room/Booked';
-import { getTasksAction } from './../../../store/actions/TasksActions';
-import { getRoomsTypesAction } from './../../../store/actions/RoomsActions';
+import TasksTable from './TasksTable';
+
+import { getTasksAction } from '../../../store/actions/TasksActions';
 
 const DropdownBlog = () => {
 	return (
@@ -28,8 +27,21 @@ const DropdownBlog = () => {
 	)
 }
 
+const builTaskData = (taskFromAPI) => {
+	return {
+		id: taskFromAPI.id,
+		name: taskFromAPI.name,
+		job: "Administrator",
+		email: taskFromAPI.email,
+		days: "-",
+		hours: "-",
+		contact: "-",
+		status: "Active"
+	}
+}
 
-const RoomList = (filter) => {
+
+const TasksList = ({ filter }) => {
 
 	const [selectBtn, setSelectBtn] = useState("Newest");
 	const [data, setData] = useState(
@@ -95,92 +107,26 @@ const RoomList = (filter) => {
 			}
 		}
 	};
+
 	return (
 		<>
-
-			<Tab.Container defaultActiveKey="All">
-				<div className="rowñ">
+			<Tab.Container activeKey={filter} defaultActiveKey={"All"}>
+				<div className="row">
 					<div className="col-xl-12">
 						<div className="card">
 							<div className="card-body p-0">
 								<Tab.Content>
-									<Tab.Pane eventKey="All">
-										<div className="table-responsive">
-											<div id="room_wrapper" className="dataTables_wrapper no-footer">
-												<table className="table card-table display mb-4 dataTablesCard booking-table room-list-tbl dataTable no-footer">
-													<thead>
-														<tr role="row">
-															<th className="sorting_asc_7 bg-none" >
-																<div className="form-check  style-1">
-																	<input type="checkbox" onClick={() => chackboxFun("all")} className="form-check-input" id="checkAll" required="" />
-																</div>
-															</th>
-															<th>Name</th>
-															<th>Type</th>
-															<th>Assigned</th>
-															<th>Date</th>
-															<th>Time</th>
-															<th>Status</th>
-															<th className="bg-none"></th>
-														</tr>
-													</thead>
-													<tbody>
-														<Link to={"/task/1"}>
-															<tr role="row" className="odd">
-																<td className="sorting_7">
-																	<div className="form-check   style-1">
-																		<input type="checkbox" onClick={() => chackboxFun()}
-																			className="form-check-input" id="customCheckBox21" required=""
-																		/>
-																	</div>
-																</td>
-																<td>
-																	<div className="room-list-bx d-flex align-items-center">
-																		<img className="me-3 rounded" src={room4} alt="" />
-																		<div>
-																			<span className=" text-secondary fs-14 d-block">#12341225</span>
-																			<span className=" fs-16 font-w500 text-nowrap">Deluxe A-91234</span>
-																		</div>
-																	</div>
-																</td>
-																<td className="">
-																	<span className="fs-16 font-w500 text-nowrap">Double Bed</span>
-																</td>
-																<td>
-																	<div>
-
-																		<span className="fs-16 font-w500">Floor A-1</span>
-																	</div>
-																</td>
-																<td className="facility">
-																	<div>
-																		<span className="fs-16 comments">Joh Doe</span>
-																	</div>
-																</td>
-																<td>
-																	<div className="">
-																		<span className="mb-2">Price</span>
-																		<span className="font-w500">$145<small className="fs-14 ms-2">/night</small></span>
-																	</div>
-																</td>
-																<td>
-																	<Link to={"#"} className="btn btn-success btn-sm">AVAILABLE</Link>
-																</td>
-																<td><DropdownBlog /></td>
-															</tr>
-														</Link>
-
-													</tbody>
-												</table>
-
-											</div>
-										</div>
+									<Tab.Pane eventKey="All" style={{ width: "100%", overflow: "auto" }}>
+										<TasksTable items={[{}]}/>
 									</Tab.Pane>
-									<Tab.Pane eventKey="Available">
-										<Available />
+									<Tab.Pane eventKey="HouseKeeping">
+										<TasksTable items={[{},{},{},{}]}/>
 									</Tab.Pane>
-									<Tab.Pane eventKey="Booked">
-										<Booked />
+									<Tab.Pane eventKey="Maintainance">
+										<TasksTable items={[{},{}]}/>
+									</Tab.Pane>
+									<Tab.Pane eventKey="Other">
+										<div><p className='p-2 mb-2 ms-2'>Pending...</p></div>
 									</Tab.Pane>
 								</Tab.Content>
 							</div>
@@ -191,4 +137,4 @@ const RoomList = (filter) => {
 		</>
 	)
 }
-export default RoomList;
+export default TasksList;
