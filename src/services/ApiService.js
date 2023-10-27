@@ -184,6 +184,22 @@ class ApiService {
             "data": {}
         })
     }
+    updateEventByID() {
+        return this.axios.post(proxyUrl, {
+            "method": "post",
+            "url": apiURL + "/events/update",
+            "auth": this.token,
+            "data": {}
+        })
+    }
+    deleteEventByID() {
+        return this.axios.post(proxyUrl, {
+            "method": "post",
+            "url": apiURL + "/rooms/delete",
+            "auth": this.token,
+            "data": {}
+        })
+    }
     getUser() {
         return this.axios.get(`user.json`, { baseURL: apiMockURL });
     }
