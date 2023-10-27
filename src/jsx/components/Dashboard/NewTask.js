@@ -10,148 +10,137 @@ import { connect } from 'react-redux';
 import { getTasks, getTaskByID } from '../../../store/actions/TasksActions';
 import {  getUserByIDAction } from '../../../store/actions/AuthActions';
 
+const TaskById = ({ getTaskByID, taskById , loadingTaskById , updateTaskByIDAction, createTaskAction }) => {
+    const location = useLocation();
+    let navigate = useNavigate();
 
-const buildUserData = (userFromAPI) => {
-    return {
-        id: userFromAPI.id,
-        name: userFromAPI.name,
-        job: "Administrator",
-        days: "-",
-        hours: "-",
-        contact: "-",
-        status: "Active"
-    }
-}
+    const [infoTask, setInfoTask] = React.useState({
+        name: "",
+        surname: "",
+        task_type_id: 1,
+        created_at: new Date().toLocaleDateString()
+    })
+    const [id, setId] = React.useState()
+    const [isNew, setIsNew] = React.useState(true)
 
-const DropDown = ({ status }) => {
-    const [currentStatus, setCurrentStatus] = useState(status);
-    const [open, setOpen] = useState(false);
-    const [color, setColor] = useState("green")
-
-    const selectOption = (changeTo, newColor) => {
-        setCurrentStatus(changeTo)
-        setOpen(false)
-        setColor(newColor)
-    }
-
-    return (
-        <div className="dropDown">
-            <div onClick={() => setOpen(!open)} className="dropDownButton">
-                <div>
-                    <p style={{ color }}>
-                        {currentStatus}
-                    </p>
-                </div>
-            </div>
-            <div className={open ? "dropDownOptions" : "closed"}>
-                <div className="active" onClick={() => selectOption("Active", "#7aa577")}>Active</div>
-                <div className="inactive" onClick={() => selectOption("On progress", "#c96161")}>Inactive</div>
-                <div className="break" onClick={() => selectOption("Not finished", "#ead681")}>On break</div>
-            </div>
-        </div>
-    );
-};
-
-const TaskById = ({ tasks, getTasks,getTaskById, taskById, loading }) => {
-    const [infoTask, setInfoTask] = React.useState()
-    const [isNew, setIsNew] = React.useState(false)
     const [isUpdating, setIsUpdating] = React.useState(false)
+
     const changeFormProp = (prop, value) => {
         setInfoTask({ ...infoTask, [prop]: value })
     }
-    // GET USERS & USER-BY-ID
-    React.useEffect(() => {
-        getTasks()
-        getTaskByID()
-    }, [])
-    const location = useLocation();
-    let navigate = useNavigate();
+
     useEffect(() => {
         const splitedPathname = location.pathname.split("/")
-        const id = splitedPathname[splitedPathname.length - 1];
-        if (id != "new") getTaskByID(id)
-        else {
-            setInfoTask({})
-            setIsNew(isNew)
+        const _id = splitedPathname[splitedPathname.length - 1];
+        if (_id != "new-task") {
+            setId(_id)
+            setIsNew(false)
         }
+        else setIsNew(true)
+
     }, [location])
 
+    useEffect(() => {
+        if (id) getTaskByID(id)
+    }, [id])
 
-    // const sendForm = () => {
-    //     setIsUpdating(true)
-    //     if(infoTask.id) updateTaskByIDAction(infoUser)
-    //     else console.log("NEW",infoUser)
-    // }
 
-    console.log(taskById, "userById")
-    const [show, setShow] = useState("onProgress")
+    // Active pagginarion
+
+    React.useEffect(() => {
+        if (taskById && !loadingTaskById && !isNew) setInfoTask({ ...taskById })
+    }, [taskById, loadingTaskById])
+
+    React.useEffect(() => {
+        if (isUpdating && !loadingTaskById) navigate("/task")
+    }, [loadingTaskById])
+
+    const sendForm = () => {
+        setIsUpdating(true)
+        const newInfoTask = {...infoTask}
+        delete newInfoTask.created_at;
+     
+        if (infoTask.id) updateTaskByIDAction(newInfoTask)
+        else createTaskAction(newInfoTask)
+    }
+
+    const checkIfDisabled = () => {
+        let disabled = true;
+        if(infoTask.name && infoTask.surname && infoTask.taskname && infoTask.task_type_id && infoTask.email && (!isNew || infoTask.password)) disabled = false;
+        return disabled
+    }
     return (
-        <Tab.Container defaultActiveKey="All" >
-            <div className="row form">
-                <div className="col-xl-12">
-                    <div className="customCard booking" style={{ heigth: "20px" }} >
-                        <div style={{ overflow: "auto" }} className="card-body p-3">
-                            <div className="table-responsive">
-                                <div className="dataTables_wrapper no-footer">
-                                    {(isNew || (loading || taskById || !infoTask)) ? (<Loader />) : (
-                                        <div className={"tableContainer"} style={{ width: "100%", alignItems: "center" }} >
-                                            <div className="basic-form">
-                                                <form onSubmit={(e) => e.preventDefault()}>
-                                                    <div className='row formRow' >
-                                                        <div className='ms-0 ms-md-4 imageContainer withLetters' >
-                                                            {/* <div className='image'>
-                                                                    <p>{generateLetterByName(infoUser.name)}{generateLetterByName(infoUser.surname)}</p>
-                                                                </div> */}
-                                                        </div>
-                                                        <div className=' inputs'>
-                                                            <div className='rigth'>
-                                                                <div>
-                                                                    <p>Name</p>
-                                                                    <input onChange={(e) => changeFormProp("name", e.target.value)} />
+        <>
+            <Tab.Container defaultActiveKey="All" >
+                <div className="row form">
+                    <div className="col-xl-12">
+                        <div className="customCard booking" style={{ heigth: "20px" }} >
+                            <div style={{ overflow: "auto" }} className="card-body p-3">
+                                <div className="table-responsive">
+                                    <div className="dataTables_wrapper no-footer">
+                                        {(loadingTaskById) ? (<Loader />) : (
+                                            <div className={"tableContainer"} style={{ width: "100%", alignItems: "center" }} >
+                                                <div className="basic-form">
+                                                    <form onSubmit={(e) => e.preventDefault()}>
+                                                        <div className='row formRow' >
+                                                            <div className=' inputs'>
+                                                                <div className='right'>
+                                                                    <div>
+                                                                        <p>Name</p>
+                                                                        <input value={infoTask.name} onChange={(e) => changeFormProp("name", e.target.value)} />
+                                                                    </div>
+                                                                    <div>
+                                                                        <p>Suername</p>
+                                                                        <input value={infoTask.surname} onChange={(e) => changeFormProp("surname", e.target.value)} />
+                                                                    </div>
+                                                                    <div>
+                                                                        <p>Username</p>
+                                                                        <input value={infoTask.taskname} onChange={(e) => changeFormProp("taskname", e.target.value)} />
+                                                                    </div>
+                                                                    
                                                                 </div>
-                                                                <div>
-                                                                    <p>Suername</p>
-                                                                    <input onChange={(e) => changeFormProp("surname", e.target.value)} />
+                                                                <div className='left' >
+                                                                    <div>
+                                                                        <p>Creation Date</p>
+                                                                        <input value={new Date(infoTask.created_at).toLocaleDateString()} disabled="true" />
+                                                                    </div>
+                                                                    <div>
+                                                                        <p>Email</p>
+                                                                        <input value={infoTask.email} onChange={(e) => changeFormProp("email", e.target.value)} />
+                                                                    </div>
+                                                                    <div>
+                                                                        <p>Password</p>
+                                                                        <input type='password' disabled={!isNew} value={!isNew ? "******" : infoTask.password} onChange={(e) => changeFormProp("password", e.target.value)} />
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                            <div className='left' >
-                                                                <div>
-                                                                    <p>Creation Date</p>
-                                                                    <input disabled="true" />
-                                                                </div>
-                                                                <div>
-                                                                    <p>Email</p>
-                                                                    <input onChange={(e) => changeFormProp("email", e.target.value)} />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="mb-3 d-none">
-                                                        <input className="form-control" type="file" id="formFile" />
-                                                    </div>
-                                                    <textarea
-                                                        className='formTextArea'
-                                                        rows="8"
-                                                        id="comment"
-                                                    ></textarea>
-                                                    <div className="col-12">
-                                                        <div className='saveContainer mt-2' >
-                                                            {/* <button type="button" onClick={sendForm}>Save</button> */}
-                                                            <button type="button">Save</button>
 
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </form>
+                                                        <div className="mb-3 d-none">
+                                                            <input className="form-control" type="file" id="formFile" />
+                                                        </div>
+                                                        <textarea
+                                                            className='formTextArea'
+                                                            rows="8"
+                                                            id="comment"
+                                                        ></textarea>
+                                                        <div className="col-12">
+                                                            <div className='saveContainer mt-2' >
+                                                                <button className={ checkIfDisabled() ? "disabled" : ""} disabled={checkIfDisabled()}type="button" onClick={sendForm}>Save</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
                                             </div>
-                                        </div>
-                                    )}
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div >
                 </div >
-            </div >
-        </Tab.Container >
+            </Tab.Container >
+        </>
     )
 }
 
@@ -159,15 +148,23 @@ const TaskById = ({ tasks, getTasks,getTaskById, taskById, loading }) => {
 const mapStateToProps = (state) => {
     console.log(state, "state PAAA")
     return {
-        loading: state.authData.loading,
-        users: state.authData.users,
-        taskById: state.authData.taskByID
+        loadingTaskById: state.tasksData.loadingTaskById,
+        tasks: state.tasksData.tasks,
+        taskById: state.tasksData.taskByID
     };
 };
 
 const mapDispatchToProps = {
     getTasks,
-    getTaskByID
+    getTaskByID,
+    updateTaskByIDAction: () => {}, // PËNDING
+    createTaskAction: () => {} // PËNDING
+    /*
+    getUserByIDAction,
+    getUserTypesAction,
+    updateUserByIDAction,
+    createUserAction
+    */
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskById);

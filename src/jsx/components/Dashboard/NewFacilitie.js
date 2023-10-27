@@ -104,7 +104,7 @@ const TaskById = ({ facilities, getFacilities,getFacilitieById, taskById, loadin
                                                                 </div> */}
                                                         </div>
                                                         <div className=' inputs'>
-                                                            <div className='rigth'>
+                                                            <div className='right'>
                                                                 <div>
                                                                     <p>Name</p>
                                                                     <input onChange={(e) => changeFormProp("name", e.target.value)} />

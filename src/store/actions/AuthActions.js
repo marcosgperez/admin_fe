@@ -32,7 +32,11 @@ export const AuthActionTypes = {
 
   "DELETE_USERTYPES_FETCH": "DELETE_USERTYPES_FETCH",
   "DELETE_USERTYPES_FETCHING": "DELETE_USERTYPES_FETCHING",
-  "DELETE_USERTYPES_FETCH_ERROR": "DELETE_USERTYPES_FETCH_ERROR"
+  "DELETE_USERTYPES_FETCH_ERROR": "DELETE_USERTYPES_FETCH_ERROR",
+
+  "CREATE_USER_BY_ID_FETCHING": "CREATE_USER_BY_ID_FETCHING",
+  "CREATE_USER_BY_ID_FETCH": "CREATE_USER_BY_ID_FETCH",
+  "CREATE_USER_BY_ID_FETCH_ERROR": "CREATE_USER_BY_ID_FETCH_ERROR",
 }
 
 export const doLogin = (email, password) => (dispatch) => {
@@ -41,6 +45,7 @@ export const doLogin = (email, password) => (dispatch) => {
   });
   ApiService.doLogin(email, password).then((res) => {
     ApiService.setToken(res.data.access_token)
+    // ApiService.getUserByID(id).then((res) => {
     dispatch({
       type: AuthActionTypes.GET_AUTH_FETCH,
       payload: res.data,
@@ -123,6 +128,25 @@ export const getUserByIDAction = (id) => (dispatch) => {
   })
 }
 
+export const createUserAction = (user) => (dispatch) => {
+  dispatch({
+    type: AuthActionTypes.CREATE_USER_BY_ID_FETCHING
+  });
+  ApiService.createUser(user).then((res) => {
+    console.log(res, "RES")
+    dispatch({
+      type: AuthActionTypes.CREATE_USER_BY_ID_FETCH,
+      payload: res.data.data,
+    });
+  }).catch(e => {
+    dispatch({
+      type: AuthActionTypes.CREATE_USER_BY_ID_FETCH_ERROR,
+      payload: e,
+    });
+  })
+}
+
+
 export const updateUserByIDAction = (user) => (dispatch) => {
   dispatch({
     type: AuthActionTypes.UPDATE_USER_BY_ID_FETCHING
@@ -176,17 +200,3 @@ export const deleteUserTypesAction = (userTypes) => (dispatch) => {
     });
   })
 }
-
-// export function roomsActions(data) {
-//   return {
-//     type: GET_ROOMS,
-//     payload: data.data,
-//   };
-// }
-
-// export function clearRoomsAction(data) {
-//   return {
-//     type: CLEAR_ROOMS,
-//     payload: data,
-//   };
-// }

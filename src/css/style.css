@@ -46519,7 +46519,7 @@ p {
   /* background-color: red; */
 }
 
-.rigth {
+.right {
   display: flex;
   flex-direction: column;
   width: 50%;
@@ -46543,7 +46543,7 @@ p {
   padding: 10px;
 }
 
-.rigth input {
+.right input, .right select {
   width: 90%;
   height: 40px;
   margin: 20px;
@@ -46553,12 +46553,16 @@ p {
   /* box-shadow: 0px 0px 10px gray; */
   padding: 10px;
 }
+.right .form-control.form-control-lg {
+  min-height: auto;
+}
+
 
 p {
   margin: 0px;
 }
 
-.rigth div p {
+.right div p {
   margin-left: 20px;
   font-weight: 500;
   font-size: 16px;
@@ -46573,6 +46577,7 @@ p {
 }
 
 .formRow {
+  padding: 0px 16px;
   display: flex;
   justify-content: start;
 }
@@ -46619,7 +46624,6 @@ p {
   text-align: center;
   color: white;
   border: none;
-  margin-right: 40px;
 }
 
 .saveContainer button:hover {
@@ -46645,7 +46649,7 @@ p {
     margin: auto;
   }
 
-  .rigth {
+  .right {
     width: 100%;
   }
 
@@ -46732,4 +46736,9 @@ p {
   opacity: 0;
   font-size: 0px;
   width: 100%;
+}
+
+
+button.disabled {
+  opacity: 0.6;
 }

@@ -7,7 +7,7 @@ const proxyUrl = "https://my-proxy-henna.vercel.app/api/proxy"
 
 class ApiService {
     axios;
-    externalId = "Hotel"
+    externalId = "hotel"
     token = null
 
     constructor() {
@@ -26,7 +26,8 @@ class ApiService {
             "url": apiURL + "/auth/login",
             "data": {
                 email,
-                password
+                password,
+                external_client: this.externalId
             }
         });
 
@@ -37,7 +38,7 @@ class ApiService {
 
         return this.axios.post(proxyUrl, {
             "method": "get",
-            "url": apiURL + "/users/index",
+            "url": apiURL + "/users/index?external_client=" + this.externalId,
             "auth": this.token,
             "data": {}
         });
@@ -47,7 +48,7 @@ class ApiService {
     getUserTypes() {
         return this.axios.post(proxyUrl, {
             "method": "get",
-            "url": apiURL + "/user-types/index",
+            "url": apiURL + "/user-types/index?external_client=" + this.externalId,
             "auth": this.token,
             "data": {}
         })
@@ -57,7 +58,10 @@ class ApiService {
             "method": "get",
             "url": apiURL + "/user-types/update",
             "auth": this.token,
-            "data": { ...userTypes }
+            "data": {
+                ...userTypes,
+                external_client: this.externalId
+            }
         })
     }
 
@@ -66,14 +70,17 @@ class ApiService {
             "method": "get",
             "url": apiURL + "/user-types/delete",
             "auth": this.token,
-            "data": { ...userTypes }
+            "data": {
+                ...userTypes,
+                external_client: this.externalId
+            }
         })
     }
 
     getUserByID(id) {
         return this.axios.post(proxyUrl, {
             "method": "get",
-            "url": apiURL + "/users?id=" + id,
+            "url": apiURL + "/users?id=" + id + "&external_client=" + this.externalId,
             "auth": this.token,
             "data": {}
         })
@@ -84,7 +91,22 @@ class ApiService {
             "method": "put",
             "url": apiURL + "/users/update",
             "auth": this.token,
-            "data": { ...user }
+            "data": {
+                ...user,
+                external_client: this.externalId
+            }
+        })
+    }
+
+    createUser(user) {
+        return this.axios.post(proxyUrl, {
+            "method": "post",
+            "url": apiURL + "/users/store",
+            "auth": this.token,
+            "data": {
+                ...user,
+                external_client: this.externalId
+            }
         })
     }
 
@@ -93,7 +115,10 @@ class ApiService {
             "method": "post",
             "url": apiURL + "/users/delete",
             "auth": this.token,
-            "data": { ...user }
+            "data": {
+                ...user,
+                external_client: this.externalId
+            }
         })
     }
 
@@ -112,7 +137,10 @@ class ApiService {
             "method": "post",
             "url": apiURL + "/room-types/update",
             "auth": this.token,
-            "data": { ...roomTypes }
+            "data": {
+                ...roomTypes,
+                external_client: this.externalId
+            }
         });
         // return this.axios.get(`rooms.json`, { baseURL: apiMockURL });
     }
@@ -122,40 +150,49 @@ class ApiService {
             "method": "post",
             "url": apiURL + "/room-types/delete",
             "auth": this.token,
-            "data": { ...roomTypes }
+            "data": {
+                ...roomTypes,
+                external_client: this.externalId
+            }
         });
         // return this.axios.get(`rooms.json`, { baseURL: apiMockURL });
     }
     getRooms() {
         return this.axios.post(proxyUrl, {
             "method": "get",
-            "url": apiURL + "/rooms/index?external_id=1",
+            "url": apiURL + "/rooms/index?external_id=" + this.externalId,
             "auth": this.token,
             "data": {}
         })
     }
 
-    updateRooms() {
+    updateRooms(roomObject) {
         return this.axios.post(proxyUrl, {
             "method": "post",
             "url": apiURL + "/rooms/update",
             "auth": this.token,
-            "data": {}
+            "data": {
+                roomObject,
+                external_client: this.externalId
+            }
         })
     }
-    deleteRooms() {
+    deleteRooms(roomId) {
         return this.axios.post(proxyUrl, {
             "method": "post",
             "url": apiURL + "/rooms/delete",
             "auth": this.token,
-            "data": {}
+            "data": {
+                roomId: roomId,
+                external_client: this.externalId
+            }
         })
     }
 
     getRoomCount() {
         return this.axios.post(proxyUrl, {
             "method": "get",
-            "url": apiURL + "/clients/rooms?external_id=1",
+            "url": apiURL + "/clients/rooms?external_id=" + this.externalId,
             "auth": this.token,
             "data": {}
         })
@@ -168,7 +205,7 @@ class ApiService {
     getTaskByID() {
         return this.axios.post(proxyUrl, {
             "method": "get",
-            "url": apiURL + "/tasks?id=" + this.id,
+            "url": apiURL + "/tasks?id=" + this.id + "&external_id=" + this.externalId,
             "auth": this.token,
             "data": {}
         })
@@ -179,25 +216,31 @@ class ApiService {
     getEventByID() {
         return this.axios.post(proxyUrl, {
             "method": "get",
-            "url": apiURL + "/events?id=" + this.id,
+            "url": apiURL + "/events?id=" + this.id + "&external_id=" + this.externalId,
             "auth": this.token,
             "data": {}
         })
     }
-    updateEventByID() {
+    updateEventByID(eventObj) {
         return this.axios.post(proxyUrl, {
             "method": "post",
             "url": apiURL + "/events/update",
             "auth": this.token,
-            "data": {}
+            "data": {
+                ...eventObj,
+                external_client: this.externalId
+            }
         })
     }
-    deleteEventByID() {
+    deleteEventByID(eventId) {
         return this.axios.post(proxyUrl, {
             "method": "post",
             "url": apiURL + "/rooms/delete",
             "auth": this.token,
-            "data": {}
+            "data": {
+                eventId: eventId,
+                external_client: this.externalId
+            }
         })
     }
     updateEvents(events) {
@@ -205,15 +248,21 @@ class ApiService {
             "method": "post",
             "url": apiURL + "/events/update",
             "auth": this.token,
-            "data": {events}
+            "data": { 
+                events,
+                external_client: this.externalId
+             }
         })
     }
-    deleteEvents() {
+    deleteEvents(eventId) {
         return this.axios.post(proxyUrl, {
             "method": "post",
             "url": apiURL + "/events/delete",
             "auth": this.token,
-            "data": {}
+            "data": {
+                eventId: eventId,
+                external_client: this.externalId
+            }
         })
     }
 
@@ -226,7 +275,7 @@ class ApiService {
     getFacilitieById() {
         return this.axios.post(proxyUrl, {
             "method": "get",
-            "url": apiURL + "/facilities?id=" + this.id,
+            "url": apiURL + "/facilities?id=" + this.id + "&external_id=" + this.externalId,
             "auth": this.token,
             "data": {}
         })

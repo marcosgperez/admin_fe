@@ -27,7 +27,7 @@ const Header = ({ onNote, authData, typesData, getUserTypesAction, title }) => {
 		const splitPath = location.pathname.split("/");
 		const filtered = splitPath.filter(p => p != "")
 		if(filtered.length === 0) return "Dashboard"
-		return filtered.map(capitalize).join(" - ")
+		return filtered.map(capitalize).join(": ")
 	}
 		
 	

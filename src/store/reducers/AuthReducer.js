@@ -4,8 +4,14 @@ const initialState = {
   loading: false,
   user: undefined,
   error: false,
+
+  loadingUserById: false,
   userByID: undefined,
+
+  loadingUsers: false,
   users: [],
+
+  loadingUserTypes: false,
   userTypes: []
 };
 
@@ -35,89 +41,92 @@ export function AuthReducer(state = initialState, action) {
     case AuthActionTypes.GET_USERS_FETCHING:
       return {
         ...state,
-        loading: true,
+        loadingUsers: true,
       };
 
     case AuthActionTypes.GET_USERS_FETCH:
       return {
         ...state,
         users: action.payload,
-        loading: false,
+        loadingUsers: false,
       };
 
     case AuthActionTypes.GET_USERS_FETCH_ERROR:
       return {
         ...state,
         error: action.payload,
-        loading: false,
+        loadingUsers: false,
       };
 
     case AuthActionTypes.GET_USERTYPES_FETCH:
       return {
         ...state,
         userTypes: action.payload,
-        loading: false,
+        loadingUserTypes: false,
       };
 
     case AuthActionTypes.GET_USERTYPES_FETCHING:
       return {
         ...state,
-        loading: true
+        loadingUserTypes: true
       };
 
     case AuthActionTypes.GET_USERTYPES_FETCH_ERROR:
       return {
         ...state,
-        loading: false,
+        loadingUserTypes: false,
         error: true
       };
+
     case AuthActionTypes.UPDATE_USERTYPES_FETCH:
       return {
         ...state,
         userTypes: action.payload,
-        loading: false,
+        loadingUserTypes: false,
       };
+
     case AuthActionTypes.UPDATE_USERTYPES_FETCHING:
       return {
         ...state,
-        loading: true
+        loadingUserTypes: true
       };
+
     case AuthActionTypes.UPDATE_USERTYPES_FETCH_ERROR:
       return {
         ...state,
-        loading: false,
+        loadingUserTypes: false,
         error: true
       };
 
-      case AuthActionTypes.DELETE_USERTYPES_FETCHING:
-        return {
-          ...state,
-          loading: true
-        };
+    case AuthActionTypes.DELETE_USERTYPES_FETCHING:
+      return {
+        ...state,
+        loadingUserTypes: true
+      };
 
-      case AuthActionTypes.DELETE_USERTYPES_FETCH:
-        return {
-          ...state,
-          loading: false
-        };
-  
-      case AuthActionTypes.DELETE_USERTYPES_FETCH_ERROR:
-        return {
-          ...state,
-          loading: false,
-          error: true
-        };
+    case AuthActionTypes.DELETE_USERTYPES_FETCH:
+      return {
+        ...state,
+        loadingUserTypes: false
+      };
+
+    case AuthActionTypes.DELETE_USERTYPES_FETCH_ERROR:
+      return {
+        ...state,
+        loadingUserTypes: false,
+        error: true
+      };
 
     case AuthActionTypes.GET_USER_BY_ID_FETCHING:
       return {
         ...state,
-        loading: true
+        loadingUserById: true
       };
 
     case AuthActionTypes.GET_USER_BY_ID_FETCH_ERROR:
       return {
         ...state,
-        loading: false,
+        loadingUserById: false,
         error: false
       };
 
@@ -125,49 +134,64 @@ export function AuthReducer(state = initialState, action) {
       return {
         ...state,
         userByID: action.payload,
-        loading: false
-      }
+        loadingUserById: false
+      };
 
     case AuthActionTypes.UPDATE_USER_BY_ID_FETCHING:
       return {
         ...state,
-        loading: true
+        loadingUserById: true
       };
     // no deberia hacer user:action.payload?
     case AuthActionTypes.UPDATE_USER_BY_ID_FETCH:
       return {
         ...state,
-        loading: false
+        loadingUserById: false
       };
 
     case AuthActionTypes.UPDATE_USER_BY_ID_FETCH_ERROR:
       return {
         ...state,
-        loading: false,
+        loadingUserById: false,
         error: true
       };
 
-      case AuthActionTypes.DELETE_USER_BY_ID_FETCHING:
-        return {
-          ...state,
-          loading: true
-        };
-      // no deberia hacer user:action.payload?
-      case AuthActionTypes.DELETE_USER_BY_ID_FETCH:
-        return {
-          ...state,
-          loading: false
-        };
-  
-      case AuthActionTypes.DELETE_USER_BY_ID_FETCH_ERROR:
-        return {
-          ...state,
-          loading: false,
-          error: true
-        };
-  
-     
-   
+    case AuthActionTypes.DELETE_USER_BY_ID_FETCHING:
+      return {
+        ...state,
+        loadingUserById: true
+      };
+    // no deberia hacer user:action.payload?
+    case AuthActionTypes.DELETE_USER_BY_ID_FETCH:
+      return {
+        ...state,
+        loadingUserById: false
+      };
+
+    case AuthActionTypes.DELETE_USER_BY_ID_FETCH_ERROR:
+      return {
+        ...state,
+        loadingUserById: false,
+        error: true
+      };
+
+    case AuthActionTypes.CREATE_USER_BY_ID_FETCHING:
+      return {
+        ...state,
+        loadingUserById: true
+      };
+    case AuthActionTypes.CREATE_USER_BY_ID_FETCH:
+      return {
+        ...state,
+        loadingUserById: false
+      };
+
+    case AuthActionTypes.CREATE_USER_BY_ID_FETCH_ERROR:
+      return {
+        ...state,
+        loadingUserById: false,
+        error: true
+      };
 
     default:
       return state;

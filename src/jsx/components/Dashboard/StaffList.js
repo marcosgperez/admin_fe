@@ -2,15 +2,12 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Dropdown, Tab, Nav } from "react-bootstrap";
 
-///Import
-import room4 from './../../../images/room/room4.jpg';
-
 import { connect } from 'react-redux';
-import { getUsers, getUserByIDAction } from '../../../store/actions/AuthActions';
+import { getUsers, getUserTypesAction } from '../../../store/actions/AuthActions';
 import { LabelBtns } from '../../../components/LabelBtns';
 import { Loader } from '../Loader';
 
-const StaffList = ({ users, getUsers, getUserByIDAction, userById, loading }) => {
+const StaffList = ({ users, getUsers, getUserTypes, userTypes, loadingUsers, loadingUserTypes }) => {
 
 	const [selectBtn, setSelectBtn] = useState("Newest");
 
@@ -76,10 +73,15 @@ const StaffList = ({ users, getUsers, getUserByIDAction, userById, loading }) =>
 	// GET USERS & USER-BY-ID
 	React.useEffect(() => {
 		getUsers()
+		getUserTypes()
 	}, [])
 
+	const buildTypeNameFromId = (id) => {
+		if(userTypes.length == 0) return "-";
+		const userType = userTypes.find((userType) => userType.id == id)
+		return userType.name
+	}
 
-	console.log(userById, "userById")
 	return (
 		<>
 			<Tab.Container defaultActiveKey="All" >
@@ -104,7 +106,7 @@ const StaffList = ({ users, getUsers, getUserByIDAction, userById, loading }) =>
 														<div style={{ width: "30%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Contact</div>
 														<div style={{ width: "20%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Status</div>
 													</div>
-													{users.length ? (
+													{!loadingUsers && !loadingUserTypes && users.length ? (
 														<div className={"tableBody"} style={{ padding: "10px 0px" }} >
 															{users.map(buildUserData).map((t, i) => {
 																return (
@@ -117,7 +119,7 @@ const StaffList = ({ users, getUsers, getUserByIDAction, userById, loading }) =>
 																					{t.name}
 																				</p>
 																			</div>
-																			<div style={{ width: "30%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{t.job}</div>
+																			<div style={{ width: "30%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{buildTypeNameFromId(t.user_type_id)}</div>
 																			<div style={{ width: "30%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{t.email}</div>
 																			<div style={{ width: "20%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}><LabelBtns extraClassName="m-1 w-max-content" state={t.status}/></div>
 																		</div>
@@ -125,7 +127,7 @@ const StaffList = ({ users, getUsers, getUserByIDAction, userById, loading }) =>
 																)
 															})}
 														</div>
-													): (<Loader /> )}
+													): (<p className='p-1'><Loader /></p>)}
 												</div>
 											</div>
 										</div>
@@ -143,15 +145,17 @@ export { DropdownBlog };
 
 const mapStateToProps = (state) => {
 	return {
-		loading: state.authData.loading,
+		loadingUsers: state.authData.loadingUsers,
+		loadingUserTypes: state.authData.loadingUserTypes,
 		users: state.authData.users,
+		userTypes: state.authData.userTypes,
 		userById: state.authData.userByID
 	};
 };
 
 const mapDispatchToProps = {
 	getUsers,
-	getUserByIDAction
+	getUserTypes: getUserTypesAction
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(StaffList);
@@ -181,7 +185,7 @@ const buildUserData = (userFromAPI) => {
 	return {
 		id: userFromAPI.id,
 		name: userFromAPI.name,
-		job: "Administrator",
+		user_type_id: userFromAPI.user_type_id,
 		email: userFromAPI.email,
 		days: "-",
 		hours: "-",

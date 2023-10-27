@@ -6,11 +6,13 @@ export const generateColorFromName = (str) => {
         "#E2F0CB",
         "#E2F0CB",
     ]
+    if(!str) return colors[0]
     const letter = str[0].toUpperCase()
     const index = letter.charCodeAt(0) % colors.length
     return colors[index]
 }
 
 export const generateLetterByName = (str) => {
+    if(!str) return ""
     return str[0].toUpperCase()
 }

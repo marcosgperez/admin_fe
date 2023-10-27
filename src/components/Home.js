@@ -151,13 +151,14 @@ const Home = ({ getRoomsAction, roomsData,getRoomCountAction }) => {
 const mapStateToProps = (rootState) => {
   return {
     roomsData: rootState.roomsData,
+    isAdmin: rootState.authData.user && rootState.authData.user
 
   }
 }
 
 const mapDispatchToProps = {
   getRoomsAction,
-  getRoomCountAction
+  getRoomCountAction,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
