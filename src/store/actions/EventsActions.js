@@ -96,3 +96,39 @@ export const deleteEventByIDAction = (events) => (dispatch) => {
     });
   })
 }
+
+export const updateEvents = (events) => (dispatch) => {
+  dispatch({
+    type: EventsActionTypes.UPDATE_EVENTS_FETCHING
+  });
+  ApiService.updateEvents(events).then((res) => {
+    console.log(res, "RES")
+    dispatch({
+      type: EventsActionTypes.UPDATE_EVENTS_FETCH,
+      payload: res.data.data,
+    });
+  }).catch(e => {
+    dispatch({
+      type: EventsActionTypes.UPDATE_EVENTS_FETCH_ERROR,
+      payload: e,
+    });
+  })
+}
+
+export const deleteEvents = (events) => (dispatch) => {
+  dispatch({
+    type: EventsActionTypes.DELETE_EVENTS_FETCHING
+  });
+  ApiService.deleteEvents(events).then((res) => {
+    console.log(res, "RES")
+    dispatch({
+      type: EventsActionTypes.DELETE_EVENTS_FETCH,
+      payload: res.data.data,
+    });
+  }).catch(e => {
+    dispatch({
+      type: EventsActionTypes.DELETE_EVENTS_FETCH_ERROR,
+      payload: e,
+    });
+  })
+}

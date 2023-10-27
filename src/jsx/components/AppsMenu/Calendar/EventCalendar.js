@@ -5,15 +5,30 @@ import { Link } from "react-router-dom";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
-import { getEventsAction } from "../../../../store/actions/EventsActions";
+import { getEventsAction, deleteEvents, updateEvents } from "../../../../store/actions/EventsActions";
 import { connect } from 'react-redux';
-const EventCalendar = ({ eventsData, getEventsAction }) => {
+const EventCalendar = ({ eventsData, getEventsAction, updateEvents }) => {
    const { loading, error, events } = eventsData
    const [modalData, setModalData] = React.useState();
-
+   const [_events, set_Events] = React.useState()
    React.useEffect(() => {
       getEventsAction()
    }, [])
+   React.useEffect(() => {
+      set_Events(events)
+      console.log(events, "JOTA EVENTS")
+   }, [events])
+   React.useEffect(() => {
+      console.log(_events, "JOTA _EVENTS")
+   }, [_events])
+
+   const removeEvent = (id) => {
+      let events = _events.filter((current) => current.id !== id)
+      set_Events(events)
+      updateEvents(_events)
+      setModalData()
+   };
+
 
    const calendarComponentRef = React.useRef();
    const calendarEventsRef = React.useRef({});
@@ -30,46 +45,7 @@ const EventCalendar = ({ eventsData, getEventsAction }) => {
          title: eventClick.event.title,
          start: eventClick.event.start,
       })
-      // let admin = true
-      // Alert.fire({
-      //    title: eventClick.event.title,
-      //    html:
-      //       `<div className="table-responsive">
-      // <table className="table">
-      // <tbody>
-      // <tr >
-      // <td>Title</td>
-      // <td><strong>` +
-      //       eventClick.event.title +
-      //       `</strong></td>
-      // </tr>
-      // <tr >
-      // <td>Start Time</td>
-      // <td><strong>
-      // ` +
-      //       eventClick.event.start +
-      //       `
-      // </strong></td>
-      // </tr>
-      // </tbody>
-      // </table>
-      // </div>`,
 
-      //    showCancelButton: true,
-      //    showDenyButton: true,
-      //    showConfirmButton: admin,
-      //    confirmButtonColor: "#c96161",
-      //    cancelButtonColor: "#fcaea9",
-      //    confirmButtonText: "Remove Event",
-      //    cancelButtonText: "Close",
-      //    denyButtonText: "go to task",
-      //    denyButtonColor: "#c96161"
-      // }).then((result) => {
-      //    if (result.value) {
-      //       eventClick.event.remove(); // It will remove event from the calendar
-      //       Alert.fire("Deleted!", "Your Event has been deleted.", "success");
-      //    }
-      // });
    };
 
    const createRef = (event, ref) => {
@@ -83,18 +59,20 @@ const EventCalendar = ({ eventsData, getEventsAction }) => {
 
    const createDragOption = (event, target) => {
       new Draggable(target, {
-         // itemSelector: ".fc-event",
          eventData: function (eventEl) {
             let title = event.title;
             let id = event.id;
             return {
                title: title,
-               id: id,
+               // id: id,
             };
          },
       });
       return event
    }
+
+
+
 
    let admin = true
    const Modal = () => {
@@ -123,7 +101,7 @@ const EventCalendar = ({ eventsData, getEventsAction }) => {
                   </table>
                   <div className="ModalActions">
                      <Link className="modalGo" >Go to task</Link>
-                     <button className="modalRemove" onClick={() => setModalData()}>Remove Task</button>
+                     <button className="modalRemove" onClick={() => removeEvent(1)}>Remove Task</button>
                      <button className="modalClose" onClick={() => setModalData()}>Close</button>
                   </div>
                </div>
@@ -131,7 +109,7 @@ const EventCalendar = ({ eventsData, getEventsAction }) => {
          </div>
       )
    }
-   if (admin && loading === false) {
+   if (admin && loading === false && _events !== undefined) {
       return (
          <div className="animated fadeIn demo-app justify-content-end">
             <Modal />
@@ -145,16 +123,17 @@ const EventCalendar = ({ eventsData, getEventsAction }) => {
                            </div>
                            <Card.Body style={{ overflow: "scroll" }}>
                               <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "start" }} id="external-events">
-                                 {events.map((event) => (
-                                    <div draggable={true} ref={(ref) => createRef(event, ref)} data-id={event.id} style={{ width: "fit-content", height: "50px" }}
-                                       className="fc-event mt-0 ms-0 mb-2 btn btn-block btn-primary"
-                                       title={event.title}
-                                       data={event.id}
-                                       key={event.id}
-                                    >
-                                       {event.title}
-                                    </div>
-                                 ))}
+                                 {
+                                    _events.map((event) => (
+                                       <div draggable={true} ref={(ref) => createRef(event, ref)} data-id={event.id} style={{ width: "fit-content", height: "50px" }}
+                                          className="fc-event mt-0 ms-0 mb-2 btn btn-block btn-primary"
+                                          title={event.title}
+                                          data={event.id}
+                                          key={event.id}
+                                       >
+                                          {event.title}
+                                       </div>
+                                    ))}
                               </div>
                            </Card.Body>
                         </Card>
@@ -181,13 +160,9 @@ const EventCalendar = ({ eventsData, getEventsAction }) => {
                                  interactionPlugin,
                               ]}
                               ref={calendarComponentRef}
-                              // weekends={this.state.calendarWeekends}
                               events={calendarEvents}
-                              // eventDrop={drop}
-                              // drop={drop}
                               eventReceive={console.log}
                               eventClick={eventClick}
-                           // selectable={true}
                            />
                         </div>
                      </Card.Body>
@@ -198,7 +173,7 @@ const EventCalendar = ({ eventsData, getEventsAction }) => {
          </div>
       );
    }
-   if (loading === false && admin === false)
+   if (loading === false && admin === false && _events !== undefined)
       return (
          <div className="animated fadeIn demo-app">
             <Row>
@@ -209,7 +184,7 @@ const EventCalendar = ({ eventsData, getEventsAction }) => {
                      </div>
                      <Card.Body>
                         <div id="external-events">
-                           {events.map((event) => (
+                           {_events.map((event) => (
                               <div
                                  className="fc-event mt-0 ms-0 mb-2 btn btn-block btn-primary"
                                  title={event.title}
@@ -270,6 +245,8 @@ const mapStateToProps = (rootState) => {
 }
 
 const mapDispatchToProps = {
-   getEventsAction
+   getEventsAction,
+   deleteEvents,
+   updateEvents
 }
 export default connect(mapStateToProps, mapDispatchToProps)(EventCalendar);

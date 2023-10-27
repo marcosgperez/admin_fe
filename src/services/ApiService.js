@@ -137,7 +137,7 @@ class ApiService {
 
     updateRooms() {
         return this.axios.post(proxyUrl, {
-            "method": "get",
+            "method": "post",
             "url": apiURL + "/rooms/update",
             "auth": this.token,
             "data": {}
@@ -145,7 +145,7 @@ class ApiService {
     }
     deleteRooms() {
         return this.axios.post(proxyUrl, {
-            "method": "get",
+            "method": "post",
             "url": apiURL + "/rooms/delete",
             "auth": this.token,
             "data": {}
@@ -200,6 +200,23 @@ class ApiService {
             "data": {}
         })
     }
+    updateEvents(events) {
+        return this.axios.post(proxyUrl, {
+            "method": "post",
+            "url": apiURL + "/events/update",
+            "auth": this.token,
+            "data": {events}
+        })
+    }
+    deleteEvents() {
+        return this.axios.post(proxyUrl, {
+            "method": "post",
+            "url": apiURL + "/events/delete",
+            "auth": this.token,
+            "data": {}
+        })
+    }
+
     getUser() {
         return this.axios.get(`user.json`, { baseURL: apiMockURL });
     }
