@@ -70,14 +70,13 @@ const Facilities = ({ facilitiesData, getFacilities }) => {
 
 
 
-                    {facilities.map((f, i) => {
+                    {/* {facilities.map((f, i) => {
                         if (loading === false) {
                             if (f.type === filter || filter === "all")
                                 return (
                                     <Link key={`task-${f.id}`} to={`/facilitie/:${f.id}`}>
                                         <div className={"tableRow"} style={{ width: "100%", display: "flex", justifyContent: "space-between", padding: "10px 0px", textSelect: "none" }}>
-                                            {/* <div style={{ width: "0.00005%", display: "flex", alignItems: "center", justifyContent: "end", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
-																				</div> */}
+
                                             <div className="rowName">
                                                 <img alt={"idk bruh0"} src={room4} className="rowImage" ></img>
                                                 <p style={{ marginBottom: "0px", marginLeft: "20px" }}>
@@ -95,7 +94,7 @@ const Facilities = ({ facilitiesData, getFacilities }) => {
                                     </Link>
                                 )
                         }
-                    })}
+                    })} */}
                 </div>
 
             </div>

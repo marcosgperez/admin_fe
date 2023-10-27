@@ -109,7 +109,7 @@ const EventCalendar = ({ eventsData, getEventsAction, updateEvents }) => {
          </div>
       )
    }
-   if (admin && loading === false && _events !== undefined) {
+   if (admin && !loading && _events !== undefined) {
       return (
          <div className="animated fadeIn demo-app justify-content-end">
             <Modal />
@@ -124,8 +124,12 @@ const EventCalendar = ({ eventsData, getEventsAction, updateEvents }) => {
                            <Card.Body style={{ overflow: "scroll" }}>
                               <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "start" }} id="external-events">
                                  {
-                                    _events.map((event) => (
-                                       <div draggable={true} ref={(ref) => createRef(event, ref)} data-id={event.id} style={{ width: "fit-content", height: "50px" }}
+                                    _events !== undefined && _events.map((event) => (
+                                       <div
+                                          draggable={true}
+                                          ref={(ref) => createRef(event, ref)}
+                                          data-id={event.id}
+                                          style={{ width: "fit-content", height: "50px" }}
                                           className="fc-event mt-0 ms-0 mb-2 btn btn-block btn-primary"
                                           title={event.title}
                                           data={event.id}
@@ -133,7 +137,8 @@ const EventCalendar = ({ eventsData, getEventsAction, updateEvents }) => {
                                        >
                                           {event.title}
                                        </div>
-                                    ))}
+                                    ))
+                                 }
                               </div>
                            </Card.Body>
                         </Card>
@@ -171,6 +176,7 @@ const EventCalendar = ({ eventsData, getEventsAction, updateEvents }) => {
             </div>
 
          </div>
+
       );
    }
    if (loading === false && admin === false && _events !== undefined)

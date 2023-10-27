@@ -171,44 +171,6 @@ const TaskTable = ({ items }) => {
 								: data.length}{" "}
 							of {data.length} entries
 						</div>
-						{/* <div
-							className="d-none dataTables_paginate paging_simple_numbers mb-0"
-							id="example2_paginate"
-						>
-							<Link
-								className="paginate_button previous disabled"
-								to="/room-list"
-								onClick={() =>
-								   activePag.current > 0 &&
-								   onClick(activePag.current - 1)
-								}
-							 >
-								<i className="fa fa-angle-double-left"></i> Previous
-							</Link>
-							<span>
-								{paggination.map((number, i) => (
-								   <Link key={i} to="/room-list"
-									  className={`paginate_button  ${
-										 activePag.current === i ? "current" : ""
-									  } `}
-									  onClick={() => onClick(i)}
-								   >
-									  {number}
-								   </Link>
-								))}
-							</span>
-
-							<Link
-								className="paginate_button next"
-								to="/room-list"
-								onClick={() =>
-								   activePag.current + 1 < paggination.length &&
-								   onClick(activePag.current + 1)
-								}
-							>
-								Next <i className="fa fa-angle-double-right"></i>
-							</Link>
-						</div> */}
 					</div>
 				</div>
 			</div>

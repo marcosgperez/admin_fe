@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Tab } from "react-bootstrap";
-
+import { Dropdown } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { getUserByIDAction, updateUserByIDAction } from '../../../store/actions/AuthActions';
-import { generateColorFromName, generateLetterByName} from '../../../helpers';
+import { generateColorFromName, generateLetterByName } from '../../../helpers';
 import { Loader } from '../Loader';
 
 const StaffById = ({ getUserByIDAction, updateUserByIDAction, userById, loading }) => {
@@ -41,11 +41,16 @@ const StaffById = ({ getUserByIDAction, updateUserByIDAction, userById, loading 
 
     const sendForm = () => {
         setIsUpdating(true)
-        if(infoUser.id) updateUserByIDAction(infoUser)
-        else console.log("NEW",infoUser)
+        if (infoUser.id) updateUserByIDAction(infoUser)
+        else console.log("NEW", infoUser)
     }
 
- 
+    const [open, setOpen] = useState(false)
+    const [status,setStatus] = useState("active")
+    const openModal = () => {
+        setOpen(!open)
+    }
+
     return (
         <>
             <Tab.Container defaultActiveKey="All" >
@@ -74,6 +79,16 @@ const StaffById = ({ getUserByIDAction, updateUserByIDAction, userById, loading 
                                                                     <div>
                                                                         <p>Suername</p>
                                                                         <input value={infoUser.surname} onChange={(e) => changeFormProp("surname", e.target.value)} />
+                                                                    </div>
+                                                                    <div onClick={() => openModal()}>
+                                                                        <p>Status</p>
+                                                                        <input disabled={true} value={infoUser.surname} />
+                                                                        <div className={open ? 'formDropDownOptions' : 'formDropDownOptionsClosed'} >
+                                                                            <p>Active</p>
+                                                                            <p>Inactive</p>
+                                                                            <p>On Break</p>
+                                                                        </div>
+
                                                                     </div>
                                                                 </div>
                                                                 <div className='left' >

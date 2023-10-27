@@ -117,13 +117,13 @@ const TasksList = ({ filter }) => {
 							<div className="card-body p-0">
 								<Tab.Content>
 									<Tab.Pane eventKey="All" style={{ width: "100%", overflow: "auto" }}>
-										<TasksTable items={[{}]}/>
+										<TasksTable items={[{}]} />
 									</Tab.Pane>
-									<Tab.Pane eventKey="HouseKeeping">
-										<TasksTable items={[{},{},{},{}]}/>
+									<Tab.Pane eventKey="HouseKeeping" style={{ width: "100%", overflow: "auto" }}>
+										<TasksTable items={[{}, {}, {}, {}]} />
 									</Tab.Pane>
-									<Tab.Pane eventKey="Maintainance">
-										<TasksTable items={[{},{}]}/>
+									<Tab.Pane eventKey="Maintainance" style={{ width: "100%", overflow: "auto" }}>
+										<TasksTable items={[{}, {}]} />
 									</Tab.Pane>
 									<Tab.Pane eventKey="Other">
 										<div><p className='p-2 mb-2 ms-2'>Pending...</p></div>
