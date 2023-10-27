@@ -3,9 +3,9 @@ import { Nav } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { connect } from "react-redux";
-import { getFacilitiesAction } from "../../store/actions/FacilitiesActions";
+import { getFacilities } from "../../store/actions/FacilitiesActions";
 import room4 from './../../images/room/room4.jpg';
-const Facilities = ({ facilitiesData, getFacilitiesAction }) => {
+const Facilities = ({ facilitiesData, getFacilities }) => {
     const [selectBtn, setSelectBtn] = useState("Newest");
     const [searchBut, setSearchBut] = useState(false);
     const admin = true
@@ -17,7 +17,7 @@ const Facilities = ({ facilitiesData, getFacilitiesAction }) => {
 
     const { loading, error, facilities } = facilitiesData
     React.useEffect(() => {
-        getFacilitiesAction()
+        getFacilities()
     }, [])
 
     React.useEffect(() => {
@@ -111,7 +111,7 @@ const mapStateToProps = (rootState) => {
 }
 
 const mapDispatchToProps = {
-    getFacilitiesAction
+    getFacilities
 }
 
 

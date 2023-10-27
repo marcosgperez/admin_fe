@@ -165,16 +165,38 @@ class ApiService {
     getTasks() {
         return this.axios.get(`tasks.json`, { baseURL: apiMockURL });
     }
-
+    getTaskByID() {
+        return this.axios.post(proxyUrl, {
+            "method": "get",
+            "url": apiURL + "/tasks?id=" + this.id,
+            "auth": this.token,
+            "data": {}
+        })
+    }
     getEvents() {
         return this.axios.get(`events.json`, { baseURL: apiMockURL });
     }
-
+    getEventByID() {
+        return this.axios.post(proxyUrl, {
+            "method": "get",
+            "url": apiURL + "/events?id=" + this.id,
+            "auth": this.token,
+            "data": {}
+        })
+    }
     getUser() {
         return this.axios.get(`user.json`, { baseURL: apiMockURL });
     }
     getFacilities() {
         return this.axios.get(`facilities.json`, { baseURL: apiMockURL });
+    }
+    getFacilitieById() {
+        return this.axios.post(proxyUrl, {
+            "method": "get",
+            "url": apiURL + "/facilities?id=" + this.id,
+            "auth": this.token,
+            "data": {}
+        })
     }
 
 }

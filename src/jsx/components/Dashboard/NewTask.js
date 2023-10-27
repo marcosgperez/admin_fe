@@ -1,13 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Dropdown, Tab, Nav } from "react-bootstrap";
-
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Loader } from '../Loader';
 ///Import
 import room4 from './../../../images/room/room4.jpg';
 
 import { connect } from 'react-redux';
-import { getUsers, getUserByIDAction } from '../../../store/actions/AuthActions';
-
+import { getTasks, getTaskByID } from '../../../store/actions/TasksActions';
+import {  getUserByIDAction } from '../../../store/actions/AuthActions';
 
 
 const buildUserData = (userFromAPI) => {
@@ -51,156 +52,106 @@ const DropDown = ({ status }) => {
     );
 };
 
-const TaskById = ({ users, getUsers, getUserByIDAction, userById }) => {
-
-
+const TaskById = ({ tasks, getTasks,getTaskById, taskById, loading }) => {
+    const [infoTask, setInfoTask] = React.useState()
+    const [isNew, setIsNew] = React.useState(false)
+    const [isUpdating, setIsUpdating] = React.useState(false)
+    const changeFormProp = (prop, value) => {
+        setInfoTask({ ...infoTask, [prop]: value })
+    }
     // GET USERS & USER-BY-ID
     React.useEffect(() => {
-        getUsers()
-        getUserByIDAction()
+        getTasks()
+        getTaskByID()
     }, [])
+    const location = useLocation();
+    let navigate = useNavigate();
+    useEffect(() => {
+        const splitedPathname = location.pathname.split("/")
+        const id = splitedPathname[splitedPathname.length - 1];
+        if (id != "new") getTaskByID(id)
+        else {
+            setInfoTask({})
+            setIsNew(isNew)
+        }
+    }, [location])
 
-    React.useEffect(() => {
-        console.log("users", users, "userByID", userById)
-    }, [users])
-    console.log(userById, "userById")
+
+    // const sendForm = () => {
+    //     setIsUpdating(true)
+    //     if(infoTask.id) updateTaskByIDAction(infoUser)
+    //     else console.log("NEW",infoUser)
+    // }
+
+    console.log(taskById, "userById")
     const [show, setShow] = useState("onProgress")
     return (
-        <>
-            <Tab.Container defaultActiveKey="All" >
-                <div className="row form">
-
-                    <div className='statusContainer' >
-                        <div>
-                            <input
-                                type="checkbox"
-                                className="form-check-input"
-                                id="customCheckBox1"
-                                defaultChecked
-
-                            />
-                            <label
-                                className="form-check-label"
-                                htmlFor="customCheckBox1"
-                            >
-                                On Progress
-                            </label>
-                        </div>
-
-
-                        <div>
-                            <input
-                                type="checkbox"
-                                defaultChecked
-                                className="form-check-input"
-                                id="customCheckBox2"
-                                required
-                            />
-                            <label
-                                className="form-check-label"
-                                htmlFor="customCheckBox2"
-                            >
-                                Done
-                            </label>
-                        </div>
-
-                        <div>
-                            <input
-                                type="checkbox"
-                                defaultChecked
-                                className="form-check-input"
-                                id="customCheckBox3"
-                                required
-                            />
-                            <label
-                                className="form-check-label"
-                                htmlFor="customCheckBox3"
-                            >
-                                Not Finished
-                            </label>
-                        </div>
-
-                    </div>
-                    <div className="col-xl-12">
-
-                        <div className="card formCard" style={{ heigth: "20px" }} >
-                            <div className="card-body p-0">
-                                <Tab.Content >
-                                    <Tab.Pane eventKey="All">
-                                        <div className="table-responsive">
-                                            <div id="room_wrapper" className="dataTables_wrapper no-footer">
-                                                <div className={"tableContainer"} style={{ width: "100%", alignItems: "center" }} >
-
-                                                    <div className="basic-form">
-                                                        <form onSubmit={(e) => e.preventDefault()}>
-                                                            <div className='row formRow' >
-                                                                <div className='imageContainer'>
-                                                                    <div style={{ backgroundImage: `${room4}` }} className='image' ></div>
+        <Tab.Container defaultActiveKey="All" >
+            <div className="row form">
+                <div className="col-xl-12">
+                    <div className="customCard booking" style={{ heigth: "20px" }} >
+                        <div style={{ overflow: "auto" }} className="card-body p-3">
+                            <div className="table-responsive">
+                                <div className="dataTables_wrapper no-footer">
+                                    {(isNew || (loading || taskById || !infoTask)) ? (<Loader />) : (
+                                        <div className={"tableContainer"} style={{ width: "100%", alignItems: "center" }} >
+                                            <div className="basic-form">
+                                                <form onSubmit={(e) => e.preventDefault()}>
+                                                    <div className='row formRow' >
+                                                        <div className='ms-0 ms-md-4 imageContainer withLetters' >
+                                                            {/* <div className='image'>
+                                                                    <p>{generateLetterByName(infoUser.name)}{generateLetterByName(infoUser.surname)}</p>
+                                                                </div> */}
+                                                        </div>
+                                                        <div className=' inputs'>
+                                                            <div className='rigth'>
+                                                                <div>
+                                                                    <p>Name</p>
+                                                                    <input onChange={(e) => changeFormProp("name", e.target.value)} />
                                                                 </div>
-                                                                <div className=' inputs'>
-
-                                                                    <div className='rigth'>
-                                                                        <div>
-                                                                            <p>
-                                                                                Name
-                                                                            </p>
-                                                                            <input></input>
-                                                                        </div>
-
-                                                                        <div>
-                                                                            <p>Type</p>
-                                                                            <input></input>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className='left' >
-                                                                        <div>
-                                                                            <p>Asigned To</p>
-                                                                            <input></input>
-                                                                        </div>
-
-                                                                        <div>
-                                                                            <p>Started on</p>
-                                                                            <input></input>
-                                                                        </div>
-                                                                    </div>
+                                                                <div>
+                                                                    <p>Suername</p>
+                                                                    <input onChange={(e) => changeFormProp("surname", e.target.value)} />
                                                                 </div>
                                                             </div>
-                                                        </form>
+                                                            <div className='left' >
+                                                                <div>
+                                                                    <p>Creation Date</p>
+                                                                    <input disabled="true" />
+                                                                </div>
+                                                                <div>
+                                                                    <p>Email</p>
+                                                                    <input onChange={(e) => changeFormProp("email", e.target.value)} />
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div>
-                                                        <textarea
-                                                            className='formTextArea '
-                                                            rows="8"
-                                                            id="comment"
-                                                        ></textarea>
-
-
-                                                        <div className='saveContainer'>
-                                                            <button>
-                                                                Save
-                                                            </button>
-
-                                                            <button>
-                                                                Cancel
-                                                            </button>
-
-                                                            <button id='delete'>
-                                                                Delete
-                                                            </button>
+                                                    <div className="mb-3 d-none">
+                                                        <input className="form-control" type="file" id="formFile" />
+                                                    </div>
+                                                    <textarea
+                                                        className='formTextArea'
+                                                        rows="8"
+                                                        id="comment"
+                                                    ></textarea>
+                                                    <div className="col-12">
+                                                        <div className='saveContainer mt-2' >
+                                                            {/* <button type="button" onClick={sendForm}>Save</button> */}
+                                                            <button type="button">Save</button>
 
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </form>
                                             </div>
                                         </div>
-                                    </Tab.Pane>
-                                </Tab.Content>
+                                    )}
+                                </div>
                             </div>
                         </div>
-                    </div >
+                    </div>
                 </div >
-            </Tab.Container >
-        </>
+            </div >
+        </Tab.Container >
     )
 }
 
@@ -210,13 +161,13 @@ const mapStateToProps = (state) => {
     return {
         loading: state.authData.loading,
         users: state.authData.users,
-        userById: state.authData.userByID
+        taskById: state.authData.taskByID
     };
 };
 
 const mapDispatchToProps = {
-    getUsers,
-    getUserByIDAction
+    getTasks,
+    getTaskByID
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskById);
