@@ -7,6 +7,19 @@ import { getUsers, getUserTypesAction } from '../../../store/actions/AuthActions
 import { LabelBtns } from '../../../components/LabelBtns';
 import { Loader } from '../Loader';
 
+const buildUserData = (userFromAPI) => {
+	return {
+		id: userFromAPI.id,
+		name: userFromAPI.name,
+		user_type_id: userFromAPI.user_type_id,
+		email: userFromAPI.email,
+		days: "-",
+		hours: "-",
+		contact: "-",
+		status: "Active"
+	}
+}
+
 const StaffList = ({ users, getUsers, getUserTypes, userTypes, loadingUsers, loadingUserTypes }) => {
 
 	const [selectBtn, setSelectBtn] = useState("Newest");
@@ -50,26 +63,7 @@ const StaffList = ({ users, getUsers, getUserTypes, userTypes, loadingUsers, loa
 	};
 	const chackbox = document.querySelectorAll(".sorting_1 input");
 	const motherChackBox = document.querySelector(".sorting_asc input");
-	// console.log(document.querySelectorAll(".sorting_1 input")[0].checked);
-	const chackboxFun = (type) => {
-		for (let i = 0; i < chackbox.length; i++) {
-			const element = chackbox[i];
-			if (type === "all") {
-				if (motherChackBox.checked) {
-					element.checked = true;
-				} else {
-					element.checked = false;
-				}
-			} else {
-				if (!element.checked) {
-					motherChackBox.checked = false;
-					break;
-				} else {
-					motherChackBox.checked = true;
-				}
-			}
-		}
-	};
+
 	// GET USERS & USER-BY-ID
 	React.useEffect(() => {
 		getUsers()
@@ -141,7 +135,7 @@ const StaffList = ({ users, getUsers, getUserTypes, userTypes, loadingUsers, loa
 		</>
 	)
 }
-export { DropdownBlog };
+// export { DropdownBlog };
 
 const mapStateToProps = (state) => {
 	return {
@@ -161,65 +155,8 @@ const mapDispatchToProps = {
 export default connect(mapStateToProps, mapDispatchToProps)(StaffList);
 
 
-const DropdownBlog = () => {
-	return (
-		<>
-			<Dropdown className="dropdown">
-				<Dropdown.Toggle as="div" className="btn-link i-false" >
-					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M11 12C11 12.5523 11.4477 13 12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12Z" stroke="#262626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-						<path d="M18 12C18 12.5523 18.4477 13 19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11C18.4477 11 18 11.4477 18 12Z" stroke="#262626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-						<path d="M4 12C4 12.5523 4.44772 13 5 13C5.55228 13 6 12.5523 6 12C6 11.4477 5.55228 11 5 11C4.44772 11 4 11.4477 4 12Z" stroke="#262626" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-					</svg>
-				</Dropdown.Toggle>
-				<Dropdown.Menu className="dropdown-menu">
-					<Dropdown.Item className="dropdown-item">Edit</Dropdown.Item>
-					<Dropdown.Item className="dropdown-item">Delete</Dropdown.Item>
-				</Dropdown.Menu>
-			</Dropdown>
-		</>
-	)
-}
-
-const buildUserData = (userFromAPI) => {
-	return {
-		id: userFromAPI.id,
-		name: userFromAPI.name,
-		user_type_id: userFromAPI.user_type_id,
-		email: userFromAPI.email,
-		days: "-",
-		hours: "-",
-		contact: "-",
-		status: "Active"
-	}
-}
 
 
-const DropDown = ({ status }) => {
-	const [currentStatus, setCurrentStatus] = useState(status);
-	const [open, setOpen] = useState(false);
-	const [color, setColor] = useState("green")
 
-	const selectOption = (changeTo, newColor) => {
-		setCurrentStatus(changeTo)
-		setOpen(false)
-		setColor(newColor)
-	}
 
-	return (
-		<div className="dropDown">
-			<div onClick={() => setOpen(!open)} className="dropDownButton">
-				<div>
-					<p style={{ color }}>
-						{currentStatus}
-					</p>
-				</div>
-			</div>
-			<div className={open ? "dropDownOptions" : "closed"}>
-				<div className="active" onClick={() => selectOption("Active", "#7aa577")}>Active</div>
-				<div className="inactive" onClick={() => selectOption("Inactive", "#c96161")}>Inactive</div>
-				<div className="break" onClick={() => selectOption("On Break", "#ead681")}>On break</div>
-			</div>
-		</div>
-	);
-};
+

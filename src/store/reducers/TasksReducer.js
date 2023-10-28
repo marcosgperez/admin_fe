@@ -2,25 +2,35 @@ import { TasksActionTypes } from "../actions/TasksActions";
 
 const initialState = {
   loading: false,
-  tasks: [],
-  loadingTaskById: false,
   task: undefined,
-  error: undefined
+  error: false,
+
+  loadingTaskById: false,
+  taskByID: undefined,
+
+  loadingTasks: false,
+  tasks: [],
+
+  loadingTaskTypes: false,
+  taskTypes: []
 };
 
 export function TasksReducer(state = initialState, action) {
+  console.log("TasksReducer", action)
   switch (action.type) {
     case TasksActionTypes.GET_TASKS_FETCHING:
       return {
         ...state,
         loading: true,
       };
+
     case TasksActionTypes.GET_TASKS_FETCH:
       return {
         ...state,
+        task: action.payload,
         loading: false,
-        tasks: action.payload,
       };
+
     case TasksActionTypes.GET_TASKS_FETCH_ERROR:
       return {
         ...state,
@@ -28,64 +38,142 @@ export function TasksReducer(state = initialState, action) {
         loading: false,
       };
 
-    case TasksActionTypes.UPDATE_TASK_FETCHING:
+    case TasksActionTypes.GET_TASKTYPES_FETCH:
       return {
         ...state,
-        loadingTaskById: true,
-      };
-    case TasksActionTypes.UPDATE_TASK_FETCH:
-      return {
-        ...state,
-        loadingTaskById: false,
-        tasks: action.payload,
-      };
-    case TasksActionTypes.UPDATE_TASK_FETCH_ERROR:
-      return {
-        ...state,
-        error: action.payload,
-        loadingTaskById: false,
+        taskTypes: action.payload,
+        loadingTaskTypes: false,
       };
 
-    case TasksActionTypes.DELETE_TASK_FETCHING:
+    case TasksActionTypes.GET_TASKTYPES_FETCHING:
       return {
         ...state,
-        loadingTaskById: true,
-      };
-    case TasksActionTypes.DELETE_TASK_FETCH:
-      return {
-        ...state,
-        loadingTaskById: false,
-        tasks: action.payload,
-      };
-    case TasksActionTypes.DELETE_TASK_FETCH_ERROR:
-      return {
-        ...state,
-        error: action.payload,
-        loadingTaskById: false,
+        loadingTaskTypes: true
       };
 
+    case TasksActionTypes.GET_TASKTYPES_FETCH_ERROR:
+      return {
+        ...state,
+        loadingTaskTypes: false,
+        error: true
+      };
+
+    case TasksActionTypes.UPDATE_TASKTYPES_FETCH:
+      return {
+        ...state,
+        taskTypes: action.payload,
+        loadingTaskTypes: false,
+      };
+
+    case TasksActionTypes.UPDATE_TASKTYPES_FETCHING:
+      return {
+        ...state,
+        loadingTaskTypes: true
+      };
+
+    case TasksActionTypes.UPDATE_TASKTYPES_FETCH_ERROR:
+      return {
+        ...state,
+        loadingTaskTypes: false,
+        error: true
+      };
+
+    case TasksActionTypes.DELETE_TASKTYPES_FETCHING:
+      return {
+        ...state,
+        loadingTaskTypes: true
+      };
+
+    case TasksActionTypes.DELETE_TASKTYPES_FETCH:
+      return {
+        ...state,
+        loadingTaskTypes: false
+      };
+
+    case TasksActionTypes.DELETE_TASKTYPES_FETCH_ERROR:
+      return {
+        ...state,
+        loadingTaskTypes: false,
+        error: true
+      };
+
+    case TasksActionTypes.GET_TASK_BY_ID_FETCHING:
+      return {
+        ...state,
+        loadingTaskById: true
+      };
+
+    case TasksActionTypes.GET_TASK_BY_ID_FETCH_ERROR:
+      return {
+        ...state,
+        loadingTaskById: false,
+        error: false
+      };
+
+    case TasksActionTypes.GET_TASK_BY_ID_FETCH:
+      return {
+        ...state,
+        taskByID: action.payload,
+        loadingTaskById: false
+      };
+
+    case TasksActionTypes.UPDATE_TASK_BY_ID_FETCHING:
+      return {
+        ...state,
+        loadingTaskById: true
+      };
+    // no deberia hacer task:action.payload?
+    case TasksActionTypes.UPDATE_TASK_BY_ID_FETCH:
+      return {
+        ...state,
+        loadingTaskById: false
+      };
+
+    case TasksActionTypes.UPDATE_TASK_BY_ID_FETCH_ERROR:
+      return {
+        ...state,
+        loadingTaskById: false,
+        error: true
+      };
+
+    case TasksActionTypes.DELETE_TASK_BY_ID_FETCHING:
+      return {
+        ...state,
+        loadingTaskById: true
+      };
+    // no deberia hacer task:action.payload?
+    case TasksActionTypes.DELETE_TASK_BY_ID_FETCH:
+      return {
+        ...state,
+        loadingTaskById: false
+      };
+
+    case TasksActionTypes.DELETE_TASK_BY_ID_FETCH_ERROR:
+      return {
+        ...state,
+        loadingTaskById: false,
+        error: true
+      };
 
     case TasksActionTypes.CREATE_TASK_BY_ID_FETCHING:
       return {
         ...state,
-        loading: true,
+        loadingTaskById: true
       };
     case TasksActionTypes.CREATE_TASK_BY_ID_FETCH:
       return {
         ...state,
-        loading: false,
-        task: action.payload,
+        loadingTaskById: false
       };
+
     case TasksActionTypes.CREATE_TASK_BY_ID_FETCH_ERROR:
       return {
         ...state,
-        error: action.payload,
-        loading: false,
+        loadingTaskById: false,
+        error: true
       };
 
     default:
       return state;
   }
 }
-
-
