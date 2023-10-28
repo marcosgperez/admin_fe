@@ -1,26 +1,31 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Dropdown, Tab, Nav } from "react-bootstrap";
-
+import { capitalize } from '../../../helpers';
 import { connect } from 'react-redux';
-import { getTasks, getTaskTypes } from '../../../store/actions/TasksActions';
+import { getUserTypesAction, getUsers } from '../../../store/actions/AuthActions';
+import { getTasks } from '../../../store/actions/TasksActions';
 import { LabelBtns } from '../../../components/LabelBtns';
 import { Loader } from '../Loader';
 
-const buildFacilitieData = (facilitieFromAPI) => {
+const buildTaskData = (taskFromApi) => {
+	console.log("taskFromApi",taskFromApi)
 	return {
-		id: facilitieFromAPI.id,
-		name: facilitieFromAPI.name,
-		facilitie_type_id: facilitieFromAPI.facilitie_type_id,
-		email: facilitieFromAPI.email,
-		days: "-",
-		hours: "-",
-		contact: "-",
-		status: "Active"
+		id: taskFromApi.id,
+		name: taskFromApi.name,
+		type: taskFromApi.type,
+		email: taskFromApi.email,
+		asigned_room: taskFromApi.asigned_room,
+		asigned_to: taskFromApi.asigned_to,
+		created_at: taskFromApi.created_at,
+		description: taskFromApi.description,
+		photo: taskFromApi.photo,
+		is_completed: taskFromApi.is_completed,
+		status: taskFromApi.is_completed ? "Completed" : "Pending"
 	}
 }
 
-const TaskList = ({filter, tasks, getTasks, getTaskTypes, taskTypes, loadingTasks, loadingTaskTypes }) => {
+const TaskList = ({ filter, tasks, getTasks, getTaskTypes, getUsers, users, taskTypes, loadingTasks, loadingTaskTypes }) => {
 
 	const [selectBtn, setSelectBtn] = useState("Newest");
 
@@ -68,13 +73,26 @@ const TaskList = ({filter, tasks, getTasks, getTaskTypes, taskTypes, loadingTask
 	React.useEffect(() => {
 		getTasks()
 		getTaskTypes()
+		getUsers();
 	}, [])
 
 	const buildTypeNameFromId = (id) => {
-		if(taskTypes.length == 0) return "-";
-		const facilitieType = taskTypes.find((facilitieType) => facilitieType.id == id)
-		return facilitieType.name
+		if (taskTypes.length == 0) return "-";
+		const taskType = taskTypes.find((taskType) => taskType.id == id)
+		return (taskType) ? capitalize(taskType.name) : "-"
 	}
+
+	const buildNameFromAsignationId = (id) => {
+		if (users.length == 0) return "-";
+		const user = users.find((user) => user.id == id)
+		return (user) ? capitalize(user.name) : "-"
+	}
+
+	const buildRoomFromRoomId = (id) => {
+		return "-"
+	} 
+
+	
 
 	return (
 		<>
@@ -91,17 +109,17 @@ const TaskList = ({filter, tasks, getTasks, getTaskTypes, taskTypes, loadingTask
 													<div style={{ fontSize: "30px", paddingTop: "20px", paddingLeft: "20px", fontWeight: "500" }} >Tasks</div>
 													<div className={"tableHeader"} style={{ display: "flex", justifyContent: "space-between", borderBottom: "3px solid #828282", color: "black", fontWeigth: "500" }}>
 														<div style={{ width: "20%", justifyContent: "center", textAlign: "start", fontSize: "20px", fontWeight: "600", margin: "5px", padding: "10px 0px 10px 20px" }}>Name</div>
-														<div style={{ width: "20%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Type</div>
-														<div style={{ width: "20%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Assigned</div>
-														<div style={{ width: "20%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Started</div>
-														<div style={{ width: "20%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Room</div>
+														<div style={{ width: "15%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Type</div>
+														<div style={{ width: "15%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Assigned</div>
+														<div style={{ width: "15%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Created At</div>
+														<div style={{ width: "15%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Room</div>
 														<div style={{ width: "20%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Status</div>
 													</div>
 													{!loadingTasks && !loadingTaskTypes && tasks.length ? (
 														<div className={"tableBody"} style={{ padding: "10px 0px" }} >
-															{tasks.map(buildFacilitieData).map((t, i) => {
+															{tasks.map(buildTaskData).map((t, i) => {
 																return (
-																	<Link to={`/tasks/${t.id}`} key={t.id} >
+																	<Link to={`/task/${t.id}`} key={t.id} >
 																		<div className={"tableRow"} style={{ width: "100%", display: "flex", justifyContent: "space-between", padding: "10px 0px", textSelect: "none" }}>
 																			{/* <div style={{ width: "0.00005%", display: "flex", alignItems: "center", justifyContent: "end", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
 																			</div> */}
@@ -110,57 +128,23 @@ const TaskList = ({filter, tasks, getTasks, getTaskTypes, taskTypes, loadingTask
 																					{t.name}
 																				</p>
 																			</div>
-																			<div style={{ width: "30%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{buildTypeNameFromId(t.facilitie_type_id)}</div>
-																			<div style={{ width: "30%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{t.email}</div>
-																			<div style={{ width: "20%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}><LabelBtns extraClassName="m-1 w-max-content" state={t.status}/></div>
+																			<div style={{ width: "15%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{buildTypeNameFromId(t.type)}</div>
+																			<div style={{ width: "15%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{buildNameFromAsignationId(t.asigned_to)}</div>
+																			<div style={{ width: "15%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{new Date(t.created_at).toLocaleDateString()}</div>
+																			<div style={{ width: "15%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{buildRoomFromRoomId(t.asigned_room)}</div>
+																			<div style={{ width: "20%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}><LabelBtns extraClassName="m-1 w-max-content" state={t.status} /></div>
 																		</div>
 																	</Link>
 																)
 															})}
 														</div>
-													): (<p className='p-1'><Loader /></p>)}
+													) : (<p className='p-1'><Loader /></p>)}
 												</div>
 											</div>
 										</div>
 									</Tab.Pane>
 									<Tab.Pane eventKey="HouseKeeping">
-										<div className={"table-responsive "}>
-											<div id="room_wrapper" className="dataTables_wrapper no-footer">
-												<div className={"tableContainer"} style={{ width: "100%", alignItems: "center" }} >
-													<div style={{ fontSize: "30px", paddingTop: "20px", paddingLeft: "20px", fontWeight: "500" }} >Tasks</div>
-													<div className={"tableHeader"} style={{ display: "flex", justifyContent: "space-between", borderBottom: "3px solid #828282", color: "black", fontWeigth: "500" }}>
-														<div style={{ width: "20%", justifyContent: "center", textAlign: "start", fontSize: "20px", fontWeight: "600", margin: "5px", padding: "10px 0px 10px 20px" }}>Name</div>
-														<div style={{ width: "30%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Type</div>
-														<div style={{ width: "30%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Assigned</div>
-														<div style={{ width: "30%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Started</div>
-														<div style={{ width: "30%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Room</div>
-														<div style={{ width: "20%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Status</div>
-													</div>
-													{!loadingTasks && !loadingTaskTypes && tasks.length ? (
-														<div className={"tableBody"} style={{ padding: "10px 0px" }} >
-															{tasks.map(buildFacilitieData).map((t, i) => {
-																return (
-																	<Link to={`/tasks/${t.id}`} key={t.id} >
-																		<div className={"tableRow"} style={{ width: "100%", display: "flex", justifyContent: "space-between", padding: "10px 0px", textSelect: "none" }}>
-																			{/* <div style={{ width: "0.00005%", display: "flex", alignItems: "center", justifyContent: "end", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
-																			</div> */}
-																			<div style={{ width: "20%", display: "flex", padding: "0px 0px 0px 20px", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
-																				<p style={{ marginBottom: "0px" }}>
-																					{t.name}
-																				</p>
-																			</div>
-																			<div style={{ width: "30%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{buildTypeNameFromId(t.facilitie_type_id)}</div>
-																			<div style={{ width: "30%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{t.email}</div>
-																			<div style={{ width: "20%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}><LabelBtns extraClassName="m-1 w-max-content" state={t.status}/></div>
-																		</div>
-																	</Link>
-																)
-															})}
-														</div>
-													): (<p className='p-1'><Loader /></p>)}
-												</div>
-											</div>
-										</div>
+									
 									</Tab.Pane>
 								</Tab.Content>
 							</div>
@@ -176,17 +160,19 @@ const TaskList = ({filter, tasks, getTasks, getTaskTypes, taskTypes, loadingTask
 const mapStateToProps = (state) => {
 	return {
 		loadingTasks: state.authData.loadingTasks,
-		loadingTaskTypes: state.authData.loadingTaskTypes,
+		loadingTaskTypes: state.authData.loadingUserTypes,
 		// deberia ser tasks.data pero tira reading undefined de length aunque tenga la data
 		tasks: state.tasksData.tasks,
-		taskTypes: state.authData.taskTypes,
-		taskById: state.authData.facilitieByID
+		users: state.authData.users,
+		taskTypes: state.authData.userTypes,
+		taskById: state.tasksData.taskById
 	};
 };
 
 const mapDispatchToProps = {
 	getTasks,
-	getTaskTypes: getTaskTypes
+	getUsers,
+	getTaskTypes: getUserTypesAction
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskList);

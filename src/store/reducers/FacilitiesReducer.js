@@ -16,7 +16,6 @@ const initialState = {
 };
 
 export function FacilitiesReducer(state = initialState, action) {
-  console.log("TasksReducer", action)
   switch (action.type) {
  
 

@@ -52,7 +52,6 @@ const Markup = () => {
         <Route element={<MainLayout />}>
           {linkData.map((data, i) => {
             if (data.url) {
-              console.log(data.url, "URLS")
               return (
                 <Route
                   key={i}

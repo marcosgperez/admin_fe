@@ -78,7 +78,6 @@ const EventCalendar = ({ eventsData, getEventsAction, updateEvents, isAdmin }) =
    const Modal = () => {
       if (!modalData) return <></>
       const { title, start, id } = modalData
-      console.log("Barto", title, start, id)
       return (
          <div className="ModalWrapper">
             <div className="ModalMask"></div>
@@ -244,7 +243,6 @@ const EventCalendar = ({ eventsData, getEventsAction, updateEvents, isAdmin }) =
       )
 }
 const mapStateToProps = (rootState) => {
-   console.log(rootState, "rootState")
    return {
       eventsData: rootState.eventsData,
       isAdmin: rootState.authData.user && rootState.authData.user.user_type_id == 1

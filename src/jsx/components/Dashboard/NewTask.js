@@ -2,22 +2,54 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Tab } from "react-bootstrap";
 import { connect } from 'react-redux';
-import { getTaskByID, updateTaskByID, createTask, getTaskTypes } from '../../../store/actions/TasksActions';
+import { getTaskByID, updateTaskByID, createTask } from '../../../store/actions/TasksActions';
 import { getUserTypesAction, getUsers } from '../../../store/actions/AuthActions';
-import { generateColorFromName, generateLetterByName } from '../../../helpers';
 import { Loader } from '../Loader';
 
-const StaffById = ({ getTaskByID, getUsers, users, taskTypes, updateTaskByID, userById, loadingTaskById, createTask, getTaskTypes, userTypes }) => {
+
+const buildTaskData = (taskFromApi) => {
+    console.log("taskFromApi", taskFromApi)
+    return {
+        id: taskFromApi.id,
+        name: taskFromApi.name,
+        type: taskFromApi.type,
+        email: taskFromApi.email,
+        asigned_room: taskFromApi.asigned_room,
+        asigned_to: taskFromApi.asigned_to,
+        created_at: taskFromApi.created_at,
+        description: taskFromApi.description,
+        photo: taskFromApi.photo,
+        is_completed: taskFromApi.is_completed,
+        status: taskFromApi.is_completed ? "Completed" : "Pending"
+    }
+}
+
+const StaffById = ({
+    getTaskByID,
+    getUsers,
+    users,
+    taskTypes,
+    updateTaskByID,
+    taskById,
+    loadingTaskById,
+    createTask,
+    getTaskTypes,
+}) => {
     const location = useLocation();
     let navigate = useNavigate();
 
     const [infoTask, setInfoTask] = React.useState({
+        id: "",
         name: "",
-        surname: "",
-        user_type_id: 1,
-        status: "",
+        type: 1,
+        email: "",
+        asigned_room: "",
+        asigned_to: "",
         created_at: new Date().toLocaleDateString(),
-        assigned: ""
+        description: "",
+        photo: "",
+        is_completed: "Pending",
+        status: "",
     })
     const [id, setId] = React.useState()
     const [isNew, setIsNew] = React.useState(true)
@@ -45,15 +77,14 @@ const StaffById = ({ getTaskByID, getUsers, users, taskTypes, updateTaskByID, us
 
     useEffect(() => {
         getTaskTypes()
-        getUserTypesAction()
         getUsers()
     }, [])
 
     // Active pagginarion
 
     React.useEffect(() => {
-        if (userById && !loadingTaskById && !isNew) setInfoTask({ ...userById })
-    }, [userById, loadingTaskById])
+        if (taskById && !loadingTaskById && !isNew) setInfoTask(buildTaskData({ ...taskById }))
+    }, [taskById, loadingTaskById])
 
     React.useEffect(() => {
         if (isUpdating && !loadingTaskById) navigate("/staff")
@@ -76,7 +107,7 @@ const StaffById = ({ getTaskByID, getUsers, users, taskTypes, updateTaskByID, us
         if (infoTask.name && infoTask.surname && infoTask.username && infoTask.user_type_id && infoTask.email && (!isNew || infoTask.password)) disabled = false;
         return disabled
     }
-    const [status, setStatus] = useState(["Active", "Done", "Not Finished"])
+    const [status, setStatus] = useState(["Completed", "Pending"])
     return (
         <>
             <Tab.Container defaultActiveKey="All" >
@@ -84,23 +115,18 @@ const StaffById = ({ getTaskByID, getUsers, users, taskTypes, updateTaskByID, us
                     <div className="col-xl-12">
                         <div className="customCard booking" style={{ heigth: "20px" }} >
                             <div style={{ overflow: "auto" }} className="card-body p-3">
-                                <div className="table-responsive">
+                                <div className="table-responsive overflow-x-hidden">
                                     <div className="dataTables_wrapper no-footer">
                                         {(loadingTaskById) ? (<Loader />) : (
                                             <div className={"tableContainer"} style={{ width: "100%", alignItems: "center" }} >
                                                 <div className="basic-form">
                                                     <form onSubmit={(e) => e.preventDefault()}>
                                                         <div className='row formRow' >
-                                                            <div className='imageContainer withLetters' style={{ backgroundColor: `${generateColorFromName(infoTask.name)}` }}>
-                                                                <div className='image'>
-                                                                    <p>{generateLetterByName(infoTask.name)}{generateLetterByName(infoTask.surname)}</p>
-                                                                </div>
-                                                            </div>
                                                             <div className=' inputs'>
                                                                 <div className='right'>
                                                                     <div>
-                                                                        <p>Taskname</p>
-                                                                        <input value={infoTask.username} onChange={(e) => changeFormProp("username", e.target.value)} />
+                                                                        <p>Name</p>
+                                                                        <input value={infoTask.name} onChange={(e) => changeFormProp("name", e.target.value)} />
                                                                     </div>
                                                                     <div className=''>
                                                                         <p>Status</p>
@@ -118,11 +144,11 @@ const StaffById = ({ getTaskByID, getUsers, users, taskTypes, updateTaskByID, us
                                                                     <div className=''>
                                                                         <p>Assigned To</p>
                                                                         <select
-                                                                            value={infoTask.assigned}
+                                                                            value={infoTask.asigned_to}
                                                                             className="form-control form-control-lg"
-                                                                            onChange={(e) => changeFormProp("assigned", Number(e.target.value))}
+                                                                            onChange={(e) => changeFormProp("asigned_to", Number(e.target.value))}
                                                                         >
-                                                                            {users.filter((user) => user.user_type_id === infoTask.user_type_id).map(u => (
+                                                                            {users.map(u => (
                                                                                 <option value={u.id} key={u.id}>{u.name}</option>
                                                                             ))}
                                                                         </select>
@@ -136,11 +162,11 @@ const StaffById = ({ getTaskByID, getUsers, users, taskTypes, updateTaskByID, us
                                                                     <div className=''>
                                                                         <p>Type</p>
                                                                         <select
-                                                                            value={infoTask.user_type_id}
+                                                                            value={infoTask.type}
                                                                             className="form-control form-control-lg"
-                                                                            onChange={(e) => changeFormProp("user_type_id", Number(e.target.value))}
+                                                                            onChange={(e) => changeFormProp("type", Number(e.target.value))}
                                                                         >
-                                                                            {userTypes.map(u => (
+                                                                            {taskTypes.map(u => (
                                                                                 <option value={u.id} key={u.id}>{u.name}</option>
                                                                             ))}
                                                                         </select>
@@ -154,7 +180,9 @@ const StaffById = ({ getTaskByID, getUsers, users, taskTypes, updateTaskByID, us
                                                             <input className="form-control" type="file" id="formFile" />
                                                         </div>
                                                         <textarea
+                                                            value={infoTask.description}
                                                             className='formTextArea'
+                                                            onChange={(e) => changeFormProp("description", e.target.value)}
                                                             rows="8"
                                                             id="comment"
                                                         ></textarea>
@@ -183,18 +211,16 @@ const mapStateToProps = (state) => {
     console.log(state, "state PAAA")
     return {
         loadingTaskById: state.tasksData.loadingTaskById,
-        loadingTaskTypes: state.tasksData.loadingTaskTypes,
+        loadingTaskTypes: state.authData.loadingUserTypes,
         taskById: state.tasksData.taskByID,
-        taskTypes: state.tasksData.taskTypes,
-        userTypes: state.authData.userTypes,
+        taskTypes: state.authData.userTypes,
         users: state.authData.users
     };
 };
 
 const mapDispatchToProps = {
     getTaskByID,
-    getTaskTypes,
-    getUserTypesAction,
+    getTaskTypes: getUserTypesAction,
     updateTaskByID,
     createTask,
     getUsers

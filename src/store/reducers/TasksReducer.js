@@ -16,7 +16,6 @@ const initialState = {
 };
 
 export function TasksReducer(state = initialState, action) {
-  console.log("TasksReducer", action)
   switch (action.type) {
     case TasksActionTypes.GET_TASKS_FETCHING:
       return {
@@ -25,7 +24,6 @@ export function TasksReducer(state = initialState, action) {
       };
 
     case TasksActionTypes.GET_TASKS_FETCH:
-    console.log(action,"TasksReducer")  
     return {
         ...state,
         tasks: action.payload,

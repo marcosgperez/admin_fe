@@ -77,7 +77,6 @@ const SideBar = ({ isAdmin }) => {
   } else {
     toMap = EmployeeLinkData
   }
-  console.log(toMap, " BARTO")
   return (
     <div
       onMouseEnter={() => ChangeIconSidebar(true)}
@@ -195,7 +194,6 @@ const SideBar = ({ isAdmin }) => {
 
 
 const mapStateToProps = (rootState) => {
-  console.log("rootState",rootState)
   return {
      isAdmin: rootState.authData.user && rootState.authData.user.user_type_id == 1
 

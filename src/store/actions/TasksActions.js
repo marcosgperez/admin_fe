@@ -43,7 +43,7 @@ export const getTasks = () => (dispatch) => {
     console.log(res,"tasksAction")
     dispatch({
       type: TasksActionTypes.GET_TASKS_FETCH,
-      payload: res.data,
+      payload: res.data.data,
     });
   }).catch(e => {
     dispatch({
@@ -93,7 +93,6 @@ export const getTaskByID = (id) => (dispatch) => {
     type: TasksActionTypes.GET_TASK_BY_ID_FETCHING
   });
   ApiService.getTaskByID(id).then((res) => {
-    console.log(res, "RES")
     dispatch({
       type: TasksActionTypes.GET_TASK_BY_ID_FETCH,
       payload: res.data.data,

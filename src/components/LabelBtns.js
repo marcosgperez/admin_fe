@@ -10,6 +10,9 @@ export const LabelBtns = ({state, extraClassName = ""}) => {
         
         "Active" : "rowBtn-Done",
         "Inactive" : "rowBtn-Not-finished",
+
+        "Completed" : "rowBtn-Done",
+        "Pending" : "rowBtn-On-Progress",
     }
 
     return (<label className={`${matchState[state]} ${extraClassName}`}>{state}</label>)

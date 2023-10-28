@@ -17,7 +17,6 @@ const initialState = {
 };
 
 export function AuthReducer(state = initialState, action) {
-  console.log("AuthReducer", action)
   switch (action.type) {
     case AuthActionTypes.GET_AUTH_FETCHING:
       return {
