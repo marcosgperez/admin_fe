@@ -188,7 +188,7 @@ const Header = ({ onNote, authData, typesData, getUserTypesAction, title }) => {
 									<div className="staffPic" style={{ backgroundColor: `${generateColorFromName(user.name)}` }}><p>{generateLetterByName(user.name)}{generateLetterByName(user.surname)}</p></div>
 								</Dropdown.Toggle>
 								<Dropdown.Menu align="right" className="mt-3 dropdown-menu dropdown-menu-end">
-									<Link to="/app-profile" className="dropdown-item ai-icon">
+									{/* <Link to="/app-profile" className="dropdown-item ai-icon">
 										<svg
 											id="icon-user1" xmlns="http://www.w3.org/2000/svg" className="text-primary me-1"
 											width={18} height={18} viewBox="0 0 24 24" fill="none"
@@ -209,7 +209,7 @@ const Header = ({ onNote, authData, typesData, getUserTypesAction, title }) => {
 											<polyline points="22,6 12,13 2,6" />
 										</svg>
 										<span className="ms-2">Inbox </span>
-									</Link>
+									</Link> */}
 									<LogoutPage />
 								</Dropdown.Menu>
 							</Dropdown>

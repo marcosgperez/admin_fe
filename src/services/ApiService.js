@@ -7,7 +7,7 @@ const proxyUrl = "https://my-proxy-henna.vercel.app/api/proxy"
 
 class ApiService {
     axios;
-    externalId = "hotel"
+    externalId = "1"
     token = null
 
     constructor() {
@@ -27,7 +27,7 @@ class ApiService {
             "data": {
                 email,
                 password,
-                external_client: this.externalId
+                external_id: this.externalId
             }
         });
 
@@ -38,7 +38,7 @@ class ApiService {
 
         return this.axios.post(proxyUrl, {
             "method": "get",
-            "url": apiURL + "/users/index?external_client=" + this.externalId,
+            "url": apiURL + "/users/index?external_id=" + this.externalId,
             "auth": this.token,
             "data": {}
         });
@@ -48,7 +48,7 @@ class ApiService {
     getUserTypes() {
         return this.axios.post(proxyUrl, {
             "method": "get",
-            "url": apiURL + "/user-types/index?external_client=" + this.externalId,
+            "url": apiURL + "/user-types/index?external_id=" + this.externalId,
             "auth": this.token,
             "data": {}
         })
@@ -60,7 +60,7 @@ class ApiService {
             "auth": this.token,
             "data": {
                 ...userTypes,
-                external_client: this.externalId
+                external_id: this.externalId
             }
         })
     }
@@ -72,7 +72,7 @@ class ApiService {
             "auth": this.token,
             "data": {
                 ...userTypes,
-                external_client: this.externalId
+                external_id: this.externalId
             }
         })
     }
@@ -80,7 +80,7 @@ class ApiService {
     getUserByID(id) {
         return this.axios.post(proxyUrl, {
             "method": "get",
-            "url": apiURL + "/users?id=" + id + "&external_client=" + this.externalId,
+            "url": apiURL + "/users?id=" + id + "&external_id=" + this.externalId,
             "auth": this.token,
             "data": {}
         })
@@ -93,7 +93,7 @@ class ApiService {
             "auth": this.token,
             "data": {
                 ...user,
-                external_client: this.externalId
+                external_id: this.externalId
             }
         })
     }
@@ -105,7 +105,7 @@ class ApiService {
             "auth": this.token,
             "data": {
                 ...user,
-                external_client: this.externalId
+                external_id: this.externalId
             }
         })
     }
@@ -117,7 +117,7 @@ class ApiService {
             "auth": this.token,
             "data": {
                 ...user,
-                external_client: this.externalId
+                external_id: this.externalId
             }
         })
     }
@@ -139,7 +139,7 @@ class ApiService {
             "auth": this.token,
             "data": {
                 ...roomTypes,
-                external_client: this.externalId
+                external_id: this.externalId
             }
         });
         // return this.axios.get(`rooms.json`, { baseURL: apiMockURL });
@@ -152,7 +152,7 @@ class ApiService {
             "auth": this.token,
             "data": {
                 ...roomTypes,
-                external_client: this.externalId
+                external_id: this.externalId
             }
         });
         // return this.axios.get(`rooms.json`, { baseURL: apiMockURL });
@@ -173,7 +173,7 @@ class ApiService {
             "auth": this.token,
             "data": {
                 roomObject,
-                external_client: this.externalId
+                external_id: this.externalId
             }
         })
     }
@@ -184,7 +184,7 @@ class ApiService {
             "auth": this.token,
             "data": {
                 roomId: roomId,
-                external_client: this.externalId
+                external_id: this.externalId
             }
         })
     }
@@ -203,7 +203,7 @@ class ApiService {
 
         return this.axios.post(proxyUrl, {
             "method": "get",
-            "url": apiURL + "/tasks/index?external_client=" + this.externalId,
+            "url": apiURL + "/tasks/index?external_id=" + this.externalId,
             "auth": this.token,
             "data": {}
         });
@@ -213,7 +213,7 @@ class ApiService {
     getTaskTypes() {
         return this.axios.post(proxyUrl, {
             "method": "get",
-            "url": apiURL + "/task-types/index?external_client=" + this.externalId,
+            "url": apiURL + "/task-types/index?external_id=" + this.externalId,
             "auth": this.token,
             "data": {}
         })
@@ -225,7 +225,7 @@ class ApiService {
             "auth": this.token,
             "data": {
                 ...userTypes,
-                external_client: this.externalId
+                external_id: this.externalId
             }
         })
     }
@@ -237,7 +237,7 @@ class ApiService {
             "auth": this.token,
             "data": {
                 ...userTypes,
-                external_client: this.externalId
+                external_id: this.externalId
             }
         })
     }
@@ -245,7 +245,7 @@ class ApiService {
     getTaskByID(id) {
         return this.axios.post(proxyUrl, {
             "method": "get",
-            "url": apiURL + "/tasks?id=" + id + "&external_client=" + this.externalId,
+            "url": apiURL + "/tasks?id=" + id + "&external_id=" + this.externalId,
             "auth": this.token,
             "data": {}
         })
@@ -258,7 +258,7 @@ class ApiService {
             "auth": this.token,
             "data": {
                 ...user,
-                external_client: this.externalId
+                external_id: this.externalId
             }
         })
     }
@@ -270,7 +270,7 @@ class ApiService {
             "auth": this.token,
             "data": {
                 ...user,
-                external_client: this.externalId
+                external_id: this.externalId
             }
         })
     }
@@ -282,7 +282,7 @@ class ApiService {
             "auth": this.token,
             "data": {
                 ...user,
-                external_client: this.externalId
+                external_id: this.externalId
             }
         })
     }
@@ -293,7 +293,7 @@ class ApiService {
 
         return this.axios.post(proxyUrl, {
             "method": "get",
-            "url": apiURL + "/events/index?external_client=" + this.externalId,
+            "url": apiURL + "/events/index?external_id=" + this.externalId,
             "auth": this.token,
             "data": {}
         });
@@ -303,7 +303,7 @@ class ApiService {
     getEventTypes() {
         return this.axios.post(proxyUrl, {
             "method": "get",
-            "url": apiURL + "/event-types/index?external_client=" + this.externalId,
+            "url": apiURL + "/event-types/index?external_id=" + this.externalId,
             "auth": this.token,
             "data": {}
         })
@@ -315,7 +315,7 @@ class ApiService {
             "auth": this.token,
             "data": {
                 ...userTypes,
-                external_client: this.externalId
+                external_id: this.externalId
             }
         })
     }
@@ -327,7 +327,7 @@ class ApiService {
             "auth": this.token,
             "data": {
                 ...userTypes,
-                external_client: this.externalId
+                external_id: this.externalId
             }
         })
     }
@@ -335,7 +335,7 @@ class ApiService {
     getEventByID(id) {
         return this.axios.post(proxyUrl, {
             "method": "get",
-            "url": apiURL + "/events?id=" + id + "&external_client=" + this.externalId,
+            "url": apiURL + "/events?id=" + id + "&external_id=" + this.externalId,
             "auth": this.token,
             "data": {}
         })
@@ -348,7 +348,7 @@ class ApiService {
             "auth": this.token,
             "data": {
                 ...user,
-                external_client: this.externalId
+                external_id: this.externalId
             }
         })
     }
@@ -360,7 +360,7 @@ class ApiService {
             "auth": this.token,
             "data": {
                 ...user,
-                external_client: this.externalId
+                external_id: this.externalId
             }
         })
     }
@@ -372,7 +372,7 @@ class ApiService {
             "auth": this.token,
             "data": {
                 ...user,
-                external_client: this.externalId
+                external_id: this.externalId
             }
         })
     }
@@ -405,7 +405,7 @@ class ApiService {
             "auth": this.token,
             "data": {
                 ...userTypes,
-                external_client: this.externalId
+                external_id: this.externalId
             }
         })
     }
@@ -417,7 +417,7 @@ class ApiService {
             "auth": this.token,
             "data": {
                 ...userTypes,
-                external_client: this.externalId
+                external_id: this.externalId
             }
         })
     }
@@ -425,7 +425,7 @@ class ApiService {
     getFacilitieByID(id) {
         return this.axios.post(proxyUrl, {
             "method": "get",
-            "url": apiURL + "/facilities?id=" + id + "&external_client=" + this.externalId,
+            "url": apiURL + "/facilities?id=" + id + "&external_id=" + this.externalId,
             "auth": this.token,
             "data": {}
         })
@@ -438,7 +438,7 @@ class ApiService {
             "auth": this.token,
             "data": {
                 ...user,
-                external_client: this.externalId
+                external_id: this.externalId
             }
         })
     }
@@ -450,7 +450,7 @@ class ApiService {
             "auth": this.token,
             "data": {
                 ...user,
-                external_client: this.externalId
+                external_id: this.externalId
             }
         })
     }
@@ -462,7 +462,7 @@ class ApiService {
             "auth": this.token,
             "data": {
                 ...user,
-                external_client: this.externalId
+                external_id: this.externalId
             }
         })
     }
