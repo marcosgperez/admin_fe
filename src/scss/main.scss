@@ -114,5 +114,8 @@
 
 @import "./forms.scss";
 
-@import "./newHeader"
+@import "./newHeader";
 
+.overflow-x-hidden {
+    overflow-x: hidden;
+}

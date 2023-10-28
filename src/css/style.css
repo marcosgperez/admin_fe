@@ -64919,4 +64919,7 @@ button.disabled {
   border-radius: 8px;
   font-weight: bold; }
 
+.overflow-x-hidden {
+  overflow-x: hidden; }
+
 /*# sourceMappingURL=style.css.map */

@@ -16,11 +16,8 @@ const EventCalendar = ({ eventsData, getEventsAction, updateEvents, isAdmin }) =
    }, [])
    React.useEffect(() => {
       set_Events(events)
-      console.log(events, "JOTA EVENTS")
    }, [events])
-   React.useEffect(() => {
-      console.log(_events, "JOTA _EVENTS")
-   }, [_events])
+
 
    const removeEvent = (id) => {
       let events = _events.filter((current) => current.id !== id)
@@ -33,7 +30,6 @@ const EventCalendar = ({ eventsData, getEventsAction, updateEvents, isAdmin }) =
    const calendarComponentRef = React.useRef();
    const calendarEventsRef = React.useRef({});
 
-   console.log(events, "eventos")
 
    React.useEffect(() => {
       getEventsAction()

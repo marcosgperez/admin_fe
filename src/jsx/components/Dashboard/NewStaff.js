@@ -78,7 +78,7 @@ const StaffById = ({ getUserByIDAction, userTypes, updateUserByIDAction, userByI
                     <div className="col-xl-12">
                         <div className="customCard booking" style={{ heigth: "20px" }} >
                             <div style={{ overflow: "auto" }} className="card-body p-3">
-                                <div className="table-responsive">
+                                <div className="table-responsive overflow-x-hidden">
                                     <div className="dataTables_wrapper no-footer">
                                         {(loadingUserById) ? (<Loader />) : (
                                             <div className={"tableContainer"} style={{ width: "100%", alignItems: "center" }} >

@@ -8,12 +8,10 @@ import { Loader } from '../Loader';
 
 
 const buildTaskData = (taskFromApi) => {
-    console.log("taskFromApi", taskFromApi)
     return {
         id: taskFromApi.id,
         name: taskFromApi.name,
         type: taskFromApi.type,
-        email: taskFromApi.email,
         asigned_room: taskFromApi.asigned_room,
         asigned_to: taskFromApi.asigned_to,
         created_at: taskFromApi.created_at,
@@ -24,7 +22,7 @@ const buildTaskData = (taskFromApi) => {
     }
 }
 
-const StaffById = ({
+const TaskfById = ({
     getTaskByID,
     getUsers,
     users,
@@ -42,14 +40,12 @@ const StaffById = ({
         id: "",
         name: "",
         type: 1,
-        email: "",
-        asigned_room: "",
-        asigned_to: "",
+        asigned_room: 1,
+        asigned_to: 1,
         created_at: new Date().toLocaleDateString(),
         description: "",
         photo: "",
-        is_completed: "Pending",
-        status: "",
+        status: "Pending",
     })
     const [id, setId] = React.useState()
     const [isNew, setIsNew] = React.useState(true)
@@ -63,7 +59,7 @@ const StaffById = ({
     useEffect(() => {
         const splitedPathname = location.pathname.split("/")
         const _id = splitedPathname[splitedPathname.length - 1];
-        if (_id != "new-staff") {
+        if (_id != "new-task") {
             setId(_id)
             setIsNew(false)
         }
@@ -87,25 +83,31 @@ const StaffById = ({
     }, [taskById, loadingTaskById])
 
     React.useEffect(() => {
-        if (isUpdating && !loadingTaskById) navigate("/staff")
+        if (isUpdating && !loadingTaskById) navigate("/tasks")
     }, [loadingTaskById])
 
     const sendForm = () => {
         setIsUpdating(true)
         const newInfoTask = { ...infoTask }
         delete newInfoTask.created_at;
-
-        const userType = taskTypes.find(u => u.id == newInfoTask.user_type_id)
-        newInfoTask.user_type = userType.name
-        delete newInfoTask.user_type_id
+        newInfoTask.type = String(newInfoTask.type)
+        newInfoTask.is_completed = newInfoTask.status === "Completed" ? 1 : 0;
+        delete newInfoTask.status;
 
         if (infoTask.id) updateTaskByID(newInfoTask)
         else createTask(newInfoTask)
     }
     const checkIfDisabled = () => {
         let disabled = true;
-        if (infoTask.name && infoTask.surname && infoTask.username && infoTask.user_type_id && infoTask.email && (!isNew || infoTask.password)) disabled = false;
+        if (
+            infoTask.name && 
+            infoTask.status && 
+            infoTask.type && 
+            infoTask.asigned_room && 
+            infoTask.asigned_to 
+            ) disabled = false;
         return disabled
+
     }
     const [status, setStatus] = useState(["Completed", "Pending"])
     return (
@@ -226,4 +228,4 @@ const mapDispatchToProps = {
     getUsers
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(StaffById);
+export default connect(mapStateToProps, mapDispatchToProps)(TaskfById);

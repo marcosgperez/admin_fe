@@ -1,44 +1,54 @@
 import React from "react";
-import { Dropdown, Nav } from 'react-bootstrap';
-import { Link } from "react-router-dom";
+import { Nav } from 'react-bootstrap';
+import { connect } from "react-redux";
 import { useState } from "react";
-const TasksListFilter = ({ handleClick }) => {
-    const [selectBtn, setSelectBtn] = useState("All");
-    let admin = false
+
+const TasksListFilter = ({ handleClick, taskTypes,isAdmin ,user }) => {
+
+    const [tabs, setTabs] = useState([
+        { id: "All", name: "All" },
+    ])
+
+    React.useEffect(() => {
+        if(taskTypes && taskTypes.length && tabs.length === 1){
+            if(isAdmin){
+                const newTabs = [...taskTypes].map(t => ({ id: t.id, name: t.name }))
+                setTabs([...tabs, ...newTabs])
+            } else {
+                const newTabs = [...taskTypes].filter(t => t.id === user.user_type_id).map(t => ({ id: t.id, name: t.name }))
+                handleClick(newTabs[0].id)
+                setTabs([...newTabs])
+            }
+        }
+    },[taskTypes])
+
+
     return (
 
         <div className="mt-4 d-flex justify-content-between align-items-center flex-wrap">
             <div className="card-action coin-tabs mb-2">
                 <Nav as="ul" className="nav nav-tabs" role="tablist">
-                    <Nav.Item as="li" className="nav-item">
-                        <Nav.Link className="nav-link" eventKey="All" onClick={() => handleClick("All")} >See All</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item as="li" className="nav-item">
-                        <Nav.Link className="nav-link" eventKey="HouseKeeping" onClick={() => handleClick("HouseKeeping")} > HouseKeeping</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item as="li" className="nav-item">
-                        <Nav.Link className="nav-link" eventKey="Maintainance" onClick={() => handleClick("Maintainance")} >Maintainance</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item as="li" className="nav-item">
-                        <Nav.Link className="nav-link" eventKey="Other" onClick={() => handleClick("Other")} >Other Facilities </Nav.Link>
-                    </Nav.Item>
+                    {tabs.map(t => (
+                        <Nav.Item key={t.id} as="li" className="nav-item">
+                            <Nav.Link className="nav-link" eventKey={t.id} onClick={() => handleClick(t.id)} >See {t.name}</Nav.Link>
+                        </Nav.Item>
+                    ))}
                 </Nav>
-            </div>
-            <div className="d-flex align-items-center mb-2">
-                <Link to={"#"} className={admin ? "btn btn-secondary" : "btn btn-secondary d-none"}>+ New Task</Link>
-                <div className={admin ? "newest ms-3" : "d-none"}>
-                    <Dropdown>
-                        <Dropdown.Toggle as="div" className=" btn-select-drop default-select btn i-false">
-                            {selectBtn} <i className="fas fa-angle-down ms-2 "></i>
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            <Dropdown.Item onClick={() => setSelectBtn("Oldest")} eventKey="All">Oldest</Dropdown.Item>
-                            <Dropdown.Item onClick={() => setSelectBtn("Newest")} eventKey="All">Newest</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                </div>
             </div>
         </div>
     )
 }
-export default TasksListFilter
+
+const mapStateToProps = (state) => {
+    return {
+        taskTypes: state.authData.userTypes,
+        isAdmin: state.authData.user && state.authData.user.user_type_id == 1,
+        user: state.authData.user
+        
+    };
+};
+
+const mapDispatchToProps = {
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TasksListFilter);

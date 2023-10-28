@@ -9,7 +9,6 @@ import { LabelBtns } from '../../../components/LabelBtns';
 import { Loader } from '../Loader';
 
 const buildTaskData = (taskFromApi) => {
-	console.log("taskFromApi",taskFromApi)
 	return {
 		id: taskFromApi.id,
 		name: taskFromApi.name,
@@ -25,7 +24,7 @@ const buildTaskData = (taskFromApi) => {
 	}
 }
 
-const TaskList = ({ filter, tasks, getTasks, getTaskTypes, getUsers, users, taskTypes, loadingTasks, loadingTaskTypes }) => {
+const TaskList = ({ isAdmin, user, filter, tasks, getTasks, getTaskTypes, getUsers, users, taskTypes, loadingTasks, loadingTaskTypes }) => {
 
 	const [selectBtn, setSelectBtn] = useState("Newest");
 
@@ -71,7 +70,7 @@ const TaskList = ({ filter, tasks, getTasks, getTaskTypes, getUsers, users, task
 
 	// GET USERS & USER-BY-ID
 	React.useEffect(() => {
-		getTasks()
+
 		getTaskTypes()
 		getUsers();
 	}, [])
@@ -90,13 +89,26 @@ const TaskList = ({ filter, tasks, getTasks, getTaskTypes, getUsers, users, task
 
 	const buildRoomFromRoomId = (id) => {
 		return "-"
-	} 
+	}
 
-	
+	React.useEffect(() => {
+		if (filter) {
+			if(filter == "All" && isAdmin) getTasks()
+			else {
+				if(isAdmin) getTasks(filter);
+				else if(filter != "All") getTasks(filter, user.id);
+			}
+		}
+	}, [filter])
+
+	const buildTabsWithTaskTypes = () => {
+		if (taskTypes.length == 0) return [];
+		else return [...taskTypes].map(t => ({ id: t.id, name: t.name }))
+	}
 
 	return (
 		<>
-			<Tab.Container activeKey={filter} defaultActiveKey={"All"} >
+			<Tab.Container activeKey={filter} defaultActiveKey={isAdmin ? "All" : ""} >
 				<div className="row">
 					<div className="col-xl-12">
 						<div className="card roomListCard" style={{ heigth: "20px" }} >
@@ -143,9 +155,47 @@ const TaskList = ({ filter, tasks, getTasks, getTaskTypes, getUsers, users, task
 											</div>
 										</div>
 									</Tab.Pane>
-									<Tab.Pane eventKey="HouseKeeping">
-									
-									</Tab.Pane>
+									{buildTabsWithTaskTypes().map(t => (
+										<Tab.Pane key={t.id} eventKey={t.id}>
+											<div className={"table-responsive "}>
+												<div id="room_wrapper" className="dataTables_wrapper no-footer">
+													<div className={"tableContainer"} style={{ width: "100%", alignItems: "center" }} >
+														<div style={{ fontSize: "30px", paddingTop: "20px", paddingLeft: "20px", fontWeight: "500" }} >Tasks {t.name}</div>
+														<div className={"tableHeader"} style={{ display: "flex", justifyContent: "space-between", borderBottom: "3px solid #828282", color: "black", fontWeigth: "500" }}>
+															<div style={{ width: "20%", justifyContent: "center", textAlign: "start", fontSize: "20px", fontWeight: "600", margin: "5px", padding: "10px 0px 10px 20px" }}>Name</div>
+															<div style={{ width: "15%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Assigned</div>
+															<div style={{ width: "15%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Created At</div>
+															<div style={{ width: "15%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Room</div>
+															<div style={{ width: "20%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Status</div>
+														</div>
+														{!loadingTasks && !loadingTaskTypes && tasks.length ? (
+															<div className={"tableBody"} style={{ padding: "10px 0px" }} >
+																{tasks.map(buildTaskData).map((t, i) => {
+																	return (
+																		<Link to={`/task/${t.id}`} key={t.id} >
+																			<div className={"tableRow"} style={{ width: "100%", display: "flex", justifyContent: "space-between", padding: "10px 0px", textSelect: "none" }}>
+																				{/* <div style={{ width: "0.00005%", display: "flex", alignItems: "center", justifyContent: "end", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
+																			</div> */}
+																				<div style={{ width: "20%", display: "flex", padding: "0px 0px 0px 20px", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
+																					<p style={{ marginBottom: "0px" }}>
+																						{t.name}
+																					</p>
+																				</div>
+																				<div style={{ width: "15%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{buildNameFromAsignationId(t.asigned_to)}</div>
+																				<div style={{ width: "15%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{new Date(t.created_at).toLocaleDateString()}</div>
+																				<div style={{ width: "15%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{buildRoomFromRoomId(t.asigned_room)}</div>
+																				<div style={{ width: "20%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}><LabelBtns extraClassName="m-1 w-max-content" state={t.status} /></div>
+																			</div>
+																		</Link>
+																	)
+																})}
+															</div>
+														) : (<p className='p-1'><Loader /></p>)}
+													</div>
+												</div>
+											</div>
+										</Tab.Pane>
+									))}
 								</Tab.Content>
 							</div>
 						</div>
@@ -165,7 +215,10 @@ const mapStateToProps = (state) => {
 		tasks: state.tasksData.tasks,
 		users: state.authData.users,
 		taskTypes: state.authData.userTypes,
-		taskById: state.tasksData.taskById
+		taskById: state.tasksData.taskById,
+		user: state.authData.user,
+		isAdmin: state.authData.user && state.authData.user.user_type_id == 1
+
 	};
 };
 

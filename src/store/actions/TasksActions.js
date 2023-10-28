@@ -35,12 +35,11 @@ export const TasksActionTypes = {
   "CREATE_TASK_BY_ID_FETCH_ERROR": "CREATE_TASK_BY_ID_FETCH_ERROR",
 }
 
-export const getTasks = () => (dispatch) => {
+export const getTasks = (filter,userId) => (dispatch) => {
   dispatch({
     type: TasksActionTypes.GET_TASKS_FETCHING
   });
-  ApiService.getTasks().then((res) => {
-    console.log(res,"tasksAction")
+  ApiService.getTasks(filter,userId).then((res) => {
     dispatch({
       type: TasksActionTypes.GET_TASKS_FETCH,
       payload: res.data.data,

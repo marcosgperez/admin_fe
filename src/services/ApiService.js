@@ -199,11 +199,19 @@ class ApiService {
     }
 
 
-    getTasks() {
+    getTasks(type,userId) {
+        // build Url with optional type id and userId
+        let url = "/tasks/index?external_id=" + this.externalId
+        if (type) {
+            url += "&type=" + type
+        }
+        if (userId) {
+            url += "&userId=" + userId
+        }
 
         return this.axios.post(proxyUrl, {
             "method": "get",
-            "url": apiURL + "/tasks/index?external_id=" + this.externalId,
+            "url": apiURL + url,
             "auth": this.token,
             "data": {}
         });
@@ -251,13 +259,13 @@ class ApiService {
         })
     }
 
-    updateTaskByID(user) {
+    updateTaskByID(task) {
         return this.axios.post(proxyUrl, {
             "method": "put",
-            "url": apiURL + "/tasks/update",
+            "url": apiURL + "/tasks/update?external_id=" + this.externalId,
             "auth": this.token,
             "data": {
-                ...user,
+                ...task,
                 external_id: this.externalId
             }
         })
@@ -266,7 +274,7 @@ class ApiService {
     createTask(user) {
         return this.axios.post(proxyUrl, {
             "method": "post",
-            "url": apiURL + "/tasks/store",
+            "url": apiURL + "/tasks/store?external_id=" + this.externalId,
             "auth": this.token,
             "data": {
                 ...user,
