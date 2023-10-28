@@ -1,20 +1,23 @@
 import React from "react";
 import EventCalendar from "../jsx/components/AppsMenu/Calendar/EventCalendar";
-import TasksList from "../jsx/components/Dashboard/TasksList";
 import { connect } from "react-redux";
-import { getRoomsAction,getRoomCountAction } from "../store/actions/RoomsActions";
+import { getRoomsAction, getRoomCountAction } from "../store/actions/RoomsActions";
 
+import TasksListFilter from "../jsx/components/Dashboard/TasksListFilter";
+import TasksList from "../jsx/components/Dashboard/TasksList";
+import { Link } from 'react-router-dom';
 
-const Home = ({ getRoomsAction, roomsData,getRoomCountAction, isAdmin }) => {
-// GET ROOMS & ROOM COUNT
+const Home = ({ getRoomsAction, roomsData, getRoomCountAction, isAdmin }) => {
+  // GET ROOMS & ROOM COUNT
   React.useEffect(() => {
     getRoomsAction()
     getRoomCountAction()
   }, [])
 
-  console.log(
-    console.log(roomsData, "roomsData")
-  )
+  const [filter, setFilter] = React.useState("All")
+  const changeFilter = (newFilter) => {
+    setFilter(newFilter)
+  }
 
   return (
     <>
@@ -133,8 +136,14 @@ const Home = ({ getRoomsAction, roomsData,getRoomCountAction, isAdmin }) => {
             </div>
           </div>
           <div className="row justify-content-end">
+            <div className='buttonContainer' >
+              <Link to={"/task/new-task"} className='w-max-content'>
+                + New Task
+              </Link>
+            </div>
             <div className={isAdmin ? "col-xl-12" : "d-none"}>
-              <TasksList buttonSize={"md"} filter={"all"} />
+              <TasksListFilter handleClick={changeFilter}></TasksListFilter>
+              <TasksList filter={filter}></TasksList>
             </div>
             <div className={isAdmin ? "col-xl-12" : "col-xl-12"}>
               <EventCalendar />

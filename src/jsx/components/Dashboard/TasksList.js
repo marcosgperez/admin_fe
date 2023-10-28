@@ -20,7 +20,7 @@ const buildFacilitieData = (facilitieFromAPI) => {
 	}
 }
 
-const StaffList = ({ tasks, getTasks, getTaskTypes, taskTypes, loadingTasks, loadingTaskTypes }) => {
+const TaskList = ({filter, tasks, getTasks, getTaskTypes, taskTypes, loadingTasks, loadingTaskTypes }) => {
 
 	const [selectBtn, setSelectBtn] = useState("Newest");
 
@@ -78,13 +78,8 @@ const StaffList = ({ tasks, getTasks, getTaskTypes, taskTypes, loadingTasks, loa
 
 	return (
 		<>
-			<Tab.Container defaultActiveKey="All" >
+			<Tab.Container activeKey={filter} defaultActiveKey={"All"} >
 				<div className="row">
-					<div className='buttonContainer' >
-						<Link to={"/staff/new-staff"} className='w-max-content'>
-							+ New Employee
-						</Link>
-					</div>
 					<div className="col-xl-12">
 						<div className="card roomListCard" style={{ heigth: "20px" }} >
 							<div style={{ overflow: "auto" }} className="card-body p-0">
@@ -93,26 +88,50 @@ const StaffList = ({ tasks, getTasks, getTaskTypes, taskTypes, loadingTasks, loa
 										<div className={"table-responsive "}>
 											<div id="room_wrapper" className="dataTables_wrapper no-footer">
 												<div className={"tableContainer"} style={{ width: "100%", alignItems: "center" }} >
-													<div style={{ fontSize: "30px", paddingTop: "20px", paddingLeft: "20px", fontWeight: "500" }} >Staff</div>
+													<div style={{ fontSize: "30px", paddingTop: "20px", paddingLeft: "20px", fontWeight: "500" }} >Tasks</div>
 													<div className={"tableHeader"} style={{ display: "flex", justifyContent: "space-between", borderBottom: "3px solid #828282", color: "black", fontWeigth: "500" }}>
 														<div style={{ width: "20%", justifyContent: "center", textAlign: "start", fontSize: "20px", fontWeight: "600", margin: "5px", padding: "10px 0px 10px 20px" }}>Name</div>
 														<div style={{ width: "30%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Job Description</div>
 														<div style={{ width: "30%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Contact</div>
 														<div style={{ width: "20%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Status</div>
 													</div>
-													{/* <Link to={`/task/1`} key={1} >
+													{!loadingTasks && !loadingTaskTypes && tasks.length ? (
+														<div className={"tableBody"} style={{ padding: "10px 0px" }} >
+															{tasks.map(buildFacilitieData).map((t, i) => {
+																return (
+																	<Link to={`/tasks/${t.id}`} key={t.id} >
 																		<div className={"tableRow"} style={{ width: "100%", display: "flex", justifyContent: "space-between", padding: "10px 0px", textSelect: "none" }}>
-																		
+																			{/* <div style={{ width: "0.00005%", display: "flex", alignItems: "center", justifyContent: "end", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
+																			</div> */}
 																			<div style={{ width: "20%", display: "flex", padding: "0px 0px 0px 20px", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
 																				<p style={{ marginBottom: "0px" }}>
-																					joaco
+																					{t.name}
 																				</p>
 																			</div>
-																			<div style={{ width: "30%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>sarars</div>
-																			<div style={{ width: "30%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>sararsa</div>
-																			<div style={{ width: "20%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}><LabelBtns extraClassName="m-1 w-max-content" state={"active"}/></div>
+																			<div style={{ width: "30%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{buildTypeNameFromId(t.facilitie_type_id)}</div>
+																			<div style={{ width: "30%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{t.email}</div>
+																			<div style={{ width: "20%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}><LabelBtns extraClassName="m-1 w-max-content" state={t.status}/></div>
 																		</div>
-																	</Link> */}
+																	</Link>
+																)
+															})}
+														</div>
+													): (<p className='p-1'><Loader /></p>)}
+												</div>
+											</div>
+										</div>
+									</Tab.Pane>
+									<Tab.Pane eventKey="HouseKeeping">
+										<div className={"table-responsive "}>
+											<div id="room_wrapper" className="dataTables_wrapper no-footer">
+												<div className={"tableContainer"} style={{ width: "100%", alignItems: "center" }} >
+													<div style={{ fontSize: "30px", paddingTop: "20px", paddingLeft: "20px", fontWeight: "500" }} >Tasks</div>
+													<div className={"tableHeader"} style={{ display: "flex", justifyContent: "space-between", borderBottom: "3px solid #828282", color: "black", fontWeigth: "500" }}>
+														<div style={{ width: "20%", justifyContent: "center", textAlign: "start", fontSize: "20px", fontWeight: "600", margin: "5px", padding: "10px 0px 10px 20px" }}>Name</div>
+														<div style={{ width: "30%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Job Description</div>
+														<div style={{ width: "30%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Contact</div>
+														<div style={{ width: "20%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Status</div>
+													</div>
 													{!loadingTasks && !loadingTaskTypes && tasks.length ? (
 														<div className={"tableBody"} style={{ padding: "10px 0px" }} >
 															{tasks.map(buildFacilitieData).map((t, i) => {
@@ -165,7 +184,7 @@ const mapDispatchToProps = {
 	getTaskTypes: getTaskTypes
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(StaffList);
+export default connect(mapStateToProps, mapDispatchToProps)(TaskList);
 
 
 
