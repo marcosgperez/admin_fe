@@ -100,7 +100,7 @@ const StaffList = ({ tasks, getTasks, getTaskTypes, taskTypes, loadingTasks, loa
 														<div style={{ width: "30%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Contact</div>
 														<div style={{ width: "20%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Status</div>
 													</div>
-													<Link to={`/task/1`} key={1} >
+													{/* <Link to={`/task/1`} key={1} >
 																		<div className={"tableRow"} style={{ width: "100%", display: "flex", justifyContent: "space-between", padding: "10px 0px", textSelect: "none" }}>
 																		
 																			<div style={{ width: "20%", display: "flex", padding: "0px 0px 0px 20px", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
@@ -112,7 +112,7 @@ const StaffList = ({ tasks, getTasks, getTaskTypes, taskTypes, loadingTasks, loa
 																			<div style={{ width: "30%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>sararsa</div>
 																			<div style={{ width: "20%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}><LabelBtns extraClassName="m-1 w-max-content" state={"active"}/></div>
 																		</div>
-																	</Link>
+																	</Link> */}
 													{!loadingTasks && !loadingTaskTypes && tasks.length ? (
 														<div className={"tableBody"} style={{ padding: "10px 0px" }} >
 															{tasks.map(buildFacilitieData).map((t, i) => {

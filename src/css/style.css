@@ -64664,8 +64664,8 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
 
 /* When the checkbox is checked, add a blue background */
 /* .container input:checked ~ .checkmark {
-  background-color: #2196F3;
-} */
+    background-color: #2196F3;
+  } */
 .container #progress:checked ~ .checkmark {
   background-color: #ead681; }
 
@@ -64746,7 +64746,8 @@ p {
   /* box-shadow: 0px 0px 10px gray; */
   padding: 10px; }
 
-.right input, .right select {
+.right input,
+.right select {
   width: 90%;
   height: 40px;
   margin: 20px;
@@ -64755,6 +64756,24 @@ p {
   border-radius: 8px;
   /* box-shadow: 0px 0px 10px gray; */
   padding: 10px; }
+
+.left div input,
+.left div select, .right div input,
+.right div select {
+  width: 90%;
+  height: 40px;
+  margin: 20px;
+  background-color: #f7f7f7;
+  border: none;
+  border-radius: 8px;
+  /* box-shadow: 0px 0px 10px gray; */
+  padding: 10px; }
+
+.left div input:hover, .left div select:hover, .right div input:hover, .right div select:hover {
+  background-color: #f7f7f7; }
+
+.left .form-control:hover, .right .form-control:hover {
+  background-color: #f7f7f7; }
 
 .right .form-control.form-control-lg {
   min-height: auto; }

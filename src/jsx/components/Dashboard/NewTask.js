@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Tab } from "react-bootstrap";
 import { connect } from 'react-redux';
 import { getTaskByID, updateTaskByID, createTask, getTaskTypes } from '../../../store/actions/TasksActions';
+import { getUserTypesAction, getUsers } from '../../../store/actions/AuthActions';
 import { generateColorFromName, generateLetterByName } from '../../../helpers';
 import { Loader } from '../Loader';
 
-const StaffById = ({ getTaskByID, userTypes, updateTaskByID, userById, loadingTaskById, createTask, getTaskTypes }) => {
+const StaffById = ({ getTaskByID, getUsers, users, taskTypes, updateTaskByID, userById, loadingTaskById, createTask, getTaskTypes, userTypes }) => {
     const location = useLocation();
     let navigate = useNavigate();
 
@@ -14,7 +15,9 @@ const StaffById = ({ getTaskByID, userTypes, updateTaskByID, userById, loadingTa
         name: "",
         surname: "",
         user_type_id: 1,
-        created_at: new Date().toLocaleDateString()
+        status: "",
+        created_at: new Date().toLocaleDateString(),
+        assigned: ""
     })
     const [id, setId] = React.useState()
     const [isNew, setIsNew] = React.useState(true)
@@ -42,6 +45,8 @@ const StaffById = ({ getTaskByID, userTypes, updateTaskByID, userById, loadingTa
 
     useEffect(() => {
         getTaskTypes()
+        getUserTypesAction()
+        getUsers()
     }, [])
 
     // Active pagginarion
@@ -56,10 +61,10 @@ const StaffById = ({ getTaskByID, userTypes, updateTaskByID, userById, loadingTa
 
     const sendForm = () => {
         setIsUpdating(true)
-        const newInfoTask = {...infoTask}
+        const newInfoTask = { ...infoTask }
         delete newInfoTask.created_at;
-        
-        const userType = userTypes.find(u => u.id == newInfoTask.user_type_id)
+
+        const userType = taskTypes.find(u => u.id == newInfoTask.user_type_id)
         newInfoTask.user_type = userType.name
         delete newInfoTask.user_type_id
 
@@ -68,9 +73,10 @@ const StaffById = ({ getTaskByID, userTypes, updateTaskByID, userById, loadingTa
     }
     const checkIfDisabled = () => {
         let disabled = true;
-        if(infoTask.name && infoTask.surname && infoTask.username && infoTask.user_type_id && infoTask.email && (!isNew || infoTask.password)) disabled = false;
+        if (infoTask.name && infoTask.surname && infoTask.username && infoTask.user_type_id && infoTask.email && (!isNew || infoTask.password)) disabled = false;
         return disabled
     }
+    const [status, setStatus] = useState(["Active", "Done", "Not Finished"])
     return (
         <>
             <Tab.Container defaultActiveKey="All" >
@@ -93,19 +99,42 @@ const StaffById = ({ getTaskByID, userTypes, updateTaskByID, userById, loadingTa
                                                             <div className=' inputs'>
                                                                 <div className='right'>
                                                                     <div>
-                                                                        <p>Name</p>
-                                                                        <input value={infoTask.name} onChange={(e) => changeFormProp("name", e.target.value)} />
-                                                                    </div>
-                                                                    <div>
-                                                                        <p>Suername</p>
-                                                                        <input value={infoTask.surname} onChange={(e) => changeFormProp("surname", e.target.value)} />
-                                                                    </div>
-                                                                    <div>
                                                                         <p>Taskname</p>
                                                                         <input value={infoTask.username} onChange={(e) => changeFormProp("username", e.target.value)} />
                                                                     </div>
                                                                     <div className=''>
-                                                                        <p>Role</p>
+                                                                        <p>Status</p>
+                                                                        <select
+                                                                            value={infoTask.status}
+                                                                            className="form-control form-control-lg"
+                                                                            onChange={(e) => changeFormProp("status", (e.target.value))}
+                                                                        >
+                                                                            {status.map(u => (
+                                                                                <option value={u.id} key={u.id}>{u}</option>
+                                                                            ))}
+                                                                        </select>
+                                                                    </div>
+
+                                                                    <div className=''>
+                                                                        <p>Assigned To</p>
+                                                                        <select
+                                                                            value={infoTask.assigned}
+                                                                            className="form-control form-control-lg"
+                                                                            onChange={(e) => changeFormProp("assigned", Number(e.target.value))}
+                                                                        >
+                                                                            {users.filter((user) => user.user_type_id === infoTask.user_type_id).map(u => (
+                                                                                <option value={u.id} key={u.id}>{u.name}</option>
+                                                                            ))}
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div className='left' >
+                                                                    <div>
+                                                                        <p>Creation Date</p>
+                                                                        <input value={new Date(infoTask.created_at).toLocaleDateString()} disabled="true" />
+                                                                    </div>
+                                                                    <div className=''>
+                                                                        <p>Type</p>
                                                                         <select
                                                                             value={infoTask.user_type_id}
                                                                             className="form-control form-control-lg"
@@ -116,30 +145,7 @@ const StaffById = ({ getTaskByID, userTypes, updateTaskByID, userById, loadingTa
                                                                             ))}
                                                                         </select>
                                                                     </div>
-                                                                    {/* <div onClick={() => openModal()}>
-                                                                        <p>Status</p>
-                                                                        <input disabled={true} value={infoTask.surname} />
-                                                                        <div className={open ? 'formDropDownOptions' : 'formDropDownOptionsClosed'} >
-                                                                            <p>Active</p>
-                                                                            <p>Inactive</p>
-                                                                            <p>On Break</p>
-                                                                        </div>
 
-                                                                    </div> */}
-                                                                </div>
-                                                                <div className='left' >
-                                                                    <div>
-                                                                        <p>Creation Date</p>
-                                                                        <input value={new Date(infoTask.created_at).toLocaleDateString()} disabled="true" />
-                                                                    </div>
-                                                                    <div>
-                                                                        <p>Email</p>
-                                                                        <input value={infoTask.email} onChange={(e) => changeFormProp("email", e.target.value)} />
-                                                                    </div>
-                                                                    <div>
-                                                                        <p>Password</p>
-                                                                        <input type='password' disabled={!isNew} value={!isNew ? "******" : infoTask.password} onChange={(e) => changeFormProp("password", e.target.value)} />
-                                                                    </div>
                                                                 </div>
 
                                                             </div>
@@ -154,7 +160,7 @@ const StaffById = ({ getTaskByID, userTypes, updateTaskByID, userById, loadingTa
                                                         ></textarea>
                                                         <div className="col-12">
                                                             <div className='saveContainer mt-2' >
-                                                                <button className={ checkIfDisabled() ? "disabled" : ""} disabled={checkIfDisabled()}type="button" onClick={sendForm}>Save</button>
+                                                                <button className={checkIfDisabled() ? "disabled" : ""} disabled={checkIfDisabled()} type="button" onClick={sendForm}>Save</button>
                                                             </div>
                                                         </div>
                                                     </form>
@@ -176,18 +182,22 @@ const StaffById = ({ getTaskByID, userTypes, updateTaskByID, userById, loadingTa
 const mapStateToProps = (state) => {
     console.log(state, "state PAAA")
     return {
-        loadingTaskById: state.authData.loadingTaskById,
-        loadingTaskTypes: state.authData.loadingTaskTypes,
-        userById: state.authData.userByID,
-        userTypes: state.authData.userTypes
+        loadingTaskById: state.tasksData.loadingTaskById,
+        loadingTaskTypes: state.tasksData.loadingTaskTypes,
+        taskById: state.tasksData.taskByID,
+        taskTypes: state.tasksData.taskTypes,
+        userTypes: state.authData.userTypes,
+        users: state.authData.users
     };
 };
 
 const mapDispatchToProps = {
     getTaskByID,
     getTaskTypes,
+    getUserTypesAction,
     updateTaskByID,
-    createTask
+    createTask,
+    getUsers
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(StaffById);
