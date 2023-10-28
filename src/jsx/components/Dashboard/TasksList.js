@@ -3,16 +3,16 @@ import { Link } from 'react-router-dom';
 import { Dropdown, Tab, Nav } from "react-bootstrap";
 
 import { connect } from 'react-redux';
-import { getUsers, getUserTypesAction } from '../../../store/actions/AuthActions';
+import { getTasks, getTaskTypes } from '../../../store/actions/TasksActions';
 import { LabelBtns } from '../../../components/LabelBtns';
 import { Loader } from '../Loader';
 
-const buildUserData = (userFromAPI) => {
+const buildFacilitieData = (facilitieFromAPI) => {
 	return {
-		id: userFromAPI.id,
-		name: userFromAPI.name,
-		user_type_id: userFromAPI.user_type_id,
-		email: userFromAPI.email,
+		id: facilitieFromAPI.id,
+		name: facilitieFromAPI.name,
+		facilitie_type_id: facilitieFromAPI.facilitie_type_id,
+		email: facilitieFromAPI.email,
 		days: "-",
 		hours: "-",
 		contact: "-",
@@ -20,7 +20,7 @@ const buildUserData = (userFromAPI) => {
 	}
 }
 
-const StaffList = ({ users, getUsers, getUserTypes, userTypes, loadingUsers, loadingUserTypes }) => {
+const StaffList = ({ tasks, getTasks, getTaskTypes, taskTypes, loadingTasks, loadingTaskTypes }) => {
 
 	const [selectBtn, setSelectBtn] = useState("Newest");
 
@@ -66,14 +66,14 @@ const StaffList = ({ users, getUsers, getUserTypes, userTypes, loadingUsers, loa
 
 	// GET USERS & USER-BY-ID
 	React.useEffect(() => {
-		getUsers()
-		getUserTypes()
+		getTasks()
+		getTaskTypes()
 	}, [])
 
 	const buildTypeNameFromId = (id) => {
-		if(userTypes.length == 0) return "-";
-		const userType = userTypes.find((userType) => userType.id == id)
-		return userType.name
+		if(taskTypes.length == 0) return "-";
+		const facilitieType = taskTypes.find((facilitieType) => facilitieType.id == id)
+		return facilitieType.name
 	}
 
 	return (
@@ -100,11 +100,24 @@ const StaffList = ({ users, getUsers, getUserTypes, userTypes, loadingUsers, loa
 														<div style={{ width: "30%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Contact</div>
 														<div style={{ width: "20%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Status</div>
 													</div>
-													{!loadingUsers && !loadingUserTypes && users.length ? (
+													<Link to={`/task/1`} key={1} >
+																		<div className={"tableRow"} style={{ width: "100%", display: "flex", justifyContent: "space-between", padding: "10px 0px", textSelect: "none" }}>
+																		
+																			<div style={{ width: "20%", display: "flex", padding: "0px 0px 0px 20px", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
+																				<p style={{ marginBottom: "0px" }}>
+																					joaco
+																				</p>
+																			</div>
+																			<div style={{ width: "30%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>sarars</div>
+																			<div style={{ width: "30%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>sararsa</div>
+																			<div style={{ width: "20%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}><LabelBtns extraClassName="m-1 w-max-content" state={"active"}/></div>
+																		</div>
+																	</Link>
+													{!loadingTasks && !loadingTaskTypes && tasks.length ? (
 														<div className={"tableBody"} style={{ padding: "10px 0px" }} >
-															{users.map(buildUserData).map((t, i) => {
+															{tasks.map(buildFacilitieData).map((t, i) => {
 																return (
-																	<Link to={`/staff/${t.id}`} key={t.id} >
+																	<Link to={`/tasks/${t.id}`} key={t.id} >
 																		<div className={"tableRow"} style={{ width: "100%", display: "flex", justifyContent: "space-between", padding: "10px 0px", textSelect: "none" }}>
 																			{/* <div style={{ width: "0.00005%", display: "flex", alignItems: "center", justifyContent: "end", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
 																			</div> */}
@@ -113,7 +126,7 @@ const StaffList = ({ users, getUsers, getUserTypes, userTypes, loadingUsers, loa
 																					{t.name}
 																				</p>
 																			</div>
-																			<div style={{ width: "30%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{buildTypeNameFromId(t.user_type_id)}</div>
+																			<div style={{ width: "30%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{buildTypeNameFromId(t.facilitie_type_id)}</div>
 																			<div style={{ width: "30%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{t.email}</div>
 																			<div style={{ width: "20%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}><LabelBtns extraClassName="m-1 w-max-content" state={t.status}/></div>
 																		</div>
@@ -139,17 +152,17 @@ const StaffList = ({ users, getUsers, getUserTypes, userTypes, loadingUsers, loa
 
 const mapStateToProps = (state) => {
 	return {
-		loadingUsers: state.authData.loadingUsers,
-		loadingUserTypes: state.authData.loadingUserTypes,
-		users: state.authData.users,
-		userTypes: state.authData.userTypes,
-		userById: state.authData.userByID
+		loadingTasks: state.authData.loadingTasks,
+		loadingTaskTypes: state.authData.loadingTaskTypes,
+		tasks: state.tasksData.tasks,
+		taskTypes: state.authData.taskTypes,
+		taskById: state.authData.facilitieByID
 	};
 };
 
 const mapDispatchToProps = {
-	getUsers,
-	getUserTypes: getUserTypesAction
+	getTasks,
+	getTaskTypes: getTaskTypes
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(StaffList);

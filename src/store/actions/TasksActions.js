@@ -42,7 +42,7 @@ export const getTasks = () => (dispatch) => {
   ApiService.getTasks().then((res) => {
     dispatch({
       type: TasksActionTypes.GET_TASKS_FETCH,
-      payload: res.data.data,
+      payload: res.data.tasks,
     });
   }).catch(e => {
     dispatch({

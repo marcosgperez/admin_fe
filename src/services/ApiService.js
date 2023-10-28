@@ -382,7 +382,8 @@ class ApiService {
 
         return this.axios.post(proxyUrl, {
             "method": "get",
-            "url": apiURL + "/facilities/index?external_client=" + this.externalId,
+            "url": apiURL + "/facilities/index" + this.externalId,
+            // "url": apiMockURL + "facilities.json",
             "auth": this.token,
             "data": {}
         });
@@ -392,7 +393,7 @@ class ApiService {
     getFacilitieTypes() {
         return this.axios.post(proxyUrl, {
             "method": "get",
-            "url": apiURL + "/facilitie-types/index?external_client=" + this.externalId,
+            "url": apiURL + "/facilities-types/index" + this.externalId,
             "auth": this.token,
             "data": {}
         })
@@ -468,7 +469,7 @@ class ApiService {
     getUser() {
         return this.axios.get(`user.json`, { baseURL: apiMockURL });
     }
- 
+
     getFacilitieById() {
         return this.axios.post(proxyUrl, {
             "method": "get",
