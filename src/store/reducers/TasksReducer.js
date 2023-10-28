@@ -25,13 +25,15 @@ export function TasksReducer(state = initialState, action) {
       };
 
     case TasksActionTypes.GET_TASKS_FETCH:
-      return {
+    console.log(action,"TasksReducer")  
+    return {
         ...state,
-        task: action.payload,
+        tasks: action.payload,
         loading: false,
       };
 
     case TasksActionTypes.GET_TASKS_FETCH_ERROR:
+
       return {
         ...state,
         error: action.payload,
