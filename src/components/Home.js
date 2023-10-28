@@ -5,9 +5,8 @@ import { connect } from "react-redux";
 import { getRoomsAction,getRoomCountAction } from "../store/actions/RoomsActions";
 
 
-const Home = ({ getRoomsAction, roomsData,getRoomCountAction }) => {
+const Home = ({ getRoomsAction, roomsData,getRoomCountAction, isAdmin }) => {
 // GET ROOMS & ROOM COUNT
-  let admin = true
   React.useEffect(() => {
     getRoomsAction()
     getRoomCountAction()
@@ -134,10 +133,10 @@ const Home = ({ getRoomsAction, roomsData,getRoomCountAction }) => {
             </div>
           </div>
           <div className="row justify-content-end">
-            <div className={admin ? "col-xl-12" : "d-none"}>
+            <div className={isAdmin ? "col-xl-12" : "d-none"}>
               <TasksList buttonSize={"md"} filter={"all"} />
             </div>
-            <div className={admin ? "col-xl-12" : "col-xl-12"}>
+            <div className={isAdmin ? "col-xl-12" : "col-xl-12"}>
               <EventCalendar />
             </div>
           </div>
@@ -151,7 +150,7 @@ const Home = ({ getRoomsAction, roomsData,getRoomCountAction }) => {
 const mapStateToProps = (rootState) => {
   return {
     roomsData: rootState.roomsData,
-    isAdmin: rootState.authData.user && rootState.authData.user
+    isAdmin: rootState.authData.user && rootState.authData.user.user_type_id == 1
 
   }
 }

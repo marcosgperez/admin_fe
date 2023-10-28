@@ -7,7 +7,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
 import { getEventsAction, deleteEvents, updateEvents } from "../../../../store/actions/EventsActions";
 import { connect } from 'react-redux';
-const EventCalendar = ({ eventsData, getEventsAction, updateEvents }) => {
+const EventCalendar = ({ eventsData, getEventsAction, updateEvents, isAdmin }) => {
    const { loading, error, events } = eventsData
    const [modalData, setModalData] = React.useState();
    const [_events, set_Events] = React.useState()
@@ -74,7 +74,7 @@ const EventCalendar = ({ eventsData, getEventsAction, updateEvents }) => {
 
 
 
-   let admin = true
+  
    const Modal = () => {
       if (!modalData) return <></>
       const { title, start, id } = modalData
@@ -109,7 +109,7 @@ const EventCalendar = ({ eventsData, getEventsAction, updateEvents }) => {
          </div>
       )
    }
-   if (admin && !loading && _events !== undefined) {
+   if (isAdmin && !loading && _events !== undefined) {
       return (
          <div className="animated fadeIn demo-app justify-content-end">
             <Modal />
@@ -179,7 +179,7 @@ const EventCalendar = ({ eventsData, getEventsAction, updateEvents }) => {
 
       );
    }
-   if (loading === false && admin === false && _events !== undefined)
+   if (loading === false && isAdmin === false && _events !== undefined)
       return (
          <div className="animated fadeIn demo-app">
             <Row>
@@ -246,7 +246,9 @@ const EventCalendar = ({ eventsData, getEventsAction, updateEvents }) => {
 const mapStateToProps = (rootState) => {
    console.log(rootState, "rootState")
    return {
-      eventsData: rootState.eventsData
+      eventsData: rootState.eventsData,
+      isAdmin: rootState.authData.user && rootState.authData.user.user_type_id == 1
+
    }
 }
 

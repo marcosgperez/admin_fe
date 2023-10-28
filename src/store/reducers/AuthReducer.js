@@ -3,6 +3,7 @@ import { AuthActionTypes } from "../actions/AuthActions";
 const initialState = {
   loading: false,
   user: undefined,
+  token: undefined,
   error: false,
 
   loadingUserById: false,
@@ -27,7 +28,8 @@ export function AuthReducer(state = initialState, action) {
     case AuthActionTypes.GET_AUTH_FETCH:
       return {
         ...state,
-        user: action.payload,
+        user: action.payload.user,
+        token: action.payload.token,
         loading: false,
       };
 

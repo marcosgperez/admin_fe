@@ -10,7 +10,7 @@ import { ThemeContext } from "../../../context/ThemeContext";
 import { linkData } from "../../routes";
 import { EmployeeLinkData } from "../../EmployeeRoutes";
 import profile from "../../../images/user.jpg";
-
+import { connect } from "react-redux"
 
 const reducer = (previousState, updatedState) => ({
   ...previousState,
@@ -23,7 +23,7 @@ const initialState = {
 }
 
 
-const SideBar = () => {
+const SideBar = ({ isAdmin }) => {
   var d = new Date();
   const {
     iconHover,
@@ -69,10 +69,10 @@ const SideBar = () => {
   //path = path.split("/");
   //path = path[path.length - 1];
   /// Active menu
-  const admin = true
+
   let toMap = []
 
-  if (admin) {
+  if (isAdmin) {
     toMap = linkData
   } else {
     toMap = EmployeeLinkData
@@ -193,4 +193,15 @@ const SideBar = () => {
   );
 };
 
-export default SideBar;
+
+const mapStateToProps = (rootState) => {
+  console.log("rootState",rootState)
+  return {
+     isAdmin: rootState.authData.user && rootState.authData.user.user_type_id == 1
+
+  }
+}
+
+const mapDispatchToProps = {
+}
+export default connect(mapStateToProps, mapDispatchToProps)(SideBar);

@@ -11,6 +11,7 @@ import { Dropdown } from "react-bootstrap";
 import LogoutPage from './Logout';
 import { connect } from "react-redux"
 import { getUserTypesAction } from "../../../store/actions/AuthActions";
+import { generateLetterByName, generateColorFromName } from "../../../helpers"
 
 const Header = ({ onNote, authData, typesData, getUserTypesAction, title }) => {
 	// const [searchBut, setSearchBut] = useState(false);
@@ -26,11 +27,10 @@ const Header = ({ onNote, authData, typesData, getUserTypesAction, title }) => {
 		const capitalize = (str) => str[0].toUpperCase() + str.slice(1);
 		const splitPath = location.pathname.split("/");
 		const filtered = splitPath.filter(p => p != "")
-		if(filtered.length === 0) return "Dashboard"
+		if (filtered.length === 0) return "Dashboard"
 		return filtered.map(capitalize).join(": ")
 	}
-		
-	
+
 	return (
 		<div className="header border-bottom">
 			<div className="header-content">
@@ -45,8 +45,6 @@ const Header = ({ onNote, authData, typesData, getUserTypesAction, title }) => {
 							</div>
 						</div>
 						<ul className="navbar-nav header-right">
-
-
 							<Dropdown as="li" className="nav-item dropdown notification_dropdown">
 								<Dropdown.Toggle className="nav-link i-false c-pointer" variant="" as="a">
 									<svg xmlns="http://www.w3.org/2000/svg" width="19.375" height="24" viewBox="0 0 19.375 24">
@@ -59,8 +57,6 @@ const Header = ({ onNote, authData, typesData, getUserTypesAction, title }) => {
 								</Dropdown.Toggle>
 								<Dropdown.Menu align="right" className="mt-2 dropdown-menu dropdown-menu-end">
 									<PerfectScrollbar className="widget-media dlab-scroll p-3 height380">
-
-
 										<div className="ps__rail-x" style={{ left: 0, bottom: 0 }}>
 											<div
 												className="ps__thumb-x"
@@ -189,7 +185,7 @@ const Header = ({ onNote, authData, typesData, getUserTypesAction, title }) => {
 
 							<Dropdown as="li" className="nav-item dropdown header-profile">
 								<Dropdown.Toggle variant="" as="a" className="nav-link i-false c-pointer">
-									<img src={profile} width={20} alt="" />
+									<div className="staffPic" style={{ backgroundColor: `${generateColorFromName(user.name)}` }}><p>{generateLetterByName(user.name)}{generateLetterByName(user.surname)}</p></div>
 								</Dropdown.Toggle>
 								<Dropdown.Menu align="right" className="mt-3 dropdown-menu dropdown-menu-end">
 									<Link to="/app-profile" className="dropdown-item ai-icon">
