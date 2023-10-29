@@ -16,6 +16,7 @@ button{
 	border-radius: 0.8rem;
 	font-weight:400;
 	font-size:1rem;
+
     &:hover, &:focus, &:active, &.active{
         outline: 0!important;
     }
@@ -37,6 +38,9 @@ button{
 .btn-primary{
 	border-color:var(--primary);	
 	background-color:var(--primary);
+	display: flex;
+    justify-content: center;
+    align-items: center;
 	&:active,
 	&:focus,
 	&:hover{
@@ -1036,4 +1040,10 @@ button{
 }
 .btn-close:focus{
 	box-shadow:0 0 0 0.25rem var(--rgba-primary-5);
+}
+
+.eventButton{
+	display: flex;
+    justify-content: center;
+    align-items: center;
 }

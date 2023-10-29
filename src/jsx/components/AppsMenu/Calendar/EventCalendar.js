@@ -25,9 +25,9 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
 
 
 
-   React.useEffect((a,b) => {
-      if(!loadingById) getEventsAction()
-   },[loadingById])
+   React.useEffect((a, b) => {
+      if (!loadingById) getEventsAction()
+   }, [loadingById])
 
    React.useEffect(() => {
       const parseEventsForComponent = (event) => {
@@ -230,15 +230,19 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
                            <div className="card-header border-0 pb-0">
                               <h4 className="text-black fs-20 mb-0">Events</h4>
                            </div>
-                           <Card.Body >
-                              <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "start" }} id="external-events">
+                           <Card.Body className="eventsBody" >
+                              <div id="external-events">
                                  {_events.map((event) => (
                                     <div
                                        draggable={true}
                                        ref={(ref) => createRef(event, ref)}
                                        data-id={event.id}
-                                       style={{ width: "fit-content", height: "50px" }}
-                                       className="fc-event mt-0 ms-0 mb-2 btn btn-block btn-primary"
+                                       style={{
+                                          width: "fit-content", height: "50px", display: " flex",
+                                          justifyContent: " center",
+                                          alignItems: " center"
+                                       }}
+                                       className="fc-event mt-0 ms-0 mb-2 btn btn-block btn-primary eventButton"
                                        title={event.title}
                                        data={event.title}
                                        key={event.title}
