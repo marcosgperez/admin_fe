@@ -136,16 +136,16 @@ const Home = ({ getRoomsAction, roomsData, getRoomCountAction, isAdmin }) => {
             </div>
           </div>
           <div className="row justify-content-end">
-            <div className='buttonContainer' >
+            <div className={isAdmin ? "buttonContainer" : "d-none"} >
               <Link to={"/task/new-task"} className='w-max-content'>
                 + New Task
               </Link>
             </div>
-            <div className={isAdmin ? "col-xl-12" : "d-none"}>
+            <div className={"col-xl-12"}>
               <TasksListFilter handleClick={changeFilter}></TasksListFilter>
               <TasksList filter={filter}></TasksList>
             </div>
-            <div className={isAdmin ? "col-xl-12" : "col-xl-12"}>
+            <div className={isAdmin ? "col-xl-12" : "d-none"}>
               <EventCalendar />
             </div>
           </div>

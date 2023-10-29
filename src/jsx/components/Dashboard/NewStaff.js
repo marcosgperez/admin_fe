@@ -60,8 +60,8 @@ const StaffById = ({ getUserByIDAction, userTypes, updateUserByIDAction, userByI
         delete newInfoUser.created_at;
         
         const userType = userTypes.find(u => u.id == newInfoUser.user_type_id)
-        newInfoUser.user_type = userType.name
-        delete newInfoUser.user_type_id
+        // newInfoUser.user_type = userType.name
+        // delete newInfoUser.user_type_id
 
         if (infoUser.id) updateUserByIDAction(newInfoUser)
         else createUserAction(newInfoUser)

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { getTaskByID, updateTaskByID, createTask } from '../../../store/actions/TasksActions';
 import { getUserTypesAction, getUsers } from '../../../store/actions/AuthActions';
 import { Loader } from '../Loader';
-
+import { parseDescriptionForConversation, concatDescriptionForConversation } from "../../../helpers";
 
 const buildTaskData = (taskFromApi) => {
     return {
@@ -23,6 +23,7 @@ const buildTaskData = (taskFromApi) => {
 }
 
 const TaskfById = ({
+    user,
     getTaskByID,
     getUsers,
     users,
@@ -86,6 +87,9 @@ const TaskfById = ({
         if (isUpdating && !loadingTaskById) navigate("/tasks")
     }, [loadingTaskById])
 
+    const addPersonToDescription = (str) => {
+        return `${user.name} ${user.surname}:\n${str}`
+    } 
     const sendForm = () => {
         setIsUpdating(true)
         const newInfoTask = { ...infoTask }
@@ -93,6 +97,9 @@ const TaskfById = ({
         newInfoTask.type = String(newInfoTask.type)
         newInfoTask.is_completed = newInfoTask.status === "Completed" ? 1 : 0;
         delete newInfoTask.status;
+        const [conversation, _description] = parseDescriptionForConversation(infoTask.description)
+        newInfoTask.description = concatDescriptionForConversation(conversation, addPersonToDescription(newInfoTask.newDescription))
+        delete newInfoTask.newDescription;
 
         if (infoTask.id) updateTaskByID(newInfoTask)
         else createTask(newInfoTask)
@@ -110,6 +117,9 @@ const TaskfById = ({
 
     }
     const [status, setStatus] = useState(["Completed", "Pending"])
+
+    const [conversation, _description] = parseDescriptionForConversation(infoTask.description)
+
     return (
         <>
             <Tab.Container defaultActiveKey="All" >
@@ -181,10 +191,15 @@ const TaskfById = ({
                                                         <div className="mb-3 d-none">
                                                             <input className="form-control" type="file" id="formFile" />
                                                         </div>
+                                                        {conversation.map(c => (
+                                                            <div className='row formRow' >
+                                                                <p>{c}</p>
+                                                            </div>
+                                                        ))}
                                                         <textarea
-                                                            value={infoTask.description}
+                                                            defaultValue={_description}
                                                             className='formTextArea'
-                                                            onChange={(e) => changeFormProp("description", e.target.value)}
+                                                            onChange={(e) => changeFormProp("newDescription", e.target.value)}
                                                             rows="8"
                                                             id="comment"
                                                         ></textarea>
@@ -216,7 +231,8 @@ const mapStateToProps = (state) => {
         loadingTaskTypes: state.authData.loadingUserTypes,
         taskById: state.tasksData.taskByID,
         taskTypes: state.authData.userTypes,
-        users: state.authData.users
+        users: state.authData.users,
+        user: state.authData.user
     };
 };
 
