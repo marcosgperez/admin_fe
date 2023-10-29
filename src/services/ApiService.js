@@ -286,7 +286,7 @@ class ApiService {
     deleteTaskByID(user) {
         return this.axios.post(proxyUrl, {
             "method": "post",
-            "url": apiURL + "/tasks/delete",
+            "url": apiURL + "/tasks/delete?external_id=" + this.externalId,
             "auth": this.token,
             "data": {
                 ...user,
@@ -308,30 +308,32 @@ class ApiService {
 
         //return this.axios.get(`/users/index`, {});
     }
-    getEventTypes() {
-        return this.axios.post(proxyUrl, {
-            "method": "get",
-            "url": apiURL + "/event-types/index?external_id=" + this.externalId,
-            "auth": this.token,
-            "data": {}
-        })
-    }
-    updateEventTypes(userTypes) {
-        return this.axios.post(proxyUrl, {
-            "method": "get",
-            "url": apiURL + "/event-types/update",
-            "auth": this.token,
-            "data": {
-                ...userTypes,
-                external_id: this.externalId
-            }
-        })
-    }
+
+    // getEventTypes() {
+    //     return this.axios.post(proxyUrl, {
+    //         "method": "get",
+    //         "url": apiURL + "/event-types/index?external_id=" + this.externalId,
+    //         "auth": this.token,
+    //         "data": {}
+    //     })
+    // }
+
+    // updateEventTypes(userTypes) {
+    //     return this.axios.post(proxyUrl, {
+    //         "method": "get",
+    //         "url": apiURL + "/event-types/update?external_id=" + this.externalId,
+    //         "auth": this.token,
+    //         "data": {
+    //             ...userTypes,
+    //             external_id: this.externalId
+    //         }
+    //     })
+    // }
 
     deleteEventTypes(userTypes) {
         return this.axios.post(proxyUrl, {
             "method": "get",
-            "url": apiURL + "/event-types/delete",
+            "url": apiURL + "/event-types/delete?external_id=" + this.externalId,
             "auth": this.token,
             "data": {
                 ...userTypes,
@@ -349,131 +351,43 @@ class ApiService {
         })
     }
 
-    updateEventByID(user) {
+    updateEventByID(event) {
         return this.axios.post(proxyUrl, {
             "method": "put",
-            "url": apiURL + "/events/update",
+            "url": apiURL + "/events/update?external_id=" + this.externalId,
             "auth": this.token,
             "data": {
-                ...user,
+                ...event,
                 external_id: this.externalId
             }
         })
     }
 
-    createEvent(user) {
+    createEvent(event) {
         return this.axios.post(proxyUrl, {
             "method": "post",
-            "url": apiURL + "/events/store",
+            "url": apiURL + "/events/store?external_id=" + this.externalId,
             "auth": this.token,
             "data": {
-                ...user,
+                ...event,
                 external_id: this.externalId
             }
         })
     }
 
-    deleteEventByID(user) {
+    deleteEventByID(event) {
         return this.axios.post(proxyUrl, {
             "method": "post",
-            "url": apiURL + "/events/delete",
+            "url": apiURL + "/events/delete?external_id=" + this.externalId,
             "auth": this.token,
             "data": {
-                ...user,
+                ...event,
                 external_id: this.externalId
             }
         })
     }
 
 
-    getFacilities() {
-
-        return this.axios.post(proxyUrl, {
-            "method": "get",
-            "url": apiURL + "/facilities/index" + this.externalId,
-            // "url": apiMockURL + "facilities.json",
-            "auth": this.token,
-            "data": {}
-        });
-
-        //return this.axios.get(`/users/index`, {});
-    }
-    getFacilitieTypes() {
-        return this.axios.post(proxyUrl, {
-            "method": "get",
-            "url": apiURL + "/facilities-types/index" + this.externalId,
-            "auth": this.token,
-            "data": {}
-        })
-    }
-    updateFacilitieTypes(userTypes) {
-        return this.axios.post(proxyUrl, {
-            "method": "get",
-            "url": apiURL + "/facilitie-types/update",
-            "auth": this.token,
-            "data": {
-                ...userTypes,
-                external_id: this.externalId
-            }
-        })
-    }
-
-    deleteFacilitieTypes(userTypes) {
-        return this.axios.post(proxyUrl, {
-            "method": "get",
-            "url": apiURL + "/facilitie-types/delete",
-            "auth": this.token,
-            "data": {
-                ...userTypes,
-                external_id: this.externalId
-            }
-        })
-    }
-
-    getFacilitieByID(id) {
-        return this.axios.post(proxyUrl, {
-            "method": "get",
-            "url": apiURL + "/facilities?id=" + id + "&external_id=" + this.externalId,
-            "auth": this.token,
-            "data": {}
-        })
-    }
-
-    updateFacilitieByID(user) {
-        return this.axios.post(proxyUrl, {
-            "method": "put",
-            "url": apiURL + "/facilities/update",
-            "auth": this.token,
-            "data": {
-                ...user,
-                external_id: this.externalId
-            }
-        })
-    }
-
-    createFacilitie(user) {
-        return this.axios.post(proxyUrl, {
-            "method": "post",
-            "url": apiURL + "/facilities/store",
-            "auth": this.token,
-            "data": {
-                ...user,
-                external_id: this.externalId
-            }
-        })
-    }
-
-    deleteFacilitieByID(user) {
-        return this.axios.post(proxyUrl, {
-            "method": "post",
-            "url": apiURL + "/facilities/delete",
-            "auth": this.token,
-            "data": {
-                ...user,
-                external_id: this.externalId
-            }
-        })
-    }
     getUser() {
         return this.axios.get(`user.json`, { baseURL: apiMockURL });
     }

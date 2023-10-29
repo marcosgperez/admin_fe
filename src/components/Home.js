@@ -159,7 +159,7 @@ const Home = ({ getRoomsAction, roomsData, getRoomCountAction, isAdmin }) => {
 const mapStateToProps = (rootState) => {
   return {
     roomsData: rootState.roomsData,
-    isAdmin: rootState.authData.user && rootState.authData.user.user_type_id == 1
+    isAdmin: rootState.authData.user && rootState.authData.user.user_type_id == 1,
 
   }
 }

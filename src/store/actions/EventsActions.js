@@ -5,25 +5,23 @@ export const EventsActionTypes = {
   "GET_EVENTS_FETCH": "GET_EVENTS_FETCH",
   "GET_EVENTS_FETCH_ERROR": "GET_EVENTS_FETCH_ERROR",
 
-  "UPDATE_EVENTS_FETCHING": "UPDATE_EVENTS_FETCHING",
-  "UPDATE_EVENTS_FETCH": "UPDATE_EVENTS_FETCH",
-  "UPDATE_EVENTS_FETCH_ERROR": "UPDATE_EVENTS_FETCH_ERROR",
+  "DELETE_EVENT_BY_ID_FETCHING": "DELETE_EVENT_BY_ID_FETCHING",
+  "DELETE_EVENT_BY_ID_FETCH": "DELETE_EVENT_BY_ID_FETCH",
+  "DELETE_EVENT_BY_ID_FETCH_ERROR": "DELETE_EVENT_BY_ID_FETCH_ERROR",
 
-  "DELETE_EVENTS_FETCHING": "DELETE_EVENTS_FETCHING",
-  "DELETE_EVENTS_FETCH": "DELETE_EVENTS_FETCH",
-  "DELETE_EVENTS_FETCH_ERROR": "DELETE_EVENTS_FETCH_ERROR",
+  "GET_EVENT_BY_ID_FETCHING": "GET_EVENT_BY_ID_FETCHING",
+  "GET_EVENT_BY_ID_FETCH": "GET_EVENT_BY_ID_FETCH",
+  "GET_EVENT_BY_ID_FETCH_ERROR": "GET_EVENT_BY_ID_FETCH_ERROR",
 
-  "GET_EVENTS_BY_ID_FETCHING": "GET_EVENTS_BY_ID_FETCHING",
-  "GET_EVENTS_BY_ID_FETCH": "GET_EVENTS_BY_ID_FETCH",
-  "GET_EVENTS_BY_ID_FETCH_ERROR": "GET_EVENTS_BY_ID_FETCH_ERROR",
+  "UPDATE_EVENT_BY_ID_FETCHING": "UPDATE_EVENT_BY_ID_FETCHING",
+  "UPDATE_EVENT_BY_ID_FETCH": "UPDATE_EVENT_BY_ID_FETCH",
+  "UPDATE_EVENT_BY_ID_FETCH_ERROR": "UPDATE_EVENT_BY_ID_FETCH_ERROR",
 
-  "UPDATE_EVENTS_BY_ID_FETCHING": "UPDATE_EVENTS_BY_ID_FETCHING",
-  "UPDATE_EVENTS_BY_ID_FETCH": "UPDATE_EVENTS_BY_ID_FETCH",
-  "UPDATE_EVENTS_BY_ID_FETCH_ERROR": "UPDATE_EVENTS_BY_ID_FETCH_ERROR",
 
-  "DELETE_EVENTS_BY_ID_FETCHING": "DELETE_EVENTS_BY_ID_FETCHING",
-  "DELETE_EVENTS_BY_ID_FETCH": "DELETE_EVENTS_BY_ID_FETCH",
-  "DELETE_EVENTS_BY_ID_FETCH_ERROR": "DELETE_EVENTS_BY_ID_FETCH_ERROR",
+  "CREATE_EVENT_BY_ID_FETCHING": "CREATE_EVENT_BY_ID_FETCHING",
+  "CREATE_EVENT_BY_ID_FETCH": "CREATE_EVENT_BY_ID_FETCH",
+  "CREATE_EVENT_BY_ID_FETCH_ERROR": "CREATE_EVENT_BY_ID_FETCH_ERROR",
+
 }
 
 export const getEventsAction = () => (dispatch) => {
@@ -33,7 +31,7 @@ export const getEventsAction = () => (dispatch) => {
   ApiService.getEvents().then((res) => {
     dispatch({
       type: EventsActionTypes.GET_EVENTS_FETCH,
-      payload: res.data.events,
+      payload: res.data.data,
     });
   }).catch(e => {
     dispatch({
@@ -43,91 +41,71 @@ export const getEventsAction = () => (dispatch) => {
   })
 };
 
-export const getEventByIDAction = () => (dispatch) => {
+export const getEventByID = () => (dispatch) => {
   dispatch({
-    type: EventsActionTypes.GET_EVENTS_BY_ID_FETCHING
+    type: EventsActionTypes.GET_EVENT_BY_ID_FETCHING
   });
   ApiService.getEvents().then((res) => {
     dispatch({
-      type: EventsActionTypes.GET_EVENTS_BY_ID_FETCH,
+      type: EventsActionTypes.GET_EVENT_BY_ID_FETCH,
       payload: res.data.events,
     });
   }).catch(e => {
     dispatch({
-      type: EventsActionTypes.GET_EVENTS_BY_ID_FETCH_ERROR,
+      type: EventsActionTypes.GET_EVENT_BY_ID_FETCH_ERROR,
       payload: e,
     });
   })
 };
 
 
-export const updateEventByIDAction = (events) => (dispatch) => {
+export const deleteEventByID = (events) => (dispatch) => {
   dispatch({
-    type: EventsActionTypes.UPDATE_EVENTS_BY_ID_FETCHING
-  });
-  ApiService.updateEventByID(events).then((res) => {
-    console.log(res, "RES")
-    dispatch({
-      type: EventsActionTypes.UPDATE_EVENTS_BY_ID_FETCH,
-      payload: res.data.data,
-    });
-  }).catch(e => {
-    dispatch({
-      type: EventsActionTypes.UPDATE_EVENTS_BY_ID_FETCH_ERROR,
-      payload: e,
-    });
-  })
-}
-
-export const deleteEventByIDAction = (events) => (dispatch) => {
-  dispatch({
-    type: EventsActionTypes.DELETE_EVENTS_BY_ID_FETCHING
+    type: EventsActionTypes.DELETE_EVENT_BY_ID_FETCHING
   });
   ApiService.deleteEventByID(events).then((res) => {
     console.log(res, "RES")
     dispatch({
-      type: EventsActionTypes.DELETE_EVENTS_BY_ID_FETCH,
+      type: EventsActionTypes.DELETE_EVENT_BY_ID_FETCH,
       payload: res.data.data,
     });
   }).catch(e => {
     dispatch({
-      type: EventsActionTypes.DELETE_EVENTS_BY_ID_FETCH_ERROR,
+      type: EventsActionTypes.DELETE_EVENT_BY_ID_FETCH_ERROR,
       payload: e,
     });
   })
 }
 
-export const updateEvents = (events) => (dispatch) => {
+export const updateEventByID = (event) => (dispatch) => {
   dispatch({
-    type: EventsActionTypes.UPDATE_EVENTS_FETCHING
+    type: EventsActionTypes.UPDATE_EVENT_BY_ID_FETCHING
   });
-  ApiService.updateEvents(events).then((res) => {
-    console.log(res, "RES")
+  ApiService.updateEventByID(event).then((res) => {
     dispatch({
-      type: EventsActionTypes.UPDATE_EVENTS_FETCH,
+      type: EventsActionTypes.UPDATE_EVENT_BY_ID_FETCH,
       payload: res.data.data,
     });
   }).catch(e => {
     dispatch({
-      type: EventsActionTypes.UPDATE_EVENTS_FETCH_ERROR,
+      type: EventsActionTypes.UPDATE_EVENT_BY_ID_FETCH_ERROR,
       payload: e,
     });
   })
 }
 
-export const deleteEvents = (events) => (dispatch) => {
+export const createEvent = (event) => (dispatch) => {
   dispatch({
-    type: EventsActionTypes.DELETE_EVENTS_FETCHING
+    type: EventsActionTypes.CREATE_EVENT_BY_ID_FETCHING
   });
-  ApiService.deleteEvents(events).then((res) => {
-    console.log(res, "RES")
+  ApiService.createEvent(event).then((res) => {
     dispatch({
-      type: EventsActionTypes.DELETE_EVENTS_FETCH,
+      type: EventsActionTypes.CREATE_EVENT_BY_ID_FETCH,
       payload: res.data.data,
     });
   }).catch(e => {
     dispatch({
-      type: EventsActionTypes.DELETE_EVENTS_FETCH_ERROR,
+      type: EventsActionTypes.CREATE_EVENT_BY_ID_FETCH_ERROR,
       payload: e,
     });
   })

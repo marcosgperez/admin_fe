@@ -1,17 +1,11 @@
 import Home from "../components/Home"
-import GuestList from "./components/Dashboard/GuestList";
-import GuestDetails from "./components/Dashboard/GuestDetails";
 import StaffList from "./components/Dashboard/StaffList";
 
-import Reviews from "./components/Dashboard/Reviews";
-import TaskDetail from "./pages/TaskDetail";
 import Tasks from "./pages/Tasks";
 
-import Facilities from "./pages/Facilities";
 import TaskById from "./components/Dashboard/NewTask";
 import StaffById from "./components/Dashboard/NewStaff";
-import FacilitieById from "./components/Dashboard/NewFacilitie";
-import NewTask from "./components/Dashboard/NewTask";
+
 // import TaskList from "./Dashboard/RoomList";
 export const linkData = [
     //Dashboard
