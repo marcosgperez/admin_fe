@@ -80170,7 +80170,7 @@ table {
   .fc .fc-toolbar.fc-header-toolbar .fc-toolbar-chunk {
     display: flex;
     justify-content: center;
-  
+
   }
 
   .fc .fc-toolbar.fc-header-toolbar .fc-toolbar-chunk:first-child {
@@ -82516,9 +82516,9 @@ button:focus {
 }
 
 .card-body::-webkit-scrollbar-thumb {
-    background: #c96161;
-    /* width: 5px; */
-    border-radius: 8px;
+  background: #c96161;
+  /* width: 5px; */
+  border-radius: 8px;
 }
 
 @media only screen and (max-width: 35.9375rem) {
@@ -92640,6 +92640,10 @@ p {
   /* background-color: red; */
 }
 
+.taskInputs {
+  width: 100%;
+}
+
 .right {
   display: flex;
   flex-direction: column;
@@ -92687,6 +92691,18 @@ p {
   border-radius: 8px;
   /* box-shadow: 0px 0px 10px gray; */
   padding: 10px;
+
+}
+
+@media screen and (max-width:1200px) {
+
+  .left div input,
+  .left div select,
+  .right div input,
+  .right div select {
+    width: 100%;
+    margin-left: 0px;
+  }
 }
 
 .left div input:hover,
@@ -92716,6 +92732,25 @@ p {
   color: black;
 }
 
+@media screen and (min-width:1200px) {
+
+  .taskInputs .right p,
+  .taskInputs .right select,
+  .taskInputs .right input {
+    margin-left: -10px;
+  }
+
+  .taskInputs .left p,
+  .taskInputs .left select,
+  .taskInputs .left input {
+    margin-left: 70px;
+  }
+
+  /* .left div p, .right div p{
+    margin-left: 0px;
+  } */
+}
+
 .left div p {
   margin-left: 20px;
   font-weight: 500;
@@ -92727,6 +92762,18 @@ p {
   padding: 0px 16px;
   display: flex;
   justify-content: start;
+}
+
+@media screen and (max-width:1200px) {
+  .formRow {
+    padding: 0px;
+  }
+  .left div p,.right div p {
+    margin-left: 0px;
+    font-weight: 500;
+    font-size: 16px;
+    color: black;
+  }
 }
 
 .image {
@@ -92771,9 +92818,10 @@ p {
   color: white;
   border: none;
 }
-@media screen and (max-width:768px){
-  .saveContainer button{
-    width:30%
+
+@media screen and (max-width:768px) {
+  .saveContainer button {
+    width: 30%
   }
 }
 
@@ -92921,7 +92969,8 @@ button.disabled {
     justify-content: center;
   }
 }
-.fc-toolbar-chunk:first-child{
+
+.fc-toolbar-chunk:first-child {
   /* background-color: yellow; */
   /* justify-content: end!important; */
   z-index: 99;
@@ -92929,12 +92978,25 @@ button.disabled {
 
 }
 
-.fc-toolbar-chunk:last-child{
+.fc-toolbar-chunk:last-child {
   /* background-color: yellow; */
-  justify-content: start!important;
+  justify-content: start !important;
   z-index: 99;
   margin-bottom: 10px;
 
+}
+
+.convoContainer {
+  background-color: #f7f7f7;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  padding: 10px 0px;
+}
+
+@media screen and (max-width:1200px) {
+  .convoContainer {
+    padding: 10px 10px;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

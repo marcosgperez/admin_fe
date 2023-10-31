@@ -89,7 +89,7 @@ const TaskfById = ({
 
     const addPersonToDescription = (str) => {
         return `${user.name} ${user.surname}:\n${str}`
-    } 
+    }
     const sendForm = () => {
         setIsUpdating(true)
         const newInfoTask = { ...infoTask }
@@ -107,12 +107,12 @@ const TaskfById = ({
     const checkIfDisabled = () => {
         let disabled = true;
         if (
-            infoTask.name && 
-            infoTask.status && 
-            infoTask.type && 
-            infoTask.asigned_room && 
-            infoTask.asigned_to 
-            ) disabled = false;
+            infoTask.name &&
+            infoTask.status &&
+            infoTask.type &&
+            infoTask.asigned_room &&
+            infoTask.asigned_to
+        ) disabled = false;
         return disabled
 
     }
@@ -134,7 +134,7 @@ const TaskfById = ({
                                                 <div className="basic-form">
                                                     <form onSubmit={(e) => e.preventDefault()}>
                                                         <div className='row formRow' >
-                                                            <div className=' inputs'>
+                                                            <div className='taskInputs inputs'>
                                                                 <div className='right'>
                                                                     <div>
                                                                         <p>Name</p>
@@ -191,11 +191,13 @@ const TaskfById = ({
                                                         <div className="mb-3 d-none">
                                                             <input className="form-control" type="file" id="formFile" />
                                                         </div>
-                                                        {conversation.map(c => (
-                                                            <div className='row formRow' >
-                                                                <p>{c}</p>
-                                                            </div>
-                                                        ))}
+                                                        <div className='convoContainer'>
+                                                            {conversation.map(c => (
+                                                                <div className='row formRow' >
+                                                                    <p>{c}</p>
+                                                                </div>
+                                                            ))}
+                                                        </div>
                                                         <textarea
                                                             defaultValue={_description}
                                                             className='formTextArea'
