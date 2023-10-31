@@ -39908,11 +39908,12 @@ table.dataTable.display tbody td {
 .authincation {
   background: var(--rgba-primary-1);
   display: flex;
-  min-height: 100vh;
+  /* min-height: 100vh; */
+  height: 100%;
 }
 
 .authincation .login-aside {
-  background: #fff;
+  /* background: #fff; */
   padding-top: 5rem;
   max-width: 35rem;
   width: 100%;
@@ -39940,6 +39941,12 @@ table.dataTable.display tbody td {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+}
+.aside-image{
+  display: none;
+}
+.login-aside{
+  background-color: transparent;
 }
 
 @media only screen and (max-width: 87.5rem) {
@@ -86115,7 +86122,7 @@ table.dataTable.display tbody td {
 }
 
 .authincation .login-aside {
-  background: #fff;
+  /* background: #fff; */
   padding-top: 5rem;
   max-width: 35rem;
   width: 100%;
@@ -93001,5 +93008,7 @@ button.disabled {
     padding: 10px 10px;
   }
 }
-
+.login-aside{
+  background-color: none;
+}
 /*# sourceMappingURL=style.css.map */
