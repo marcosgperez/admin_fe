@@ -92992,7 +92992,10 @@ button.disabled {
   border-radius: 8px;
   padding: 10px 0px;
 }
-
+.convoContainer p{
+  font-weight: 500;
+  color: black;
+}
 @media screen and (max-width:1200px) {
   .convoContainer {
     padding: 10px 10px;
