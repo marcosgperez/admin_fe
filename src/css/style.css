@@ -39913,7 +39913,7 @@ table.dataTable.display tbody td {
 }
 
 .authincation .login-aside {
-  /* background: #fff; */
+  background: #fff;
   padding-top: 5rem;
   max-width: 35rem;
   width: 100%;
@@ -39935,17 +39935,27 @@ table.dataTable.display tbody td {
 }
 
 .authincation .login-aside .aside-image {
-  min-height: 28.125rem;
+  min-height: 18.125rem;
   margin: auto 0;
   min-width: 0;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }
-.aside-image{
-  display: none;
+
+@media screen and (max-width:992px) {
+  .authincation .login-aside .aside-image {
+    min-height: 7.125rem !important;
+    margin: auto 0;
+    min-width: 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-bottom: 0% !important;
+  }
 }
-.login-aside{
+
+.login-aside {
   background-color: transparent;
 }
 
@@ -92775,7 +92785,9 @@ p {
   .formRow {
     padding: 0px;
   }
-  .left div p,.right div p {
+
+  .left div p,
+  .right div p {
     margin-left: 0px;
     font-weight: 500;
     font-size: 16px;
@@ -92999,16 +93011,30 @@ button.disabled {
   border-radius: 8px;
   padding: 10px 0px;
 }
-.convoContainer p{
+
+.convoContainer p {
   font-weight: 500;
   color: black;
 }
+
 @media screen and (max-width:1200px) {
   .convoContainer {
     padding: 10px 10px;
   }
 }
-.login-aside{
+
+.login-aside {
   background-color: none;
 }
+
+.loginHeader {
+  height: 35%;
+}
+
+@media screen and (max-height:600px) {
+  .loginText {
+    display: none;
+  }
+}
+
 /*# sourceMappingURL=style.css.map */

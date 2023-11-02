@@ -38,26 +38,28 @@ function Login({
     if (error) {
       return;
     }
-    doLogin(data.email,data.password)
+    doLogin(data.email, data.password)
   }
 
   React.useEffect(() => {
-    if(user) navigate("/")
-  },[user])
+    if (user) navigate("/")
+  }, [user])
 
   return (
     <div className="authincation d-flex flex-column flex-lg-row flex-column-fluid">
       <ToastContainer />
       <div className="login-aside text-center  d-flex flex-column flex-row-auto">
-        <div className="d-flex flex-column-auto flex-column pt-lg-40 pt-15">
+        <div className="d-flex flex-column-auto flex-column pt-lg-40 pt-15 loginHeader" >
           <div className="text-center mb-4 pt-5">
             <img src={logo} alt="" />
           </div>
-          <h3 className="mb-2">Welcome back!</h3>
-          <p>
-            User Experience & Interface Design <br />
-            Strategy SaaS Solutions
-          </p>
+          <div className="loginText">
+            <h3 className="mb-2">Welcome back!</h3>
+            <p>
+              User Experience & Interface Design <br />
+              Strategy SaaS Solutions
+            </p>
+          </div>
         </div>
         <div
           className="aside-image"
@@ -170,4 +172,4 @@ const mapDispatchToProps = {
   doLogin
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
