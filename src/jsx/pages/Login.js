@@ -36,8 +36,8 @@ function Login (props) {
 
   return (
 		<div className="authincation d-flex flex-column flex-lg-row flex-column-fluid">
-			<div className="login-aside text-center  d-flex flex-column flex-row-auto">
-				<div className="d-flex flex-column-auto flex-column pt-lg-40 pt-15">
+			<div className="login-aside text-center aca?  d-flex flex-column flex-row-auto">
+				<div className="este? d-flex flex-column-auto flex-column pt-lg-40 pt-15">
 					<div className="text-center mb-4 pt-5">
 						<img src={logo} alt="" />
 					</div>
