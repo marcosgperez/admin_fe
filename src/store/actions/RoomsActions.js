@@ -37,7 +37,7 @@ export const getRoomsAction = () => (dispatch) => {
   ApiService.getRooms().then((res) => {
     dispatch({
       type: RoomsActionTypes.GET_ROOMS_FETCH,
-      payload: res.data,
+      payload: res.data.data,
     });
   }).catch(e => {
     dispatch({
@@ -54,7 +54,7 @@ export const updateRoomsAction = () => (dispatch) => {
   ApiService.getRooms().then((res) => {
     dispatch({
       type: RoomsActionTypes.UPDATE_ROOMS_FETCH,
-      payload: res.data,
+      payload: res.data.data,
     });
   }).catch(e => {
     dispatch({
@@ -70,7 +70,7 @@ export const deleteRoomsAction = () => (dispatch) => {
   ApiService.getRooms().then((res) => {
     dispatch({
       type: RoomsActionTypes.DELETE_ROOMS_FETCH,
-      payload: res.data,
+      payload: res.data.data,
     });
   }).catch(e => {
     dispatch({

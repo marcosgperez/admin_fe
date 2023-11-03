@@ -201,7 +201,7 @@ const TaskfById = ({
                                                                             className="form-control form-control-lg"
                                                                             onChange={(e) => changeFormProp("type", Number(e.target.value))}
                                                                         >
-                                                                            {rooms.data.map(u => (
+                                                                            {rooms.map(u => (
                                                                                 <option value={u.id} key={u.id}>{u.name}</option>
                                                                             ))}
                                                                         </select>
