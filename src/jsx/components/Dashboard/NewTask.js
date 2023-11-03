@@ -4,6 +4,7 @@ import { Tab } from "react-bootstrap";
 import { connect } from 'react-redux';
 import { getTaskByID, updateTaskByID, createTask } from '../../../store/actions/TasksActions';
 import { getUserTypesAction, getUsers } from '../../../store/actions/AuthActions';
+import { getRoomsAction, getRoomsTypesAction } from '../../../store/actions/RoomsActions';
 import { Loader } from '../Loader';
 import { parseDescriptionForConversation, concatDescriptionForConversation } from "../../../helpers";
 
@@ -33,6 +34,10 @@ const TaskfById = ({
     loadingTaskById,
     createTask,
     getTaskTypes,
+    getRoomsAction,
+    getRoomsTypesAction,
+    rooms,
+    roomTypes
 }) => {
     const location = useLocation();
     let navigate = useNavigate();
@@ -48,6 +53,7 @@ const TaskfById = ({
         photo: "",
         status: "Pending",
     })
+
     const [id, setId] = React.useState()
     const [isNew, setIsNew] = React.useState(true)
 
@@ -55,6 +61,7 @@ const TaskfById = ({
 
     const changeFormProp = (prop, value) => {
         setInfoTask({ ...infoTask, [prop]: value })
+        console.log(infoTask, "INFO TASK")
     }
 
     useEffect(() => {
@@ -75,6 +82,8 @@ const TaskfById = ({
     useEffect(() => {
         getTaskTypes()
         getUsers()
+        getRoomsAction()
+        getRoomsTypesAction()
     }, [])
 
     // Active pagginarion
@@ -119,7 +128,9 @@ const TaskfById = ({
     const [status, setStatus] = useState(["Completed", "Pending"])
 
     const [conversation, _description] = parseDescriptionForConversation(infoTask.description)
-
+    React.useEffect(() => {
+        console.log(rooms, "ROOMS")
+    }, [rooms])
     return (
         <>
             <Tab.Container defaultActiveKey="All" >
@@ -129,7 +140,7 @@ const TaskfById = ({
                             <div style={{ overflow: "auto" }} className="card-body p-3">
                                 <div className="table-responsive overflow-x-hidden">
                                     <div className="dataTables_wrapper no-footer">
-                                        {(loadingTaskById) ? (<Loader />) : (
+                                        {(loadingTaskById || !rooms) ? (<Loader />) : (
                                             <div className={"tableContainer"} style={{ width: "100%", alignItems: "center" }} >
                                                 <div className="basic-form">
                                                     <form onSubmit={(e) => e.preventDefault()}>
@@ -183,7 +194,18 @@ const TaskfById = ({
                                                                             ))}
                                                                         </select>
                                                                     </div>
-
+                                                                    <div className=''>
+                                                                        <p>Room</p>
+                                                                        <select
+                                                                            value={infoTask.type}
+                                                                            className="form-control form-control-lg"
+                                                                            onChange={(e) => changeFormProp("type", Number(e.target.value))}
+                                                                        >
+                                                                            {rooms.data.map(u => (
+                                                                                <option value={u.id} key={u.id}>{u.name}</option>
+                                                                            ))}
+                                                                        </select>
+                                                                    </div>
                                                                 </div>
 
                                                             </div>
@@ -234,7 +256,10 @@ const mapStateToProps = (state) => {
         taskById: state.tasksData.taskByID,
         taskTypes: state.authData.userTypes,
         users: state.authData.users,
-        user: state.authData.user
+        user: state.authData.user,
+        rooms: state.roomsData.rooms,
+        roomTypes: state.roomsData.roomsTypes
+
     };
 };
 
@@ -243,7 +268,9 @@ const mapDispatchToProps = {
     getTaskTypes: getUserTypesAction,
     updateTaskByID,
     createTask,
-    getUsers
+    getUsers,
+    getRoomsAction,
+    getRoomsTypesAction
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskfById);

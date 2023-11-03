@@ -7,8 +7,9 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
 import { getEventsAction, deleteEventByID, createEvent, updateEventByID } from "../../../../store/actions/EventsActions";
 import { connect } from 'react-redux';
+import { getRoomsAction } from "../../../../store/actions/RoomsActions";
 
-const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, createEvent, isAdmin, removeEvent }) => {
+const EventCalendar = ({ events, rooms, getEventsAction, updateEventByID, loadingById, createEvent, isAdmin, removeEvent }) => {
 
    const calendarComponentRef = React.useRef();
    const calendarEventsRef = React.useRef({});
@@ -21,6 +22,7 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
       { id: 1, title: "Checkout" },
       { id: 2, title: "CheckIn" },
       { id: 3, title: "Cleaning" },
+      { id: 3, title: "Mantainance" }
    ])
 
 
@@ -63,6 +65,7 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
       updateEvent.asigned_to = 1;
       updateEvent.type = updateEvent.title;
       updateEvent.defId = def.defId;
+      updateEvent.defId = def.room;
 
       setCreationModalData({ ...updateEvent })
    };
@@ -130,7 +133,7 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
 
    const Modal = () => {
       if (!modalData) return <></>
-      const { title, start, id, task, task_to } = modalData
+      const { title, start, id, task, task_to, room } = modalData
       return (
          <div className="ModalWrapper">
             <div className="ModalMask"></div>
@@ -173,7 +176,7 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
          setData({ ...creationModalData, [prop]: value })
       }
 
-      const { title, date, asigned_to, type } = _data
+      const { title, date, asigned_to, type, room } = _data
       return (
          <div className="ModalWrapper">
             <div className="ModalMask"></div>
@@ -187,6 +190,17 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
                            <td className="modalTd" >
                               <input type="text" value={title} onChange={(e) => dataChange("title", e.target.value)} />
                            </td>
+                        </tr>
+                        <tr >
+                           <td className="modalTd" >Room</td>
+                           <select
+                              onChange={(e) => dataChange("room", e.target.value)}
+                              className="modalSelector"
+                           >
+                              {rooms.map(u => (
+                                 <option value={u.id} key={u.id}>{u.name}</option>
+                              ))}
+                           </select>
                         </tr>
                         <tr >
                            <td className="modalTd" >Type</td>
@@ -206,6 +220,7 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
 
                      <button type="button" className="modalRemove" onClick={() => {
                         onSubmit(_data);
+                        console.log(_data,"MODAL _DATA")
                         deleteEventFromCalendar(creationModalData);
                      }}>Save</button>
 
@@ -326,8 +341,8 @@ const mapStateToProps = (rootState) => {
    return {
       events: rootState.eventsData.events,
       loadingById: rootState.eventsData.loadingById,
-      isAdmin: rootState.authData.user && rootState.authData.user.user_type_id == 1
-
+      isAdmin: rootState.authData.user && rootState.authData.user.user_type_id == 1,
+      rooms: rootState.roomsData.rooms.data
    }
 }
 

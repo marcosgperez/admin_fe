@@ -86410,7 +86410,7 @@ table.dataTable.display tbody td {
 }
 
 .booking:hover .booking-status span {
-  background-color: #c96161;
+  background-color: #7aa577;
 }
 
 .event-calender .table-condensed thead tr:first-child {
@@ -93035,6 +93035,17 @@ button.disabled {
   .loginText {
     display: none;
   }
+}
+.modalSelector{
+  background-color: red;
+  width: 100%;
+  border:none;
+  outline: none;
+  margin-top: 6px;
+  border-radius: 8px;
+  -moz-appearance:none; /* Firefox */
+  -webkit-appearance:none; /* Safari and Chrome */
+  appearance:none;
 }
 
 /*# sourceMappingURL=style.css.map */
