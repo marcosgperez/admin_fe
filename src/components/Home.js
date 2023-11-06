@@ -18,7 +18,7 @@ const Home = ({ getRoomsAction, roomsData, getRoomCountAction, isAdmin }) => {
   const changeFilter = (newFilter) => {
     setFilter(newFilter)
   }
-
+console.log(roomsData,"rooms from home")
   return (
     <>
       <div className="row">

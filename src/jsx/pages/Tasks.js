@@ -6,9 +6,11 @@ import { connect } from "react-redux";
 
 const Tasks = ({ isAdmin }) => {
     const [filter, setFilter] = React.useState("All")
+   
     const changeFilter = (newFilter) => {
         setFilter(newFilter)
     }
+  
     return (
         <div className="row">
             {isAdmin && (
@@ -19,6 +21,7 @@ const Tasks = ({ isAdmin }) => {
                 </div>
             )}
             <div className="col-xl-12" >
+              
                 <TasksListFilter handleClick={changeFilter}></TasksListFilter>
                 <TasksList filter={filter}></TasksList>
             </div>

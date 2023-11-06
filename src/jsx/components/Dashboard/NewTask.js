@@ -23,7 +23,7 @@ const buildTaskData = (taskFromApi) => {
     }
 }
 
-const TaskfById = ({
+const TaskById = ({
     user,
     getTaskByID,
     getUsers,
@@ -46,13 +46,17 @@ const TaskfById = ({
         id: "",
         name: "",
         type: 1,
-        asigned_room: 1,
+        asigned_room: undefined,
         asigned_to: 1,
         created_at: new Date().toLocaleDateString(),
         description: "",
         photo: "",
         status: "Pending",
     })
+
+    React.useEffect(() => {
+        console.log(infoTask, "INFOTASK")
+    }, [infoTask])
 
     const [id, setId] = React.useState()
     const [isNew, setIsNew] = React.useState(true)
@@ -61,7 +65,6 @@ const TaskfById = ({
 
     const changeFormProp = (prop, value) => {
         setInfoTask({ ...infoTask, [prop]: value })
-        console.log(infoTask, "INFO TASK")
     }
 
     useEffect(() => {
@@ -131,6 +134,10 @@ const TaskfById = ({
     React.useEffect(() => {
         console.log(rooms, "ROOMS")
     }, [rooms])
+    const test = (e) => {
+        changeFormProp("type", Number(e.target.value))
+        console.log(e.target.value)
+    }
     return (
         <>
             <Tab.Container defaultActiveKey="All" >
@@ -197,11 +204,12 @@ const TaskfById = ({
                                                                     <div className=''>
                                                                         <p>Room</p>
                                                                         <select
-                                                                            value={infoTask.type}
+                                                                            value={infoTask.asigned_room !== undefined ? infoTask.asigned_room : ""}
                                                                             className="form-control form-control-lg"
-                                                                            onChange={(e) => changeFormProp("type", Number(e.target.value))}
+                                                                            onChange={(e) => changeFormProp("asigned_room", Number(e.target.value)) && console.log(e.target.value, "ROOM ID")}
+                                                                        // onChange={(e) => }
                                                                         >
-                                                                            {rooms.data.map(u => (
+                                                                            {rooms.map(u => (
                                                                                 <option value={u.id} key={u.id}>{u.name}</option>
                                                                             ))}
                                                                         </select>
@@ -257,7 +265,7 @@ const mapStateToProps = (state) => {
         taskTypes: state.authData.userTypes,
         users: state.authData.users,
         user: state.authData.user,
-        rooms: state.roomsData.rooms,
+        rooms: state.roomsData.rooms.data,
         roomTypes: state.roomsData.roomsTypes
 
     };
@@ -273,4 +281,4 @@ const mapDispatchToProps = {
     getRoomsTypesAction
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TaskfById);
+export default connect(mapStateToProps, mapDispatchToProps)(TaskById);

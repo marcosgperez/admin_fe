@@ -27,7 +27,6 @@ const buildTaskData = (taskFromApi) => {
 const TaskList = ({ isAdmin, user, filter, tasks, getTasks, getTaskTypes, getUsers, users, taskTypes, loadingTasks, loadingTaskTypes }) => {
 
 	const [selectBtn, setSelectBtn] = useState("Newest");
-
 	const [data, setData] = useState(
 		document.querySelectorAll("#concierge_wrapper tbody tr")
 	);
@@ -93,10 +92,10 @@ const TaskList = ({ isAdmin, user, filter, tasks, getTasks, getTaskTypes, getUse
 
 	React.useEffect(() => {
 		if (filter) {
-			if(filter == "All" && isAdmin) getTasks()
+			if (filter == "All" && isAdmin) getTasks()
 			else {
-				if(isAdmin) getTasks(filter);
-				else if(filter != "All") getTasks(filter, user.id);
+				if (isAdmin) getTasks(filter);
+				else if (filter != "All") getTasks(filter, user.id);
 			}
 		}
 	}, [filter])
@@ -130,11 +129,10 @@ const TaskList = ({ isAdmin, user, filter, tasks, getTasks, getTaskTypes, getUse
 													{!loadingTasks && !loadingTaskTypes && tasks.length ? (
 														<div className={"tableBody"} style={{ padding: "10px 0px" }} >
 															{tasks.map(buildTaskData).map((t, i) => {
+
 																return (
 																	<Link to={`/task/${t.id}`} key={t.id} >
 																		<div className={"tableRow"} style={{ width: "100%", display: "flex", justifyContent: "space-between", padding: "10px 0px", textSelect: "none" }}>
-																			{/* <div style={{ width: "0.00005%", display: "flex", alignItems: "center", justifyContent: "end", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
-																			</div> */}
 																			<div style={{ width: "20%", display: "flex", padding: "0px 0px 0px 20px", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
 																				<p style={{ marginBottom: "0px" }}>
 																					{t.name}
