@@ -18,7 +18,7 @@ const Home = ({ getRoomsAction, roomsData, getRoomCountAction, isAdmin }) => {
   const changeFilter = (newFilter) => {
     setFilter(newFilter)
   }
-console.log(roomsData,"rooms from home")
+  console.log(roomsData, "rooms from home")
   return (
     <>
       <div className="row">
@@ -71,8 +71,8 @@ console.log(roomsData,"rooms from home")
                       </svg>
                     </span>
                     <div className="ms-4">
-                      <h2 className="mb-0 font-w600">{roomsData?.unavailable ? roomsData?.unavailable : "..."}</h2>
-                      <p className="mb-0 text-nowrap ">Check In</p>
+                      <h2 className="mb-0 font-w600">{roomsData?.available ? roomsData?.available : "..."}</h2>
+                      <p className="mb-0 text-nowrap ">Available</p>
                     </div>
                   </div>
                 </div>
@@ -100,7 +100,7 @@ console.log(roomsData,"rooms from home")
                     </span>
                     <div className="ms-4">
                       <h2 className="mb-0 font-w600">{roomsData.checkIn ? roomsData.checkIn : "..."}</h2>
-                      <p className="mb-0">Check Out</p>
+                      <p className="mb-0">Check In</p>
                     </div>
                   </div>
                 </div>
@@ -130,7 +130,7 @@ console.log(roomsData,"rooms from home")
                     </span>
                     <div className="ms-4">
                       <h2 className="mb-0 font-w600">{roomsData.checkOut ? roomsData.checkOut : "..."}</h2>
-                      <p className="mb-0">Available</p>
+                      <p className="mb-0">Check Out</p>
                     </div>
                   </div>
                 </div>
@@ -138,8 +138,8 @@ console.log(roomsData,"rooms from home")
             </div>
           </div>
           <div className="row justify-content-end">
-            <div  className={isAdmin ? "buttonContainer" : "d-none"} >
-              <Link style={{backgroundColor:"#7aa577"}} to={"/task/new-task"} className='w-max-content'>
+            <div className={isAdmin ? "buttonContainer" : "d-none"} >
+              <Link style={{ backgroundColor: "#7aa577" }} to={"/task/new-task"} className='w-max-content'>
                 + New Task
               </Link>
             </div>

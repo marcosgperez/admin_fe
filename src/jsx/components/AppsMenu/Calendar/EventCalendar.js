@@ -342,7 +342,7 @@ const mapStateToProps = (rootState) => {
       events: rootState.eventsData.events,
       loadingById: rootState.eventsData.loadingById,
       isAdmin: rootState.authData.user && rootState.authData.user.user_type_id == 1,
-      rooms: rootState.roomsData.rooms.data
+      rooms: rootState.roomsData.rooms
    }
 }
 

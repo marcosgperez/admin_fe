@@ -46,7 +46,7 @@ const TaskById = ({
         id: "",
         name: "",
         type: 1,
-        asigned_room: undefined,
+        asigned_room: 1,
         asigned_to: 1,
         created_at: new Date().toLocaleDateString(),
         description: "",
@@ -265,7 +265,7 @@ const mapStateToProps = (state) => {
         taskTypes: state.authData.userTypes,
         users: state.authData.users,
         user: state.authData.user,
-        rooms: state.roomsData.rooms.data,
+        rooms: state.roomsData.rooms,
         roomTypes: state.roomsData.roomsTypes
 
     };
