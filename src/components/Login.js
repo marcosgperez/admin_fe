@@ -24,6 +24,7 @@ function Login({
   };
   function onLogin(e) {
     e.preventDefault();
+    e.stopPropagation();
     let error = false;
     const errorObj = { ...errorsObj };
     if (data.email === "") {
