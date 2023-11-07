@@ -53,7 +53,7 @@ const TaskById = ({
 }) => {
     const location = useLocation();
     let navigate = useNavigate();
-
+    const [_rooms, set_Rooms] = useState([{ id: 4, name: "test" }])
     const [infoTask, setInfoTask] = React.useState({
         id: "",
         name: "",
@@ -100,8 +100,10 @@ const TaskById = ({
         getRoomsAction()
         getRoomsTypesAction()
     }, [])
+    useEffect(() => {
+        set_Rooms(rooms)
+    }, [rooms])
 
-    // Active pagginarion
 
     React.useEffect(() => {
         if (taskById && !loadingTaskById && !isNew) setInfoTask(buildTaskData({ ...taskById }))
@@ -150,6 +152,7 @@ const TaskById = ({
         changeFormProp("type", Number(e.target.value))
         console.log(e.target.value)
     }
+
     return (
         <>
             <Tab.Container defaultActiveKey="All" >
@@ -214,22 +217,24 @@ const TaskById = ({
                                                                         </select>
                                                                     </div>
                                                                     <div className=''>
+
                                                                         <p>Room</p>
-                                                                        <select
+                                                                        <ComboSelector onChange={(e) =>changeFormProp("asigned_room", e)} defaultValue={infoTask.asigned_room?infoTask.asigned_room : ""} items={_rooms} />
+                                                                        {/* <select
                                                                             value={infoTask.asigned_room !== undefined ? infoTask.asigned_room : ""}
                                                                             className="form-control form-control-lg"
-                                                                            onChange={(e) => changeFormProp("asigned_room", Number(e.target.value)) && console.log(e.target.value, "ROOM ID")}
-                                                                        // onChange={(e) => }
+                                                                            onChange={console.log(e.target.value, "ROOM ID")}
+                                                                        onChange={(e) => }
                                                                         >
                                                                             {rooms.map(u => (
                                                                                 <option value={u.id} key={u.id}>{u.name}</option>
                                                                             ))}
-                                                                        </select>
+                                                                        </select> */}
                                                                     </div>
-                                                                    <div className=''>
+                                                                    {/* <div className=''>
                                                                         <p>ALgo COmboSelector</p>
-                                                                        <ComboSelector onChange={console.log} items={ITEMS} />
-                                                                    </div>
+                                                                        <ComboSelector onChange={console.log} items={_rooms} />
+                                                                    </div> */}
                                                                 </div>
 
                                                             </div>
@@ -301,27 +306,31 @@ export default connect(mapStateToProps, mapDispatchToProps)(TaskById);
 
 
 export const ComboSelector = ({ onChange, items, defaultValue }) => {
+    console.log(items, "ITEMS FROM COMBO")
     const [active, setActive] = React.useState(false)
     const [activeItem, setActiveItem] = React.useState(defaultValue)
     const [filter, setFilter] = React.useState(undefined)
 
     const grabItemSelected = () => {
+        console.log(items, "from grabselected")
         return items.filter(i => i.id == activeItem)[0].name
     }
 
     const haveDefaultValue = !(activeItem == undefined)
 
     const filterQuery = (item) => {
-        if(!filter) return true
+        console.log(items, "items form query")
+        if (!filter) return true
         else return item.name.toLowerCase().includes(filter.toLowerCase())
     }
 
     React.useEffect(() => {
         setFilter(undefined)
-    },[active])
+    }, [active])
+
 
     return (
-        <div className={`ComboSelector ${active ? "active": ""}`}>
+        <div className={`ComboSelector ${active ? "active" : ""}`}>
             <div className='value' onClick={() => setActive(true)}>
                 {active ? (
                     <input type='text' defaultValue={haveDefaultValue ? grabItemSelected() : ""} onChange={(e) => setFilter(e.target.value)} />
@@ -332,6 +341,7 @@ export const ComboSelector = ({ onChange, items, defaultValue }) => {
             <div className='options'>
                 {items.filter(filterQuery).map(i => (
                     <div className='option' onClick={() => {
+                        console.log("CLICK")
                         onChange(i.id)
                         setActiveItem(i.id)
                         setActive(false)
@@ -342,4 +352,5 @@ export const ComboSelector = ({ onChange, items, defaultValue }) => {
             </div>
         </div>
     )
+
 }
