@@ -8,6 +8,18 @@ import { getRoomsAction, getRoomsTypesAction } from '../../../store/actions/Room
 import { Loader } from '../Loader';
 import { parseDescriptionForConversation, concatDescriptionForConversation } from "../../../helpers";
 
+
+const ITEMS = [
+    { id: 0, name: "Item 1" },
+    { id: 1, name: "Item 2" },
+    { id: 2, name: "algo 3" },
+    { id: 3, name: "algo 4" },
+    { id: 4, name: "Item 5" },
+    { id: 5, name: "Item 6" },
+    { id: 6, name: "Item 7" },
+    { id: 7, name: "Item 8" }
+]
+
 const buildTaskData = (taskFromApi) => {
     return {
         id: taskFromApi.id,
@@ -214,6 +226,10 @@ const TaskById = ({
                                                                             ))}
                                                                         </select>
                                                                     </div>
+                                                                    <div className=''>
+                                                                        <p>ALgo COmboSelector</p>
+                                                                        <ComboSelector onChange={console.log} items={ITEMS} />
+                                                                    </div>
                                                                 </div>
 
                                                             </div>
@@ -282,3 +298,48 @@ const mapDispatchToProps = {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskById);
+
+
+export const ComboSelector = ({ onChange, items, defaultValue }) => {
+    const [active, setActive] = React.useState(false)
+    const [activeItem, setActiveItem] = React.useState(defaultValue)
+    const [filter, setFilter] = React.useState(undefined)
+
+    const grabItemSelected = () => {
+        return items.filter(i => i.id == activeItem)[0].name
+    }
+
+    const haveDefaultValue = !(activeItem == undefined)
+
+    const filterQuery = (item) => {
+        if(!filter) return true
+        else return item.name.toLowerCase().includes(filter.toLowerCase())
+    }
+
+    React.useEffect(() => {
+        setFilter(undefined)
+    },[active])
+
+    return (
+        <div className={`ComboSelector ${active ? "active": ""}`}>
+            <div className='value' onClick={() => setActive(true)}>
+                {active ? (
+                    <input type='text' defaultValue={haveDefaultValue ? grabItemSelected() : ""} onChange={(e) => setFilter(e.target.value)} />
+                ) : (
+                    haveDefaultValue ? grabItemSelected() : "Please select an item"
+                )}
+            </div>
+            <div className='options'>
+                {items.filter(filterQuery).map(i => (
+                    <div className='option' onClick={() => {
+                        onChange(i.id)
+                        setActiveItem(i.id)
+                        setActive(false)
+                    }}>
+                        {i.name}
+                    </div>
+                ))}
+            </div>
+        </div>
+    )
+}
