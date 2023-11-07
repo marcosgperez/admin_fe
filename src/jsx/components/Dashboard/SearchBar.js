@@ -9,21 +9,17 @@ const SeacrhBar = ({ list, show, defaultValue, onChange }) => {
     }, [_list])
 
     const handleChange = (e) => {
-        if (!e.target.value) set_List(list) && setOptions(list);
+        if (!e.target.value) onChange(_list);
 
-        const filteredList = list.filter(
+        const filteredList = _list.filter(
             item =>
                 item.name.toLowerCase().includes(e.target.value.toLowerCase())
         )
-        onChange(filteredList)
-        // if (e.target.value) {
-        //     const uniqueOptions = filteredList;
-        //     setOptions(uniqueOptions);
-        // } else {
-        //     const uniqueOptions = list
-        //     setOptions(uniqueOptions);
-        //     console.log(options, "OPTIONS")
-        // }
+        if (filteredList.length) {
+            onChange(filteredList)
+        }else {
+            onChange(_list)
+        }
     }
 
     return (

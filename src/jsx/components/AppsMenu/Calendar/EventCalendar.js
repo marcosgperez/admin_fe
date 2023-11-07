@@ -250,7 +250,7 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
                               <select
                                  value={room !== undefined ? room : ""}
                                  className="form-control form-control-lg"
-                                 onChange={(e) => dataChange("asigned_room", Number(e.target.value)) && console.log(e.target.value, "ROOM ID")}
+                                 onChange={(e) => dataChange("asigned_room", Number(e.target.value))}
 
                               >
                                  {rooms.map(u => (
