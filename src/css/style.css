@@ -93047,5 +93047,7 @@ button.disabled {
   -webkit-appearance:none; /* Safari and Chrome */
   appearance:none;
 }
-
+.searchBar{
+  /* background-color: rebeccapurple; */
+}
 /*# sourceMappingURL=style.css.map */

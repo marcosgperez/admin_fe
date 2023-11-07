@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, json } from 'react-router-dom';
 import { Dropdown, Tab, Nav } from "react-bootstrap";
 import { capitalize } from '../../../helpers';
 import { connect } from 'react-redux';
@@ -7,6 +7,9 @@ import { getUserTypesAction, getUsers } from '../../../store/actions/AuthActions
 import { getTasks } from '../../../store/actions/TasksActions';
 import { LabelBtns } from '../../../components/LabelBtns';
 import { Loader } from '../Loader';
+import SeacrhBar from './SearchBar';
+
+
 
 const buildTaskData = (taskFromApi) => {
 	return {
@@ -25,7 +28,8 @@ const buildTaskData = (taskFromApi) => {
 }
 
 const TaskList = ({ isAdmin, user, filter, tasks, getTasks, getTaskTypes, getUsers, users, taskTypes, loadingTasks, loadingTaskTypes }) => {
-
+	const [taskList, setTaskList] = useState([])
+	const [searchResult, setSearchResult] = useState([])
 	const [selectBtn, setSelectBtn] = useState("Newest");
 	const [data, setData] = useState(
 		document.querySelectorAll("#concierge_wrapper tbody tr")
@@ -69,10 +73,13 @@ const TaskList = ({ isAdmin, user, filter, tasks, getTasks, getTaskTypes, getUse
 
 	// GET USERS & USER-BY-ID
 	React.useEffect(() => {
-
-		getTaskTypes()
+		getTasks()
 		getUsers();
 	}, [])
+	React.useEffect(() => {
+		setTaskList(tasks)
+		console.log(taskList, "TASKLIST")
+	}, [tasks])
 
 	const buildTypeNameFromId = (id) => {
 		if (taskTypes.length == 0) return "-";
@@ -126,9 +133,10 @@ const TaskList = ({ isAdmin, user, filter, tasks, getTasks, getTaskTypes, getUse
 														<div style={{ width: "15%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Room</div>
 														<div style={{ width: "20%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Status</div>
 													</div>
-													{!loadingTasks && !loadingTaskTypes && tasks.length ? (
+													{!loadingTasks && !loadingTaskTypes && taskList.length ? (
 														<div className={"tableBody"} style={{ padding: "10px 0px" }} >
-															{tasks.map(buildTaskData).map((t, i) => {
+															<SeacrhBar onChange={setTaskList} list={tasks} show={true} defaultValue={"Search Task..."} ></SeacrhBar>
+															{taskList.map(buildTaskData).map((t, i) => {
 
 																return (
 																	<Link to={`/task/${t.id}`} key={t.id} >
