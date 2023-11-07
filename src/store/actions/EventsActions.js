@@ -50,6 +50,7 @@ export const getEventByID = () => (dispatch) => {
       type: EventsActionTypes.GET_EVENT_BY_ID_FETCH,
       payload: res.data.events,
     });
+    console.log("RES",res)
   }).catch(e => {
     dispatch({
       type: EventsActionTypes.GET_EVENT_BY_ID_FETCH_ERROR,

@@ -5,24 +5,35 @@ import { Link } from "react-router-dom";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
+import { getRoomsAction } from "../../../../store/actions/RoomsActions";
 import { getEventsAction, deleteEventByID, createEvent, updateEventByID } from "../../../../store/actions/EventsActions";
 import { connect } from 'react-redux';
-import { getRoomsAction } from "../../../../store/actions/RoomsActions";
+export const dataEvent = {
+   title: "",
+   start: "",
+   id: 1,
+   task: "string",
+   task_to: 1,
+   room: 1,
+   description: ""
 
-const EventCalendar = ({ events, rooms, getEventsAction, updateEventByID, loadingById, createEvent, isAdmin, removeEvent }) => {
+}
+
+const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, createEvent, isAdmin, removeEvent, rooms, getRoomsAction }) => {
 
    const calendarComponentRef = React.useRef();
    const calendarEventsRef = React.useRef({});
    const [calendarEvents, setCalendarEvents] = React.useState(events)
    const [modalData, setModalData] = React.useState();
-   const [creationModalData, setCreationModalData] = React.useState();
+   const [creationModalData, setCreationModalData] = React.useState(dataEvent);
 
 
    const [_events, setEvents] = React.useState([
       { id: 1, title: "Checkout" },
       { id: 2, title: "CheckIn" },
       { id: 3, title: "Cleaning" },
-      { id: 3, title: "Mantainance" }
+      { id: 4, title: "Mantainance" },
+
    ])
 
 
@@ -42,12 +53,15 @@ const EventCalendar = ({ events, rooms, getEventsAction, updateEventByID, loadin
       setCalendarEvents([...events].map(parseEventsForComponent))
    }, [events])
 
+   console.log(calendarEvents, "CALENDAREVENTS")
 
    const eventClick = (eventClick) => {
+      console.log("EVENTCLICK", eventClick)
       setModalData({
          id: eventClick.event.id,
          title: eventClick.event.title,
          start: eventClick.event.start,
+         description: eventClick.event.description
       })
 
    };
@@ -65,7 +79,9 @@ const EventCalendar = ({ events, rooms, getEventsAction, updateEventByID, loadin
       updateEvent.asigned_to = 1;
       updateEvent.type = updateEvent.title;
       updateEvent.defId = def.defId;
-      updateEvent.defId = def.room;
+      updateEvent.description = def.description;
+      updateEvent.asigned_to = def.asigned_to;
+
 
       setCreationModalData({ ...updateEvent })
    };
@@ -99,9 +115,12 @@ const EventCalendar = ({ events, rooms, getEventsAction, updateEventByID, loadin
    };
 
    const submitNewEvent = (data) => {
+      console.log("DATA", data)
       if (!data) return
       else {
-         data.name = data.title
+         data.name = data.title;
+         data.description = data.description
+         data.asigned_to = data.asigned_to
          createEvent(data)
          setCreationModalData()
       }
@@ -133,7 +152,8 @@ const EventCalendar = ({ events, rooms, getEventsAction, updateEventByID, loadin
 
    const Modal = () => {
       if (!modalData) return <></>
-      const { title, start, id, task, task_to, room } = modalData
+      const { title, start, id, task, task_to, room, description, asigned_to } = modalData
+      console.log(modalData, "MODALDATA")
       return (
          <div className="ModalWrapper">
             <div className="ModalMask"></div>
@@ -152,6 +172,31 @@ const EventCalendar = ({ events, rooms, getEventsAction, updateEventByID, loadin
                            <td className="modalTd" >Start Time</td>
                            <td className="modalTd" ><strong>{start.toDateString()}</strong></td>
                         </tr>
+                        <tr >
+                           <td className="modalTd" >Asigned To</td>
+                           <td className="modalTd" ><strong>{asigned_to}</strong></td>
+                        </tr>
+                        <tr>
+                           <td>
+                              <p>Room</p>
+                           </td>
+                           <select
+                              value={room !== undefined ? room : ""}
+                              className="form-control form-control-lg"
+                           // onChange={(e) => dataChange("asigned_room", Number(e.target.value)) && console.log(e.target.value, "ROOM ID")}
+                           >
+                              {rooms.map(u => (
+                                 <option value={u.id} key={u.id}>{u.name}</option>
+                              ))}
+                           </select>
+                        </tr>
+                        <tr>
+                           <td>
+                              <p>
+                                 {description ? description : "NO VINO"}
+                              </p>
+                           </td>
+                        </tr>
                      </tbody>
                   </table>
                   <div className="ModalActions">
@@ -165,7 +210,7 @@ const EventCalendar = ({ events, rooms, getEventsAction, updateEventByID, loadin
                   </div>
                </div>
             </div>
-         </div>
+         </div >
       )
    }
 
@@ -192,23 +237,31 @@ const EventCalendar = ({ events, rooms, getEventsAction, updateEventByID, loadin
                            </td>
                         </tr>
                         <tr >
-                           <td className="modalTd" >Room</td>
-                           <select
-                              onChange={(e) => dataChange("room", e.target.value)}
-                              className="modalSelector"
-                           >
-                              {rooms.map(u => (
-                                 <option value={u.id} key={u.id}>{u.name}</option>
-                              ))}
-                           </select>
-                        </tr>
-                        <tr >
                            <td className="modalTd" >Type</td>
                            <td className="modalTd" ><strong>{type}</strong></td>
                         </tr>
                         <tr >
                            <td className="modalTd" >Start Time</td>
                            <td className="modalTd" ><strong>{date}</strong></td>
+                        </tr>
+                        <tr>
+                           <div className=''>
+                              <p>Room</p>
+                              <select
+                                 value={room !== undefined ? room : ""}
+                                 className="form-control form-control-lg"
+                                 onChange={(e) => dataChange("asigned_room", Number(e.target.value)) && console.log(e.target.value, "ROOM ID")}
+
+                              >
+                                 {rooms.map(u => (
+                                    <option value={u.id} key={u.id}>{u.name}</option>
+                                 ))}
+                              </select>
+                           </div>
+                        </tr>
+                        <tr >
+                           <td className="modalTd" >Description</td>
+                           <td className="modalTd" ><textarea onChange={(e) => dataChange("description", e.target.value)}></textarea></td>
                         </tr>
                      </tbody>
                   </table>
@@ -220,14 +273,13 @@ const EventCalendar = ({ events, rooms, getEventsAction, updateEventByID, loadin
 
                      <button type="button" className="modalRemove" onClick={() => {
                         onSubmit(_data);
-                        console.log(_data,"MODAL _DATA")
                         deleteEventFromCalendar(creationModalData);
                      }}>Save</button>
 
                   </div>
                </div>
             </div>
-         </div>
+         </div >
       )
    }
    if (isAdmin) {
@@ -239,39 +291,28 @@ const EventCalendar = ({ events, rooms, getEventsAction, updateEventByID, loadin
             }
             <div className="row" style={{ justifyContent: "end" }}>
                <div className="col-xl-12 col-sm-12" >
-                  <Row style={{ height: "200px" }} className="justify-content-end">
-                     <div className="col-xl-12" >
-                        <Card >
-                           <div className="card-header border-0 pb-0">
-                              <h4 className="text-black fs-20 mb-0">Events</h4>
-                           </div>
-                           <Card.Body className="eventsBody" >
-                              <div id="external-events">
-                                 {_events.map((event) => (
-                                    <div
-                                       draggable={true}
-                                       ref={(ref) => createRef(event, ref)}
-                                       data-id={event.id}
-                                       style={{
-                                          width: "fit-content", height: "50px", display: " flex",
-                                          justifyContent: " center",
-                                          alignItems: " center"
-                                       }}
-                                       className="fc-event mt-0 ms-0 mb-2 btn btn-block btn-primary eventButton"
-                                       title={event.title}
-                                       data={event.title}
-                                       key={event.title}
-                                    >
-                                       {event.title}
-                                    </div>
-                                 ))}
-                              </div>
-                           </Card.Body>
-                        </Card>
-                     </div>
-                  </Row>
                   <Card>
                      <Card.Body>
+                        <div id="external-events">
+                           {_events.map((event) => (
+                              <div
+                                 draggable={true}
+                                 ref={(ref) => createRef(event, ref)}
+                                 data-id={event.id}
+                                 style={{
+                                    width: "fit-content", height: "50px", display: " flex",
+                                    justifyContent: " center",
+                                    alignItems: " center"
+                                 }}
+                                 className="fc-event mt-0 ms-0 mb-2 btn btn-block btn-primary eventButton"
+                                 title={event.title}
+                                 data={event.title}
+                                 key={event.title}
+                              >
+                                 {event.title}
+                              </div>
+                           ))}
+                        </div>
                         <div className="demo-app-calendar" id="mycalendartest">
                            <FullCalendar
                               defaultView="dayGridMonth"
@@ -350,7 +391,8 @@ const mapDispatchToProps = {
    getEventsAction,
    createEvent: createEvent,
    updateEventByID,
-   removeEvent: deleteEventByID
+   removeEvent: deleteEventByID,
+   getRoomsAction
 
 }
 export default connect(mapStateToProps, mapDispatchToProps)(EventCalendar);
