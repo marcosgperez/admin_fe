@@ -22,6 +22,7 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
       { id: 1, title: "Checkout" },
       { id: 2, title: "CheckIn" },
       { id: 3, title: "Cleaning" },
+      { id: 4, title: "maintenance" }
    ])
 
 
@@ -54,6 +55,7 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
    };
 
    const dropEvent = (event) => {
+      console.log(event, "EVENT")
       const def = event.event._def
       const instance = event.event._instance
 
@@ -131,7 +133,7 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
       });
       return event
    }
-
+   console.log(rooms, "ROOMS")
    const Modal = () => {
       if (!modalData) return <></>
       const { title, start, id, task, task_to, asigned_room } = modalData
@@ -207,22 +209,25 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
                         <tr >
                            <td className="modalTd">Room</td>
                            <td className="">
-                              <select onChange={(e) => dataChange("title", e.target.value)}  >
+                              <select
+                                 onChange={(e) => console.log(e.target.value, "CHANGED ROOM")}
+                              >
                                  <option value="">Select a room</option>
                                  {rooms.map((r) => (
-                                    <option key={r.id} value={r.name}>
+                                    <option onClick={() => dataChange("asigned_room", r.id)} key={r.id} value={r.name} >
                                        {r.name}
                                     </option>
+                                    // console.log(r,"room From map")
                                  ))}
                               </select>
                            </td>
                         </tr>
                         <tr >
                            <td className="modalTd">
-                              Room
+                              Description
                            </td>
-                           <textarea></textarea>
                         </tr>
+                        <textarea></textarea>
                      </tbody>
                   </table>
                   <div className="ModalActions">
