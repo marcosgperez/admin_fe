@@ -135,9 +135,7 @@ const TaskList = ({ isAdmin, user, filter, tasks, getTasks, getTaskTypes, getUse
 													</div>
 													{!loadingTasks && !loadingTaskTypes && taskList.length ? (
 														<div className={"tableBody"} style={{ padding: "10px 0px" }} >
-															<SeacrhBar onChange={setTaskList} list={tasks} show={true} defaultValue={"Search Task..."} ></SeacrhBar>
 															{taskList.map(buildTaskData).map((t, i) => {
-
 																return (
 																	<Link to={`/task/${t.id}`} key={t.id} >
 																		<div className={"tableRow"} style={{ width: "100%", display: "flex", justifyContent: "space-between", padding: "10px 0px", textSelect: "none" }}>

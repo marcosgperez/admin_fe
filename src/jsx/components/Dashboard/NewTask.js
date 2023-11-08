@@ -227,8 +227,8 @@ const TaskById = ({
                                                                         {/* <select
                                                                             value={infoTask.asigned_room !== undefined ? infoTask.asigned_room : ""}
                                                                             className="form-control form-control-lg"
-                                                                            onChange={console.log(e.target.value, "ROOM ID")}
-                                                                        onChange={(e) => }
+                                                                            // onChange={console.log(e.target.value, "ROOM ID")}
+                                                                            onChange={(e) => changeFormProp("asigned_room", e.target.value)}
                                                                         >
                                                                             {rooms.map(u => (
                                                                                 <option value={u.id} key={u.id}>{u.name}</option>
@@ -333,13 +333,12 @@ export const ComboSelector = ({ onChange, items, defaultValue }) => {
         else return item.name.toLowerCase().includes(filter.toLowerCase())
     }
 
-    React.useEffect(() => {
-        setFilter(undefined)
-    }, [active])
+
 
 
     return (
         <div className={`ComboSelector ${active ? "active" : ""}`}>
+            {/* issue aca */}
             <div className='value' onClick={() => setActive(true)}>
                 {active ? (
                     <input className='testing' type='text' defaultValue={haveDefaultValue ? grabItemSelected() : ""} onChange={(e) => setFilter(e.target.value)} />
@@ -347,6 +346,8 @@ export const ComboSelector = ({ onChange, items, defaultValue }) => {
                     haveDefaultValue ? grabItemSelected() : "Please select an item"
                 )}
             </div>
+            {/* issue aca */}
+
             <div className='options'>
                 {items.filter(filterQuery).map(i => (
                     <div className='option' onClick={() => {
