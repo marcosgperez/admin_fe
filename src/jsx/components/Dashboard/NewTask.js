@@ -21,7 +21,6 @@ const ITEMS = [
 ]
 
 const buildTaskData = (taskFromApi) => {
-    console.log(taskFromApi, "LALALALA")
     return {
         id: taskFromApi.id,
         name: taskFromApi.name,
@@ -55,7 +54,6 @@ const TaskById = ({
     const location = useLocation();
     let navigate = useNavigate();
 
-    const [_rooms, set_Rooms] = useState([{ id: 4, name: "test" }])
     const [infoTask, setInfoTask] = React.useState({
         id: "",
         name: "",
@@ -81,6 +79,7 @@ const TaskById = ({
     const sendForm = () => {
         setIsUpdating(true)
         const newInfoTask = { ...infoTask }
+        console.log(newInfoTask.asigned_room, "ACA ESTA EL ASIGNED ROOM ENVIADO EN EL FORM")
         delete newInfoTask.created_at;
         newInfoTask.type = String(newInfoTask.type)
         newInfoTask.is_completed = newInfoTask.status === "Completed" ? 1 : 0;
@@ -107,7 +106,6 @@ const TaskById = ({
     }
     const [conversation, _description] = parseDescriptionForConversation(infoTask.description)
 
-
     React.useEffect(() => {
         const splitedPathname = location.pathname.split("/")
         const _id = splitedPathname[splitedPathname.length - 1];
@@ -116,11 +114,11 @@ const TaskById = ({
             setIsNew(false)
         }
         else setIsNew(true)
-
     }, [location])
 
     React.useEffect(() => {
         if (id) getTaskByID(id)
+        console.log(getTaskByID(id), "get task by id") 
     }, [id])
 
     React.useEffect(() => {
@@ -128,30 +126,21 @@ const TaskById = ({
         getUsers()
         getRoomsAction()
         getRoomsTypesAction()
-        set_Rooms(rooms)
     }, [])
 
     React.useEffect(() => {
-        set_Rooms(rooms)
-        console.log("SETEAMOS LOS ROOMS EN USE STATE", _rooms)
-    }, [rooms])
-
-
-    // React.useEffect(() => {
-    //     if (taskById && !loadingTaskById && !isNew) setInfoTask(buildTaskData({ ...taskById }))
-    // }, [taskById, loadingTaskById])
-
-    // React.useEffect(() => {
-    //     if (taskById && !loadingTaskById && !isNew) setInfoTask(buildTaskData({ ...taskById }))
-    // }, [])
-
-    // React.useEffect(() => {
-    //     if (isUpdating && !loadingTaskById) navigate("/tasks")
-    // }, [loadingTaskById])
+        if (taskById && !loadingTaskById && !isNew) setInfoTask(buildTaskData({ ...taskById }))
+        console.log(taskById, "ACA ESTA LA TASK BY ID")
+        console.log(infoTask, "INFO TASK SETEADA")
+    }, [taskById, loadingTaskById])
 
     React.useEffect(() => {
-        console.log(rooms, "ROOMS DE LA API")
-    }, [rooms])
+        if (taskById && !loadingTaskById && !isNew) setInfoTask(buildTaskData({ ...taskById }))
+    }, [])
+
+    React.useEffect(() => {
+        if (isUpdating && !loadingTaskById) navigate("/tasks")
+    }, [loadingTaskById])
 
     // const test = (e) => {
     //     changeFormProp("type", Number(e.target.value))
@@ -223,7 +212,7 @@ const TaskById = ({
                                                                     </div>
                                                                     <div className=''>
                                                                         <p>Room</p>
-                                                                        <ComboSelector onChange={(e) => console.log(e, "parametro e de combo sleector")} defaultValue={infoTask.asigned_room} items={_rooms} />
+                                                                        <ComboSelector onChange={(e) => changeFormProp("asigned_room", e)} defaultValue={(taskById) ? taskById.asigned_room : undefined} items={rooms} />
                                                                         {/* <select
                                                                             value={infoTask.asigned_room !== undefined ? infoTask.asigned_room : ""}
                                                                             className="form-control form-control-lg"
@@ -310,15 +299,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(TaskById);
 
 
 export const ComboSelector = ({ onChange, items, defaultValue }) => {
-    console.log(items, "ITEMS entra en COMBO")
-    console.log("TEST -1", [].lenght)
     const [active, setActive] = React.useState(false)
     const [activeItem, setActiveItem] = React.useState(defaultValue)
     const [filter, setFilter] = React.useState(undefined)
-    console.log("default value (assigned room) ", defaultValue)
 
     const grabItemSelected = () => {
-         console.log(items, "items que entran al filter")
          const itemsFiltered = items.filter(i => i.id == activeItem)
          if (itemsFiltered.length == undefined) {
             return "no items"
@@ -327,14 +312,10 @@ export const ComboSelector = ({ onChange, items, defaultValue }) => {
     }
 
     const haveDefaultValue = !(activeItem == undefined)
-    console.log(haveDefaultValue, "HAVE DEFAULT VALUE LOG")
     const filterQuery = (item) => {
         if (!filter) return true
         else return item.name.toLowerCase().includes(filter.toLowerCase())
     }
-
-
-
 
     return (
         <div className={`ComboSelector ${active ? "active" : ""}`}>
