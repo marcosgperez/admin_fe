@@ -130,7 +130,11 @@
 .ComboSelector {
     position: relative;
     .value {}
-
+    input{
+        background-color: red;
+        height: 50px;
+        width: 300px;
+    }
     .options {
         background-color: white;
         width: 100%;

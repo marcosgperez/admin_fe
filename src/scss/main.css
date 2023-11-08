@@ -74,6 +74,12 @@
 @import url(./../vendor/perfect-scrollbar/css/perfect-scrollbar.css);
 @import url(./../vendor/metismenu/css/metisMenu.min.css);
 
+.testing{
+  background-color: red;
+  height: 50px;
+  width: 300px;
+}
+
 :root {
   --primary: #E23428;
   --secondary: #135846;

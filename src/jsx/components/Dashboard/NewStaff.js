@@ -174,7 +174,7 @@ const StaffById = ({ getUserByIDAction, userTypes, updateUserByIDAction, userByI
 
 
 const mapStateToProps = (state) => {
-    console.log(state, "state PAAA")
+    // console.log(state, "state PAAA")
     return {
         loadingUserById: state.authData.loadingUserById,
         loadingUserTypes: state.authData.loadingUserTypes,
