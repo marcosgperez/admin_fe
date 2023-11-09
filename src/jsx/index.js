@@ -39,16 +39,7 @@ const Markup = () => {
 
 
       <Routes>
-        <Route path="page-lock-screen" element={<LockScreen />} />
-        <Route path="page-error-400" element={<DashboardDark />} />
-        <Route path="page-error-403" element={<Error403 />} />
-        <Route path="page-error-404" element={<Error404 />} />
-        <Route path="page-error-500" element={<Error500 />} />
-        <Route path="page-error-503" element={<Error503 />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/page-register' element={<signUp />} />
-        <Route path='/page-forgot-password' element={<ForgotPassword />} />
-        <Route path='/DashBoard-dark' element={<DashboardDark />} />
+
         <Route element={<MainLayout />}>
           {linkData.map((data, i) => {
             if (data.url) {

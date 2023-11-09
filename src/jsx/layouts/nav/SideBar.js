@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useReducer, useState } from "react";
+import React, { useEffect, useContext, useReducer, useState, useRef } from "react";
 /// Scroll
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { Collapse, Dropdown } from 'react-bootstrap';
@@ -77,6 +77,10 @@ const SideBar = ({ isAdmin }) => {
   } else {
     toMap = EmployeeLinkData
   }
+
+
+
+
   return (
     <div
       onMouseEnter={() => ChangeIconSidebar(true)}
@@ -88,7 +92,7 @@ const SideBar = ({ isAdmin }) => {
           ? "fixed"
           : ""
         : ""
-        }`}
+        } sidebar ` }
     >
       <PerfectScrollbar className="dlabnav-scroll">
 
@@ -125,11 +129,11 @@ const SideBar = ({ isAdmin }) => {
                               >
                                 {data.content && data.content.length > 0 ?
                                   <>
-                                    <Link to={data.to} className={data.hasMenu ? 'has-arrow' : ''}
+                                    {/* <Link to={data.to} className={data.hasMenu ? 'has-arrow' : ''}
                                       onClick={() => { handleSubmenuActive(data.title) }}
                                     >
                                       {data.title}
-                                    </Link>
+                                    </Link> */}
                                     <Collapse in={state.activeSubmenu === data.title ? true : false}>
                                       <ul className={`${menuClass === "mm-collapse" ? "mm-show" : ""}`}>
                                         {data.content && data.content.map((data, index) => {
@@ -170,22 +174,10 @@ const SideBar = ({ isAdmin }) => {
           })}
         </ul>
         <div className="dropdown header-profile2 ">
-          {/* <div className="header-info2 text-center">
-            <img src={profile} alt="" />
-            <div className="sidebar-info">
-              <div>
-                <h5 className="font-w500 mb-0">William Johanson</h5>
-                <span className="fs-12">williamjohn@mail.com</span>
-              </div>
-            </div>
-            <div>
-              <Link to={"#"} className="btn btn-md text-secondary">Contact Us</Link>
-            </div>
-          </div> */}
         </div>
         <div className="copyright">
-          <p className="text-center"><strong>Travl Hotel Admin Dashboard</strong> © {d.getFullYear()} All Rights Reserved</p>
-          <p className="fs-12 text-center">Made with <span className="heart" onClick={() => heartBlast()}></span> by DexignLab</p>
+          <p className="text-center"><strong>Gesto Hotel Admin Dashboard</strong> © {d.getFullYear()} All Rights Reserved</p>
+          <p className="fs-12 text-center">Made with <span className="heart" onClick={() => heartBlast()}></span> by [REDACTED]</p>
         </div>
       </PerfectScrollbar>
     </div>
@@ -195,7 +187,7 @@ const SideBar = ({ isAdmin }) => {
 
 const mapStateToProps = (rootState) => {
   return {
-     isAdmin: rootState.authData.user && rootState.authData.user.user_type_id == 1
+    isAdmin: rootState.authData.user && rootState.authData.user.user_type_id == 1
 
   }
 }

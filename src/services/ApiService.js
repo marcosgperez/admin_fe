@@ -364,6 +364,7 @@ class ApiService {
     }
 
     createEvent(event) {
+        console.log("event from api",event)
         return this.axios.post(proxyUrl, {
             "method": "post",
             "url": apiURL + "/events/store?external_id=" + this.externalId,

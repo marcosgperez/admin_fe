@@ -148,7 +148,7 @@ const Home = ({ getRoomsAction, roomsData, getRoomCountAction, isAdmin }) => {
               <TasksList filter={filter}></TasksList>
             </div>
             <div className={isAdmin ? "col-xl-12" : "d-none"}>
-              <EventCalendar />
+              {/* <EventCalendar /> */}
             </div>
           </div>
         </div>

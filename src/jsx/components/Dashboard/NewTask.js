@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Tab } from "react-bootstrap";
 import { connect } from 'react-redux';
-import { getTaskByID, updateTaskByID, createTask } from '../../../store/actions/TasksActions';
+import { getTaskByID, updateTaskByID, createTask, getTasks } from '../../../store/actions/TasksActions';
 import { getUserTypesAction, getUsers } from '../../../store/actions/AuthActions';
 import { getRoomsAction, getRoomsTypesAction } from '../../../store/actions/RoomsActions';
 import { Loader } from '../Loader';
@@ -58,7 +58,7 @@ const TaskById = ({
         id: "",
         name: "",
         type: 1,
-        asigned_room: 3,
+        asigned_room: 1,
         asigned_to: 1,
         created_at: new Date().toLocaleDateString(),
         description: "",
@@ -71,6 +71,7 @@ const TaskById = ({
     const [isUpdating, setIsUpdating] = React.useState(false)
 
     const changeFormProp = (prop, value) => {
+        console.log("cambio combo", prop, value)
         setInfoTask({ ...infoTask, [prop]: value })
     }
     const addPersonToDescription = (str) => {
@@ -87,6 +88,7 @@ const TaskById = ({
         const [conversation, _description] = parseDescriptionForConversation(infoTask.description)
         newInfoTask.description = concatDescriptionForConversation(conversation, addPersonToDescription(newInfoTask.newDescription))
         delete newInfoTask.newDescription;
+        console.log(infoTask, "from send form")
 
         if (infoTask.id) updateTaskByID(newInfoTask)
 
@@ -118,8 +120,13 @@ const TaskById = ({
 
     React.useEffect(() => {
         if (id) getTaskByID(id)
-        console.log(getTaskByID(id), "get task by id") 
+        console.log(getTaskByID(id), "get task by id")
     }, [id])
+
+    React.useEffect(() => {
+
+        console.log(infoTask.asigned_room, "cambio infotask")
+    }, [infoTask.asigned_room])
 
     React.useEffect(() => {
         getTaskTypes()
@@ -146,7 +153,7 @@ const TaskById = ({
     //     changeFormProp("type", Number(e.target.value))
     //     console.log(e.target.value)
     // }
-
+console.log(taskById,"task by id")
     return (
         <>
             <Tab.Container defaultActiveKey="All" >
@@ -156,7 +163,7 @@ const TaskById = ({
                             <div style={{ overflow: "auto" }} className="card-body p-3">
                                 <div className="table-responsive overflow-x-hidden">
                                     <div className="dataTables_wrapper no-footer">
-                                        {(loadingTaskById || !rooms) ? (<Loader />) : (
+                                        {(loadingTaskById || !rooms || !infoTask) ? (<Loader />) : (
                                             <div className={"tableContainer"} style={{ width: "100%", alignItems: "center" }} >
                                                 <div className="basic-form">
                                                     <form onSubmit={(e) => e.preventDefault()}>
@@ -212,7 +219,7 @@ const TaskById = ({
                                                                     </div>
                                                                     <div className=''>
                                                                         <p>Room</p>
-                                                                        <ComboSelector onChange={(e) => changeFormProp("asigned_room", e)} defaultValue={(taskById) ? taskById.asigned_room : undefined} items={rooms} />
+                                                                        <ComboSelector onChange={(e) => changeFormProp("asigned_room", Number(e))} defaultValue={taskById? taskById.asigned_room : null} items={rooms} />
                                                                         {/* <select
                                                                             value={infoTask.asigned_room !== undefined ? infoTask.asigned_room : ""}
                                                                             className="form-control form-control-lg"
@@ -302,15 +309,17 @@ export const ComboSelector = ({ onChange, items, defaultValue }) => {
     const [active, setActive] = React.useState(false)
     const [activeItem, setActiveItem] = React.useState(defaultValue)
     const [filter, setFilter] = React.useState(undefined)
-
+    console.log(items, "items from combo")
     const grabItemSelected = () => {
-         const itemsFiltered = items.filter(i => i.id == activeItem)
-         if (itemsFiltered.length == undefined) {
+        const itemsFiltered = items.filter(i => i.id == activeItem)
+        if (itemsFiltered.length == undefined) {
             return "no items"
         }
-        else return itemsFiltered[0].name
+        else {
+            console.log(itemsFiltered,"itemsFiltered")
+            return itemsFiltered[0].name
+        }
     }
-
     const haveDefaultValue = !(activeItem == undefined)
     const filterQuery = (item) => {
         if (!filter) return true
@@ -331,7 +340,7 @@ export const ComboSelector = ({ onChange, items, defaultValue }) => {
 
             <div className='options'>
                 {items.filter(filterQuery).map(i => (
-                    <div className='option' onClick={() => {
+                    <div className='option' key={i.id} onClick={() => {
                         onChange(i.id)
                         setActiveItem(i.id)
                         setActive(false)

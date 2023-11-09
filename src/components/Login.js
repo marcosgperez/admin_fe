@@ -16,7 +16,7 @@ function Login({
   const [errors, setErrors] = useState(errorsObj);
   const navigate = useNavigate();
   const [data, setData] = useState({
-    email: "marcoss.g.perez@gmail.com",
+    email: "jj@gmail.com",
     password: "123456",
   });
   const handleData = (e) => {
