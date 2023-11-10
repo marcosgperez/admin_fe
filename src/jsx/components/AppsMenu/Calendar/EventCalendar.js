@@ -9,7 +9,7 @@ import { getRoomsAction } from "../../../../store/actions/RoomsActions";
 import { getEventsAction, deleteEventByID, createEvent, updateEventByID } from "../../../../store/actions/EventsActions";
 import { connect } from 'react-redux';
 export const dataEvent = {
-   title: "",
+   name: "",
    start: "",
    id: 1,
    task: "string",
@@ -25,7 +25,7 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
    const calendarEventsRef = React.useRef({});
    const [calendarEvents, setCalendarEvents] = React.useState(events)
    const [modalData, setModalData] = React.useState();
-   const [creationModalData, setCreationModalData] = React.useState(dataEvent);
+   const [creationModalData, setCreationModalData] = React.useState(null);
 
 
    const [_events, setEvents] = React.useState([
@@ -115,14 +115,8 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
    };
 
    const submitNewEvent = (data) => {
-      console.log("DATA", data)
       if (!data) return
       else {
-         // data.name = data.title;
-         // data.description = data.description
-         data.asigned_to = 2;
-         data.external_id = 1;
-         data.photo = "";
          console.log("data to send",data)
          createEvent(data)
          setCreationModalData()
@@ -155,7 +149,7 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
 
    const Modal = () => {
       if (!modalData) return <></>
-      const { title, start, id, task, task_to, room, description, asigned_to } = modalData
+      const { name, start, id, task, task_to, room, description, asigned_to } = modalData
       console.log(modalData, "MODALDATA")
       return (
          <div className="ModalWrapper">
@@ -163,13 +157,13 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
             <div className="Modal">
                <div className="table-responsive">
                   <div className="titleContainer">
-                     <div>{title}</div>
+                     <div>{name}</div>
                   </div>
                   <table className="table">
                      <tbody>
                         <tr >
                            <td className="modalTd" >Title</td>
-                           <td className="modalTd" ><strong>{title}</strong></td>
+                           <td className="modalTd" ><strong>{name}</strong></td>
                         </tr>
                         <tr >
                            <td className="modalTd" >Start Time</td>
@@ -221,10 +215,10 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
       const [_data, setData] = React.useState({ ...data })
 
       const dataChange = (prop, value) => {
-         setData({ ...creationModalData, [prop]: value })
+         setData({ ..._data, [prop]: value })
       }
 
-      const { title, date, asigned_to, type, room } = _data
+      const { name, date, asigned_to, type, asigned_room } = _data
       return (
          <div className="ModalWrapper">
             <div className="ModalMask"></div>
@@ -234,9 +228,9 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
                   <table className="table">
                      <tbody>
                         <tr >
-                           <td className="modalTd" >Title</td>
+                           <td className="modalTd" >name</td>
                            <td className="modalTd" >
-                              <input type="text" value={title} onChange={(e) => dataChange("title", e.target.value)} />
+                              <input type="text" value={name} onChange={(e) => dataChange("name", e.target.value)} />
                            </td>
                         </tr>
                         <tr >
@@ -251,9 +245,12 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
                            <div className=''>
                               <p>Room</p>
                               <select
-                                 value={room !== undefined ? room : ""}
+                                 value={asigned_room !== undefined ? asigned_room : ""}
                                  className="form-control form-control-lg"
-                                 onChange={(e) => dataChange("asigned_room", Number(e.target.value)) && console.log(e.target.value, "ROOM ID")}
+                                 onChange={(e) => {
+                                    console.log(e.target.value, "ROOM ID")
+                                    dataChange("asigned_room", Number(e.target.value))
+                                 }}
 
                               >
                                  {rooms.map(u => (
