@@ -92,14 +92,14 @@ const SideBar = ({ isAdmin }) => {
           ? "fixed"
           : ""
         : ""
-        } sidebar ` }
+        } sidebar `}
     >
       <PerfectScrollbar className="dlabnav-scroll">
 
         <ul className="metismenu" id="menu">
 
 
-          {toMap.filter(m => m.title).map((data, index) => {
+          {toMap.filter(t => t.title !== "Dashboard").filter(t=> t.title !== "Staff").map((data, index) => {
             let menuClass = data.classsChange;
             if (menuClass === "menu-title") {
               return (

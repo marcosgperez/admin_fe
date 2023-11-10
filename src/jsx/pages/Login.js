@@ -14,7 +14,8 @@ function Login(props) {
 
 	// const navigate = useNavigate();
 
-	function onLogin(e) {
+
+	const onLogin = (e) => {
 		e.preventDefault();
 		let error = false;
 		const errorObj = { ...errorsObj };
@@ -28,12 +29,13 @@ function Login(props) {
 		}
 		setErrors(errorObj);
 		if (error) {
-			return;
+			// return;
+			setError(true)
 		}
 		// dispatch(loadingToggleAction(true));	
 		// dispatch(loginAction(email, password, navigate));
 	}
-
+const [error,setError] = useState(false)
 	return (
 		<div className="authincation d-flex flex-column flex-lg-row flex-column-fluid">
 			<div className="login-aside text-center aca?  d-flex flex-column flex-row-auto" style={{ height: "35%" }} >
@@ -102,6 +104,7 @@ function Login(props) {
 											<button type="submit" className="btn btn-primary btn-block">
 												Sign In
 											</button>
+											<p >Wrong Email or Password</p>
 										</div>
 									</form>
 									<div className="new-account mt-3">

@@ -40,6 +40,7 @@ export const linkData = [
     // },
 
     // urls
+  
     { url: "/", component: <Home /> },
   
     { url: "task/:taskId", component: <TaskById /> },

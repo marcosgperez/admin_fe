@@ -293,7 +293,7 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
                <div className="col-xl-12 col-sm-12" >
                   <Card>
                      <Card.Body>
-                        <div id="external-events">
+                        <div id="external-events" style={{display:"flex"}}>
                            {_events.map((event) => (
                               <div
                                  draggable={true}

@@ -14,6 +14,7 @@ function Login({
 }) {
   let errorsObj = { email: "", password: "" };
   const [errors, setErrors] = useState(errorsObj);
+  const [error, setError] = useState(false)
   const navigate = useNavigate();
   const [data, setData] = useState({
     email: "jj@gmail.com",
@@ -30,14 +31,16 @@ function Login({
     if (data.email === "") {
       errorObj.email = "Email is Required";
       error = true;
+
     }
     if (data.password === "") {
       errorObj.password = "Password is Required";
       error = true;
+
     }
     setErrors(errorObj);
-    if (error) {
-      return;
+    if (error) {      
+      return
     }
     doLogin(data.email, data.password)
   }
@@ -52,7 +55,7 @@ function Login({
       <div className="login-aside text-center  d-flex flex-column flex-row-auto">
         <div className="d-flex flex-column-auto flex-column pt-lg-40 pt-15 loginHeader" >
           <div className="text-center mb-4 pt-5">
-            <img src={logo} alt="" />
+            <img src={"./logo.png"} alt="" />
           </div>
           <div className="loginText">
             <h3 className="mb-2">Welcome back!</h3>
@@ -112,11 +115,13 @@ function Login({
                         name="password"
                         onChange={(e) => handleData(e)}
                       />
-                      {errors.password && (
+                      {/* {errors.password && (
                         <div className="text-danger fs-12">
                           {errors.password}
                         </div>
-                      )}
+                      )} */}
+                      {error ? <p>Wrong Mail or Password</p> : <p></p>}
+
                     </div>
                     <div className="form-row d-flex justify-content-between mt-4 mb-2 d-none">
                       <div className="form-group mb-3">
@@ -141,6 +146,7 @@ function Login({
                         className="btn btn-primary btn-block"
                       >
                         {loading ? "Loading" : "Sign In"}
+
                       </button>
                     </div>
                   </form>
