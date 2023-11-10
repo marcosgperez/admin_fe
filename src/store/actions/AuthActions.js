@@ -44,6 +44,7 @@ export const doLogin = (email, password) => (dispatch) => {
     type: AuthActionTypes.GET_AUTH_FETCHING
   });
   ApiService.doLogin(email, password).then((res) => {
+    console.log(res,"res login")
     ApiService.setToken(res.data.token)
     dispatch({
       type: AuthActionTypes.GET_AUTH_FETCH,

@@ -111,7 +111,6 @@ const TaskList = ({ isAdmin, user, filter, tasks, getTasks, getTaskTypes, getUse
 		if (taskTypes.length == 0) return [];
 		else return [...taskTypes].map(t => ({ id: t.id, name: t.name }))
 	}
-
 	return (
 		<>
 			<Tab.Container activeKey={filter} defaultActiveKey={isAdmin ? "All" : ""} >
@@ -212,6 +211,8 @@ const TaskList = ({ isAdmin, user, filter, tasks, getTasks, getTaskTypes, getUse
 // export { DropdownBlog };
 
 const mapStateToProps = (state) => {
+	console.log(state, "rootState")
+
 	return {
 		loadingTasks: state.authData.loadingTasks,
 		loadingTaskTypes: state.authData.loadingUserTypes,

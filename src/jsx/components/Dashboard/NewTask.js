@@ -153,7 +153,7 @@ const TaskById = ({
     //     changeFormProp("type", Number(e.target.value))
     //     console.log(e.target.value)
     // }
-console.log(taskById,"task by id")
+    console.log(taskById, "task by id")
     return (
         <>
             <Tab.Container defaultActiveKey="All" >
@@ -219,7 +219,7 @@ console.log(taskById,"task by id")
                                                                     </div>
                                                                     <div className=''>
                                                                         <p>Room</p>
-                                                                        <ComboSelector onChange={(e) => changeFormProp("asigned_room", Number(e))} defaultValue={taskById? taskById.asigned_room : null} items={rooms} />
+                                                                        <ComboSelector onChange={(e) => changeFormProp("asigned_room", Number(e))} defaultValue={taskById ? taskById.asigned_room : null} items={rooms} />
                                                                         {/* <select
                                                                             value={infoTask.asigned_room !== undefined ? infoTask.asigned_room : ""}
                                                                             className="form-control form-control-lg"
@@ -278,7 +278,7 @@ console.log(taskById,"task by id")
 
 
 const mapStateToProps = (state) => {
-    // console.log(state, "state PAAA")
+    console.log("rootState", state)
     return {
         loadingTaskById: state.tasksData.loadingTaskById,
         loadingTaskTypes: state.authData.loadingUserTypes,
@@ -316,7 +316,7 @@ export const ComboSelector = ({ onChange, items, defaultValue }) => {
             return "no items"
         }
         else {
-            console.log(itemsFiltered,"itemsFiltered")
+            console.log(itemsFiltered, "itemsFiltered")
             return itemsFiltered[0].name
         }
     }

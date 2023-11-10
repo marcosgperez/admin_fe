@@ -18,6 +18,8 @@ const Home = ({ getRoomsAction, roomsData, getRoomCountAction, isAdmin }) => {
   const changeFilter = (newFilter) => {
     setFilter(newFilter)
   }
+
+  console.log(isAdmin, "isAdmin")
   console.log(roomsData, "rooms from home")
   return (
     <>
@@ -174,7 +176,7 @@ const Home = ({ getRoomsAction, roomsData, getRoomCountAction, isAdmin }) => {
                       <div className="booking-status d-flex" style={{ justifyContent: "flex-end" }}>
                         <div style={{ marginRight: "10px", textAlign: "end", }}>
                           <h2 className="mb-0 ">{roomsData?.available ? roomsData?.available : "..."}</h2>
-                          <p className="mb-0 " style={{ margin: "0px", fontWeight: 400, fontSize: "10px",paddingTop:"5px" }}>Available</p>
+                          <p className="mb-0 " style={{ margin: "0px", fontWeight: 400, fontSize: "10px", paddingTop: "5px" }}>Available</p>
                         </div>
 
                         <span>
@@ -235,7 +237,7 @@ const Home = ({ getRoomsAction, roomsData, getRoomCountAction, isAdmin }) => {
                       <div className="booking-status d-flex" style={{ justifyContent: "flex-end" }}>
                         <div style={{ marginRight: "10px", textAlign: "end", }}>
                           <h2 className="mb-0 ">{roomsData?.available ? roomsData?.available : "..."}</h2>
-                          <p className="mb-0 " style={{ margin: "0px", fontWeight: 400, fontSize: "10px",paddingTop:"5px" }}>Available</p>
+                          <p className="mb-0 " style={{ margin: "0px", fontWeight: 400, fontSize: "10px", paddingTop: "5px" }}>Available</p>
                         </div>
 
                         <span>
