@@ -6,7 +6,7 @@ import PageTitle from "../../../layouts/PageTitle";
 
 const Calendar = () => {
    return (
-      <div className="h-80">
+      <div className="h-80 eventCalendarHolder">
          <PageTitle activeMenu="Calerdar" motherMenu="App" />
 
          <EventCalendar />

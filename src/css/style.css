@@ -40176,8 +40176,14 @@ table.dataTable.display tbody td {
   line-height: 4.063rem;
 }
 
-.booking:hover {
-  box-shadow: 0 1.188rem 1.188rem rgba(0, 0, 0, 0.16) !important;
+@media screen and (min-width:992px) {
+
+  .booking:hover {
+    box-shadow: 0 1.188rem 1.188rem rgba(0, 0, 0, 0.16) !important;
+  }
+  .booking:hover {
+    box-shadow: 0 1.188rem 1.188rem rgba(0, 0, 0, 0.16) !important;
+  }
 }
 
 .booking:hover .booking-status span {
@@ -86361,9 +86367,7 @@ table.dataTable.display tbody td {
   line-height: 4.063rem;
 }
 
-.booking:hover {
-  box-shadow: 0 1.188rem 1.188rem rgba(0, 0, 0, 0.16) !important;
-}
+
 
 .booking:hover .booking-status span {
   background: var(--primary);
@@ -92902,6 +92906,7 @@ button.disabled {
   overflow: hidden;
   max-height: 200px;
 }
+
 /* .sidebarControler{
   display: inline !important;
   margin-left: 0px;
@@ -92916,6 +92921,34 @@ button.disabled {
     left: 0px !important;
   }
 } */
+@media screen and (max-width:992px) {
+  .calendar {
+    display: none;
+  }
 
+  .desktopCards {
+    display: none
+  }
+}
+
+.leftSide span {
+  background-color: bisque;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.leftSide span:hover {
+  background-color: green;
+  color: white;
+}
+
+.leftSide span:hover path {
+  fill: white;
+}
+@media screen and (min-width:992px){
+  .mobileCards{
+  display: none;
+  }
+}
 
 /*# sourceMappingURL=style.css.map */
