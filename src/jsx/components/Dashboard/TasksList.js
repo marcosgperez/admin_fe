@@ -127,10 +127,10 @@ const TaskList = ({ isAdmin, user, filter, tasks, getTasks, getTaskTypes, getUse
 													<div className={"tableHeader"} style={{ display: "flex", justifyContent: "space-between", borderBottom: "3px solid #828282", color: "black", fontWeigth: "500" }}>
 														<div style={{ width: "20%", justifyContent: "center", textAlign: "start", fontSize: "20px", fontWeight: "600", margin: "5px", padding: "10px 0px 10px 20px" }}>Name</div>
 														<div style={{ width: "15%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Type</div>
+														<div style={{ width: "20%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Status</div>
 														<div style={{ width: "15%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Assigned</div>
 														<div style={{ width: "15%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Created At</div>
 														<div style={{ width: "15%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Room</div>
-														<div style={{ width: "20%", justifyContent: "center", textAlign: "start", fontSize: "20px", padding: "10px 0px", fontWeight: "600", margin: "5px" }}>Status</div>
 													</div>
 													{!loadingTasks && !loadingTaskTypes && taskList.length ? (
 														<div className={"tableBody"} style={{ padding: "10px 0px" }} >
@@ -144,10 +144,10 @@ const TaskList = ({ isAdmin, user, filter, tasks, getTasks, getTaskTypes, getUse
 																				</p>
 																			</div>
 																			<div style={{ width: "15%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{buildTypeNameFromId(t.type)}</div>
+																			<div style={{ width: "20%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}><LabelBtns extraClassName="m-1 w-max-content" state={t.status} /></div>
 																			<div style={{ width: "15%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{buildNameFromAsignationId(t.asigned_to)}</div>
 																			<div style={{ width: "15%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{new Date(t.created_at).toLocaleDateString()}</div>
 																			<div style={{ width: "15%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{buildRoomFromRoomId(t.asigned_room)}</div>
-																			<div style={{ width: "20%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}><LabelBtns extraClassName="m-1 w-max-content" state={t.status} /></div>
 																		</div>
 																	</Link>
 																)
@@ -205,6 +205,43 @@ const TaskList = ({ isAdmin, user, filter, tasks, getTasks, getTaskTypes, getUse
 					</div>
 				</div>
 			</Tab.Container>
+
+			{/* <div id="mobileTaskList" className="carousel slide" data-bs-ride="carousel">
+				<div className="carousel-inner">
+					{!loadingTasks && !loadingTaskTypes && taskList.length ? (
+						<div className={"tableBody"} style={{ padding: "10px 0px" }} >
+							{taskList.map(buildTaskData).map((t, i) => {
+								return (
+									<div className='carousel-item' style={{ height: "50px" }}>
+										<Link to={`/task/${t.id}`} key={t.id} >
+											<div className={"tableRow"} style={{ width: "100%", display: "flex", justifyContent: "space-between", padding: "10px 0px", textSelect: "none" }}>
+												<div style={{ width: "20%", display: "flex", padding: "0px 0px 0px 20px", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>
+													<p style={{ marginBottom: "0px" }}>
+														{t.name}
+													</p>
+												</div>
+												<div style={{ width: "15%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{buildTypeNameFromId(t.type)}</div>
+												<div style={{ width: "15%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{buildNameFromAsignationId(t.asigned_to)}</div>
+												<div style={{ width: "15%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{new Date(t.created_at).toLocaleDateString()}</div>
+												<div style={{ width: "15%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}>{buildRoomFromRoomId(t.asigned_room)}</div>
+												<div style={{ width: "20%", display: "flex", alignItems: "center", justifyContent: "start", textAlign: "start", fontSize: "16px", fontWeight: "500", margin: "5px" }}><LabelBtns extraClassName="m-1 w-max-content" state={t.status} /></div>
+											</div>
+										</Link>
+									</div>
+								)
+							})}
+						</div>
+					) : (<p className='p-1'><Loader /></p>)}
+				</div>
+				<button style={{ backgroundColor: "red" }} className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+					<span className="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span className="visually-hidden">Previous</span>
+				</button>
+				<button style={{ backgroundColor: "red" }} className="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+					<span className="carousel-control-next-icon" aria-hidden="true"></span>
+					<span className="visually-hidden">Next</span>
+				</button>
+			</div> */}
 		</>
 	)
 }

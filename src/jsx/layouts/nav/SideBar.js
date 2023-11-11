@@ -74,6 +74,7 @@ const SideBar = ({ isAdmin }) => {
 
   if (isAdmin) {
     toMap = linkData
+
   } else {
     toMap = EmployeeLinkData
   }
@@ -99,7 +100,7 @@ const SideBar = ({ isAdmin }) => {
         <ul className="metismenu" id="menu">
 
 
-          {toMap.filter(t => t.title !== "Dashboard").filter(t=> t.title !== "Staff").map((data, index) => {
+          {toMap.map((data, index) => {
             let menuClass = data.classsChange;
             if (menuClass === "menu-title") {
               return (

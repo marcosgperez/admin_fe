@@ -40181,6 +40181,7 @@ table.dataTable.display tbody td {
   .booking:hover {
     box-shadow: 0 1.188rem 1.188rem rgba(0, 0, 0, 0.16) !important;
   }
+
   .booking:hover {
     box-shadow: 0 1.188rem 1.188rem rgba(0, 0, 0, 0.16) !important;
   }
@@ -92945,10 +92946,22 @@ button.disabled {
 .leftSide span:hover path {
   fill: white;
 }
-@media screen and (min-width:992px){
-  .mobileCards{
-  display: none;
+
+@media screen and (min-width:992px) {
+  .mobileCards {
+    display: none;
   }
 }
+
+@media screen and (min-width:992px) {
+  .mobileTaskList {
+    display: none
+  }
+}
+
+.carousel-item {
+  background-color: green;
+}
+
 
 /*# sourceMappingURL=style.css.map */

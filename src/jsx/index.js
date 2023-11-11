@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 /// React router dom
 import { Routes, Route, Outlet } from "react-router-dom";
@@ -7,26 +7,16 @@ import { Routes, Route, Outlet } from "react-router-dom";
 import "./index.css";
 import "./chart.css";
 import "./step.css";
-
+import { connect } from "react-redux"
 /// Layout
 import JobieNav from "./layouts/nav";
 import Footer from "./layouts/Footer";
 import ScrollToTop from "./layouts/ScrollToTop";
-/// Dashboard
-import DashboardDark from "./components/Dashboard/DashboardDark";
-/// Pages
-import LockScreen from "./pages/LockScreen";
-
-import Error403 from "./pages/Error403";
-import Error404 from "./pages/Error404";
-import Error500 from "./pages/Error500";
-import Error503 from "./pages/Error503";
 import { ThemeContext } from "../context/ThemeContext";
-import ForgotPassword from "./pages/ForgotPassword";
-import Login from "../components/Login";
 import { linkData } from "./routes";
+import { EmployeeLinkData } from "./EmployeeRoutes";
 
-const Markup = () => {
+const Markup = ({ isAdmin }) => {
   // const { menuToggle } = useContext(ThemeContext);
 
   let path = window.location.pathname;
@@ -34,6 +24,15 @@ const Markup = () => {
   path = path[path.length - 1];
 
   let pagePath = path.split("-").includes("page");
+  const [toRead, setToRead] = useState([])
+
+  React.useEffect(() => {
+    if (isAdmin) {
+      setToRead(linkData)
+    } else {
+      setToRead(EmployeeLinkData)
+    }
+  }, [])
   return (
     <>
 
@@ -41,7 +40,7 @@ const Markup = () => {
       <Routes>
 
         <Route element={<MainLayout />}>
-          {linkData.map((data, i) => {
+          {toRead.map((data, i) => {
             if (data.url) {
               return (
                 <Route
@@ -82,4 +81,13 @@ function MainLayout() {
     </div>
   );
 }
-export default Markup;
+const mapStateToProps = (rootState) => {
+  return {
+    isAdmin: rootState.authData.user && rootState.authData.user.user_type_id == 1
+
+  }
+}
+
+const mapDispatchToProps = {
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Markup);

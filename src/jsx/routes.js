@@ -31,15 +31,6 @@ export const linkData = [
         iconStyle: <i className="fas fa-table"></i>,
         to: "staff"
     },
-    // Facilities
-    // {
-    //     title: 'Facilities',
-    //     classsChange: 'mm-collapse',
-    //     iconStyle: <i className="fas fa-table"></i>,
-    //     to: "facilities"
-    // },
-
-    // urls
   
     { url: "/", component: <Home /> },
   
