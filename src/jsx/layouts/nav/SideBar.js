@@ -178,7 +178,7 @@ const SideBar = ({ isAdmin }) => {
         </div>
         <div className="copyright">
           <p className="text-center"><strong>Gesto Hotel Admin Dashboard</strong> © {d.getFullYear()} All Rights Reserved</p>
-          <p className="fs-12 text-center">Made with <span className="heart" onClick={() => heartBlast()}></span> by [REDACTED]</p>
+          <p className="fs-12 text-center">Made with <span className="heart" onClick={() => heartBlast()}></span> by Noswar Studios</p>
         </div>
       </PerfectScrollbar>
     </div>

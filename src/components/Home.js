@@ -17,20 +17,16 @@ const Home = ({ getRoomsAction, roomsData, getRoomCountAction, isAdmin, roomsCou
   const changeFilter = (newFilter) => {
     setFilter(newFilter)
   }
-  React.useEffect(() => {
-    console.log(roomsCount, "ROOMSCOUNT")
-  }, [roomsCount])
-  console.log(isAdmin, "isAdmin")
-  console.log(roomsData, "rooms from home")
+
   return (
     <>
-      <div className="row">
+      <div className="row Home">
         <div className="col-xl-12">
-          <div className="row desktopCards">
+          <div className="row desktopCards d-none d-md-flex">
             <div className="col-xl-3 col-sm-6">
               <Link to={"/task/new-task"} className='w-max-content'>
-                <div className="card booking">
-                  <div className="card-body">
+                <div className="card booking card-task">
+                  <div className="card-body ">
                     <div className="booking-status d-flex align-items-center">
                       <span>
                         <svg
@@ -140,13 +136,13 @@ const Home = ({ getRoomsAction, roomsData, getRoomCountAction, isAdmin, roomsCou
               </div>
             </div>
           </div>
-          <div className="mobileCards">
+          <div className="row mobileCards d-flex d-md-none">
 
             <div className="col-md-12" >
               <div className="mobileCard" style={{ display: "flex" }} >
                 <div className="left" style={{ width: "50%" }} >
                   <Link to={"/task/new-task"} style={{ padding: "0px", margin: "0px" }} >
-                    <div className="card booking" style={{ borderRadius: "8px 0px 0px 8px", height: "109px" }}>
+                    <div className="card booking card-task" style={{ borderRadius: "8px 0px 0px 8px", height: "109px" }}>
                       <div className="card-body">
                         <div className="booking-status d-flex align-items-center">
                           <span>
@@ -203,7 +199,7 @@ const Home = ({ getRoomsAction, roomsData, getRoomCountAction, isAdmin, roomsCou
               </div>
             </div>
           </div>
-          <div className="mobileCards">
+          <div className="row mobileCards d-flex d-md-none">
             <div className="col-md-12" >
               <div className="mobileCard" style={{ display: "flex" }} >
 
@@ -265,16 +261,11 @@ const Home = ({ getRoomsAction, roomsData, getRoomCountAction, isAdmin, roomsCou
             </div>
           </div>
           <div className="row justify-content-end">
-            <div className={isAdmin ? "buttonContainer" : "d-none"} >
-              <Link style={{ backgroundColor: "#7aa577" }} to={"/task/new-task"} className='w-max-content'>
-                + New Task
-              </Link>
-            </div>
             <div className={"col-xl-12"}>
               <TasksListFilter handleClick={changeFilter}></TasksListFilter>
               <TasksList filter={filter}></TasksList>
             </div>
-            <div className={isAdmin ? "col-xl-12 calendar" : "d-none"}>
+            <div className={isAdmin ? "d-none d-md-block col-xl-12 calendar" : "d-none"}>
               <EventCalendar />
             </div>
           </div>

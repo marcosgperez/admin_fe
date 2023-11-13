@@ -8,6 +8,8 @@ import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
 import { getRoomsAction } from "../../../../store/actions/RoomsActions";
 import { getEventsAction, deleteEventByID, createEvent, updateEventByID } from "../../../../store/actions/EventsActions";
 import { connect } from 'react-redux';
+import { ComboSelector } from "../../../components/Dashboard/NewTask";
+
 export const dataEvent = {
    name: "",
    start: "",
@@ -149,8 +151,11 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
 
    const Modal = () => {
       if (!modalData) return <></>
-      const { name, start, id, task, task_to, room, description, asigned_to } = modalData
-      console.log(modalData, "MODALDATA")
+      const modalInfoData = events.filter((e) => e.id == modalData.id)[0]
+      if (!modalInfoData) return <></>
+
+      const { name, created_at, id, task, task_to, room, description, asigned_room, asigned_to } = modalInfoData
+      console.log(modalData,modalInfoData,  "MODALDATA")
       return (
          <div className="ModalWrapper">
             <div className="ModalMask"></div>
@@ -163,11 +168,10 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
                      <tbody>
                         <tr >
                            <td className="modalTd" >Title</td>
-                           <td className="modalTd" ><strong>{name}</strong></td>
                         </tr>
                         <tr >
                            <td className="modalTd" >Start Time</td>
-                           <td className="modalTd" ><strong>{start.toDateString()}</strong></td>
+                           <td className="modalTd" ><strong>{new Date(created_at).toDateString()}</strong></td>
                         </tr>
                         <tr >
                            <td className="modalTd" >Asigned To</td>
@@ -177,26 +181,23 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
                            <td>
                               <p>Room</p>
                            </td>
-                           <select
-                              value={room !== undefined ? room : ""}
-                              className="form-control form-control-lg"
-                           // onChange={(e) => dataChange("asigned_room", Number(e.target.value)) && console.log(e.target.value, "ROOM ID")}
-                           >
-                              {rooms.map(u => (
-                                 <option value={u.id} key={u.id}>{u.name}</option>
-                              ))}
-                           </select>
+                           <td>
+                              <p><b>{grabRoomName(asigned_room)}</b></p>
+                           </td>
                         </tr>
                         <tr>
                            <td>
+                              <p>Description</p>
+                           </td>
+                           <td>
                               <p>
-                                 {description ? description : "NO VINO"}
+                                 <i>{description ? description : "-"}</i>
                               </p>
                            </td>
                         </tr>
                      </tbody>
                   </table>
-                  <div className="ModalActions">
+                  <div className="ModalActions mt-2">
                      {task_to && (<Link to={`/task/${task_to}`} >Go to task</Link>)}
 
                      <button className="modalRemove" onClick={() => {
@@ -211,6 +212,12 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
       )
    }
 
+   const grabRoomName = (roomID) => {
+      console.log("roomID",roomID,rooms)
+      const find = rooms.find(r => r.id == roomID)
+      if(find) return find.name
+      return "-"
+   } 
    const CreationModal = ({ onSubmit, data }) => {
       const [_data, setData] = React.useState({ ...data })
 
@@ -230,7 +237,7 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
                         <tr >
                            <td className="modalTd" >name</td>
                            <td className="modalTd" >
-                              <input type="text" value={name} onChange={(e) => dataChange("name", e.target.value)} />
+                              <input className="gesto-input" type="text" value={name} onChange={(e) => dataChange("name", e.target.value)} />
                            </td>
                         </tr>
                         <tr >
@@ -242,30 +249,24 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
                            <td className="modalTd" ><strong>{date}</strong></td>
                         </tr>
                         <tr>
-                           <div className=''>
-                              <p>Room</p>
-                              <select
-                                 value={asigned_room !== undefined ? asigned_room : ""}
-                                 className="form-control form-control-lg"
-                                 onChange={(e) => {
-                                    console.log(e.target.value, "ROOM ID")
-                                    dataChange("asigned_room", Number(e.target.value))
-                                 }}
+                           <td className="modalTd" >Room</td>
+                           <td className="modalTd" >
+                           {rooms.length && (
 
-                              >
-                                 {rooms.map(u => (
-                                    <option value={u.id} key={u.id}>{u.name}</option>
-                                 ))}
-                              </select>
-                           </div>
+                              <ComboSelector 
+                                 onChange={(e) => dataChange("asigned_room", Number(e))} 
+                                 items={rooms} 
+                              />
+                           )}
+                           </td>
                         </tr>
                         <tr >
                            <td className="modalTd" >Description</td>
-                           <td className="modalTd" ><textarea onChange={(e) => dataChange("description", e.target.value)}></textarea></td>
+                           <td className="modalTd" ><textarea className="formTextArea" onChange={(e) => dataChange("description", e.target.value)}></textarea></td>
                         </tr>
                      </tbody>
                   </table>
-                  <div className="ModalActions">
+                  <div className="ModalActions mt-2">
                      <button type="button" className="modalRemove" onClick={() => {
                         setCreationModalData();
                         deleteEventFromCalendar(creationModalData);

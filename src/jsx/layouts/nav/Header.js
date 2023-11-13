@@ -13,7 +13,7 @@ import { connect } from "react-redux"
 import { getUserTypesAction } from "../../../store/actions/AuthActions";
 import { generateLetterByName, generateColorFromName } from "../../../helpers"
 
-const Header = ({ onNote, authData, typesData, getUserTypesAction, title }) => {
+const Header = ({ isAdmin, onNote, authData, typesData, getUserTypesAction, title }) => {
 	// const [searchBut, setSearchBut] = useState(false);
 	const location = useLocation()
 	const { loading, user } = authData
@@ -32,11 +32,12 @@ const Header = ({ onNote, authData, typesData, getUserTypesAction, title }) => {
 	}
 
 	return (
-		<div className="header border-bottom">
+		<div className={isAdmin ? "header border-bottom" : "header header-employee"}>
 			<div className="header-content">
 				<nav className="navbar navbar-expand">
 					<div className="collapse navbar-collapse justify-content-between">
 						<div className="header-left">
+							{!isAdmin && (<img src="/logoNoLetras.png" style={{width:"40px", marginLeft: "10px" }}></img>)}
 							<div
 								className="dashboard_bar"
 								style={{ textTransform: "capitalize" }}

@@ -49,6 +49,7 @@ const TaskById = ({
     getRoomsAction,
     getRoomsTypesAction,
     rooms,
+    isAdmin,
     roomTypes
 }) => {
     const location = useLocation();
@@ -146,7 +147,7 @@ const TaskById = ({
     }, [])
 
     React.useEffect(() => {
-        if (isUpdating && !loadingTaskById) navigate("/tasks")
+        if (isUpdating && !loadingTaskById) navigate(isAdmin ? "/tasks" : "/")
     }, [loadingTaskById])
 
     // const test = (e) => {
@@ -249,6 +250,9 @@ const TaskById = ({
                                                                 </div>
                                                             ))}
                                                         </div>
+                                                        <div>
+                                                            <p><b>Comments:</b></p>
+                                                        </div>
                                                         <textarea
                                                             defaultValue={_description}
                                                             className='formTextArea'
@@ -280,6 +284,7 @@ const TaskById = ({
 const mapStateToProps = (state) => {
     console.log("rootState", state)
     return {
+        isAdmin: state.authData.user && state.authData.user.user_type_id == 1,
         loadingTaskById: state.tasksData.loadingTaskById,
         loadingTaskTypes: state.authData.loadingUserTypes,
         taskById: state.tasksData.taskByID,
@@ -312,7 +317,7 @@ export const ComboSelector = ({ onChange, items, defaultValue }) => {
     console.log(items, "items from combo")
     const grabItemSelected = () => {
         const itemsFiltered = items.filter(i => i.id == activeItem)
-        if (itemsFiltered.length == undefined) {
+        if (itemsFiltered.length > 0) {
             return "no items"
         }
         else {
@@ -331,7 +336,7 @@ export const ComboSelector = ({ onChange, items, defaultValue }) => {
             {/* issue aca */}
             <div className='value' onClick={() => setActive(true)}>
                 {active ? (
-                    <input className='testing' type='text' defaultValue={haveDefaultValue ? grabItemSelected() : ""} onChange={(e) => setFilter(e.target.value)} />
+                    <input className='input-value' type='text' defaultValue={haveDefaultValue ? grabItemSelected() : ""} onChange={(e) => setFilter(e.target.value)} />
                 ) : (
                     haveDefaultValue ? grabItemSelected() : "Please select an item"
                 )}

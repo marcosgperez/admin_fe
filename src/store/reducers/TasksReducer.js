@@ -20,14 +20,14 @@ export function TasksReducer(state = initialState, action) {
     case TasksActionTypes.GET_TASKS_FETCHING:
       return {
         ...state,
-        loading: true,
+        loadingTasks: true,
       };
 
     case TasksActionTypes.GET_TASKS_FETCH:
     return {
         ...state,
         tasks: action.payload,
-        loading: false,
+        loadingTasks: false,
       };
 
     case TasksActionTypes.GET_TASKS_FETCH_ERROR:
@@ -35,7 +35,7 @@ export function TasksReducer(state = initialState, action) {
       return {
         ...state,
         error: action.payload,
-        loading: false,
+        loadingTasks: false,
       };
 
     case TasksActionTypes.GET_TASKTYPES_FETCH:

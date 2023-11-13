@@ -24,7 +24,7 @@ const NavHader = () => {
 		<div className="nav-header">
 			<Link to="/" className="brand-logo">
 				
-					<img src="./logoNoLetras.png" style={ width<900? {width:"40px"} : {width:"80px"}}></img>
+					<img src="/logoNoLetras.png" style={ width<900? {width:"40px"} : {width:"80px"}}></img>
 			</Link>
 
 			<div

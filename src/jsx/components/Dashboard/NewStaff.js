@@ -147,6 +147,9 @@ const StaffById = ({ getUserByIDAction, userTypes, updateUserByIDAction, userByI
                                                         <div className="mb-3 d-none">
                                                             <input className="form-control" type="file" id="formFile" />
                                                         </div>
+                                                        <div>
+                                                            <p><b>Comments:</b></p>
+                                                        </div>
                                                         <textarea
                                                             className='formTextArea'
                                                             rows="8"

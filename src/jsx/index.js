@@ -39,7 +39,7 @@ const Markup = ({ isAdmin }) => {
 
       <Routes>
 
-        <Route element={<MainLayout />}>
+        <Route element={<MainLayout isAdmin={isAdmin} />}>
           {toRead.map((data, i) => {
             if (data.url) {
               return (
@@ -60,17 +60,18 @@ const Markup = ({ isAdmin }) => {
   );
 };
 
-function MainLayout() {
+function MainLayout({ isAdmin }) {
   const { menuToggle, sidebariconHover } = useContext(ThemeContext);
+
   return (
     <div
       id="main-wrapper"
       className={`show ${sidebariconHover ? "iconhover-toggle" : ""} ${menuToggle ? "menu-toggle" : ""
         }`}
     >
-      <JobieNav />
+      <JobieNav isAdmin={isAdmin} />
       <div
-        className="content-body"
+        className={isAdmin ? "content-body" : "content-fluid content-body-employee"}
         style={{ minHeight: window.screen.height - 45 }}
       >
         <div className="container-fluid">
@@ -80,6 +81,7 @@ function MainLayout() {
       <Footer />
     </div>
   );
+
 }
 const mapStateToProps = (rootState) => {
   return {
