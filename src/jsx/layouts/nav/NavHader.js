@@ -23,8 +23,8 @@ const NavHader = () => {
 	return (
 		<div className="nav-header">
 			<Link to="/" className="brand-logo">
-				
-					<img src="/logoNoLetras.png" style={ width<900? {width:"40px"} : {width:"80px"}}></img>
+				<img key={toggle.toString()} className="appear d-none d-xl-flex" src={!toggle ? "/logo.png" : "/logoNoLetras.png" } style={{ height: "100%", objectFit:"contain", width:"auto" }}></img>
+				<img className="d-flex d-xl-none" src="/logoNoLetras.png" style={{ height: "100%", objectFit:"contain", width: "40px" }}></img>
 			</Link>
 
 			<div

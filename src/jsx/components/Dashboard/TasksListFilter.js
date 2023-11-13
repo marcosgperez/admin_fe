@@ -27,13 +27,20 @@ const TasksListFilter = ({ handleClick, taskTypes,isAdmin ,user }) => {
 
         <div className="mt-4 d-flex justify-content-between align-items-center flex-wrap">
             <div className="card-action coin-tabs mb-2">
-                <Nav as="ul" className="nav nav-tabs" role="tablist">
+                <Nav as="ul" className="nav nav-tabs d-none d-md-flex" role="tablist">
                     {tabs.map(t => (
                         <Nav.Item key={t.id} as="li" className="nav-item">
                             <Nav.Link className="nav-link" eventKey={t.id} onClick={() => handleClick(t.id)} >See {t.name}</Nav.Link>
                         </Nav.Item>
                     ))}
                 </Nav>
+                <div className="d-flex d-md-none">
+                    <select className="form-control form-control-lg" onChange={(e) => handleClick(e.target.value)}>
+                        {tabs.map(t => (
+                            <option key={t.id} value={t.id} >See {t.name}</option>
+                        ))}
+                    </select>
+                </div>
             </div>
         </div>
     )

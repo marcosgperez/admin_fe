@@ -65057,4 +65057,14 @@ button {
   .Modal .table tbody tr td {
     border: none; }
 
+.appear {
+  opacity: 0;
+  animation: appear 0.2s  0.3s ease forwards; }
+
+@keyframes appear {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+
 /*# sourceMappingURL=style.css.map */

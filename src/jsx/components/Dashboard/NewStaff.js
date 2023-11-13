@@ -111,6 +111,7 @@ const StaffById = ({ getUserByIDAction, userTypes, updateUserByIDAction, userByI
                                                                             className="form-control form-control-lg"
                                                                             onChange={(e) => changeFormProp("user_type_id", Number(e.target.value))}
                                                                         >
+                                                                            <option disabled selected>Select an option</option>
                                                                             {userTypes.map(u => (
                                                                                 <option value={u.id} key={u.id}>{u.name}</option>
                                                                             ))}

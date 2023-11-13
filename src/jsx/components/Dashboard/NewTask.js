@@ -182,6 +182,7 @@ const TaskById = ({
                                                                             className="form-control form-control-lg"
                                                                             onChange={(e) => changeFormProp("status", (e.target.value))}
                                                                         >
+                                                                            <option disabled selected>Select an option</option>
                                                                             {status.map(u => (
                                                                                 <option value={u.id} key={u.id}>{u}</option>
                                                                             ))}
@@ -195,6 +196,7 @@ const TaskById = ({
                                                                             className="form-control form-control-lg"
                                                                             onChange={(e) => changeFormProp("asigned_to", Number(e.target.value))}
                                                                         >
+                                                                            <option disabled selected>Select an option</option>
                                                                             {users.map(u => (
                                                                                 <option value={u.id} key={u.id}>{u.name}</option>
                                                                             ))}
@@ -213,6 +215,7 @@ const TaskById = ({
                                                                             className="form-control form-control-lg"
                                                                             onChange={(e) => changeFormProp("type", Number(e.target.value))}
                                                                         >
+                                                                            <option disabled selected>Select an option</option>
                                                                             {taskTypes.map(u => (
                                                                                 <option value={u.id} key={u.id}>{u.name}</option>
                                                                             ))}
@@ -310,18 +313,17 @@ const mapDispatchToProps = {
 export default connect(mapStateToProps, mapDispatchToProps)(TaskById);
 
 
-export const ComboSelector = ({ onChange, items, defaultValue }) => {
+export const ComboSelector = ({ onChange, items, defaultValue, value }) => {
     const [active, setActive] = React.useState(false)
-    const [activeItem, setActiveItem] = React.useState(defaultValue)
+    const [activeItem, setActiveItem] = React.useState(value || defaultValue)
     const [filter, setFilter] = React.useState(undefined)
-    console.log(items, "items from combo")
     const grabItemSelected = () => {
+        console.log("activeItem", activeItem, items)
         const itemsFiltered = items.filter(i => i.id == activeItem)
-        if (itemsFiltered.length > 0) {
+        if (itemsFiltered.length < 1) {
             return "no items"
         }
         else {
-            console.log(itemsFiltered, "itemsFiltered")
             return itemsFiltered[0].name
         }
     }
@@ -330,6 +332,9 @@ export const ComboSelector = ({ onChange, items, defaultValue }) => {
         if (!filter) return true
         else return item.name.toLowerCase().includes(filter.toLowerCase())
     }
+    React.useEffect(() => {
+        if(value) setActiveItem(value)
+    },[value])
 
     return (
         <div className={`ComboSelector ${active ? "active" : ""}`}>

@@ -21,7 +21,7 @@ export const dataEvent = {
 
 }
 
-const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, createEvent, isAdmin, removeEvent, rooms, getRoomsAction }) => {
+const EventCalendar = ({ users, events, getEventsAction, updateEventByID, loadingById, createEvent, isAdmin, removeEvent, rooms, getRoomsAction }) => {
 
    const calendarComponentRef = React.useRef();
    const calendarEventsRef = React.useRef({});
@@ -31,7 +31,7 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
 
 
    const [_events, setEvents] = React.useState([
-      { id: 1, title: "Checkout" },
+      { id: 1, title: "CheckOut" },
       { id: 2, title: "CheckIn" },
       { id: 3, title: "Cleaning" },
       { id: 4, title: "Mantainance" },
@@ -119,7 +119,7 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
    const submitNewEvent = (data) => {
       if (!data) return
       else {
-         console.log("data to send",data)
+         console.log("data to send", data)
          createEvent(data)
          setCreationModalData()
       }
@@ -154,8 +154,8 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
       const modalInfoData = events.filter((e) => e.id == modalData.id)[0]
       if (!modalInfoData) return <></>
 
-      const { name, created_at, id, task, task_to, room, description, asigned_room, asigned_to } = modalInfoData
-      console.log(modalData,modalInfoData,  "MODALDATA")
+      const { name, created_at, id, task, task_to, room, description, asigned_room, asigned_to, type } = modalInfoData
+      console.log(modalData, modalInfoData, "MODALDATA")
       return (
          <div className="ModalWrapper">
             <div className="ModalMask"></div>
@@ -170,6 +170,10 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
                            <td className="modalTd" >Title</td>
                         </tr>
                         <tr >
+                           <td className="modalTd" >Type</td>
+                           <td className="modalTd" ><strong>{type}</strong></td>
+                        </tr>
+                        <tr >
                            <td className="modalTd" >Start Time</td>
                            <td className="modalTd" ><strong>{new Date(created_at).toDateString()}</strong></td>
                         </tr>
@@ -177,6 +181,14 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
                            <td className="modalTd" >Asigned To</td>
                            <td className="modalTd" ><strong>{asigned_to}</strong></td>
                         </tr>
+                        {users.length && (
+                           <tr>
+                              <td className="modalTd" >Asigned To</td>
+                              <td className="modalTd" >
+                                 <p><b>{graUserName(asigned_to)}</b></p>
+                              </td>
+                           </tr>
+                        )}
                         <tr>
                            <td>
                               <p>Room</p>
@@ -213,11 +225,18 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
    }
 
    const grabRoomName = (roomID) => {
-      console.log("roomID",roomID,rooms)
       const find = rooms.find(r => r.id == roomID)
-      if(find) return find.name
+      if (find) return find.name
       return "-"
-   } 
+   }
+
+   const graUserName = (userID) => {
+      console.log("asigned_to", userID,users)
+      const find = users.find(u => u.id == userID)
+      if (find) return find.name
+      return "-"
+   }
+
    const CreationModal = ({ onSubmit, data }) => {
       const [_data, setData] = React.useState({ ...data })
 
@@ -226,6 +245,7 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
       }
 
       const { name, date, asigned_to, type, asigned_room } = _data
+      console.log(_data, "CREATIONMODALDATA")
       return (
          <div className="ModalWrapper">
             <div className="ModalMask"></div>
@@ -248,16 +268,35 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
                            <td className="modalTd" >Start Time</td>
                            <td className="modalTd" ><strong>{date}</strong></td>
                         </tr>
+                        {users.length && (
+                           <tr>
+                              <td className="modalTd" >Asigned To</td>
+                              <td className="modalTd" >
+                                 <select
+                                    value={asigned_to}
+                                    className="form-control form-control-lg"
+                                    onChange={(e) => dataChange("asigned_to", Number(e.target.value))}
+                                 >
+                                    <option disabled selected>Select an option</option>
+                                    {users.map(u => (
+                                       <option value={u.id} key={u.id}>{u.name}</option>
+                                    ))}
+                                 </select>
+                              </td>
+                           </tr>
+                        )}
                         <tr>
                            <td className="modalTd" >Room</td>
                            <td className="modalTd" >
-                           {rooms.length && (
+                              {rooms.length && (
 
-                              <ComboSelector 
-                                 onChange={(e) => dataChange("asigned_room", Number(e))} 
-                                 items={rooms} 
-                              />
-                           )}
+                                 <ComboSelector
+                                    value={asigned_room}
+                                    defaultValue={asigned_room}
+                                    onChange={(e) => dataChange("asigned_room", Number(e))}
+                                    items={rooms}
+                                 />
+                              )}
                            </td>
                         </tr>
                         <tr >
@@ -294,7 +333,7 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
                <div className="col-xl-12 col-sm-12" >
                   <Card>
                      <Card.Body>
-                        <div id="external-events" style={{display:"flex"}}>
+                        <div id="external-events" style={{ display: "flex" }}>
                            {_events.map((event) => (
                               <div
                                  draggable={true}
@@ -381,6 +420,7 @@ const EventCalendar = ({ events, getEventsAction, updateEventByID, loadingById, 
 }
 const mapStateToProps = (rootState) => {
    return {
+      users: rootState.authData.users,
       events: rootState.eventsData.events,
       loadingById: rootState.eventsData.loadingById,
       isAdmin: rootState.authData.user && rootState.authData.user.user_type_id == 1,
