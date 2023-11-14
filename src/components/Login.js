@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 // image
 import { ToastContainer } from "react-toastify";
 import logo from "../images/logo-full.png";
-import loginbg from "../images/pic1.png";
+import loginbg from "../images/pic01.png";
 import { doLogin } from "../store/actions/AuthActions";
 
 function Login({
@@ -66,8 +66,8 @@ function Login({
           </div>
         </div>
         <div
-          className="aside-image"
-          style={{ backgroundImage: "url(" + loginbg + ")" }}
+          className="aside-image right-image"
+          style={{ backgroundPositionX: "-29px", backgroundPositionY: "7px", backgroundImage: "url(" + loginbg + ")" }}
         ></div>
       </div>
       <div className="container flex-row-fluid d-flex flex-column justify-content-center position-relative overflow-hidden p-7 mx-auto">

@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom'
 
 // image
 import logo from "../../images/logo-full.png";
-import loginbg from "../../images/pic1.png";
+// import loginbg from "../../images/pic1.png";
+import loginbg from "../../images/pic01.png";
+
 
 function Login(props) {
 	const [email, setEmail] = useState('demo@example.com');
