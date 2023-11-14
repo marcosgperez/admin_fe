@@ -35,7 +35,6 @@ const TaskList = ({ isAdmin, user, filter, tasks, getTasks, getTaskTypes, rooms,
 
 	// GET USERS & USER-BY-ID
 	React.useEffect(() => {
-		if (isAdmin) getTasks()
 		getUsers();
 		getRooms();
 	}, [])

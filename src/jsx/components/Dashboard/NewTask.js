@@ -71,8 +71,25 @@ const TaskById = ({
     const [status, setStatus] = useState(["Completed", "Pending"])
     const [isUpdating, setIsUpdating] = React.useState(false)
 
+    function getBase64(file, callback) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            callback(reader.result);
+        };
+        reader.onerror = function (error) {
+            callback(null);
+        };
+    }
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        getBase64(file, (data) => {
+            setInfoTask({ ...infoTask, photo: data })
+        });
+    };
+
     const changeFormProp = (prop, value) => {
-        console.log("cambio combo", prop, value)
         setInfoTask({ ...infoTask, [prop]: value })
     }
     const addPersonToDescription = (str) => {
@@ -81,15 +98,17 @@ const TaskById = ({
     const sendForm = () => {
         setIsUpdating(true)
         const newInfoTask = { ...infoTask }
-        console.log(newInfoTask.asigned_room, "ACA ESTA EL ASIGNED ROOM ENVIADO EN EL FORM")
         delete newInfoTask.created_at;
         newInfoTask.type = String(newInfoTask.type)
         newInfoTask.is_completed = newInfoTask.status === "Completed" ? 1 : 0;
         delete newInfoTask.status;
-        const [conversation, _description] = parseDescriptionForConversation(infoTask.description)
-        newInfoTask.description = concatDescriptionForConversation(conversation, addPersonToDescription(newInfoTask.newDescription))
+        if(!newInfoTask.newDescription || newInfoTask.newDescription.length < 1) {
+            delete newInfoTask.description;
+        } else {
+            const [conversation, _description] = parseDescriptionForConversation(infoTask.description)
+            newInfoTask.description = concatDescriptionForConversation(conversation, addPersonToDescription(newInfoTask.newDescription))
+        }
         delete newInfoTask.newDescription;
-        console.log(infoTask, "from send form")
 
         if (infoTask.id) updateTaskByID(newInfoTask)
 
@@ -224,45 +243,40 @@ const TaskById = ({
                                                                     <div className=''>
                                                                         <p>Room</p>
                                                                         <ComboSelector onChange={(e) => changeFormProp("asigned_room", Number(e))} defaultValue={taskById ? taskById.asigned_room : null} items={rooms} />
-                                                                        {/* <select
-                                                                            value={infoTask.asigned_room !== undefined ? infoTask.asigned_room : ""}
-                                                                            className="form-control form-control-lg"
-                                                                            // onChange={console.log(e.target.value, "ROOM ID")}
-                                                                            onChange={(e) => changeFormProp("asigned_room", e.target.value)}
-                                                                        >
-                                                                            {rooms.map(u => (
-                                                                                <option value={u.id} key={u.id}>{u.name}</option>
-                                                                            ))}
-                                                                        </select> */}
+
                                                                     </div>
-                                                                    {/* <div className=''>
-                                                                        <p>ALgo COmboSelector de juani</p>
-                                                                        <ComboSelector onChange={(e) => console.log(e)} defaultValue={3} items={ITEMS} />
-                                                                    </div> */}
+                                                                    <div className=''>
+                                                                        <p>Image</p>
+                                                                        <input type='file' multiple={false} accept="image/*" onChange={(e) => handleImageChange(e)} />
+                                                                        <div className='m-4 mt-0'>
+                                                                            {infoTask.photo && <img src={infoTask.photo} style={{ objectFit: "contain", width: "100%", height: "400px" }} />}
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
 
                                                             </div>
                                                         </div>
-                                                        <div className="mb-3 d-none">
-                                                            <input className="form-control" type="file" id="formFile" />
+                                                        <div className='m-5'>
+
+                                                            <div className='convoContainer'>
+                                                                {conversation.map(c => (
+                                                                    <div className='row formRow' >
+                                                                        <p>{c}</p>
+                                                                    </div>
+                                                                ))}
+                                                            </div>
+                                                            <div >
+                                                                <p><b>Comments:</b></p>
+                                                            </div>
+                                                            <textarea
+                                                                defaultValue={_description}
+                                                                className='formTextArea'
+                                                                onChange={(e) => changeFormProp("newDescription", e.target.value)}
+                                                                rows="8"
+                                                                id="comment"
+                                                            ></textarea>
                                                         </div>
-                                                        <div className='convoContainer'>
-                                                            {conversation.map(c => (
-                                                                <div className='row formRow' >
-                                                                    <p>{c}</p>
-                                                                </div>
-                                                            ))}
-                                                        </div>
-                                                        <div>
-                                                            <p><b>Comments:</b></p>
-                                                        </div>
-                                                        <textarea
-                                                            defaultValue={_description}
-                                                            className='formTextArea'
-                                                            onChange={(e) => changeFormProp("newDescription", e.target.value)}
-                                                            rows="8"
-                                                            id="comment"
-                                                        ></textarea>
+
                                                         <div className="col-12">
                                                             <div className='saveContainer mt-2' >
                                                                 <button className={checkIfDisabled() ? "disabled" : ""} disabled={checkIfDisabled()} type="button" onClick={sendForm}>Save</button>
@@ -333,8 +347,8 @@ export const ComboSelector = ({ onChange, items, defaultValue, value }) => {
         else return item.name.toLowerCase().includes(filter.toLowerCase())
     }
     React.useEffect(() => {
-        if(value) setActiveItem(value)
-    },[value])
+        if (value) setActiveItem(value)
+    }, [value])
 
     return (
         <div className={`ComboSelector ${active ? "active" : ""}`}>
