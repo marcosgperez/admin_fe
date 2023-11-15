@@ -1,0 +1,35 @@
+{
+    "events": [
+        {
+            "id": 1,
+            "title": "Event 1",
+            "start": "10:32",
+            "date": "10/10/23"
+        },
+        {
+            "id": 2,
+            "title": "Event 1",
+            "start": "10:32",
+            "date": "10/10/23"
+        },
+        {
+            "id": 3,
+            "title": "Event 1",
+            "start": "10:32",
+            "date": "10/10/23"
+        },
+        {
+            "id": 4,
+            "title": "Event 1",
+            "start": "10:32",
+            "date": "10/10/23"
+        },
+        {
+            "id": 5,
+            "title": "Event 1",
+            "start": "10:32",
+            "date": "10/10/23"
+        }
+    ]
+    
+}

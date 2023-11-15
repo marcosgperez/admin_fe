@@ -1,0 +1,8 @@
+{
+    "total": 10,
+    "available": 27,
+    "unavailable": 30,
+    "checkIn": 30,
+    "checkOut": 40,
+    "rooms": []
+}

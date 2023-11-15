@@ -1,0 +1,37 @@
+{
+    "tasks": [
+        {
+            "id": 1,
+            "name": "room 201",
+            "type": "maintainance",
+            "assigned": "Joaquin Cerruti Lerech",
+            "date": "11/10/23",
+            "time": "10:32",
+            "button": "warning",
+            "status": "On-Progress",
+            "roomType": 1
+        },
+        {
+            "id": 2,
+            "name": "room 202",
+            "type": "houseKeeping",
+            "assigned": "John Doe",
+            "date": "11/10/23",
+            "time": "10:32",
+            "button": "success",
+            "status": "Done",
+            "roomType": 2
+        },
+        {
+            "id": 3,
+            "name": "room 203",
+            "type": "other",
+            "assigned": "John Doe",
+            "date": "11/10/23",
+            "time": "10:32",
+            "button": "danger",
+            "status": "Not-finished",
+            "roomType": 1
+        }
+    ]
+}

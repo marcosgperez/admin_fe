@@ -108,3 +108,202 @@
 // Version Color
 ////////////////////
 @import "./layout/version-dark/main";
+@import "./components/calendar/calendarEvent";
+
+@import "./oldCss";
+
+@import "./forms.scss";
+
+@import "./newHeader";
+
+
+.overflow-x-hidden {
+    overflow-x: hidden;
+}
+
+.eventsBody {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.ComboSelector {
+    position: relative;
+    .value {
+        cursor: pointer;
+        width: 90%;
+        height: 40px;
+        margin: 20px;
+        background-color: #f7f7f7;
+        border: none;
+        border-radius: 8px;
+        padding: 10px;
+        position: relative;
+        .input-value{
+            padding-left: 0px;
+            background-color: transparent;
+            height: 37px;
+            width: 300px;
+            position: absolute;
+            top: 0px;
+            margin: 0px;
+            border: none;
+        }
+
+    }
+    .options {
+        background-color: white;
+        width: 100%;
+        z-index: 999;
+
+        position: absolute;
+        overflow: hidden;
+        max-height: 0px;
+    }
+    &.active {
+        .value {
+            border: 2px solid grey;
+        }
+        .options {
+            overflow: hidden;
+            max-height: 200px;
+            width: 90%;
+            margin: 20px;
+            background-color: #f7f7f7;
+            border: none;
+            border-radius: 8px;
+            padding: 10px;
+            position: absolute;
+            top: 45px;
+            margin-top: 0px;
+            box-shadow: 1px 4px 10px #00000052;
+            .option {
+                padding: 10px;
+                &:hover {
+                    background-color: #c96161;
+                    color: white;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
+
+
+p.text-no-scape, .text-no-scape p {
+    word-wrap: break-word;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-wrap: nowrap;
+}
+
+.Home {
+    .desktopCards {
+        
+    }
+    .card-task {
+        background-color: #c96161;
+        .booking-status span {
+            background-color: white;
+            svg, svg path {
+                fill: #c96161 !important;
+            }
+        }
+        p {
+            color: white;
+        }
+        &:hover {
+
+        }
+    }
+}
+
+.Tasks {
+    legend {
+        display: flex;
+        font-size: 14px;
+    }
+}
+.gesto-input {
+    height: 40px;
+    margin: 20px;
+    background-color: #f7f7f7;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.content-body-employee {
+    margin-top: 100px
+}
+.header-employee {
+    padding-left: 0px !important;
+    .header-content {
+        padding-left: 10px !important;
+    }
+}
+
+.label-button {
+    background: wheat;
+    padding: 10px;
+    border-radius: 11px;
+    width: fit-content;
+    color: black;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.roomListCard {
+    min-width: 100%;
+
+}
+.Task-Card-Holder {
+    max-width: calc(100vw - 26px);
+    .slider {
+        min-width: 100%;
+        .slide {
+            margin-right: 10px;
+        }
+    }
+}
+button {
+    min-width: fit-content;
+}
+
+.form-control.form-control-lg {
+    min-height: auto !important;
+}
+
+.Modal {
+    height: fit-content;
+    .gesto-input {
+        background-color: white;
+    }
+    .ComboSelector {
+        .value {
+            cursor: pointer;
+            background-color: white;
+        }
+    }
+
+    .modalTd {
+        border: none;
+    }
+    .table tbody tr td {
+        border: none;
+    }
+}
+
+.appear {
+    opacity: 0;
+    animation: appear 0.2s  0.3s ease forwards;
+}
+@keyframes appear {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+

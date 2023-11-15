@@ -1,10 +1,10 @@
-import { applyMiddleware, combineReducers, compose,createStore,} from 'redux';
-import PostsReducer from './reducers/PostsReducer';
+import { applyMiddleware, combineReducers, compose, createStore, } from 'redux';
 import thunk from 'redux-thunk';
-import { AuthReducer } from './reducers/AuthReducer';
-import todoReducers from './reducers/Reducers';
-import { UserReducer } from './reducers/UserReducer';
 import { RoomsReducer } from './reducers/RoomsReducer';
+import { TasksReducer } from './reducers/TasksReducer';
+import { AuthReducer } from './reducers/AuthReducer';
+import { EventsReducer } from './reducers/EventsReducer';
+
 //import { reducer as reduxFormReducer } from 'redux-form';
 const middleware = applyMiddleware(thunk);
 
@@ -12,14 +12,12 @@ const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const reducers = combineReducers({
-    posts: PostsReducer,
-    auth: AuthReducer,
-		todoReducers,
-    userData: UserReducer,
     roomsData: RoomsReducer,
-	//form: reduxFormReducer,	
+    tasksData: TasksReducer,
+    authData: AuthReducer,
+    eventsData: EventsReducer,
 });
 
 //const store = createStore(rootReducers);
 
-export const store = createStore(reducers,  composeEnhancers(middleware));
+export const store = createStore(reducers, composeEnhancers(middleware));

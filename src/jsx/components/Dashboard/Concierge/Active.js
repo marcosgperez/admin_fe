@@ -1,7 +1,7 @@
 import React,{ useState, useRef, useEffect } from 'react';
 import { Link } from "react-router-dom";
 
-import { DropdownBlog } from "./../ConciergeList";
+import { DropdownBlog } from "./../StaffList";
 import pic1 from './../../../../images/avatar/pic1.jpg';
 import avt1 from './../../../../images/avatar/1.jpg';
 import avt3 from './../../../../images/avatar/3.jpg';

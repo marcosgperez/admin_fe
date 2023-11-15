@@ -215,8 +215,8 @@ const GuestList = () =>{
 																	<input type="checkbox" onClick={() => chackboxFun("all")} className="form-check-input" id="checkAll" required=""/>
 																</div>
 															</th>
-															<th className="sorting_asc">Guest</th>
-															<th className="sorting">Date Order</th>
+															<th className="sorting_asc">Name</th>
+															<th className="sorting">Reserved on</th>
 															<th className="sorting">Check In</th>
 															<th className="sorting">Check Out</th>
 															<th className="sorting">Special Request</th>

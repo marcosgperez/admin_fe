@@ -1,53 +1,56 @@
 import React, { useState } from 'react'
-import { connect, useDispatch } from 'react-redux';
-import { Link,useNavigate } from 'react-router-dom'
-import { loadingToggleAction,loginAction,
-} from '../../store/actions/AuthActions';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom'
 
 // image
 import logo from "../../images/logo-full.png";
-import loginbg from "../../images/pic1.png";
+// import loginbg from "../../images/pic1.png";
+import loginbg from "../../images/pic01.png";
 
-function Login (props) {
-  const [email, setEmail] = useState('demo@example.com');
-    let errorsObj = { email: '', password: '' };
-    const [errors, setErrors] = useState(errorsObj);
-    const [password, setPassword] = useState('123456');
 
-	const navigate = useNavigate();
-	const dispatch = useDispatch();
-	
-    function onLogin(e) {
-        e.preventDefault();
-        let error = false;
-        const errorObj = { ...errorsObj };
-        if (email === '') {
-            errorObj.email = 'Email is Required';
-            error = true;
-        }
-        if (password === '') {
-            errorObj.password = 'Password is Required';
-            error = true;
-        }
-        setErrors(errorObj);
-        if (error) {
-			return ;
+function Login(props) {
+	const [email, setEmail] = useState('demo@example.com');
+	let errorsObj = { email: '', password: '' };
+	const [errors, setErrors] = useState(errorsObj);
+	const [password, setPassword] = useState('123456');
+
+	// const navigate = useNavigate();
+
+
+	const onLogin = (e) => {
+		e.preventDefault();
+		let error = false;
+		const errorObj = { ...errorsObj };
+		if (email === '') {
+			errorObj.email = 'Email is Required';
+			error = true;
 		}
-		dispatch(loadingToggleAction(true));	
-        dispatch(loginAction(email, password, navigate));
-    }
-
-  return (
+		if (password === '') {
+			errorObj.password = 'Password is Required';
+			error = true;
+		}
+		setErrors(errorObj);
+		if (error) {
+			// return;
+			setError(true)
+		}
+		// dispatch(loadingToggleAction(true));	
+		// dispatch(loginAction(email, password, navigate));
+	}
+const [error,setError] = useState(false)
+	return (
 		<div className="authincation d-flex flex-column flex-lg-row flex-column-fluid">
-			<div className="login-aside text-center  d-flex flex-column flex-row-auto">
-				<div className="d-flex flex-column-auto flex-column pt-lg-40 pt-15">
+			<div className="login-aside text-center aca?  d-flex flex-column flex-row-auto" style={{ height: "35%" }} >
+				<div className="este? d-flex flex-column-auto flex-column pt-lg-40 pt-15">
 					<div className="text-center mb-4 pt-5">
 						<img src={logo} alt="" />
 					</div>
-					<h3 className="mb-2">Welcome back!</h3>
-					<p>User Experience & Interface Design <br />Strategy SaaS Solutions</p>
+					<div className='loginHeaderText' >
+						{/* <h3 className="mb-2">Welcome back!</h3>
+						<p>User Experience & Interface Design <br />Strategy SaaS Solutions</p> */}
+					</div>
 				</div>
-				<div className="aside-image" style={{backgroundImage:"url(" + loginbg + ")"}}></div>
+				<div className="aside-image" style={{ backgroundImage: "url(" + loginbg + ")" }}></div>
 			</div>
 			<div className="container flex-row-fluid d-flex flex-column justify-content-center position-relative overflow-hidden p-7 mx-auto">
 				<div className="d-flex justify-content-center h-100 align-items-center">
@@ -65,15 +68,15 @@ function Login (props) {
 											{props.successMessage}
 										</div>
 									)}
-									<form onSubmit={onLogin}  className="form-validate">
+									<form onSubmit={onLogin} className="form-validate">
 										<h3 className="text-center mb-4 text-black">Sign in your account</h3>
 										<div className="form-group mb-3">
-											<label className="mb-1"  htmlFor="val-email"><strong>Email</strong></label>
+											<label className="mb-1" htmlFor="val-email"><strong>Email</strong></label>
 											<div>
 												<input type="email" className="form-control"
 													value={email}
-												   onChange={(e) => setEmail(e.target.value)}
-												   placeholder="Type Your Email Address"
+													onChange={(e) => setEmail(e.target.value)}
+													placeholder="Type Your Email Address"
 												/>
 											</div>
 											{errors.email && <div className="text-danger fs-12">{errors.email}</div>}
@@ -81,10 +84,10 @@ function Login (props) {
 										<div className="form-group mb-3">
 											<label className="mb-1"><strong>Password</strong></label>
 											<input
-											  type="password"
-											  className="form-control"
-											  value={password}
-											  placeholder="Type Your Password"
+												type="password"
+												className="form-control"
+												value={password}
+												placeholder="Type Your Password"
 												onChange={(e) =>
 													setPassword(e.target.value)
 												}
@@ -93,7 +96,7 @@ function Login (props) {
 										</div>
 										<div className="form-row d-flex justify-content-between mt-4 mb-2">
 											<div className="form-group mb-3">
-											   <div className="custom-control custom-checkbox ml-1">
+												<div className="custom-control custom-checkbox ml-1">
 													<input type="checkbox" className="form-check-input" id="basic_checkbox_1" />
 													<label className="form-check-label" htmlFor="basic_checkbox_1">Remember my preference</label>
 												</div>
@@ -103,6 +106,7 @@ function Login (props) {
 											<button type="submit" className="btn btn-primary btn-block">
 												Sign In
 											</button>
+											<p >Wrong Email or Password</p>
 										</div>
 									</form>
 									<div className="new-account mt-3">
@@ -114,16 +118,16 @@ function Login (props) {
 					</div>
 				</div>
 			</div>
-		</div>	
-		
-  );
+		</div>
+
+	);
 };
 
 const mapStateToProps = (state) => {
-    return {
-        errorMessage: state.auth.errorMessage,
-        successMessage: state.auth.successMessage,
-        showLoading: state.auth.showLoading,
-    };
+	return {
+		errorMessage: state.auth.errorMessage,
+		successMessage: state.auth.successMessage,
+		showLoading: state.auth.showLoading,
+	};
 };
 export default connect(mapStateToProps)(Login);

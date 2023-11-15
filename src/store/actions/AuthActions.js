@@ -1,99 +1,202 @@
-import React from "react";
-import {
-  formatError,
-  login,
-  runLogoutTimer,
-  // saveTokenInLocalStorage,
-  signUp,
-} from "../../services/AuthService";
-import { identifyMe, identifyMeFailed } from "./UserActions";
-import { authLogin } from "../../api/functions/Auth/index";
-import { notifyError } from "../../hooks/toaster";
-import { me } from "../../api/functions/Auth/index";
-export const SIGNUP_CONFIRMED_ACTION = "[signup action] confirmed signup";
-export const SIGNUP_FAILED_ACTION = "[signup action] failed signup";
-export const LOGIN_CONFIRMED_ACTION = "[login action] confirmed login";
-export const LOGIN_FAILED_ACTION = "[login action] failed login";
-export const LOADING_TOGGLE_ACTION = "[Loading action] toggle loading";
-export const LOGOUT_ACTION = "[Logout action] logout action";
 
-export function signupAction(email, password, navigate) {
-  return (dispatch) => {
-    signUp(email, password)
-      .then((response) => {
-        // saveTokenInLocalStorage(response.data);
-        runLogoutTimer(
-          dispatch,
-          response.data.expiresIn * 1000
-          //history,
-        );
-        dispatch(confirmedSignupAction(response.data));
-        navigate("/dashboard");
-      })
-      .catch((error) => {
-        const errorMessage = formatError(error.response.data);
-        dispatch(signupFailedAction(errorMessage));
-      });
-  };
+import ApiService from "../../services/ApiService";
+
+export const AuthActionTypes = {
+  "GET_AUTH_FETCHING": "GET_AUTH_FETCHING",
+  "GET_AUTH_FETCH": "GET_AUTH_FETCH",
+  "GET_AUTH_FETCH_ERROR": "GET_AUTH_FETCH_ERROR",
+
+  "GET_USERS_FETCH": "GET_USERS_FETCH",
+  "GET_USERS_FETCHING": "GET_USERS_FETCHING",
+  "GET_USERS_FETCH_ERROR": "GET_USER_FETCH_ERROR",
+
+  "GET_USERTYPES_FETCH": "GET_USERTYPES_FETCH",
+  "GET_USERTYPES_FETCHING": "GET_USERTYPES_FETCHING",
+  "GET_USERTYPES_FETCH_ERROR": "GET_USERTYPES_FETCH_ERROR",
+
+  "UPDATE_USERTYPES_FETCH": "UPDATE_USERTYPES_FETCH",
+  "UPDATE_USERTYPES_FETCHING": "UPDATE_USERTYPES_FETCHING",
+  "UPDATE_USERTYPES_FETCH_ERROR": "UPDATE_USERTYPES_FETCH_ERROR",
+
+  "GET_USER_BY_ID_FETCH": "GET_USER_BY_ID_FETCH",
+  "GET_USER_BY_ID_FETCHING": "GET_USER_BY_ID_FETCHING",
+  "GET_USER_BY_ID_FETCH_ERROR": "GET_USER_BY_ID_FETCH_ERROR",
+
+  "UPDATE_USER_BY_ID_FETCHING": "UPDATE_USER_BY_ID_FETCHING",
+  "UPDATE_USER_BY_ID_FETCH": "UPDATE_USER_BY_ID_FETCH",
+  "UPDATE_USER_BY_ID_FETCH_ERROR": "UPDATE_USER_BY_ID_FETCH_ERROR",
+
+  "DELETE_USER_BY_ID_FETCHING": "DELETE_USER_BY_ID_FETCHING",
+  "DELETE_USER_BY_ID_FETCH": "DELETE_USER_BY_ID_FETCH",
+  "DELETE_USER_BY_ID_FETCH_ERROR": "DELETE_USER_BY_ID_FETCH_ERROR",
+
+  "DELETE_USERTYPES_FETCH": "DELETE_USERTYPES_FETCH",
+  "DELETE_USERTYPES_FETCHING": "DELETE_USERTYPES_FETCHING",
+  "DELETE_USERTYPES_FETCH_ERROR": "DELETE_USERTYPES_FETCH_ERROR",
+
+  "CREATE_USER_BY_ID_FETCHING": "CREATE_USER_BY_ID_FETCHING",
+  "CREATE_USER_BY_ID_FETCH": "CREATE_USER_BY_ID_FETCH",
+  "CREATE_USER_BY_ID_FETCH_ERROR": "CREATE_USER_BY_ID_FETCH_ERROR",
 }
 
-export function Logout(navigate) {
-  localStorage.removeItem("userDetails");
-  navigate("/login");
-  //history.push('/login');
-  return {
-    type: LOGOUT_ACTION,
-  };
-}
-
-export function loginAction(data, navigate) {
-  return (dispatch) => {
-    authLogin(data).then(async (res) => {
-      const user = await me();
-      if (res.ok === 1 && user.ok == 1) {
-        dispatch(identifyMe(user.data));
-        dispatch(loginConfirmedAction(res.data));
-        navigate("/");
-      } else {
-        dispatch(identifyMeFailed(user.data));
-        dispatch(loginFailedAction(res.data));
-        notifyError(res.error);
-      }
+export const doLogin = (email, password) => (dispatch) => {
+  dispatch({
+    type: AuthActionTypes.GET_AUTH_FETCHING
+  });
+  ApiService.doLogin(email, password).then((res) => {
+    console.log(res,"res login")
+    ApiService.setToken(res.data.token)
+    dispatch({
+      type: AuthActionTypes.GET_AUTH_FETCH,
+      payload: res.data,
     });
-  };
+  }).catch(e => {
+    dispatch({
+      type: AuthActionTypes.GET_AUTH_FETCH_ERROR,
+      payload: e,
+    });
+  })
+};
+
+export const getUsers = () => (dispatch) => {
+  dispatch({
+    type: AuthActionTypes.GET_USERS_FETCHING
+  });
+  ApiService.getUsers().then((res) => {
+    dispatch({
+      type: AuthActionTypes.GET_USERS_FETCH,
+      payload: res.data.data,
+    });
+  }).catch(e => {
+    dispatch({
+      type: AuthActionTypes.GET_USERS_FETCH_ERROR,
+      payload: e,
+    });
+  })
+};
+
+export const getUserTypesAction = () => (dispatch) => {
+  dispatch({
+    type: AuthActionTypes.GET_USERTYPES_FETCHING
+  });
+  ApiService.getUserTypes().then((res) => {
+
+    dispatch({
+      type: AuthActionTypes.GET_USERTYPES_FETCH,
+      payload: res.data.data,
+    });
+  }).catch(e => {
+    dispatch({
+      type: AuthActionTypes.GET_USERTYPES_FETCH_ERROR,
+      payload: e,
+    });
+  })
+};
+
+export const updateUserTypesAction = (userTypes) => (dispatch) => {
+  dispatch({
+    type: AuthActionTypes.UPDATE_USERTYPES_FETCHING
+  });
+  ApiService.updateUserTypes(userTypes).then((res) => {
+    dispatch({
+      type: AuthActionTypes.UPDATE_USERTYPES_FETCH,
+      payload: res.data.data,
+    });
+  }).catch(e => {
+    dispatch({
+      type: AuthActionTypes.UPDATE_USERTYPES_FETCH_ERROR,
+      payload: e,
+    });
+  })
 }
 
-export function loginFailedAction(data) {
-  return {
-    type: LOGIN_FAILED_ACTION,
-    payload: data,
-  };
+export const getUserByIDAction = (id) => (dispatch) => {
+  dispatch({
+    type: AuthActionTypes.GET_USER_BY_ID_FETCHING
+  });
+  ApiService.getUserByID(id).then((res) => {
+    console.log(res, "RES")
+    dispatch({
+      type: AuthActionTypes.GET_USER_BY_ID_FETCH,
+      payload: res.data.data,
+    });
+  }).catch(e => {
+    dispatch({
+      type: AuthActionTypes.GET_USER_BY_ID_FETCH_ERROR,
+      payload: e,
+    });
+  })
 }
 
-export function loginConfirmedAction(data) {
-  return {
-    type: LOGIN_CONFIRMED_ACTION,
-    payload: data,
-  };
+export const createUserAction = (user) => (dispatch) => {
+  dispatch({
+    type: AuthActionTypes.CREATE_USER_BY_ID_FETCHING
+  });
+  ApiService.createUser(user).then((res) => {
+    console.log(res, "RES")
+    dispatch({
+      type: AuthActionTypes.CREATE_USER_BY_ID_FETCH,
+      payload: res.data.data,
+    });
+  }).catch(e => {
+    dispatch({
+      type: AuthActionTypes.CREATE_USER_BY_ID_FETCH_ERROR,
+      payload: e,
+    });
+  })
 }
 
-export function confirmedSignupAction(payload) {
-  return {
-    type: SIGNUP_CONFIRMED_ACTION,
-    payload,
-  };
+
+export const updateUserByIDAction = (user) => (dispatch) => {
+  dispatch({
+    type: AuthActionTypes.UPDATE_USER_BY_ID_FETCHING
+  });
+  ApiService.updateUserByID(user).then((res) => {
+    console.log(res, "RES")
+    dispatch({
+      type: AuthActionTypes.UPDATE_USER_BY_ID_FETCH,
+      payload: res.data.data,
+    });
+  }).catch(e => {
+    dispatch({
+      type: AuthActionTypes.UPDATE_USER_BY_ID_FETCH_ERROR,
+      payload: e,
+    });
+  })
 }
 
-export function signupFailedAction(message) {
-  return {
-    type: SIGNUP_FAILED_ACTION,
-    payload: message,
-  };
+export const deleteUserByIDAction = (user) => (dispatch) => {
+  dispatch({
+    type: AuthActionTypes.DELETE_USER_BY_ID_FETCHING
+  });
+  ApiService.deleteUserByID(user).then((res) => {
+    console.log(res, "RES")
+    dispatch({
+      type: AuthActionTypes.DELETE_USER_BY_ID_FETCH,
+      payload: res.data.data,
+    });
+  }).catch(e => {
+    dispatch({
+      type: AuthActionTypes.DELETE_USER_BY_ID_FETCH_ERROR,
+      payload: e,
+    });
+  })
 }
 
-export function loadingToggleAction(status) {
-  return {
-    type: LOADING_TOGGLE_ACTION,
-    payload: status,
-  };
+export const deleteUserTypesAction = (userTypes) => (dispatch) => {
+  dispatch({
+    type: AuthActionTypes.DELETE_USERTYPES_FETCHING
+  });
+  ApiService.deleteUserTypes(userTypes).then((res) => {
+    console.log(res, "RES")
+    dispatch({
+      type: AuthActionTypes.DELETE_USERTYPES_FETCH,
+      payload: res.data.data,
+    });
+  }).catch(e => {
+    dispatch({
+      type: AuthActionTypes.DELETE_USERTYPES_FETCH_ERROR,
+      payload: e,
+    });
+  })
 }
