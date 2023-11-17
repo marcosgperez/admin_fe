@@ -12,11 +12,16 @@ const Home = ({ getRoomsAction, rooms, events, tasks, getRoomCountAction, isAdmi
   React.useEffect(() => {
     getRoomsAction()
     getRoomCountAction()
+    console.log('rooms: ', rooms);
   }, [])
   const [filter, setFilter] = React.useState("All")
   const changeFilter = (newFilter) => {
     setFilter(newFilter)
   }
+
+  const dateToday = new Date();
+  dateToday.setHours(0,0,0,0)
+  const eventsToday = events.filter(e => new Date(e.date).getTime() == dateToday.getTime());
 
   const grabAvailable = () => {
     let available = 0
@@ -36,9 +41,9 @@ const Home = ({ getRoomsAction, rooms, events, tasks, getRoomCountAction, isAdmi
 
   const grabCheckIn = () => {
     console.log("barto events", events)
-    let CheckIn = 0
-    for (let i = 0; i < events.length; i++) {
-      if (events[i].type == "CheckIn") {
+    let CheckIn = 0;
+    for (let i = 0; i < eventsToday.length; i++) {
+      if (eventsToday[i].type == "CheckIn") {
         CheckIn++;
       }
     }
@@ -48,8 +53,8 @@ const Home = ({ getRoomsAction, rooms, events, tasks, getRoomCountAction, isAdmi
 
   const grabCheckOut = () => {
     let CheckOut = 0
-    for (let i = 0; i < events.length; i++) {
-      if (events[i].type == "CheckOut") {
+    for (let i = 0; i < eventsToday.length; i++) {
+      if (eventsToday[i].type == "CheckOut") {
         CheckOut++;
       }
     }

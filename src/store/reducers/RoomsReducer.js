@@ -8,8 +8,13 @@ const initialState = {
   checkOut: 0,
   unavailable: 0,
   rooms: [],
+  roomCount: [],
+
   roomsTypes: [],
-  roomCount: []
+  loadingRoomsTypes: false,
+
+  roomById: undefined,
+  loadingRoomById: false,
 };
 
 export function RoomsReducer(state = initialState, action) {
@@ -32,22 +37,40 @@ export function RoomsReducer(state = initialState, action) {
         loading: false,
       };
 
+    case RoomsActionTypes.GET_ROOM_BY_ID_FETCHING:
+      return {
+        ...state,
+        loadingRoomById: true,
+      };
+    case RoomsActionTypes.GET_ROOM_BY_ID_FETCH:
+      return {
+        ...state,
+        roomById: action.payload,
+        loadingRoomById: false,
+      };
+    case RoomsActionTypes.GET_ROOM_BY_ID_FETCH_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        loadingRoomById: false,
+      };
+
     case RoomsActionTypes.GET_ROOMSTYPES_FETCHING:
       return {
         ...state,
-        loading: true,
+        loadingRoomsTypes: true,
       };
     case RoomsActionTypes.GET_ROOMSTYPES_FETCH:
       return {
         ...state,
         roomsTypes: action.payload,
-        loading: false,
+        loadingRoomsTypes: false,
       };
     case RoomsActionTypes.GET_ROOMSTYPES_FETCH_ERROR:
       return {
         ...state,
         error: action.payload,
-        loading: false,
+        loadingRoomsTypes: false,
       };
 
     case RoomsActionTypes.UPDATE_ROOMSTYPES_FETCHING:
@@ -104,6 +127,24 @@ export function RoomsReducer(state = initialState, action) {
         error: action.payload,
         loading: false,
       };
+
+      case RoomsActionTypes.CREATE_ROOM_BY_ID_FETCHING:
+        return {
+          ...state,
+          loadingRoomById: true
+        };
+      case RoomsActionTypes.CREATE_ROOM_BY_ID_FETCH:
+        return {
+          ...state,
+          loadingRoomById: false
+        };
+  
+      case RoomsActionTypes.CREATE_ROOM_BY_ID_FETCH_ERROR:
+        return {
+          ...state,
+          loadingRoomById: false,
+          error: true
+        };
 
 
     default:

@@ -5,10 +5,6 @@ export const RoomsActionTypes = {
   "GET_ROOMS_FETCH": "GET_ROOMS_FETCH",
   "GET_ROOMS_FETCH_ERROR": "GET_ROOMS_FETCH_ERROR",
 
-  "UPDATE_ROOMS_FETCHING": "UPDATE_ROOMS_FETCHING",
-  "UPDATE_ROOMS_FETCH": "UPDATE_ROOMS_FETCH",
-  "UPDATE_ROOMS_FETCH_ERROR": "UPDATE_ROOMS_FETCH_ERROR",
-
   "DELETE_ROOMS_FETCHING": "DELETE_ROOMS_FETCHING",
   "DELETE_ROOMS_FETCH": "DELETE_ROOMS_FETCH",
   "DELETE_ROOMS_FETCH_ERROR": "DELETE_ROOMS_FETCH_ERROR",
@@ -27,7 +23,20 @@ export const RoomsActionTypes = {
 
   "GET_ROOMCOUNT_FETCHING": "GET_ROOMCOUNT_FETCHING",
   "GET_ROOMCOUNT_FETCH": "GET_ROOMCOUNT_FETCH",
-  "GET_ROOMCOUNT_FETCH_ERROR": "GET_ROOMCOUNT_FETCH_ERROR"
+  "GET_ROOMCOUNT_FETCH_ERROR": "GET_ROOMCOUNT_FETCH_ERROR",
+
+  // colo
+  "CREATE_ROOM_BY_ID_FETCHING": "CREATE_ROOM_BY_ID_FETCHING",
+  "CREATE_ROOM_BY_ID_FETCH": "CREATE_ROOM_BY_ID_FETCH",
+  "CREATE_ROOM_BY_ID_FETCH_ERROR": "CREATE_ROOM_BY_ID_FETCH_ERROR",
+
+  "GET_ROOM_BY_ID_FETCH": "GET_ROOM_BY_ID_FETCH",
+  "GET_ROOM_BY_ID_FETCHING": "GETROOMK_BY_ID_FETCHING",
+  "GET_ROOM_BY_ID_FETCH_ERROR": "GET_ROOM_BY_ID_FETCH_ERROR",
+
+  "UPDATE_ROOM_BY_ID_FETCHING": "UPDATE_ROOM_BY_ID_FETCHING",
+  "UPDATE_ROOM_BY_ID_FETCH": "UPDATE_ROOM_BY_ID_FETCH",
+  "UPDATE_ROOM_BY_ID_FETCH_ERROR": "UPDATE_ROOM_BY_ID_FETCH_ERROR",
 }
 
 export const getRoomsAction = () => (dispatch) => {
@@ -47,6 +56,24 @@ export const getRoomsAction = () => (dispatch) => {
   })
 };
 
+export const getRoomByIDAction = (id) => (dispatch) => {
+  dispatch({
+    type: RoomsActionTypes.GET_ROOM_BY_ID_FETCHING
+  });
+  ApiService.getRoomByID(id).then((res) => {
+    dispatch({
+      type: RoomsActionTypes.GET_ROOM_BY_ID_FETCH,
+      payload: res.data.data,
+    });
+  }).catch(e => {
+    dispatch({
+      type: RoomsActionTypes.GET_ROOM_BY_ID_FETCH_ERROR,
+      payload: e,
+    });
+  })
+}
+/* ESTO ESTABA DE MAS, PARA EL UPDATE ESTA EL updateRoomByIDAction - COLO
+
 export const updateRoomsAction = () => (dispatch) => {
   dispatch({
     type: RoomsActionTypes.UPDATE_ROOMS_FETCHING
@@ -62,7 +89,42 @@ export const updateRoomsAction = () => (dispatch) => {
       payload: e,
     });
   })
+};  */
+
+export const updateRoomByIDAction = (room) => (dispatch) => {
+  dispatch({
+    type: RoomsActionTypes.UPDATE_ROOM_BY_ID_FETCHING
+  });
+  ApiService.updateRoomByID(room).then((res) => {
+    dispatch({
+      type: RoomsActionTypes.UPDATE_ROOM_BY_ID_FETCH,
+      payload: res.data.data,
+    });
+  }).catch(e => {
+    dispatch({
+      type: RoomsActionTypes.UPDATE_ROOM_BY_ID_FETCH_ERROR,
+      payload: e,
+    });
+  })
 };
+
+export const createRoomAction = (room) => (dispatch) => {
+  dispatch({
+    type: RoomsActionTypes.CREATE_ROOM_BY_ID_FETCHING
+  });
+  ApiService.createRoom(room).then((res) => {
+    dispatch({
+      type: RoomsActionTypes.CREATE_ROOM_BY_ID_FETCH,
+      payload: res.data.data,
+    });
+  }).catch(e => {
+    dispatch({
+      type: RoomsActionTypes.CREATE_ROOM_BY_ID_FETCH_ERROR,
+      payload: e,
+    });
+  })
+}
+
 export const deleteRoomsAction = () => (dispatch) => {
   dispatch({
     type: RoomsActionTypes.DELETE_ROOMS_FETCHING
