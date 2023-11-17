@@ -166,17 +166,53 @@ class ApiService {
         })
     }
 
-    updateRooms(roomObject) {
+    getRoomByID(id) {
         return this.axios.post(proxyUrl, {
-            "method": "post",
-            "url": apiURL + "/rooms/update",
+            "method": "get",
+            "url": apiURL + "/rooms?id=" + id + "&external_id=" + this.externalId,
+            "auth": this.token,
+            "data": {}
+        })
+    }
+
+
+    updateUserByID(user) {
+        return this.axios.post(proxyUrl, {
+            "method": "put",
+            "url": apiURL + "/users/update",
             "auth": this.token,
             "data": {
-                roomObject,
+                ...user,
                 external_id: this.externalId
             }
         })
     }
+
+    updateRoomByID(room) {
+        return this.axios.post(proxyUrl, {
+            "method": "put",
+            "url": apiURL + "/rooms/update",
+            "auth": this.token,
+            "data": {
+                ...room,
+                external_id: this.externalId
+            }
+        })
+    }
+
+    createRoom(room) {
+        console.log("event from api",room)
+        return this.axios.post(proxyUrl, {
+            "method": "post",
+            "url": apiURL + "/rooms/store?external_id=" + this.externalId,
+            "auth": this.token,
+            "data": {
+                ...room,
+                external_id: this.externalId
+            }
+        })
+    }
+
     deleteRooms(roomId) {
         return this.axios.post(proxyUrl, {
             "method": "post",

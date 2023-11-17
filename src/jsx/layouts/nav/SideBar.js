@@ -100,7 +100,7 @@ const SideBar = ({ isAdmin }) => {
         <ul className="metismenu" id="menu">
 
 
-          {toMap.map((data, index) => {
+          {toMap.filter(d => d.title).map((data, index) => {
             let menuClass = data.classsChange;
             if (menuClass === "menu-title") {
               return (
@@ -128,33 +128,6 @@ const SideBar = ({ isAdmin }) => {
                               <li key={index}
                                 className={`${state.activeSubmenu === data.title ? "mm-active" : ""}`}
                               >
-                                {data.content && data.content.length > 0 ?
-                                  <>
-                                    {/* <Link to={data.to} className={data.hasMenu ? 'has-arrow' : ''}
-                                      onClick={() => { handleSubmenuActive(data.title) }}
-                                    >
-                                      {data.title}
-                                    </Link> */}
-                                    <Collapse in={state.activeSubmenu === data.title ? true : false}>
-                                      <ul className={`${menuClass === "mm-collapse" ? "mm-show" : ""}`}>
-                                        {data.content && data.content.map((data, index) => {
-                                          return (
-                                            <>
-                                              <li key={index}>
-                                                <Link className={`${path === data.to ? "mm-active" : ""}`} to={data.to}>{data.title}</Link>
-                                              </li>
-                                            </>
-                                          )
-                                        })}
-                                      </ul>
-                                    </Collapse>
-                                  </>
-                                  :
-                                  <Link to={data.to}>
-                                    {data.title}
-                                  </Link>
-                                }
-
                               </li>
 
                             )
