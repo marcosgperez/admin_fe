@@ -97,7 +97,7 @@ const StaffById = ({ getUserByIDAction, userTypes, updateUserByIDAction, userByI
                                                                         <input value={infoUser.name} onChange={(e) => changeFormProp("name", e.target.value)} />
                                                                     </div>
                                                                     <div>
-                                                                        <p>Suername</p>
+                                                                        <p>Surname</p>
                                                                         <input value={infoUser.surname} onChange={(e) => changeFormProp("surname", e.target.value)} />
                                                                     </div>
                                                                     <div>
