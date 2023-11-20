@@ -8,6 +8,13 @@ import { getRoomsAction, getRoomsTypesAction } from '../../../store/actions/Room
 import { Loader } from '../Loader';
 import { parseDescriptionForConversation, concatDescriptionForConversation } from "../../../helpers";
 
+const scheduledOptions = [
+    { id: "NEVER", name: "Never" },
+    { id: "DAILY", name: "Daily" },
+    { id: "WEEKLY", name: "Weekly" },
+    { id: "MONTHLY", name: "Monthly" },
+    { id: "ANNUALLY", name: "Annually" },
+]
 
 const buildTaskData = (taskFromApi) => {
     return {
@@ -154,8 +161,6 @@ const TaskById = ({
 
     React.useEffect(() => {
         if (taskById && !loadingTaskById && !isNew) setInfoTask(buildTaskData({ ...taskById }))
-        console.log(taskById, "ACA ESTA LA TASK BY ID")
-        console.log(infoTask, "INFO TASK SETEADA")
     }, [taskById, loadingTaskById])
 
 
@@ -163,11 +168,6 @@ const TaskById = ({
         if (isUpdating && !loadingTaskById) navigate(isAdmin ? "/tasks" : "/")
     }, [loadingTaskById])
 
-    // const test = (e) => {
-    //     changeFormProp("type", Number(e.target.value))
-    //     console.log(e.target.value)
-    // }
-    console.log(taskById, "task by id")
     return (
         <>
             <Tab.Container defaultActiveKey="All" >
@@ -237,6 +237,12 @@ const TaskById = ({
                                                                     <div className=''>
                                                                         <p>Room</p>
                                                                         <ComboSelector onChange={(e) => changeFormProp("asigned_room", Number(e))} defaultValue={taskById ? taskById.asigned_room : null} items={rooms} />
+
+                                                                    </div>
+
+                                                                    <div className=''>
+                                                                        <p>Scheduled</p>
+                                                                        <ComboSelector onChange={(e) => changeFormProp("scheduled", e)} defaultValue={taskById && taskById.scheduled != "-" ? taskById.scheduled : "NEVER"} items={scheduledOptions} />
 
                                                                     </div>
                                                                     <div className=''>
