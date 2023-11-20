@@ -13,7 +13,7 @@ import { connect } from "react-redux"
 import { getUserTypesAction } from "../../../store/actions/AuthActions";
 import { generateLetterByName, generateColorFromName } from "../../../helpers"
 
-const Header = ({ isAdmin, onNote, authData, typesData, getUserTypesAction, title }) => {
+const Header = ({ isAdmin, onNote, authData, typesData, getUserTypesAction, title, notifications }) => {
 	// const [searchBut, setSearchBut] = useState(false);
 	const location = useLocation()
 	const { loading, user } = authData
@@ -37,7 +37,7 @@ const Header = ({ isAdmin, onNote, authData, typesData, getUserTypesAction, titl
 				<nav className="navbar navbar-expand">
 					<div className="collapse navbar-collapse justify-content-between">
 						<div className="header-left">
-							{!isAdmin && (<img src="/logoNoLetras.png" style={{width:"40px", marginLeft: "10px" }}></img>)}
+							{!isAdmin && (<img src="/logoNoLetras.png" style={{ width: "40px", marginLeft: "10px" }}></img>)}
 							<div
 								className="dashboard_bar"
 								style={{ textTransform: "capitalize" }}
@@ -54,27 +54,43 @@ const Header = ({ isAdmin, onNote, authData, typesData, getUserTypesAction, titl
 										</g>
 									</svg>
 
-									<span className="badge light text-white bg-primary rounded-circle">4</span>
+									{notifications.length ? (<span className="badge light text-white bg-primary rounded-circle"><b className="pt-1">{notifications.length}</b></span>) : <></>}
 								</Dropdown.Toggle>
 								<Dropdown.Menu align="right" className="mt-2 dropdown-menu dropdown-menu-end">
-									<PerfectScrollbar className="widget-media dlab-scroll p-3 height380">
-										<div className="ps__rail-x" style={{ left: 0, bottom: 0 }}>
-											<div
-												className="ps__thumb-x"
-												tabIndex={0}
-												style={{ left: 0, width: 0 }}
-											/>
-										</div>
-										<div className="ps__rail-y" style={{ top: 0, right: 0 }}>
-											<div
-												className="ps__thumb-y"
-												tabIndex={0}
-												style={{ top: 0, height: 0 }}
-											/>
-										</div>
+									<PerfectScrollbar className="widget-media dlab-scroll p-3 height380 justify-content-start">
+										{notifications.map((notification, index) => {
+											let link = ""
+											const isTask = notification.ref_type == "task"
+
+											if (isTask) link = "/task/" + notification.ref_id
+
+											return (
+												<Dropdown.Item className="dropdown-item pt-3">
+													<Link
+														key={index}
+														className=""
+														to={link}
+													>
+														<div className="d-flex align-items-center gap-2">
+															<div className="media-thumb">
+																{isTask ? (
+																	<div><p>{notification.ref_id}</p></div>
+																) : <></>}
+															</div>
+															<div className="media-body">
+																<h6 className="mt-0 mb-0">{notification.name}</h6>
+																<p className="mb-0">{notification.description}</p>
+															</div>
+														</div>
+														<hr className="mb-1" />
+													</Link>
+												</Dropdown.Item>
+											)
+										})}
+
 									</PerfectScrollbar>
-									<Link className="all-notification" to="#">
-										See all notifications <i className="ti-arrow-right" />
+									<Link className="all-notification " to="#">
+										<p className="d-none">See all notifications <i className="ti-arrow-right" /></p>
 									</Link>
 								</Dropdown.Menu>
 							</Dropdown>
@@ -225,7 +241,8 @@ const Header = ({ isAdmin, onNote, authData, typesData, getUserTypesAction, titl
 const mapStateToProps = (rootState) => {
 	return {
 		authData: rootState.authData,
-		typesData: rootState.authData.userTypes
+		typesData: rootState.authData.userTypes,
+		notifications: rootState.authData.notifications
 	}
 }
 const mapDispatchToProps = {

@@ -3,22 +3,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Tab } from "react-bootstrap";
 import { connect } from 'react-redux';
 import { getTaskByID, updateTaskByID, createTask, getTasks } from '../../../store/actions/TasksActions';
-import { getUserTypesAction, getUsers } from '../../../store/actions/AuthActions';
+import { getUserTypesAction, getUsers, getNotificationsAction, readNotificationsAction } from '../../../store/actions/AuthActions';
 import { getRoomsAction, getRoomsTypesAction } from '../../../store/actions/RoomsActions';
 import { Loader } from '../Loader';
 import { parseDescriptionForConversation, concatDescriptionForConversation } from "../../../helpers";
 
-
-const ITEMS = [
-    { id: 0, name: "Item 1" },
-    { id: 1, name: "Item 2" },
-    { id: 2, name: "algo 3" },
-    { id: 3, name: "algo 4" },
-    { id: 4, name: "Item 5" },
-    { id: 5, name: "Item 6" },
-    { id: 6, name: "Item 7" },
-    { id: 7, name: "Item 8" }
-]
 
 const buildTaskData = (taskFromApi) => {
     return {
@@ -50,7 +39,10 @@ const TaskById = ({
     getRoomsTypesAction,
     rooms,
     isAdmin,
-    roomTypes
+    roomTypes,
+    notifications,
+    getNotificationsAction,
+    readNotificationsAction,
 }) => {
     const location = useLocation();
     let navigate = useNavigate();
@@ -99,10 +91,11 @@ const TaskById = ({
         setIsUpdating(true)
         const newInfoTask = { ...infoTask }
         delete newInfoTask.created_at;
+        if (!newInfoTask.photo) delete newInfoTask.photo;
         newInfoTask.type = String(newInfoTask.type)
         newInfoTask.is_completed = newInfoTask.status === "Completed" ? 1 : 0;
         delete newInfoTask.status;
-        if(!newInfoTask.newDescription || newInfoTask.newDescription.length < 1) {
+        if (!newInfoTask.newDescription || newInfoTask.newDescription.length < 1) {
             delete newInfoTask.description;
         } else {
             const [conversation, _description] = parseDescriptionForConversation(infoTask.description)
@@ -132,6 +125,15 @@ const TaskById = ({
         const splitedPathname = location.pathname.split("/")
         const _id = splitedPathname[splitedPathname.length - 1];
         if (_id != "new-task") {
+            // check if id is inside notification array checking ref_type == "task" and ref_id
+            const notification = notifications.filter(n => n.ref_type == "task" && n.ref_id == _id)
+            if (notification.length) {
+                readNotificationsAction([notification[0].id]);
+                setTimeout(() => {
+                    const id = user.user_type_id == 1 ? 0 : user.id
+                    getNotificationsAction(id)
+                }, 300);
+            }
             setId(_id)
             setIsNew(false)
         }
@@ -140,19 +142,14 @@ const TaskById = ({
 
     React.useEffect(() => {
         if (id) getTaskByID(id)
-        console.log(getTaskByID(id), "get task by id")
     }, [id])
-
-    React.useEffect(() => {
-
-        console.log(infoTask.asigned_room, "cambio infotask")
-    }, [infoTask.asigned_room])
 
     React.useEffect(() => {
         getTaskTypes()
         getUsers()
         getRoomsAction()
         getRoomsTypesAction()
+        if (taskById && !loadingTaskById && !isNew) setInfoTask(buildTaskData({ ...taskById }))
     }, [])
 
     React.useEffect(() => {
@@ -161,9 +158,6 @@ const TaskById = ({
         console.log(infoTask, "INFO TASK SETEADA")
     }, [taskById, loadingTaskById])
 
-    React.useEffect(() => {
-        if (taskById && !loadingTaskById && !isNew) setInfoTask(buildTaskData({ ...taskById }))
-    }, [])
 
     React.useEffect(() => {
         if (isUpdating && !loadingTaskById) navigate(isAdmin ? "/tasks" : "/")
@@ -299,7 +293,6 @@ const TaskById = ({
 
 
 const mapStateToProps = (state) => {
-    console.log("rootState", state)
     return {
         isAdmin: state.authData.user && state.authData.user.user_type_id == 1,
         loadingTaskById: state.tasksData.loadingTaskById,
@@ -309,12 +302,14 @@ const mapStateToProps = (state) => {
         users: state.authData.users,
         user: state.authData.user,
         rooms: state.roomsData.rooms,
-        roomTypes: state.roomsData.roomsTypes
-
+        roomTypes: state.roomsData.roomsTypes,
+        notifications: state.authData.notifications
     };
 };
 
 const mapDispatchToProps = {
+    getNotificationsAction,
+    readNotificationsAction,
     getTaskByID,
     getTaskTypes: getUserTypesAction,
     updateTaskByID,
@@ -325,7 +320,6 @@ const mapDispatchToProps = {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskById);
-
 
 export const ComboSelector = ({ onChange, items, defaultValue, value }) => {
     const [active, setActive] = React.useState(false)

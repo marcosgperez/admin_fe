@@ -65067,4 +65067,14 @@ button {
   100% {
     opacity: 1; } }
 
+.media-thumb {
+  background-color: #c96161;
+  color: white !important;
+  font-weight: bold;
+  border-radius: 4px;
+  text-align: center;
+  padding: 6px;
+  width: 36px;
+  font-size: 20px; }
+
 /*# sourceMappingURL=style.css.map */

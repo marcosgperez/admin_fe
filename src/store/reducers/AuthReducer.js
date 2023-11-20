@@ -13,7 +13,10 @@ const initialState = {
   users: [],
 
   loadingUserTypes: false,
-  userTypes: []
+  userTypes: [],
+
+  loadingNotifications: false,
+  notifications: []
 };
 
 export function AuthReducer(state = initialState, action) {
@@ -193,6 +196,46 @@ export function AuthReducer(state = initialState, action) {
         loadingUserById: false,
         error: true
       };
+
+    case AuthActionTypes.NOTIFICATIONS_FETCHING:
+      return {
+        ...state,
+        loadingNotifications: true
+      };
+
+    case AuthActionTypes.NOTIFICATIONS_FETCH:
+      return {
+        ...state,
+        notifications: action.payload,
+        loadingNotifications: false
+      };
+
+    case AuthActionTypes.NOTIFICATIONS_FETCH_ERROR:
+      return {
+        ...state,
+        loadingNotifications: false,
+        error: true
+      };
+
+    case AuthActionTypes.READ_NOTIFICATIONS_FETCHING:
+      return {
+        ...state,
+        loadingNotifications: true
+      };
+
+    case AuthActionTypes.READ_NOTIFICATIONS_FETCH:
+      return {
+        ...state,
+        loadingNotifications: false
+      };
+
+    case AuthActionTypes.READ_NOTIFICATIONS_FETCH_ERROR:
+      return {
+        ...state,
+        loadingNotifications: false,
+        error: true
+      };
+
 
     default:
       return state;

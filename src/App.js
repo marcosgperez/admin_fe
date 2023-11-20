@@ -1,10 +1,11 @@
-import { lazy, Suspense } from 'react';
-
+import React, { lazy, Suspense } from 'react';
 /// Components
 import Index from "./jsx";
 import { connect } from 'react-redux';
 import { Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom';
 import Login from "./components/Login";
+import { getNotificationsAction } from './store/actions/AuthActions';
+
 /// Style
 // import "./vendor/bootstrap-select/dist/css/bootstrap-select.min.css";
 import "./css/style.css";
@@ -31,8 +32,20 @@ function withRouter(Component) {
 
 
 
-function App({ isAuthenticated}) {
-  
+function App({ isAuthenticated, user , getNotificationsAction }) {
+  const interval = React.useRef()
+  React.useEffect(() => {
+
+    if (user && user.id && !interval.current) {
+      const id = user.user_type_id == 1 ? 0 : user.id
+      interval.current = setInterval(() => reCallGetNotifications(id),10000)
+      reCallGetNotifications(id)
+    }
+  }, [user])
+
+  const reCallGetNotifications = (userId) => {
+    getNotificationsAction(userId)
+  }
   let routeblog = (
     <Routes>
       <Route path="*" element={<Login />} />
@@ -76,12 +89,16 @@ function App({ isAuthenticated}) {
   }
 };
 
+const mapDispatchToProps = {
+  getNotificationsAction
+}
 
 const mapStateToProps = (state) => {
   const { user } = state.authData
   return {
+    user: user,
     isAuthenticated: Boolean(user),
   };
 };
 
-export default withRouter(connect(mapStateToProps)(App)); 
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App)); 

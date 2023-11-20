@@ -37,6 +37,14 @@ export const AuthActionTypes = {
   "CREATE_USER_BY_ID_FETCHING": "CREATE_USER_BY_ID_FETCHING",
   "CREATE_USER_BY_ID_FETCH": "CREATE_USER_BY_ID_FETCH",
   "CREATE_USER_BY_ID_FETCH_ERROR": "CREATE_USER_BY_ID_FETCH_ERROR",
+
+  "NOTIFICATIONS_FETCHING": "NOTIFICATIONS_FETCHING",
+  "NOTIFICATIONS_FETCH": "NOTIFICATIONS_FETCH",
+  "NOTIFICATIONS_FETCH_ERROR": "NOTIFICATIONS_FETCH_ERROR",
+
+  "READ_NOTIFICATIONS_FETCHING": "READ_NOTIFICATIONS_FETCHING",
+  "READ_NOTIFICATIONS_FETCH": "READ_NOTIFICATIONS_FETCH",
+  "READ_NOTIFICATIONS_FETCH_ERROR": "READ_NOTIFICATIONS_FETCH_ERROR",
 }
 
 export const doLogin = (email, password) => (dispatch) => {
@@ -196,6 +204,41 @@ export const deleteUserTypesAction = (userTypes) => (dispatch) => {
   }).catch(e => {
     dispatch({
       type: AuthActionTypes.DELETE_USERTYPES_FETCH_ERROR,
+      payload: e,
+    });
+  })
+}
+
+
+export const getNotificationsAction = (userId) => (dispatch) => {
+  dispatch({
+    type: AuthActionTypes.NOTIFICATIONS_FETCHING
+  });
+  ApiService.getNotifications(userId).then((res) => {
+    dispatch({
+      type: AuthActionTypes.NOTIFICATIONS_FETCH,
+      payload: res.data.data,
+    });
+  }).catch(e => {
+    dispatch({
+      type: AuthActionTypes.NOTIFICATIONS_FETCH_ERROR,
+      payload: e,
+    });
+  })
+}
+
+export const readNotificationsAction = (ids) => (dispatch) => {
+  dispatch({
+    type: AuthActionTypes.READ_NOTIFICATIONS_FETCHING
+  });
+  ApiService.readNotifications(ids).then((res) => {
+    dispatch({
+      type: AuthActionTypes.READ_NOTIFICATIONS_FETCH,
+      payload: res.data.data,
+    });
+  }).catch(e => {
+    dispatch({
+      type: AuthActionTypes.READ_NOTIFICATIONS_FETCH_ERROR,
       payload: e,
     });
   })

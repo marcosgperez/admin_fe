@@ -237,7 +237,7 @@ class ApiService {
 
     getTasks(type,userId) {
         // build Url with optional type id and userId
-        let url = "/tasks/index?external_id=" + this.externalId
+        let url = "/tasks/index?external_id=" + this.externalId + "&is_completed=0"
         if (type) {
             url += "&type=" + type
         }
@@ -435,6 +435,26 @@ class ApiService {
             "url": apiURL + "/facilities?id=" + this.id + "&external_id=" + this.externalId,
             "auth": this.token,
             "data": {}
+        })
+    }
+
+    getNotifications(userId) {
+        return this.axios.post(proxyUrl, {
+            "method": "get",
+            "url": apiURL + "/notifications/index?userId=" + userId + "&external_id=" + this.externalId,
+            "auth": this.token,
+            "data": {}
+        })
+    }
+
+    readNotifications(notifications) {
+        return this.axios.post(proxyUrl, {
+            "method": "post",
+            "url": apiURL + "/notifications/read?external_id=" + this.externalId,
+            "auth": this.token,
+            "data": {
+                ids: notifications.join(","),
+            }
         })
     }
 

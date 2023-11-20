@@ -9,19 +9,22 @@ import { Link } from 'react-router-dom';
 
 const Home = ({ getRoomsAction, rooms, events, tasks, getRoomCountAction, isAdmin, roomsCount }) => {
   // GET ROOMS & ROOM COUNT
+  const [todayEvents, setTodayEvents] = React.useState([])
   React.useEffect(() => {
     getRoomsAction()
     getRoomCountAction()
-    console.log('rooms: ', rooms);
   }, [])
   const [filter, setFilter] = React.useState("All")
   const changeFilter = (newFilter) => {
     setFilter(newFilter)
   }
-
-  const dateToday = new Date();
-  dateToday.setHours(0,0,0,0)
-  const eventsToday = events.filter(e => new Date(e.date).getTime() == dateToday.getTime());
+  React.useEffect(() => {
+    if(events && events.length) {
+      const dateToday = new Date();
+      dateToday.setHours(0,0,0,0)
+      setTodayEvents([...events].filter(e => new Date(e.date).getTime() == dateToday.getTime()))
+    }
+  },[events])
 
   const grabAvailable = () => {
     let available = 0
@@ -40,10 +43,9 @@ const Home = ({ getRoomsAction, rooms, events, tasks, getRoomCountAction, isAdmi
   }
 
   const grabCheckIn = () => {
-    console.log("barto events", events)
     let CheckIn = 0;
-    for (let i = 0; i < eventsToday.length; i++) {
-      if (eventsToday[i].type == "CheckIn") {
+    for (let i = 0; i < todayEvents.length; i++) {
+      if (todayEvents[i].type == "CheckIn") {
         CheckIn++;
       }
     }
@@ -53,8 +55,8 @@ const Home = ({ getRoomsAction, rooms, events, tasks, getRoomCountAction, isAdmi
 
   const grabCheckOut = () => {
     let CheckOut = 0
-    for (let i = 0; i < eventsToday.length; i++) {
-      if (eventsToday[i].type == "CheckOut") {
+    for (let i = 0; i < todayEvents.length; i++) {
+      if (todayEvents[i].type == "CheckOut") {
         CheckOut++;
       }
     }
